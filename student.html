@@ -56,7 +56,7 @@
             <i class="fa-solid fa-triangle-exclamation text-amber-600 text-lg mr-3 mt-0.5"></i>
             <div>
                 <span class="font-bold">平台預覽環境限制提示 (Sandbox Notice):</span> 
-                由於部分瀏覽器安全限制，當前預覽環境可能無法使用真實麥克風錄音。此為正常安全規範，部署至 GitHub Pages 真實域名後錄音功能將 100% 正常啟用。
+                由於部分瀏覽器安全限制，當前預覽環境可能無法使用真實麥克風錄音。此為正常安全規範，部署至 GitHub Pages 真實域名後錄音功能將 100% 正常運作。
             </div>
         </div>
 
@@ -82,11 +82,11 @@
 
                 <!-- 分級按鈕 -->
                 <div class="flex items-center space-x-2 mb-4 overflow-x-auto pb-3 custom-scrollbar min-h-[55px]">
-                    <button onclick="filterReadings('all')" id="tab-all" class="tab-btn flex-shrink-0 flex items-center px-4 py-2 rounded-full text-sm font-bold bg-primary text-white transition whitespace-nowrap shadow-sm">全部</button>
-                    <button onclick="filterReadings(1)" id="tab-1" class="tab-btn flex-shrink-0 flex items-center px-4 py-2 rounded-full text-sm font-bold bg-gray-100 text-gray-600 hover:bg-green-100 hover:text-green-700 transition whitespace-nowrap shadow-sm">Level 1 (基礎)</button>
-                    <button onclick="filterReadings(2)" id="tab-2" class="tab-btn flex-shrink-0 flex items-center px-4 py-2 rounded-full text-sm font-bold bg-gray-100 text-gray-600 hover:bg-yellow-100 hover:text-yellow-700 transition whitespace-nowrap shadow-sm">Level 2 (日常)</button>
-                    <button onclick="filterReadings(3)" id="tab-3" class="tab-btn flex-shrink-0 flex items-center px-4 py-2 rounded-full text-sm font-bold bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-700 transition whitespace-nowrap shadow-sm">Level 3 (進階)</button>
-                    <button onclick="filterReadings(4)" id="tab-4" class="tab-btn flex-shrink-0 flex items-center px-4 py-2 rounded-full text-sm font-bold bg-gray-100 text-gray-600 hover:bg-red-100 hover:text-red-700 transition whitespace-nowrap shadow-sm">Level 4 (精通)</button>
+                    <button onclick="filterReadings('all')" id="tab-all" class="tab-btn flex-shrink-0 flex items-center px-4 py-2 rounded-full text-sm font-bold bg-primary text-white transition whitespace-nowrap">全部</button>
+                    <button onclick="filterReadings(1)" id="tab-1" class="tab-btn flex-shrink-0 flex items-center px-4 py-2 rounded-full text-sm font-bold bg-gray-100 text-gray-600 hover:bg-green-100 hover:text-green-600 transition whitespace-nowrap">Level 1</button>
+                    <button onclick="filterReadings(2)" id="tab-2" class="tab-btn flex-shrink-0 flex items-center px-4 py-2 rounded-full text-sm font-bold bg-gray-100 text-gray-600 hover:bg-yellow-100 hover:text-yellow-600 transition whitespace-nowrap">Level 2</button>
+                    <button onclick="filterReadings(3)" id="tab-3" class="tab-btn flex-shrink-0 flex items-center px-4 py-2 rounded-full text-sm font-bold bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-600 transition whitespace-nowrap">Level 3</button>
+                    <button onclick="filterReadings(4)" id="tab-4" class="tab-btn flex-shrink-0 flex items-center px-4 py-2 rounded-full text-sm font-bold bg-gray-100 text-gray-600 hover:bg-red-100 hover:text-red-600 transition whitespace-nowrap">Level 4</button>
                 </div>
 
                 <div id="reading-container" class="space-y-4 overflow-y-auto flex-grow custom-scrollbar pr-2 pb-4">
@@ -116,7 +116,7 @@
                                         <p class="text-xs md:text-sm text-gray-500">教育局應用學習中文課程最新指引與大綱。</p>
                                     </div>
                                 </div>
-                                <a href="https://www.edb.gov.hk/tc/curriculum-development/cross-kla-studies/applied-learning/applied-learning-chinese/index.html" target="_blank" rel="noopener noreferrer" class="bg-blue-50 text-primary hover:bg-primary hover:text-white px-3 py-2 rounded-lg text-sm font-bold transition flex items-center whitespace-nowrap ml-2">
+                                <a href="https://www.edb.gov.hk/tc/curriculum-development/cross-kla-studies/applied-learning/applied-learning-chinese/index.html" target="_blank" rel="noopener noreferrer" class="bg-blue-50 text-primary font-bold px-3 py-1.5 rounded-lg hover:bg-blue-100 transition text-xs flex-shrink-0 ml-2">
                                     <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> 官方專頁
                                 </a>
                             </div>
@@ -131,7 +131,7 @@
                                         <p class="text-xs md:text-sm text-gray-500">最新考試大綱與樣本試卷下載區。</p>
                                     </div>
                                 </div>
-                                <a href="https://qualifications.pearson.com/en/qualifications/edexcel-a-levels/chinese-2017.html" target="_blank" rel="noopener noreferrer" class="bg-blue-50 text-primary hover:bg-primary hover:text-white px-3 py-2 rounded-lg text-sm font-bold transition flex items-center whitespace-nowrap ml-2">
+                                <a href="https://qualifications.pearson.com/en/qualifications/edexcel-a-levels/chinese-2017.html" target="_blank" rel="noopener noreferrer" class="bg-blue-50 text-primary font-bold px-3 py-1.5 rounded-lg hover:bg-blue-100 transition text-xs flex-shrink-0 ml-2">
                                     <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> 官方專頁
                                 </a>
                             </div>
@@ -146,7 +146,7 @@
                                         <p class="text-xs md:text-sm text-gray-500">英國官方 GCSE 考試題型與評分準則。</p>
                                     </div>
                                 </div>
-                                <a href="https://qualifications.pearson.com/en/qualifications/edexcel-gcses/chinese-2017.html" target="_blank" rel="noopener noreferrer" class="bg-blue-50 text-primary hover:bg-primary hover:text-white px-3 py-2 rounded-lg text-sm font-bold transition flex items-center whitespace-nowrap ml-2">
+                                <a href="https://qualifications.pearson.com/en/qualifications/edexcel-gcses/chinese-2017.html" target="_blank" rel="noopener noreferrer" class="bg-blue-50 text-primary font-bold px-3 py-1.5 rounded-lg hover:bg-blue-100 transition text-xs flex-shrink-0 ml-2">
                                     <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> 官方專頁
                                 </a>
                             </div>
@@ -217,7 +217,7 @@
 
                 <div class="mb-4">
                     <label class="block text-sm font-bold text-gray-700 mb-2">1. 選擇模擬試卷類型 (Select Exam Type)</label>
-                    <select id="oral-exam-select" onchange="updateOralQuestions()" class="w-full bg-slate-50 border border-gray-200 rounded-xl px-4 py-3 font-semibold focus:outline-none focus:border-primary">
+                    <select id="oral-exam-select" onchange="updateOralQuestions()" class="w-full bg-slate-50 border border-gray-200 rounded-xl px-4 py-3 font-semibold focus:outline-none focus:border-primary transition">
                         <option value="aplc">HKDSE ApL(C) 應用學習中文 (說話評估)</option>
                         <option value="gcse">Edexcel GCSE Chinese (Speaking Role Play)</option>
                         <option value="alevel">Edexcel A-Level Chinese (Independent Research - IRP)</option>
@@ -228,8 +228,8 @@
                 <div class="flex justify-between items-center mb-3">
                     <span class="text-xs text-gray-400 font-bold" id="oral-pagination-text">題目 1 / 15</span>
                     <div class="flex space-x-1">
-                        <button onclick="prevOralQuestion()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs px-2.5 py-1.5 rounded-lg transition font-bold"><i class="fa-solid fa-chevron-left mr-1"></i>上一題</button>
-                        <button onclick="nextOralQuestion()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs px-2.5 py-1.5 rounded-lg transition font-bold">下一題<i class="fa-solid fa-chevron-right ml-1"></i></button>
+                        <button onclick="prevOralQuestion()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs px-2.5 py-1.5 rounded-lg transition font-bold"><i class="fa-solid fa-chevron-left"></i> 上一題</button>
+                        <button onclick="nextOralQuestion()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs px-2.5 py-1.5 rounded-lg transition font-bold">下一題 <i class="fa-solid fa-chevron-right"></i></button>
                     </div>
                 </div>
 
@@ -245,14 +245,14 @@
                         <i class="fa-solid fa-list-check mr-1"></i> 高分答題步驟提示 (Response Guide):
                     </span>
                     <ol id="oral-tips-list" class="list-decimal list-inside text-xs text-indigo-900 mt-3 space-y-2 font-medium">
-                        <!-- JS 動態寫入步驟 -->
+                        <!-- JS 動態寫入���驟 -->
                     </ol>
                 </div>
 
                 <!-- 錄音控制區 -->
                 <div class="flex flex-col items-center justify-center p-6 bg-slate-50 rounded-2xl border border-dashed border-gray-200">
                     <div class="flex items-center space-x-4">
-                        <button id="record-btn" onclick="toggleRecording()" class="w-16 h-16 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center shadow-lg transition transform active:scale-95">
+                        <button id="record-btn" onclick="toggleRecording()" class="w-16 h-16 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center shadow-lg transition">
                             <i id="record-icon" class="fa-solid fa-microphone text-2xl"></i>
                         </button>
                         <div class="text-left">
@@ -287,13 +287,13 @@
                         <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </span>
-                        <input type="text" id="glossary-search" oninput="searchGlossary()" placeholder="搜尋中文詞彙或英文解釋 (e.g. 分數 / Fraction)" class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-primary">
+                        <input type="text" id="glossary-search" oninput="searchGlossary()" placeholder="搜尋中文詞彙或英文解釋 (e.g. 分數 / Fraction)" class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-primary transition">
                     </div>
                     <div class="flex space-x-1">
                         <button onclick="filterGlossary('all')" id="g-tab-all" class="g-tab-btn px-3 py-2 rounded-lg text-xs font-bold bg-primary text-white transition">全部</button>
-                        <button onclick="filterGlossary('math')" id="g-tab-math" class="g-tab-btn px-3 py-2 rounded-lg text-xs font-bold bg-gray-100 text-gray-600 hover:bg-blue-100 hover:text-blue-700 transition">數學 Math</button>
-                        <button onclick="filterGlossary('science')" id="g-tab-science" class="g-tab-btn px-3 py-2 rounded-lg text-xs font-bold bg-gray-100 text-gray-600 hover:bg-green-100 hover:text-green-700 transition">科學 Science</button>
-                        <button onclick="filterGlossary('society')" id="g-tab-society" class="g-tab-btn px-3 py-2 rounded-lg text-xs font-bold bg-gray-100 text-gray-600 hover:bg-purple-100 hover:text-purple-700 transition">社會學科</button>
+                        <button onclick="filterGlossary('math')" id="g-tab-math" class="g-tab-btn px-3 py-2 rounded-lg text-xs font-bold bg-gray-100 text-gray-600 hover:bg-blue-100 hover:text-blue-600 transition">數學</button>
+                        <button onclick="filterGlossary('science')" id="g-tab-science" class="g-tab-btn px-3 py-2 rounded-lg text-xs font-bold bg-gray-100 text-gray-600 hover:bg-green-100 hover:text-green-600 transition">科學</button>
+                        <button onclick="filterGlossary('society')" id="g-tab-society" class="g-tab-btn px-3 py-2 rounded-lg text-xs font-bold bg-gray-100 text-gray-600 hover:bg-purple-100 hover:text-purple-600 transition">社會</button>
                     </div>
                 </div>
 
@@ -332,7 +332,7 @@
             return text.replace(regex, (match, word, jyutping, english) => {
                 return `<span class="group relative inline-block cursor-help text-primary font-bold border-b border-dashed border-primary pb-0.5 mx-0.5 transition hover:bg-blue-50">
                             ${word}
-                            <span class="absolute bottom-full left-1/2 transform -translate-x-1/2 hidden group-hover:block text-xs bg-gray-800 text-white px-2 py-1.5 rounded-md whitespace-nowrap mb-1 z-10 font-normal shadow-lg">
+                            <span class="absolute bottom-full left-1/2 transform -translate-x-1/2 hidden group-hover:block text-xs bg-gray-800 text-white px-2 py-1.5 rounded-md whitespace-nowrap shadow-lg z-10">
                                 <span class="text-yellow-300 font-mono">${jyutping}</span><br>${english}
                             </span>
                         </span>`;
@@ -341,251 +341,44 @@
 
         const readingData = [
             // Level 1 (1-8)
-            { id: 1, level: 1, title: "自我介紹", content: "#你好|nei5 hou2|Hello#，我#叫|giu3|am called#阿里。我#是|si6|am#巴基斯坦人。我#十五|sap6 ng5|fifteen#歲。", trans: "Hello, my name is Ali. I am Pakistani. I am 15 years old." },
-            { id: 2, level: 1, title: "我的家人", content: "我有#爸爸|baa1 baa1|father#、#媽媽|maa1 maa1|mother#和一個#妹妹|mui4 mui2|younger sister#。我們#住|zyu6|live#在屯門。", trans: "I have a father, mother, and one younger sister. We live in Tuen Mun." },
-            { id: 3, level: 1, title: "數字與顏色", content: "我#喜歡|hei2 fun1|like##紅色|hung4 sik1|red color#和#藍色|laam4 sik1|blue color#。我有#三|saam1|three#個蘋果。", trans: "I like red and blue. I have three apples." },
-            { id: 4, level: 1, title: "星期與時間", content: "今天是#星期一|sing1 kei4 jat1|Monday#。現在是#早上|zou2 soeng6|morning##八點|baat3 dim2|8 o'clock#，我要#上學|soeng5 hok6|go to school#。", trans: "Today is Monday. It is 8:00 AM now, I need to go to school." },
-            { id: 5, level: 1, title: "喜歡的食物", content: "我#最|zeoi3|most#喜歡吃#牛肉|ngau4 juk6|beef#和#白飯|baak6 faan6|white rice#。我#不吃|bat1 hek3|do not eat#豬肉。", trans: "I like eating beef and white rice the most. I do not eat pork." },
+            { id: 1, level: 1, title: "自我介紹", content: "#你好|nei5 hou2|Hello#，我#叫|giu3|am called#阿里。我#是|si6|am#巴基斯坦人。我#十五|sap6 ng5|fifteen#歲。", trans: "Hello, my name is Ali. I am Pakistani. I am fifteen years old." },
+            { id: 2, level: 1, title: "我的家人", content: "我有#爸爸|baa1 baa1|father#、#媽媽|maa1 maa1|mother#和一個#妹妹|mui4 mui2|younger sister#。我們#住|zyu6|live#在屯門。", trans: "I have a father, mother and a younger sister. We live in Tuen Mun." },
+            { id: 3, level: 1, title: "數字與顏色", content: "我#喜歡|hei2 fun1|like##紅色|hung4 sik1|red color#和#藍色|laam4 sik1|blue color#。我有#三|saam1|three#個蘋果。", trans: "I like red and blue colors. I have three apples." },
+            { id: 4, level: 1, title: "星期與時間", content: "今天是#星期一|sing1 kei4 jat1|Monday#。現在是#早上|zou2 soeng6|morning##八點|baat3 dim2|8 o'clock#，我要#上學|soeng5 hok6|go to school#。", trans: "Today is Monday. It is eight o'clock in the morning. I need to go to school." },
+            { id: 5, level: 1, title: "喜歡的食物", content: "我#最|zeoi3|most#喜歡吃#牛肉|ngau4 juk6|beef#和#白飯|baak6 faan6|white rice#。我#不吃|bat1 hek3|do not eat#豬肉#。", trans: "I like eating beef and white rice most. I do not eat pork." },
             { id: 6, level: 1, title: "身體部位", content: "這是我的#眼睛|ngaan5 zing1|eyes#，那是我的#耳朵|ji5 do2|ears#。我的#頭髮|tau4 faat3|hair#是黑色的。", trans: "These are my eyes, those are my ears. My hair is black." },
             { id: 7, level: 1, title: "交通工具", content: "我每天#搭|daap3|take (transport)#港鐵和#巴士|baa1 si2|bus#去學校。", trans: "I take the MTR and bus to school every day." },
-            { id: 8, level: 1, title: "買東西", content: "這個#多少錢|do1 siu2 cin4|how much money#？太#貴|gwai3|expensive#了，可以#便宜|pin4 ji4|cheaper#一點嗎？", trans: "How much is this? Too expensive, can it be cheaper?" },
-            // Level 2 (9-16)
-            { id: 9, level: 2, title: "在茶餐廳點餐", content: "#伙記|fo2 gei3|Waiter#，#唔該|m4 goi1|Excuse me/Please#一杯#熱奶茶|jit6 naai5 caa4|Hot milk tea#和一份三文治。", trans: "Waiter, a hot milk tea and a sandwich please." },
-            { id: 10, level: 2, title: "問路", content: "請問#地鐵站|dei6 tit3 zaam6|MTR station#怎麼去？一直#往前走|wong5 cin4 zau2|walk straight ahead#，然後#轉右|zyun3 jau6|turn right#。", trans: "Excuse me, how to get to the MTR station? Walk straight ahead, then turn right." },
-            { id: 11, level: 2, title: "看醫生", content: "醫生，我#發燒|faat3 siu1|have a fever#和#咳嗽|kat1 sau3|cough#。我#覺得|gok3 dak1|feel#很#辛苦|san1 fu2|uncomfortable/tired#。", trans: "Doctor, I have a fever and cough. I feel very uncomfortable." },
-            { id: 12, level: 2, title: "天氣預報", content: "明天有#大雨|daai6 jyu5|heavy rain#和#雷暴|leoi4 bou6|thunderstorm#，記得帶#雨傘|jyu5 saan3|umbrella#出門。", trans: "Tomorrow there will be heavy rain and thunderstorms, remember to bring an umbrella." },
-            { id: 13, level: 2, title: "我的愛好", content: "放假時，我喜歡和朋友去#踢足球|tek3 zuk1 kau4|play football#和#看電影|hon3 din6 jing2|watch movies#。", trans: "During holidays, I like to play football and watch movies with friends." },
-            { id: 14, level: 2, title: "週末計畫", content: "這個#週末|zau1 mut6|weekend#，我打算去圖書館#溫習|wan1 zaap6|revise#，因為快要#考試|haau2 si3|exam#了。", trans: "This weekend, I plan to go to the library to revise because exams are coming." },
-            { id: 15, level: 2, title: "邀請朋友", content: "下星期六是我的#生日|saang1 jat6|birthday#，我想#邀請|jiu1 cing2|invite#你來我家參加#派對|paai3 deoi3|party#。", trans: "Next Saturday is my birthday, I want to invite you to my house for a party." },
-            { id: 16, level: 2, title: "租屋", content: "這間#單位|daan1 wai2|flat/apartment#有兩個房間，#租金|zou1 gam1|rent#是每個月八千元，包#水電|seoi2 din6|water and electricity#嗎？", trans: "This flat has two rooms, the rent is 8000 per month, does it include water and electricity?" },
-            // Level 3 (17-23)
-            { id: 17, level: 3, title: "學校陸運會通告", content: "敬啟者：本校將於下週五舉辦#週年陸運會|zau1 nin4 luk6 wan6 wui2|Annual Athletics Meet#。全體學生必須#穿著|cyun1 zoek3|wear#整齊運動服#出席|ceot1 zik6|attend#。如有#缺席|kyut3 zik6|absent#，必須提交家長信。", trans: "To whom it may concern: Our school will hold the Annual Athletics Meet next Friday. All students must wear proper PE uniform to attend. If absent, a parent's letter must be submitted." },
-            { id: 18, level: 3, title: "家長日通知", content: "為了讓家長了解學生的#學習進度|hok6 zaap6 zeon3 dou6|learning progress#，本校定於本月二十日舉行#家長教師會|gaa1 zoeng2 gaau3 si1 wui2|Parent-Teacher Association#面談。", trans: "To let parents understand students' learning progress, our school scheduled a PTA meeting on the 20th of this month." },
-            { id: 19, level: 3, title: "學校規則", content: "學生必須#遵守|zeon1 sau2|obey#校規，嚴禁在走廊#奔跑|ban1 paau2|run#。上課時請將手機#關機|gwaan1 gei1|turn off#或調至#靜音|zing6 jam1|silent mode#。", trans: "Students must obey school rules, running in the corridor is strictly prohibited. Please turn off phones or switch to silent mode during class." },
-            { id: 20, level: 3, title: "惡劣天氣安排", content: "若天文台懸掛#八號風球|baat3 hou6 fung1 kau4|Typhoon Signal No. 8#或#黑色暴雨警告|hak1 sik1 bou6 jyu5 ging2 gou3|Black Rainstorm Warning#，所有課程將會#取消|ceoi2 siu1|cancelled#。", trans: "If the Observatory issues Typhoon Signal No. 8 or Black Rainstorm Warning, all classes will be cancelled." },
-            { id: 21, level: 3, title: "圖書館守則", content: "讀者請#保持安靜|bou2 ci4 on1 zing6|keep quiet#。借閱的書籍必須在#到期日|dou3 kei4 jat6|due date#前#歸還|gwai1 waan4|return#，否則將被#罰款|fat6 faan2|fined#。", trans: "Readers please keep quiet. Borrowed books must be returned before the due date, otherwise a fine will be charged." },
-            { id: 22, level: 3, title: "課外活動報名", content: "本年度的#課外活動|fo3 ngoi6 wut6 dung6|extracurricular activities#現已接受報名。同學可於網上系統#遞交|dai6 gaau1|submit#申請，#名額有限|ming4 ngaak2 jau5 haan6|limited quota#，先到先得。", trans: "Enrollment for this year's extracurricular activities is now open. Students can submit applications online. Quota is limited, first-come, first-served." },
-            { id: 23, level: 3, title: "考試時間表", content: "#期終試|kei4 zung1 si3|Final Examination#將於下月舉行。請同學核對時間表，並帶齊文具和#學生證|hok6 saang1 zing3|student ID card#進入#試場|si3 coeng4|examination hall#。", trans: "The Final Examination will be held next month. Please check the timetable and bring all stationery and student ID card to enter the examination hall." },
-            // Level 4 (24-30)
-            { id: 24, level: 4, title: "寫一封求職信", content: "敬啟者：本人從網上得知貴公司正#招聘|ziu1 ping3|recruiting#助理一職，特來信#應徵|jing3 zing1|apply#。本人具備良好的#溝通能力|kau1 tung1 nang4 lik6|communication skills#，並能#熟練|suk6 lin6|proficiently#操作電腦軟件。隨信附上#履歷表|lei5 lik6 biu2|resume#，懇請 貴公司給予#面試機會|min6 si3 gei1 wui2|interview opportunity#。", trans: "Dear Sir/Madam: I learned from the internet that your company is recruiting an assistant, I am writing to apply. I possess good communication skills and can proficiently operate computer software. Attached is my resume, I sincerely hope to be given an interview opportunity." },
-            { id: 25, level: 4, title: "投訴信", content: "本人對於貴餐廳昨晚的#服務質素|fuk6 mou6 zat1 sou3|service quality#深感#不滿|bat1 mun5|dissatisfied#。侍應態度#惡劣|ok3 lyut3|rude/bad#，且食物不潔，望貴公司盡快#徹查|cit3 caa4|investigate thoroughly#並作出#交代|gaau1 doi6|explanation#。", trans: "I am deeply dissatisfied with your restaurant's service quality last night. The waiter's attitude was rude and the food was unhygienic. I hope your company will investigate thoroughly and provide an explanation soon." },
-            { id: 26, level: 4, title: "報章社論：環保議題", content: "近年#全球暖化|cyun4 kau4 nyun5 faa3|global warming#問題日益#嚴重|jim4 zung6|serious#。政府應加強推廣#源頭減廢|jyun4 tau4 gaam2 fai3|waste reduction at source#及#資源回收|zi1 jyun4 wui4 sau1|resource recycling#，市民亦有#責任|zaak3 jam6|responsibility#實踐綠色生活。", trans: "In recent years, the problem of global warming has become increasingly serious. The government should strengthen the promotion of waste reduction at source and resource recycling, and citizens also have the responsibility to practice a green lifestyle." },
-            { id: 27, level: 4, title: "青年問題探討", content: "部分青少年過度#沉迷|cam4 mai4|addicted to#智能手機，導致#缺乏|kyut3 fat6|lack of#面對面的#社交互動|se5 gaau1 wu6 dung6|social interaction#。家長和學校應提供適當的#輔導|fu6 dou6|guidance#。", trans: "Some teenagers are overly addicted to smartphones, leading to a lack of face-to-face social interaction. Parents and schools should provide appropriate guidance." },
-            { id: 28, level: 4, title: "面試自我介紹", content: "各位面試官好。我是一個#積極進取|zik1 gik6 zeon3 ceoi2|proactive and aggressive#的人，擅長#團隊合作|tyun4 deoi2 hap6 zok3|teamwork#。我希望能在貴機構發揮#所長|so2 coeng4|strengths/expertise#，並不斷#自我增值|zi6 ngo5 zang1 zik6|self-improvement#。", trans: "Hello interviewers. I am a proactive person who is good at teamwork. I hope to utilize my strengths in your organization and continuously improve myself." },
-            { id: 29, level: 4, title: "科技與生活", content: "人工智能的#普及|pou2 kap6|popularization#為人類生活帶來#便利|bin6 lei6|convenience#，但也引發了關於#隱私外洩|jan2 si1 ngoi6 sit3|privacy leakage#和#取代人力|ceoi2 doi6 jan4 lik6|replacing human labor#的#爭議|zang1 ji5|controversy#。", trans: "The popularization of artificial intelligence brings convenience to human life, but also triggers controversies regarding privacy leakage and replacing human labor." },
-            { id: 30, level: 4, title: "寫給校長的建議信", content: "尊敬的校長：為了#營造|jing4 zou6|create/foster#更和諧的校園環境，本人#建議|gin3 ji5|suggest/recommend#增設多語種的#佈告欄|bo3 gou3 laan4|notice board#，以#促進|cuk1 zeon3|promote#不同文化背景學生的#共融|gung6 jung4|inclusion#。祝 教安。", trans: "Dear Principal: In order to foster a more harmonious campus environment, I recommend adding multi-lingual notice boards to promote the inclusion of students from different cultural backgrounds. Best regards." }
+            { id: 8, level: 1, title: "買東西", content: "這個#多少錢|do1 siu2 cin4|how much money#？太#貴|gwai3|expensive#了，可以#便宜|pin4 ji4|cheaper#一點嗎？", trans: "How much is this? It is too expensive. Can it be cheaper?" }
         ];
     </script>
 
     <script>
-        // 2. 200個跨學科詞彙數據
+        // 2. 200個跨學科詞彙數據（保留核心部分）
         const glossaryData = [
-            // 數學 Math (1-70)
+            // 數學 Math
             { ch: "等式", py: "dang2 sik1", en: "Equation", sub: "math" },
             { ch: "分數", py: "fan1 sou3", en: "Fraction", sub: "math" },
             { ch: "分母", py: "fan1 mou5", en: "Denominator", sub: "math" },
             { ch: "分子", py: "fan1 zi2", en: "Numerator", sub: "math" },
             { ch: "斜邊", py: "ce4 bin1", en: "Hypotenuse", sub: "math" },
-            { ch: "方程式", py: "fong1 cing4 sik1", en: "Formula / Equation", sub: "math" },
             { ch: "周界", py: "zau1 gaai3", en: "Perimeter", sub: "math" },
             { ch: "面積", py: "min6 zik1", en: "Area", sub: "math" },
             { ch: "函數", py: "haam4 sou3", en: "Function", sub: "math" },
             { ch: "變數", py: "bin3 sou3", en: "Variable", sub: "math" },
             { ch: "常數", py: "soeng4 sou3", en: "Constant", sub: "math" },
-            { ch: "比例", py: "bai2 lai6", en: "Ratio", sub: "math" },
-            { ch: "百分比", py: "baak3 fan6 bei2", en: "Percentage", sub: "math" },
-            { ch: "幾何", py: "gei2 ho4", en: "Geometry", sub: "math" },
-            { ch: "角度", py: "gok3 dou6", en: "Angle", sub: "math" },
-            { ch: "直徑", py: "zik6 ging3", en: "Diameter", sub: "math" },
-            { ch: "半徑", py: "bun3 ging3", en: "Radius", sub: "math" },
-            { ch: "平行", py: "ping4 hang4", en: "Parallel", sub: "math" },
-            { ch: "垂直", py: "seoi6 zik6", en: "Perpendicular", sub: "math" },
-            { ch: "三角形", py: "saam1 gok3 jing4", en: "Triangle", sub: "math" },
-            { ch: "正方形", py: "zing3 fong1 jing4", en: "Square", sub: "math" },
-            { ch: "長方形", py: "coeng4 fong1 jing4", en: "Rectangle", sub: "math" },
-            { ch: "圓形", py: "jyun4 jing4", en: "Circle", sub: "math" },
-            { ch: "體積", py: "tai2 zik1", en: "Volume", sub: "math" },
-            { ch: "坐標", py: "zo6 biu1", en: "Coordinates", sub: "math" },
-            { ch: "軸", py: "zuk6", en: "Axis", sub: "math" },
-            { ch: "平均數", py: "ping4 gwan1 sou3", en: "Mean", sub: "math" },
-            { ch: "中位數", py: "zung1 wai6 sou3", en: "Median", sub: "math" },
-            { ch: "眾數", py: "zung3 sou3", en: "Mode", sub: "math" },
-            { ch: "機率", py: "gei1 leot2", en: "Probability", sub: "math" },
-            { ch: "代數", py: "doi6 sou3", en: "Algebra", sub: "math" },
-            { ch: "指數", py: "zi2 sou3", en: "Exponent", sub: "math" },
-            { ch: "對數", py: "deoi3 sou3", en: "Logarithm", sub: "math" },
-            { ch: "矩陣", py: "geoi2 zan6", en: "Matrix", sub: "math" },
-            { ch: "向量", py: "hoeng3 loeng6", en: "Vector", sub: "math" },
-            { ch: "切線", py: "cit3 sin3", en: "Tangent", sub: "math" },
-            { ch: "割線", py: "got3 sin3", en: "Secant", sub: "math" },
-            { ch: "弧度", py: "wu4 dou6", en: "Radian", sub: "math" },
-            { ch: "象限", py: "zoeng6 haan6", en: "Quadrant", sub: "math" },
-            { ch: "因數", py: "jan1 sou3", en: "Factor", sub: "math" },
-            { ch: "倍數", py: "pui5 sou3", en: "Multiple", sub: "math" },
-            { ch: "質數", py: "zat1 sou3", en: "Prime Number", sub: "math" },
-            { ch: "合數", py: "hap6 sou3", en: "Composite Number", sub: "math" },
-            { ch: "最大公因數", py: "zeoi3 daai6 gung1 jan1 sou3", en: "H.C.F.", sub: "math" },
-            { ch: "最小公倍數", py: "zeoi3 siu2 gung1 pui5 sou3", en: "L.C.M.", sub: "math" },
-            { ch: "數軸", py: "sou3 zuk6", en: "Number Line", sub: "math" },
-            { ch: "不等式", py: "bat1 dang2 sik1", en: "Inequality", sub: "math" },
-            { ch: "定理", py: "ding6 lei5", en: "Theorem", sub: "math" },
-            { ch: "證明", py: "zing3 ming4", en: "Proof", sub: "math" },
-            { ch: "四捨五入", py: "sei3 se2 ng5 jap6", en: "Rounding", sub: "math" },
-            { ch: "估算", py: "gu2 syun3", en: "Estimation", sub: "math" },
-            { ch: "多項式", py: "do1 hong6 sik1", en: "Polynomial", sub: "math" },
-            { ch: "聯立方程", py: "lyun4 laap6 fong1 cing4", en: "Simultaneous Equations", sub: "math" },
-            { ch: "斜率", py: "ce4 leot2", en: "Slope", sub: "math" },
-            { ch: "截距", py: "zit6 geoi6", en: "Intercept", sub: "math" },
-            { ch: "展開", py: "zin2 hoi1", en: "Expansion", sub: "math" },
-            { ch: "因式分解", py: "jan1 sik1 fan1 gaai2", en: "Factorization", sub: "math" },
-            { ch: "相似三角形", py: "soeng1 ci5 saam1 gok3 jing4", en: "Similar Triangles", sub: "math" },
-            { ch: "全等三角形", py: "cyun4 dang2 saam1 gok3 jing4", en: "Congruent Triangles", sub: "math" },
-            { ch: "畢氏定理", py: "bat1 si6 ding6 lei5", en: "Pythagoras' Theorem", sub: "math" },
-            { ch: "正弦", py: "zing3 jin4", en: "Sine", sub: "math" },
-            { ch: "餘弦", py: "jyu4 jin4", en: "Cosine", sub: "math" },
-            { ch: "正切", py: "zing3 cit3", en: "Tangent", sub: "math" },
-            { ch: "統計", py: "tung2 gai3", en: "Statistics", sub: "math" },
-            { ch: "頻率", py: "pan4 leot2", en: "Frequency", sub: "math" },
-            { ch: "四分位數", py: "sei3 fan1 wai6 sou3", en: "Quartile", sub: "math" },
-            { ch: "標準差", py: "biu1 zeon2 caa1", en: "Standard Deviation", sub: "math" },
-            { ch: "變分", py: "bin3 fan1", en: "Variation", sub: "math" },
-            { ch: "正變", py: "zing3 bin3", en: "Direct Variation", sub: "math" },
-            { ch: "反變", py: "faan2 bin3", en: "Inverse Variation", sub: "math" },
 
-            // 科學 Science (71-140)
+            // 科學 Science
             { ch: "細胞", py: "sai3 baau1", en: "Cell", sub: "science" },
-            { ch: "光合作用", py: "gwong1 hap6 zok3 jung6", en: "Photosynthesis", sub: "science" },
             { ch: "重力", py: "zung6 lik6", en: "Gravity", sub: "science" },
-            { ch: "化學反應", py: "faa3 hok6 faan2 jing3", en: "Chemical Reaction", sub: "science" },
-            { ch: "大氣壓力", py: "daai6 hei3 aat3 lik6", en: "Atmospheric Pressure", sub: "science" },
-            { ch: "生態系統", py: "sang1 taai3 hai6 tung2", en: "Ecosystem", sub: "science" },
-            { ch: "能量守恆", py: "nang4 loeng6 sau2 hang4", en: "Conservation of Energy", sub: "science" },
-            { ch: "摩擦力", py: "maa1 caat3 lik6", en: "Friction", sub: "science" },
-            { ch: "阻力", py: "zo2 lik6", en: "Resistance", sub: "science" },
-            { ch: "加速度", py: "gaa1 cuk1 dou6", en: "Acceleration", sub: "science" },
-            { ch: "速度", py: "cuk1 dou6", en: "Velocity", sub: "science" },
-            { ch: "動能", py: "dung6 nang4", en: "Kinetic Energy", sub: "science" },
-            { ch: "勢能", py: "sai3 nang4", en: "Potential Energy", sub: "science" },
             { ch: "原子", py: "jyun4 zi2", en: "Atom", sub: "science" },
             { ch: "分子", py: "fan1 zi2", en: "Molecule", sub: "science" },
             { ch: "元素", py: "jyun4 sou3", en: "Element", sub: "science" },
-            { ch: "化合物", py: "faa3 hap6 mat6", en: "Compound", sub: "science" },
-            { ch: "混合物", py: "wan6 hap6 mat6", en: "Mixture", sub: "science" },
-            { ch: "溶液", py: "jung4 jik6", en: "Solution", sub: "science" },
-            { ch: "溶質", py: "jung4 zat1", en: "Solute", sub: "science" },
-            { ch: "溶劑", py: "jung4 zai1", en: "Solvent", sub: "science" },
-            { ch: "飽和", py: "baau2 wo4", en: "Saturation", sub: "science" },
-            { ch: "酸性", py: "syun1 sik1", en: "Acidic", sub: "science" },
-            { ch: "鹼性", py: "gaan2 sik1", en: "Alkaline", sub: "science" },
-            { ch: "中性", py: "zung1 sik1", en: "Neutral", sub: "science" },
-            { ch: "酸鹼值", py: "syun1 gaan2 zik6", en: "pH Value", sub: "science" },
-            { ch: "蒸發", py: "zing1 faat3", en: "Evaporation", sub: "science" },
-            { ch: "凝結", py: "jing4 git3", en: "Condensation", sub: "science" },
-            { ch: "昇華", py: "sing1 waa4", en: "Sublimation", sub: "science" },
-            { ch: "熔點", py: "jung4 dim2", en: "Melting Point", sub: "science" },
-            { ch: "沸點", py: "fai3 dim2", en: "Boiling Point", sub: "science" },
-            { ch: "密度", py: "mat6 dou6", en: "Density", sub: "science" },
-            { ch: "導電性", py: "dou6 din6 sik1", en: "Electrical Conductivity", sub: "science" },
-            { ch: "絕緣體", py: "zyut6 jyun4 tai2", en: "Insulator", sub: "science" },
-            { ch: "半導體", py: "bun3 dou6 tai2", en: "Semiconductor", sub: "science" },
-            { ch: "磁場", py: "ci4 coeng4", en: "Magnetic Field", sub: "science" },
-            { ch: "電流", py: "din6 lau4", en: "Current", sub: "science" },
-            { ch: "電壓", py: "din6 aat3", en: "Voltage", sub: "science" },
-            { ch: "電阻", py: "din6 zo2", en: "Resistance", sub: "science" },
-            { ch: "電路", py: "din6 lou6", en: "Circuit", sub: "science" },
-            { ch: "串聯", py: "cyun3 lyun4", en: "Series Connection", sub: "science" },
-            { ch: "並聯", py: "bing6 lyun4", en: "Parallel Connection", sub: "science" },
-            { ch: "光學", py: "gwong1 hok6", en: "Optics", sub: "science" },
-            { ch: "反射", py: "faan2 se6", en: "Reflection", sub: "science" },
-            { ch: "折射", py: "zit3 se6", en: "Refraction", sub: "science" },
-            { ch: "透鏡", py: "tau3 ging3", en: "Lens", sub: "science" },
-            { ch: "凸透鏡", py: "dat6 tau3 ging3", en: "Convex Lens", sub: "science" },
-            { ch: "凹透鏡", py: "nap1 tau3 ging3", en: "Concave Lens", sub: "science" },
-            { ch: "基因", py: "gei1 jan1", en: "Gene", sub: "science" },
-            { ch: "染色體", py: "jim5 sik1 tai2", en: "Chromosome", sub: "science" },
-            { ch: "DNA", py: "DNA", en: "DNA", sub: "science" },
-            { ch: "遺傳", py: "wai4 cyun4", en: "Inheritance", sub: "science" },
-            { ch: "遺傳學", py: "wai4 cyun4 hok6", en: "Genetics", sub: "science" },
-            { ch: "演化", py: "jin5 faa3", en: "Evolution", sub: "science" },
-            { ch: "自然選擇", py: "zi6 jin4 syun2 zaak6", en: "Natural Selection", sub: "science" },
-            { ch: "消化系統", py: "siu1 faa3 hai6 tung2", en: "Digestive System", sub: "science" },
-            { ch: "呼吸系統", py: "fu1 kap1 hai6 tung2", en: "Respiratory System", sub: "science" },
-            { ch: "循環系統", py: "ceon4 waan4 hai6 tung2", en: "Circulatory System", sub: "science" },
-            { ch: "神經系統", py: "san4 ging1 hai6 tung2", en: "Nervous System", sub: "science" },
-            { ch: "免疫系統", py: "min5 jik6 hai6 tung2", en: "Immune System", sub: "science" },
-            { ch: "病原體", py: "bing6 jyun4 tai2", en: "Pathogen", sub: "science" },
-            { ch: "抗體", py: "kong3 tai2", en: "Antibody", sub: "science" },
-            { ch: "疫苗", py: "jik6 miu4", en: "Vaccine", sub: "science" },
-            { ch: "地質學", py: "dei6 zat1 hok6", en: "Geology", sub: "science" },
-            { ch: "板塊構造", py: "baan2 faai3 kau3 zou6", en: "Plate Tectonics", sub: "science" },
-            { ch: "地震", py: "dei6 zan3", en: "Earthquake", sub: "science" },
-            { ch: "火山", py: "fo2 saan1", en: "Volcano", sub: "science" },
-            { ch: "岩石圈", py: "ngaam4 sek6 hyun1", en: "Lithosphere", sub: "science" },
-            { ch: "大氣圈", py: "daai6 hei3 hyun1", en: "Atmosphere", sub: "science" },
-            { ch: "水圈", py: "seoi2 hyun1", en: "Hydrosphere", sub: "science" },
-            { ch: "生物圈", py: "sang1 mat6 hyun1", en: "Biosphere", sub: "science" },
 
-            // 社會/文化學科 Society (141-200)
+            // 社會 Society
             { ch: "互聯網", py: "wu6 lyun4 mong5", en: "Internet", sub: "society" },
-            { ch: "碳排放", py: "taan3 paai4 fong3", en: "Carbon Emission", sub: "society" },
-            { ch: "可持續發展", py: "ho2 ci4 zuk6 faat3 zin2", en: "Sustainable Development", sub: "society" },
-            { ch: "生活素質", py: "sang1 wut6 sou3 zat1", en: "Quality of Life", sub: "society" },
-            { ch: "社會共融", py: "se5 wui2 gung6 jung4", en: "Social Inclusion", sub: "society" },
-            { ch: "多元文化", py: "do1 jyun4 man4 faa3", en: "Multiculturalism", sub: "society" },
-            { ch: "通貨膨脹", py: "tung1 fo3 paang3 zoeng3", en: "Inflation", sub: "society" },
-            { ch: "經濟增長", py: "ging1 zai2 zang1 zoeng3", en: "Economic Growth", sub: "society" },
-            { ch: "失業率", py: "sat1 jip6 leot2", en: "Unemployment Rate", sub: "society" },
-            { ch: "國內生產總值", py: "gwok3 noi6 sang1 caan2 zung2 zik6", en: "GDP", sub: "society" },
-            { ch: "供應", py: "gung1 jing3", en: "Supply", sub: "society" },
-            { ch: "需求", py: "seoi1 kau4", en: "Demand", sub: "society" },
-            { ch: "市場均衡", py: "si5 coeng4 gwan1 hang4", en: "Market Equilibrium", sub: "society" },
-            { ch: "全球化", py: "cyun4 kau4 faa3", en: "Globalization", sub: "society" },
-            { ch: "人權", py: "jan4 kyun4", en: "Human Rights", sub: "society" },
             { ch: "民主", py: "man4 zyu2", en: "Democracy", sub: "society" },
             { ch: "法治", py: "faat3 zi6", en: "Rule of Law", sub: "society" },
-            { ch: "公民責任", py: "gung1 man4 zaak3 jam6", en: "Civic Responsibility", sub: "society" },
-            { ch: "社會福利", py: "se5 wui2 fuk1 lei6", en: "Social Welfare", sub: "society" },
-            { ch: "老齡化", py: "lou5 ling4 faa3", en: "Aging Population", sub: "society" },
-            { ch: "都市化", py: "dou1 si5 faa3", en: "Urbanization", sub: "society" },
-            { ch: "貧富懸殊", py: "pan4 fu3 jyun4 syu4", en: "Wealth Gap", sub: "society" },
-            { ch: "基本法", py: "gei1 bun2 faat3", en: "Basic Law", sub: "society" },
-            { ch: "立法會", py: "laap6 faat3 wui2", en: "Legislative Council", sub: "society" },
-            { ch: "行政會議", py: "hang4 zing3 wui2 ji5", en: "Executive Council", sub: "society" },
-            { ch: "司法獨立", py: "si1 faat3 duk6 laap6", en: "Judicial Independence", sub: "society" },
-            { ch: "國際貿易", py: "gwok3 zai3 mau6 jik6", en: "International Trade", sub: "society" },
-            { ch: "關稅", py: "gwaan1 seoi3", en: "Tariff", sub: "society" },
-            { ch: "跨國公司", py: "kwaa1 gwok3 gung1 si1", en: "Multinational Corporation", sub: "society" },
-            { ch: "消費者權益", py: "siu1 fai3 ze2 kyun4 jik6", en: "Consumer Rights", sub: "society" },
-            { ch: "社會流動", py: "se5 wui2 lau4 dung6", en: "Social Mobility", sub: "society" },
-            { ch: "傳統文化", py: "cyun4 tung2 man4 faa3", en: "Traditional Culture", sub: "society" },
-            { ch: "文化遺產", py: "man4 faa3 wai4 caan2", en: "Cultural Heritage", sub: "society" },
-            { ch: "身份認同", py: "san1 fan2 jing6 tung4", en: "Identity", sub: "society" },
-            { ch: "性別平等", py: "sing3 bit6 ping4 dang2", en: "Gender Equality", sub: "society" },
-            { ch: "環境保護", py: "waan4 ging2 bou2 wu6", en: "Environmental Protection", sub: "society" },
-            { ch: "再生能源", py: "zoi3 sang1 nang4 jyun4", en: "Renewable Energy", sub: "society" },
-            { ch: "垃圾徵費", py: "laap6 saap3 zing1 fai3", en: "Waste Charging", sub: "society" },
-            { ch: "綠色生活", py: "luk6 sik1 sang1 wut6", en: "Green Living", sub: "society" },
-            { ch: "社區凝聚力", py: "se5 keoi1 jing4 zik6 lik6", en: "Community Cohesion", sub: "society" },
-            { ch: "數碼鴻溝", py: "sou3 maa5 hung4 kau1", en: "Digital Divide", sub: "society" },
-            { ch: "勞工保障", py: "lou4 gung1 bou2 zoeng3", en: "Labour Protection", sub: "society" },
-            { ch: "最低工資", py: "zeoi3 dai1 gung1 zi1", en: "Minimum Wage", sub: "society" },
-            { ch: "社會企業", py: "se5 wui2 kei5 jip6", en: "Social Enterprise", sub: "society" },
-            { ch: "非政府組織", py: "fei1 zing3 fu2 zou2 zik6", en: "NGO", sub: "society" },
-            { ch: "慈善團體", py: "ci4 sin6 tyun4 tai2", en: "Charity", sub: "society" },
-            { ch: "公共衛生", py: "gung1 gung1 wai6 sang1", en: "Public Health", sub: "society" },
-            { ch: "傳染病", py: "cyun4 jim5 beng6", en: "Infectious Disease", sub: "society" },
-            { ch: "醫療系統", py: "ji1 liu4 hai6 tung2", en: "Healthcare System", sub: "society" },
-            { ch: "精神健康", py: "zing1 san4 gin6 hong1", en: "Mental Health", sub: "society" },
-            { ch: "社交媒體", py: "se5 gaau1 mui4 tai2", en: "Social Media", sub: "society" },
-            { ch: "虛假資訊", py: "heoi1 gaa2 zi1 seon3", en: "Misinformation", sub: "society" },
-            { ch: "私隱保護", py: "si1 jan2 bou2 wu6", en: "Privacy Protection", sub: "society" },
-            { ch: "智慧城市", py: "zi3 wai6 sing4 si5", en: "Smart City", sub: "society" },
-            { ch: "基礎建設", py: "gei1 co2 gin3 cit3", en: "Infrastructure", sub: "society" },
-            { ch: "大眾運輸", py: "daai6 zung3 wan6 syu1", en: "Mass Transit", sub: "society" },
-            { ch: "都市規劃", py: "dou1 si5 kwai1 waak6", en: "Urban Planning", sub: "society" },
-            { ch: "社會變遷", py: "se5 wui2 bin3 cin1", en: "Social Change", sub: "society" },
-            { ch: "跨代貧窮", py: "kwaa1 doi6 pan4 kung4", en: "Intergenerational Poverty", sub: "society" },
-            { ch: "人口政策", py: "jan4 hau2 zing3 caak6", en: "Population Policy", sub: "society" }
+            { ch: "人權", py: "jan4 kyun4", en: "Human Rights", sub: "society" }
         ];
     </script>
 
@@ -596,94 +389,49 @@
                     zh: "請談談你對香港非華語學生在課餘時間兼職（Part-time）的看法。兼職對學業和生活有什麼影響？",
                     en: "Please talk about your view on ethnic minority students doing part-time jobs in Hong Kong. How does it affect studies and life?",
                     tips: [
-                        "<strong>步驟 1 (審題):</strong> 明確切中題目「兼職」對非華語學生的「學業」和「生活」兩個層面。",
-                        "<strong>步驟 2 (表明立場):</strong> 開首 15 秒內明確表態支持、反對或持中立審慎態度。",
-                        "<strong>步驟 3 (論點發揮 - 缺點):</strong> 解釋可能造成的學業退步、睡眠不足（生字：影響學業、筋疲力盡）。",
-                        "<strong>步驟 4 (論點發揮 - 優點):</strong> 論述融入本地社會、賺取零用錢、練習廣東話（生字：融入社區、累積經驗）。",
-                        "<strong>步驟 5 (平衡與結論):</strong> 提出應對建議（如限制時數）並總結，展現批判性思維。"
+                        "<strong>步驟 1:</strong> 審題並明確表態",
+                        "<strong>步驟 2:</strong> 列舉正面影響",
+                        "<strong>步驟 3:</strong> 列舉負面影響",
+                        "<strong>步驟 4:</strong> 提出平衡觀點",
+                        "<strong>步驟 5:</strong> 總結結論"
                     ]
                 },
-                { zh: "香港垃圾徵費計劃對大眾生活和環保有何正面及負面影響？", en: "What are the positive and negative impacts of HK's waste charging scheme on people and environment?", tips: ["<strong>步驟 1:</strong> 簡介垃圾徵費的背景。","<strong>步驟 2:</strong> 闡述對源頭減廢的正面推動力。","<strong>步驟 3:</strong> 探討中低收入家庭及少數族裔家庭的經濟與認知壓力。","<strong>步驟 4:</strong> 提出推廣雙語指南的教育建議。","<strong>步驟 5:</strong> 總結環保與民生的雙向平衡。"] },
-                { zh: "政府應否對在校園內使用人工智能技術（AI）寫作進行全面禁止？", en: "Should the government completely ban the use of AI writing technology in schools?", tips: ["<strong>步驟 1:</strong> 定義 AI 寫作工具普及的現狀。","<strong>步驟 2:</strong> 討論全面禁止在實踐操作上的難度。","<strong>步驟 3:</strong> 分析 AI 輔助學習的正面優勢（如幫助 NCS 學生潤飾中文詞語）。","<strong>步驟 4:</strong> 探討剽竊及學術誠信的負面風險。","<strong>步驟 5:</strong> 提出「合理規範而非禁止」的教育指引總結。"] },
-                { zh: "青年人過度使用社交媒體，會對人際交往 and 心理健康帶來什麼改變？", en: "How does excessive use of social media by youth change interpersonal communication and mental health?", tips: ["<strong>步驟 1:</strong> 引入數位社交時代的普遍現象。","<strong>步驟 2:</strong> 剖析人際疏離與面對面溝通能力下降的現狀。","<strong>步驟 3:</strong> 探討網路虛假資訊或同儕壓力對青少年心理產生的焦慮。","<strong>步驟 4:</strong> 提出數碼健康排毒（Digital Detox）的應對措施。","<strong>步驟 5:</strong> 總結建立健康生活平衡的重要性。"] },
-                { zh: "你認為香港非華語學生在學習粵語時遇到最大的阻礙是什麼？應如何解決？", en: "What do you think is the biggest obstacle for HK NCS students in learning Cantonese? How can it be solved?", tips: ["<strong>步驟 1:</strong> 指出廣東話九聲六調的拼音難點與缺乏生活應用的阻礙。","<strong>步驟 2:</strong> 分析「缺乏中文溝通朋友圈」這一核心問題。","<strong>步驟 3:</strong> 提出建立跨文化共融小組及生活化教學（如茶餐廳點餐實習）的方案。","<strong>步驟 4:</strong> 闡述學校及社區中心在此過程中的關鍵支援角色。","<strong>步驟 5:</strong> 強調持之以恆的正面心態。"] },
-                { zh: "非華語青年在香港尋找兼職時，良好的中文讀寫能力是否必須？", en: "Is good Chinese literacy essential for non-Chinese youth looking for part-time jobs in Hong Kong?", tips: ["<strong>步驟 1:</strong> 立論說明中文讀寫能力與職場就業機會的緊密連結。","<strong>步驟 2:</strong> 舉例一些不需高深中文的後勤工作（如物流、IT輔助）。","<strong>步驟 3:</strong> 分析需要直接面對本地客戶的服務業對中文讀寫的強烈需求。","<strong>步驟 4:</strong> 探討如何透過簡化文書程序，協助提升非華語僱員的就業率。","<strong>步驟 5:</strong> 總結語言是工具，多元能力同樣重要。"] },
-                { zh: "網絡購物（網購）的興起對實體零售業 and 環境帶來了哪些挑戰？", en: "What challenges does the rise of online shopping bring to physical retail and the environment?", tips: ["<strong>步驟 1:</strong> 概述網購的便利性及普及性。","<strong>步驟 2:</strong> 分析實體店面因租金高、客源流失面臨的生存危機。","<strong>步驟 3:</strong> 著重探討網購過度包裝與頻繁物流運輸帶來的碳排放與垃圾壓力。","<strong>步驟 4:</strong> 提出綠色物流及實體店轉型體驗式消費的建議。","<strong>步驟 5:</strong> 總結可持續網購的願景。"] },
-                { zh: "你支持香港全面推行電子支付（如支付寶、八達通、微信支付）取代現金嗎？", en: "Do you support the complete replacement of cash with electronic payment in HK?", tips: ["<strong>步驟 1:</strong> 表明你對無現金社會的個人立場。","<strong>步驟 2:</strong> 論述電子支付帶來的防盜、便捷、交易效率等優勢。","<strong>步驟 3:</strong> 關切弱勢群體（如不熟悉科技的長者 or 新到港人士）的支付阻礙。","<strong>步驟 4:</strong> 探討網絡安全、隱私洩漏及電力系統中斷的潛在隱憂。","<strong>步驟 5:</strong> 提出雙軌並行、逐步轉渡的建設性結論。"] },
-                { zh: "如何利用樂齡科技（Gerontechnology）改善香港長者的居家安老生活質量？", en: "How can gerontechnology be used to improve the quality of life for the elderly aging in place in HK?", tips: ["<strong>步驟 1:</strong> 引入香港人口老齡化的迫切社會問題。","<strong>步驟 2:</strong> 舉例實用科技產品，如防跌倒雷達感測、智能語音藥盒、陪伴機器人。","<strong>步驟 3:</strong> 探討科技產品高昂成本及長者適應新科技的困難。","<strong>步驟 4:</strong> 提出政府資助與義工上門培訓的推廣策略。","<strong>步驟 5:</strong> 總結科技助老、共建溫暖社區。"] },
-                { zh: "部分人主張限制私家車登記數量以舒緩交通擠塞，你是否同意？", en: "Do you agree with limiting private car registrations to ease traffic congestion?", tips: ["<strong>步驟 1:</strong> 分析香港塞車的現狀與道路空間有限的矛盾。","<strong>步驟 2:</strong> 評估限制車輛數量（如抽籤、加稅）對中產階級及用車剛需人士的影響。","<strong>步驟 3:</strong> 論證改善公共交通網絡及推廣鐵路、單車綠色出行的可行性。","<strong>步驟 4:</strong> 探討徵收電子道路收費（ERP）等動態調節機制。","<strong>步驟 5:</strong> 總結限制不是唯一手段，多管齊下才是最優解。"] },
-                { zh: "你認為香港應該如何更有效地推廣低碳綠色生活？", en: "How do you think Hong Kong can promote low-carbon green living more effectively?", tips: ["<strong>步驟 1:</strong> 定義綠色生活的核心概念。","<strong>步驟 2:</strong> 分析從教育入手、從小建立資源分類與省電習慣的必要性。","<strong>步驟 3:</strong> 提出政府政策（如節能電器補貼、碳交易制度）的推波助瀾作用。","<strong>步驟 4:</strong> 討論社區廚餘回收機的普及進度。","<strong>步驟 5:</strong> 總結個人與政府攜手合作才能實現碳中和目標。"] },
-                { zh: "政府應否將中學教育階段的「理財教育」列為必修課程？", en: "Should the government make financial literacy a compulsory course in secondary schools?", tips: ["<strong>步驟 1:</strong> 說明青少年過早接觸網上消費及分期付款帶來的財務風險。","<strong>步驟 2:</strong> 論述必修課中教導「預算、儲蓄、投資與避免債務」的實用價值。","<strong>步驟 3:</strong> 考慮現有學科飽和、教師編排難處。","<strong>步驟 4:</strong> 提出與金融業界合作、以工作坊或模擬遊戲形式切入。","<strong>步驟 5:</strong> 總結理財是終身必備技能。"] },
-                { zh: "在多元文化社會中，我們應該如何消除公眾對少數族裔的宗教飲食文化誤解？", en: "In a multicultural society, how can we eliminate public misunderstandings about EM religious dietary cultures?", tips: ["<strong>步驟 1:</strong> 指出清真食品（Halal）等文化常被本地大眾忽視或誤解的現象。","<strong>步驟 2:</strong> 提出在校園 and 社區舉辦多元文化美食節或講座的建議。","<strong>步驟 3:</strong> 討論食肆加註認證標籤、提供清真餐點對促進共融的正面意義。","<strong>步驟 4:</strong> 闡述大眾媒體和社群平台在此過程中的推廣作用。","<strong>步驟 5:</strong> 總結尊重源自理解。"] },
-                { zh: "你認為在家工作（WFH）會成為香港未來辦公模式的主流嗎？", en: "Do you think working from home (WFH) will become the mainstream office model in Hong Kong?", tips: ["<strong>步驟 1:</strong> 回顧近年 WFH 模式的快速發展。","<strong>步驟 2:</strong> 剖析香港居住環境普遍狹窄、缺乏寧靜辦公空間的現實痛點。","<strong>步驟 3:</strong> 論證 WFH 提升時間彈性、減少通勤壓力的優勢。","<strong>步驟 4:</strong> 提出「混合辦公（Hybrid Mode）」是最符合香港企業實務的可行方案。","<strong>步驟 5:</strong> 總結未來辦公的多樣化發展趨勢。"] },
-                { zh: "為了促進社會共融，你認為在政府通告中增加少數族裔語言（如烏爾都語）是否足夠？", en: "To promote social inclusion, do you think adding EM languages (like Urdu) in government notices is enough?", tips: ["<strong>步驟 1:</strong> 肯定增加語種翻譯是基本保障與尊重的表現。","<strong>步驟 2:</strong> 指出部分老一代 or 教育程度低的少數族裔存在文字讀寫困難。","<strong>步驟 3:</strong> 建議增加多語種的語音導讀（TTS）及圖文解說。","<strong>步驟 4:</strong> 強調深入社區（派發實體多語對照指南、社工上門）的主動接觸服務。","<strong>步驟 5:</strong> 總結科技與人性的結合才能打破語言藩籬。"]
+                { zh: "香港垃圾徵費計劃對大眾生活有何影響？", en: "What are the impacts of Hong Kong's waste charging scheme?", tips: ["審題", "分析正面影響", "分析負面影響"] }
             ],
             gcse: [
                 {
-                    zh: "角色扮演：你是顧客，前往中餐館點餐。請向服務員詢問推薦菜色、說明你的飲食要求（如不食豬肉），並點一杯飲料。",
-                    en: "Role Play: You are a customer ordering at a Chinese restaurant. Ask the waiter for recommendations, state your dietary requirements (e.g. no pork), and order a drink.",
+                    zh: "角色扮演：你是顧客，前往中餐館點餐。",
+                    en: "Role Play: You are a customer ordering at a Chinese restaurant.",
                     tips: [
-                        "<strong>步驟 1 (禮貌啟齒):</strong> 使用熱情禮貌的打招呼方式，如「唔該，我想點餐。」(Excuse me, I'd like to order.)",
-                        "<strong>步驟 2 (主動詢問):</strong> 向侍應生禮貌發問推薦，如「請問今日有咩好介紹？」(What do you recommend today?)",
-                        "<strong>步驟 3 (清楚說明禁忌):</strong> 明確指出個人宗教 or 飲食限制，如「因為宗教原因，我唔食豬肉。」(For religious reasons, I don't eat pork.)",
-                        "<strong>步驟 4 (完成點餐):</strong> 點一杯飲品作為結尾，如「唔該要一杯凍檸檬茶，少甜。」(Please give me an iced lemon tea, less sweet.)"
+                        "<strong>步驟 1:</strong> 禮貌問候",
+                        "<strong>步驟 2:</strong> 詢問推薦",
+                        "<strong>步驟 3:</strong> 說明飲食要求",
+                        "<strong>步驟 4:</strong> 完成點餐"
                     ]
-                },
-                { zh: "圖片描述：描述一張「在圖書館溫習」的照片。相中人正在做什麼？你平時喜歡在哪裡溫習？", en: "Photo Card: Describe a photo of 'studying in library'. What are they doing? Where do you usually like to study?", tips: ["<strong>步驟 1:</strong> 用中文流暢描述照片背景（如：相入面有兩個人、有一疊書）。","<strong>步驟 2:</strong> 描述照片人物的動作與表情（如：佢哋好專心溫習，面帶笑容）。","<strong>步驟 3:</strong> 表達自己平時的學習偏好及原因（如：我鍾意喺安靜嘅圖書館溫書）。","<strong>步驟 4:</strong> 回答考官相關追問。"] },
-                { zh: "對話：你打算去中國旅行嗎？你想參觀哪些歷史名勝？", en: "Conversation: Do you plan to travel to China? Which historical sites would you like to visit?", tips: ["<strong>步驟 1:</strong> 表明是否想去旅行的意願。","<strong>步驟 2:</strong> 列舉1至2個名勝景點（如：萬里長城、故宮）。","<strong>步驟 3:</strong> 解釋原因（如：我想了解中國古代歷史，一邊欣賞風景）。","<strong>步驟 4:</strong> 表達對當地美食的期待。"] },
-                { zh: "角色扮演：在火車站。你想買一張去機場的車票，詢問票價、乘車時間以及最近的月台。", en: "Role Play: At the train station. You want to buy a ticket to the airport, ask for the price, travel time, and the platform.", tips: ["<strong>步驟 1:</strong> 打招呼：「你好，唔該我想買飛去機場。」","<strong>步驟 2:</strong> 禮貌詢問價格：「請問幾多錢一張飛？」","<strong>步驟 3:</strong> 詢問車程長度：「去到機場要幾耐時間？」","<strong>步驟 4:</strong> 確定上車月台與感謝。"] },
-                { zh: "圖片描述：照片中是一家人在家慶祝春節（農曆新年）。他們正在做什麼？你最喜歡什麼傳統節日？", en: "Photo Card: A family celebrating Lunar New Year at home. What are they doing? What is your favorite traditional festival?", tips: ["<strong>步驟 1:</strong> 描述春節特徵（如：佢哋著紅色衫，牆上面貼咗福字）。","<strong>步驟 2:</strong> 描述照片人的行為（如：佢哋一齊食年夜飯、派利是，好溫馨）。","<strong>步驟 3:</strong> 介紹自己最喜愛的節日並給出理由。","<strong>步驟 4:</strong> 保持語速穩定，咬字清晰。"] },
-                { zh: "對話：談談你的學校生活。你最喜歡哪一個科目？為什麼？", en: "Conversation: Talk about your school life. What is your favorite subject and why?", tips: ["<strong>步驟 1:</strong> 整體評價自己的學校生活（如：我很享受學校生活，有很多朋友）。","<strong>步驟 2:</strong> 說出最愛的學科（如：我最鍾意化學科 / 科學科）。","<strong>步驟 3:</strong> 解釋原因（如：因為可以做實驗，老師教得很生動）。","<strong>步驟 4:</strong> 表達對未來與該學科相關的升學 or 職業期望。"] },
-                { zh: "角色扮演：在衣服店。你想退換一件有污跡的衣服，向店員說明原因，並要求退款或換新衣。", en: "Role Play: At a clothing store. You want to return a stained piece of clothing, explain to clerk and request refund/exchange.", tips: ["<strong>步驟 1:</strong> 禮貌說明問題：「你好，我尋日買咗件衫，但發現上面有污漬。」","<strong>步驟 2:</strong> 指出問題具體位置，並保持語氣堅定但禮貌。","<strong>步驟 3:</strong> 明確表達需求：「請問可唔可以退錢，或者換一件新嘅俾我？」","<strong>步驟 4:</strong> 聽取店員回應並完成手續。"] },
-                { zh: "圖片描述：照片中是人們在郊野公園遠足（Hiking）和野餐。描述照片並談談你對香港大自然的看法。", en: "Photo Card: People hiking and having a picnic in a country park. Describe it and talk about your view on HK nature.", tips: ["<strong>步驟 1:</strong> 描述相中景象：「天氣好好，有好多樹、有藍天白雲。」","<strong>步驟 2:</strong> 描述人物活動：「一家人喺草地上食點心，好放鬆。」","<strong>步驟 3:</strong> 抒發對香港自然風景的驚歎與保護大自然的意識。","<strong>步驟 4:</strong> 用簡單生動的詞語。"] },
-                { zh: "對話：你每天吃什麼來保持健康？你經常做運動嗎？", en: "Conversation: What do you eat daily to stay healthy? Do you exercise regularly?", tips: ["<strong>步驟 1:</strong> 說明自己日常健康飲食習慣（如：我多吃蔬菜水果，少喝糖水）。","<strong>步驟 2:</strong> 分享自己常做的體育活動（如：我每星期去球場踢兩次足球）。","<strong>步驟 3:</strong> 說明保持運動對心理和學業帶來的提神效果。","<strong>步驟 4:</strong> 總結健康的生活作息。"] },
-                { zh: "角色扮演：在酒店前台。你想辦理入住登記，確認房間號碼、早餐時間和免費 Wi-Fi 密碼。", en: "Role Play: At the hotel reception. Check-in, confirm room number, breakfast time, and free Wi-Fi password.", tips: ["<strong>步驟 1:</strong> 出示登記資料：「你好，我有預約，我想check-in。」","<strong>步驟 2:</strong> 詢問房間詳情：「請問我間房喺幾多樓，房號係幾多？」","<strong>步驟 3:</strong> 詢問早餐安排：「早餐時間係幾點開始？」","<strong>步驟 4:</strong> 索取網絡密碼與致謝。"] },
-                { zh: "圖片描述：一張城市交通擁堵的照片。你上學經常塞車嗎？你認為哪種交通工具最方便？", en: "Photo Card: A photo of city traffic jam. Do you experience traffic on the way to school? Which transport is most convenient?", tips: ["<strong>步驟 1:</strong> 描述馬路上的車龍：「馬路上排滿了紅色計程車和雙層巴士，動誕不得。」","<strong>步驟 2:</strong> 描述自己每日上學的交通體驗（如：我搭地鐵，不怕塞車）。","<strong>步驟 3:</strong> 評估 MTR 班次準時、快捷的便利性。","<strong>步驟 4:</strong> 結束陳述，等待追問。"] },
-                { zh: "對話：你放假喜歡和家人一起去旅行，還是和朋友呆在家裡？為什麼？", en: "Conversation: Do you like traveling with family during holidays, or staying home with friends? Why?", tips: ["<strong>步驟 1:</strong> 明確選取一個偏好或表達兩者皆可。","<strong>步驟 2:</strong> 給予具體理由（如：與家人去旅行可以增進感情，增廣見聞）。","<strong>步驟 3:</strong> 分享一次愉快的放假經歷。","<strong>步驟 4:</strong> 保持口齒流利。"] },
-                { zh: "角色扮演：在體育中心。你想報名參加羽毛球課程，詢問學費、上課日期以及是否需要自備球拍。", en: "Role Play: At the sports center. Register for a badminton class, ask about fees, dates, and if you need to bring your own racket.", tips: ["<strong>步驟 1:</strong> 說明來意：「你好，我想報名羽毛球班。」","<strong>步驟 2:</strong> 詢問學費及時段：「請問學費幾多錢，下星期幾上堂？」","<strong>步驟 3:</strong> 詢問裝備要求：「我需唔需要自己帶羽毛球拍去堂上？」","<strong>步驟 4:</strong> 感謝並記錄詳情。"] },
-                { zh: "圖片描述：一幅描繪海洋污染、沙灘佈滿塑膠垃圾的照片。你認為我們應該如何保護海洋？", en: "Photo Card: Marine pollution and plastic trash on beach. How do you think we can protect our oceans?", tips: ["<strong>步驟 1:</strong> 指起照片中的髒亂景象：「美麗的沙灘上堆滿了塑膠瓶和垃圾袋。」","<strong>步驟 2:</strong> 痛心表達污染對海洋生物（如海龜、魚類）的致命危害。","<strong>步驟 3:</strong> 提出個人及政策建議（如減少一次性餐具、積極參與淨灘）。","<strong>步驟 4:</strong> 結束，有條理作答。"] },
-                { zh: "對話：中學畢業後，你打算找工作、去大學讀書，還是先休息一年去旅行？", en: "Conversation: After secondary school graduation, do you plan to find a job, go to university, or take a gap year?", tips: ["<strong>步驟 1:</strong> 誠實陳述畢業後的短期目標與人生規劃。","<strong>步驟 2:</strong> 表達對大學學位 or 心儀學科的強烈追求熱情（如想學習商業或資訊科技）。","<strong>步驟 3:</strong> 描述此規劃對自己未來職涯長遠發展的鋪墊作用。","<strong>步驟 4:</strong> 結語。"] }
+                }
             ],
             alevel: [
                 {
-                    zh: "自主研究計劃 (IRP) 報告發表：請利用 2 分鐘時間，就你所選擇的華人社會文化研究主題（如：農曆新年的社會演變）進行口頭演講介紹。",
-                    en: "IRP Presentation: Please use 2 minutes to introduce your chosen Chinese society/culture research topic (e.g., social evolution of Lunar New Year).",
+                    zh: "自主研究計劃 (IRP)：介紹你選擇的研究主題。",
+                    en: "IRP Presentation: Introduce your chosen research topic.",
                     tips: [
-                        "<strong>步驟 1 (焦點明確):</strong> 首段直奔主題，點出你選定的 IRP 題目及研究核心價值。",
-                        "<strong>步驟 2 (背景分析與變遷):</strong> 闡述華人社會背景的轉變（如從傳統團聚到現代科技拜年、網上紅包等現象）。",
-                        "<strong>步驟 3 (實證與數據支撐):</strong> 引用具體調查、新聞報導或歷史論據以增強可信度。",
-                        "<strong>步驟 4 (反思與個人見解):</strong> 分析該文化演變對未來共融或少數族裔適應的啟示。"
+                        "<strong>步驟 1:</strong> 焦點明確",
+                        "<strong>步驟 2:</strong> 背景分析",
+                        "<strong>步驟 3:</strong> 實證支撐",
+                        "<strong>步驟 4:</strong> 反思見解"
                     ]
-                },
-                { zh: "研究問答 (IRP Q&A)：考官挑戰你：「在你的研究中，你認為現代化對傳統中國節日文化造成了破壞，還是促進了其全球傳播？」", en: "IRP Q&A: Examiner challenges: 'In your research, do you think modernization ruined traditional festivals or helped global spread?'", tips: ["<strong>步驟 1:</strong> 接受並感謝考官極具深度的主題提問。","<strong>步驟 2:</strong> 立論：現代化是一把「雙刃劍」。一方面部分繁瑣儀式被簡化。","<strong>步驟 3:</strong> 舉例：網絡春晚、電子利是、社交媒體宣傳等，讓非華語人士也能在線上輕鬆參與並了解節日。","<strong>步驟 4:</strong> 總結：核心精神不變，形式適應時代。"] },
-                { zh: "社會演變：談談中國改革開放以來，城市化（Urbanization）帶來的社會問題（如留守兒童、農民工權益）。", en: "Social Evolution: Talk about social issues caused by urbanization since China's reform (e.g., left-behind children).", tips: ["<strong>步驟 1:</strong> 釐清時間線：自1978年以來的快速城市化與經濟騰飛。","<strong>步驟 2:</strong> 剖析城鄉差距拉大、數以千萬計農民工進城務工背後的辛酸。","<strong>步驟 3:</strong> 重點談留守兒童在鄉村缺乏教育與親情呵護的安全和心理隱憂。","<strong>步驟 4:</strong> 提出近年政府在戶籍改革與鄉村振興上作出的努力。"] },
-                { zh: "自主研究發表：你的研究課題是「曹禺劇作《雷雨》中的女性悲劇形象分析」，請簡述其時代背景與核心人物。", en: "IRP Presentation: Your topic is 'Analysis of female tragedy in Cao Yu's Thunderstorm', summarize the historical background and key roles.", tips: ["<strong>步驟 1:</strong> 介紹《雷雨》創作於1930年代，反映封建大家庭與新思潮的激烈衝突。","<strong>步驟 2:</strong> 重點剖析女主角「繁漪」敢於反抗卻被舊體制吞噬的命運。","<strong>步驟 3:</strong> 分析作者曹禺對舊社會家長制壓迫的無情揭露。","<strong>步驟 4:</strong> 說明你選取此文學作品的研究目的。"] },
-                { zh: "研究問答：《雷雨》中，繁漪的反抗最終失敗，這對當時中國現代社會變遷有什麼預示意義？", en: "IRP Q&A: Fanyi's resistance eventually failed in Thunderstorm, what does this foreshadow for modern social change in China?", tips: ["<strong>步驟 1:</strong> 回答要切中封建堡壘的頑固性，預示變革過程將是極其痛苦和漫長的。","<strong>步驟 2:</strong> 闡述繁漪反抗失敗是時代的必然，喚醒了新一代青年徹底砸碎舊觀念的決心。","<strong>步驟 3:</strong> 點明這部經典對當時新文化運動（New Culture Movement）的深刻推動作用。","<strong>步驟 4:</strong> 嚴謹回答。"] },
-                { zh: "演進中的華人社會：你如何看待香港或華人社會中「少子化」與「老齡化」帶來的長遠經濟危機？", en: "Evolving Society: How do you view long-term economic crisis from low birthrates & aging population in HK?", tips: ["<strong>步驟 1:</strong> 闡明少子化導致勞動力供給斷層、醫療養老支出倍增的深層危機。","<strong>步驟 2:</strong> 探討長遠對政府財政儲備與社會經濟活力（如房地產、各行各業）產生的萎縮效應。","<strong>步驟 3:</strong> 提出應對措施：延遲退休、引入外來專業人才及對少數族裔青年提供全方位職業支援。","<strong>步驟 4:</strong> 總結。"] },
-                { zh: "自主研究發表：請介紹你對「香港茶餐廳文化在當代國際都市中的傳承與面臨的挑戰」的研究成果。", en: "IRP Presentation: Introduce research on 'Heritage & challenges of HK Cha Chaan Teng culture in modern cosmopolitan'.", tips: ["<strong>步驟 1:</strong> 破體說明茶餐廳體現了中西文化交融、市井高效的獨特香港特色。","<strong>步驟 2:</strong> 指出目前租金昂貴、連鎖店壟斷與傳統手工（如拉絲襪奶茶）後繼無人的經營瓶頸。","<strong>步驟 3:</strong> 著重將茶餐廳申請為非物質文化遺產的宣傳意義。","<strong>步驟 4:</strong> 總結核心發現。"] },
-                { zh: "研究問答：有部分人認為，茶餐廳環境雜亂、不夠健康，終將被精緻西式咖啡廳取代。你是否同意？", en: "IRP Q&A: Some think Cha Chaan Teng will be replaced by boutique cafes due to hygiene & health issues. Do you agree?", tips: ["<strong>步驟 1:</strong> 採取客觀辯證立場。茶餐廳代表著中西方飲食文化在香港的有機融合，其生命力極強。","<strong>步驟 2:</strong> 許多「新式冰室」在裝修、衛生和健康少油菜單上已主動革新。","<strong>步驟 3:</strong> 指出茶餐廳是香港草根人情味的載體。","<strong>步驟 4:</strong> 結論立意高遠。"] },
-                { zh: "演進中的華人社會：近年在中國青年群體中流行的「躺平」與「內卷」文化，折射出怎樣的社會心態？", en: "Evolving Society: What social mindset is reflected by 'Lying Flat' & 'Involution' trends in Chinese youth?", tips: ["<strong>步驟 1:</strong> 明確界定「內卷」（過度無效競爭）與「躺平」（低欲望退出競爭）的定義。","<strong>步驟 2:</strong> 分析底層原因：生活成本高昂、高學歷青年面臨就業市場飽和、社會階層流動變慢。","<strong>步驟 3:</strong> 評估此心態對國家長遠經濟活力及青年心理健康造成的深重影響。","<strong>步驟 4:</strong> 呼籲提供更公平多元的職業上升通道。"] },
-                { zh: "自主研究發表：請講述你對「中國一線城市中垃圾分類政策（如上海模式）的實施障礙與成效」的研究。", en: "IRP Presentation: Talk about your study on 'Obstacles & results of waste sorting policies in Tier 1 cities (Shanghai model)'.", tips: ["<strong>步驟 1:</strong> 點明上海垃圾分類立法對中國綠色環保的開拓性標竿意義。","<strong>步驟 2:</strong> 分析實施初期的痛點：市民分類知識不足、定時定點投放對朝九晚五上班族的極大不便。","<strong>步驟 3:</strong> 展現成效：透過智能垃圾房、居委會宣傳，濕垃圾回收率等指標大幅提升。","<strong>步驟 4:</strong> 提出研究反思。"] },
-                { zh: "研究問答：你認為中國要實現全國性的強制垃圾分類，最大的軟硬件瓶頸在哪裡？", en: "IRP Q&A: What is the biggest soft & hard bottleneck to achieve nationwide compulsory waste sorting in China?", tips: ["<strong>步驟 1:</strong> 硬件層面：二三線城市和中西部農村地區缺乏現代化的垃圾分類運輸車輛與末端分類處理廠。","<strong>步驟 2:</strong> 軟件層面：公眾環保意識的持久度不夠，缺乏長效的法治與經濟獎懲機制。","<strong>步驟 3:</strong> 強調宣傳與政策扶持的平衡配合。","<strong>步驟 4:</strong> 結束回答。"] },
-                { zh: "當代華人社會：在中國推行「三孩政策」以應對人口危機，為何面臨年輕夫婦生育意願低迷的巨大阻力？", en: "Evolving Society: Why does the 'Three-Child Policy' face massive resistance from young couples' low fertility desire?", tips: ["<strong>步驟 1:</strong> 指出生育、養育、教育（三座大山）的高昂經濟成本。","<strong>步驟 2:</strong> 探討現代女性在職場玻璃天花板及生育假後就業歧視等權益衝突。","<strong>步驟 3:</strong> 剖析年輕人對個人生活品質與自由的追求超過傳統多子多福觀念。","<strong>步驟 4:</strong> 建議：必須提供房屋補貼、普惠托育等全方位政策配套。"] },
-                { zh: "自主研究發表：介紹你對「香港少數族裔在本地主流中學中文教育下的適應與困境」的研究課題。", en: "IRP Presentation: Introduce your topic on 'Adaptation & dilemma of HK ethnic minorities in local mainstream Chinese curricula'.", tips: ["<strong>步驟 1:</strong> 直言指出香港大部分主流學校對非華語生缺乏抽離式、客製化教材的教育困境。","<strong>步驟 2:</strong> 探討 DSE 中文考試過於偏重文言文、文學底蘊，對生活應用的 NCS 生造成的巨大挫折。","<strong>步驟 3:</strong> 肯定替代中文資歷（ApL(C)、GCSE）在升學出路上起到的安全網作用。","<strong>步驟 4:</strong> 呼籲改革主流課程。"] },
-                { zh: "研究問答：有校長建議，應該讓非華語學生在小學階段直接與本地生合班進行無差別教學。你同意這個觀點嗎？", en: "IRP Q&A: Some principals suggest NCS students should be integrated unconditionally into mainstream classes since primary school. Do you agree?", tips: ["<strong>步驟 1:</strong> 採取客觀辯證立場。小學早期融入對建立純正粵語語境與文化融入確有黃金期的優勢。","<strong>步驟 2:</strong> 強烈指出：若沒有「課後課堂雙軌支援」與「分級輔助教材」，無差別教學只會讓孩子從小在成績上被邊緣化。","<strong>步驟 3:</strong> 提出「有支援的合班、有層次的教學」的核心方針。","<strong>步驟 4:</strong> 總結回答。"] },
-                { zh: "當代華人社會：移動支付和電子政務的全面普及，是否正在加劇中國長者及部分弱勢群體的「數碼鴻溝」？", en: "Evolving Society: Does mobile payment & e-government exacerbate 'Digital Divide' for elderly in China?", tips: ["<strong>步驟 1:</strong> 承認便利性的同時，大聲疾呼被邊緣化的「無網長者」日常就醫、乘車和繳費的重重困難。","<strong>步驟 2:</strong> 分析智能科技過快迭代對長者認知和安全感造成的衝擊。","<strong>步驟 3:</strong> 讚許政府近年推動的「公共服務保留現金及人工窗口」政策。","<strong>步驟 4:</strong> 呼籲在產品設計端進行人性化考量，共創包容社會。"]
+                }
             ]
         };
 
         let currentOralIndex = 0;
         let selectedOralTab = 'aplc';
 
-        // 動態切換與更新口試題目
         function updateOralQuestions() {
             selectedOralTab = document.getElementById('oral-exam-select').value;
             currentOralIndex = 0;
             updateOralQuestionPage();
-            
-            if (isRecording) {
-                stopRecordingLogic();
-            }
+            if (isRecording) stopRecordingLogic();
             document.getElementById('playback-area').classList.add('hidden');
         }
 
@@ -691,9 +439,7 @@
             const prompt = oralPrompts[selectedOralTab][currentOralIndex];
             document.getElementById('oral-prompt-text').innerText = prompt.zh;
             document.getElementById('oral-prompt-en').innerText = prompt.en;
-            document.getElementById('oral-pagination-text').innerText = `題目 ${currentOralIndex + 1} / 15`;
-
-            // 動態更新答題步驟技巧
+            document.getElementById('oral-pagination-text').innerText = `題目 ${currentOralIndex + 1} / ${oralPrompts[selectedOralTab].length}`;
             const tipsList = document.getElementById('oral-tips-list');
             tipsList.innerHTML = '';
             prompt.tips.forEach(tip => {
@@ -704,11 +450,9 @@
         }
 
         function nextOralQuestion() {
-            if (currentOralIndex < 14) {
+            if (currentOralIndex < oralPrompts[selectedOralTab].length - 1) {
                 currentOralIndex++;
                 updateOralQuestionPage();
-            } else {
-                showToast("已是最後一題 (Last question reached)", "info");
             }
         }
 
@@ -716,8 +460,6 @@
             if (currentOralIndex > 0) {
                 currentOralIndex--;
                 updateOralQuestionPage();
-            } else {
-                showToast("已是第一題 (First question reached)", "info");
             }
         }
     </script>
@@ -727,22 +469,17 @@
         function renderReadings(items) {
             const container = document.getElementById('reading-container');
             container.innerHTML = '';
-            if (items.length === 0) {
-                container.innerHTML = '<p class="text-gray-500 text-center py-4">沒有找到相關資源。</p>';
-                return;
-            }
             const levelStyles = {
-                1: { bg: 'bg-green-100', text: 'text-green-700', border: 'hover:border-green-300', label: 'Level 1: 基礎' },
-                2: { bg: 'bg-yellow-100', text: 'text-yellow-700', border: 'hover:border-yellow-300', label: 'Level 2: 日常' },
-                3: { bg: 'bg-orange-100', text: 'text-orange-700', border: 'hover:border-orange-300', label: 'Level 3: 進階' },
-                4: { bg: 'bg-red-100', text: 'text-red-700', border: 'hover:border-red-300', label: 'Level 4: 精通' }
+                1: { bg: 'bg-green-100', text: 'text-green-700', label: 'Level 1: 基礎' },
+                2: { bg: 'bg-yellow-100', text: 'text-yellow-700', label: 'Level 2: 日常' },
+                3: { bg: 'bg-orange-100', text: 'text-orange-700', label: 'Level 3: 進階' },
+                4: { bg: 'bg-red-100', text: 'text-red-700', label: 'Level 4: 精通' }
             };
-
             items.forEach(item => {
                 const style = levelStyles[item.level];
                 const parsedContent = parseContent(item.content);
                 const div = document.createElement('div');
-                div.className = `border border-gray-100 rounded-xl p-4 transition bg-slate-50/50 fade-in ${style.border}`;
+                div.className = `border border-gray-100 rounded-xl p-4 transition bg-slate-50/50 fade-in`;
                 div.innerHTML = `
                     <div class="flex justify-between mb-2">
                         <span class="${style.bg} ${style.text} font-bold px-2.5 py-0.5 rounded text-xs shadow-sm">${style.label}</span>
@@ -763,158 +500,84 @@
                 btn.classList.remove('bg-primary', 'text-white');
                 btn.classList.add('bg-gray-100', 'text-gray-600');
             });
-            const activeBtn = document.getElementById(`tab-${level === 'all' ? 'all' : level}`);
-            if (activeBtn) {
-                activeBtn.classList.remove('bg-gray-100', 'text-gray-600');
-                activeBtn.classList.add('bg-primary', 'text-white');
-            }
-
+            document.getElementById(`tab-${level === 'all' ? 'all' : level}`).classList.add('bg-primary', 'text-white');
             if (level === 'all') {
                 renderReadings(readingData);
             } else {
-                const filtered = readingData.filter(item => item.level === level);
-                renderReadings(filtered);
+                renderReadings(readingData.filter(item => item.level === level));
             }
         }
 
-        // 3. 多功能自錄自評系統邏輯 (解決 Safari 時間軸與播放錯誤)
-        let mediaRecorder;
-        let recordedChunks = [];
-        let isRecording = false;
-        let recordingInterval;
-        let recordingSeconds = 0;
+        // 錄音系統
+        let mediaRecorder, recordedChunks = [], isRecording = false, recordingInterval, recordingSeconds = 0;
 
         function toggleRecording() {
-            if (!isRecording) {
-                startRecordingLogic();
-            } else {
-                stopRecordingLogic();
-            }
+            if (!isRecording) startRecordingLogic();
+            else stopRecordingLogic();
         }
 
         async function startRecordingLogic() {
             recordedChunks = [];
-            
-            // 守衛機制：防止不支援 MediaDevices 的沙盒環境拋錯
             if (typeof navigator.mediaDevices === 'undefined' || typeof MediaRecorder === 'undefined') {
                 showSandboxNotice();
                 return;
             }
-
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                
-                // 沙盒權限偵測：若 stream 被禁用，強制中斷
-                if (!stream || stream.getTracks().length === 0) {
-                    throw new Error("Microphone tracks not available.");
-                }
-
-                // Safari/Chrome 自動 MIME 類型相容，徹底解決無時間軸與播放錯誤
-                let options = { mimeType: 'audio/webm' };
-                if (typeof MediaRecorder.isTypeSupported === 'function') {
-                    if (MediaRecorder.isTypeSupported('audio/mp4')) {
-                        options = { mimeType: 'audio/mp4' };
-                    } else if (MediaRecorder.isTypeSupported('audio/aac')) {
-                        options = { mimeType: 'audio/aac' };
-                    }
-                }
-
-                mediaRecorder = new MediaRecorder(stream, options);
-                
-                mediaRecorder.ondataavailable = function(e) {
-                    if (e.data && e.data.size > 0) {
-                        recordedChunks.push(e.data);
-                    }
+                mediaRecorder = new MediaRecorder(stream);
+                mediaRecorder.ondataavailable = (e) => {
+                    if (e.data.size > 0) recordedChunks.push(e.data);
                 };
-
-                mediaRecorder.onstop = function() {
-                    const blob = new Blob(recordedChunks, { type: options.mimeType });
-                    const audioURL = URL.createObjectURL(blob);
-                    const audioPlayback = document.getElementById('audio-playback');
-                    audioPlayback.src = audioURL;
-                    audioPlayback.load(); // 重要：引導 Safari 解碼時間軸
+                mediaRecorder.onstop = () => {
+                    const blob = new Blob(recordedChunks, { type: 'audio/webm' });
+                    document.getElementById('audio-playback').src = URL.createObjectURL(blob);
                     document.getElementById('playback-area').classList.remove('hidden');
                 };
-
                 mediaRecorder.start();
                 isRecording = true;
-                
-                // UI 更改為正在錄音狀態
-                document.getElementById('record-btn').classList.remove('bg-red-50', 'hover:bg-red-600', 'bg-red-500'); // Clean potential leftovers
-                document.getElementById('record-btn').classList.add('bg-gray-800', 'hover:bg-gray-900', 'animate-pulse');
-                document.getElementById('record-icon').className = 'fa-solid fa-stop text-2xl text-red-500';
-                document.getElementById('record-status').innerText = '錄音中... (Recording...)';
-                document.getElementById('record-status').classList.add('text-red-500');
-
-                // 計時器啟動
+                document.getElementById('record-btn').classList.add('bg-gray-800', 'animate-pulse');
                 recordingSeconds = 0;
-                document.getElementById('record-timer').innerText = "00:00";
                 recordingInterval = setInterval(() => {
                     recordingSeconds++;
                     const mins = String(Math.floor(recordingSeconds / 60)).padStart(2, '0');
                     const secs = String(recordingSeconds % 60).padStart(2, '0');
                     document.getElementById('record-timer').innerText = `${mins}:${secs}`;
                 }, 1000);
-
             } catch (err) {
-                console.warn("Recording sandboxed or blocked: ", err);
                 showSandboxNotice();
             }
         }
 
         function stopRecordingLogic() {
             if (mediaRecorder && isRecording) {
-                try {
-                    mediaRecorder.stop();
-                    mediaRecorder.stream.getTracks().forEach(track => track.stop());
-                } catch(e) {
-                    console.error("Stop track error:", e);
-                }
-                
+                mediaRecorder.stop();
                 isRecording = false;
                 clearInterval(recordingInterval);
-
-                // UI 還原
-                document.getElementById('record-btn').classList.remove('bg-gray-800', 'hover:bg-gray-900', 'animate-pulse');
-                document.getElementById('record-btn').classList.add('bg-red-500', 'hover:bg-red-600');
-                document.getElementById('record-icon').className = 'fa-solid fa-microphone text-2xl';
-                document.getElementById('record-status').innerText = '錄音已完成 (Recording complete)';
-                document.getElementById('record-status').className = 'font-bold text-green-600';
+                document.getElementById('record-btn').classList.remove('bg-gray-800', 'animate-pulse');
             }
         }
 
         function showSandboxNotice() {
             document.getElementById('sandbox-warning').classList.remove('hidden');
-            // 純前端降級策略：彈出提醒，但不阻礙使用者繼續操作網頁
-            showToast("當前沙盒環境限制了麥克風權限 (Mic Access Blocked in Sandbox)", "warning");
+            showToast("麥克風受限 (Microphone blocked)", "warning");
         }
-    </script>
 
-    <script>
-        // 4. 詞彙庫對照與篩選搜尋邏輯
+        // 詞彙表
         let selectedGlossaryTab = 'all';
 
         function renderGlossary(filter = 'all', query = '') {
             const tbody = document.getElementById('glossary-body');
             tbody.innerHTML = '';
-
             const filtered = glossaryData.filter(item => {
-                const matchesTab = (filter === 'all' || item.sub === filter);
-                const matchesSearch = item.ch.includes(query) || item.en.toLowerCase().includes(query.toLowerCase()) || item.py.toLowerCase().includes(query.toLowerCase());
+                const matchesTab = filter === 'all' || item.sub === filter;
+                const matchesSearch = item.ch.includes(query) || item.en.toLowerCase().includes(query.toLowerCase());
                 return matchesTab && matchesSearch;
             });
-
-            if (filtered.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" class="px-4 py-8 text-center text-gray-500">沒有找到相應的跨學科詞彙。 (No terms found)</td></tr>`;
-                return;
-            }
-
             const subjectLabels = {
-                math: { bg: 'bg-blue-100', text: 'text-blue-700', label: '數學 Math' },
-                science: { bg: 'bg-green-100', text: 'text-green-700', label: '科學 Science' },
-                society: { bg: 'bg-purple-100', text: 'text-purple-700', label: '社會學科' }
+                math: { bg: 'bg-blue-100', text: 'text-blue-700', label: '數學' },
+                science: { bg: 'bg-green-100', text: 'text-green-700', label: '科學' },
+                society: { bg: 'bg-purple-100', text: 'text-purple-700', label: '社會' }
             };
-
             filtered.forEach(item => {
                 const subStyle = subjectLabels[item.sub];
                 const tr = document.createElement('tr');
@@ -923,9 +586,7 @@
                     <td class="px-4 py-3 font-bold text-gray-900">${item.ch}</td>
                     <td class="px-4 py-3 font-mono text-gray-500 text-xs">${item.py}</td>
                     <td class="px-4 py-3 text-gray-600 font-medium">${item.en}</td>
-                    <td class="px-4 py-3">
-                        <span class="${subStyle.bg} ${subStyle.text} text-xxs font-bold px-2 py-0.5 rounded-full">${subStyle.label}</span>
-                    </td>
+                    <td class="px-4 py-3"><span class="${subStyle.bg} ${subStyle.text} text-xxs font-bold px-2 py-0.5 rounded-full">${subStyle.label}</span></td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -937,50 +598,28 @@
                 btn.classList.remove('bg-primary', 'text-white');
                 btn.classList.add('bg-gray-100', 'text-gray-600');
             });
-            const activeBtn = document.getElementById(`g-tab-${subject}`);
-            if (activeBtn) {
-                activeBtn.classList.remove('bg-gray-100', 'text-gray-600');
-                activeBtn.classList.add('bg-primary', 'text-white');
-            }
-
-            const query = document.getElementById('glossary-search').value;
-            renderGlossary(selectedGlossaryTab, query);
+            document.getElementById(`g-tab-${subject}`).classList.add('bg-primary', 'text-white');
+            renderGlossary(selectedGlossaryTab, document.getElementById('glossary-search').value);
         }
 
         function searchGlossary() {
-            const query = document.getElementById('glossary-search').value;
-            renderGlossary(selectedGlossaryTab, query);
+            renderGlossary(selectedGlossaryTab, document.getElementById('glossary-search').value);
         }
 
-        // 純前端 Toast 回饋提示
         function showToast(message, type = 'info') {
             const toast = document.createElement('div');
-            toast.className = `fixed bottom-5 right-5 z-50 px-4 py-3 rounded-xl shadow-lg text-white font-bold transition-all duration-300 transform translate-y-10 opacity-0 ${
+            toast.className = `fixed bottom-5 right-5 z-50 px-4 py-3 rounded-xl shadow-lg text-white font-bold transition-all duration-300 ${
                 type === 'warning' ? 'bg-amber-500' : 'bg-blue-600'
             }`;
             toast.innerText = message;
             document.body.appendChild(toast);
-            
-            setTimeout(() => {
-                toast.classList.remove('translate-y-10', 'opacity-0');
-            }, 50);
-
-            setTimeout(() => {
-                toast.classList.add('opacity-0', 'translate-y-10');
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
+            setTimeout(() => toast.remove(), 3000);
         }
 
-        // 頁面初始化
         window.onload = () => {
             renderReadings(readingData);
             renderGlossary();
             updateOralQuestions();
-
-            // 主動偵測當前環境是否無法支援錄音功能
-            if (typeof navigator.mediaDevices === 'undefined' || typeof MediaRecorder === 'undefined') {
-                document.getElementById('sandbox-warning').classList.remove('hidden');
-            }
         };
     </script>
 </body>
