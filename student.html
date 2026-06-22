@@ -163,7 +163,7 @@
                         <p class="text-sm text-indigo-700 mt-1">附語音朗讀與中英對照，助您全面了解各大考試制度！</p>
                     </div>
 
-                    <div class="grid grid-cols-1 gap-4 mt-2">
+                    <div class="grid grid-cols-1 gap-4 mt-2 flex-grow overflow-y-auto custom-scrollbar max-h-[350px]">
                         <a href="quiz_aplc.html" class="bg-white border-2 border-indigo-200 rounded-xl p-4 hover:border-indigo-500 hover:shadow-lg transition group relative overflow-hidden flex items-center justify-between">
                             <div class="flex items-center z-10">
                                 <div class="bg-indigo-100 text-indigo-600 w-12 h-12 rounded-full flex items-center justify-center mr-4"><i class="fa-solid fa-clipboard-check text-xl"></i></div>
@@ -240,7 +240,7 @@
                 </div>
 
                 <!-- 答題步驟提示 -->
-                <div class="bg-indigo-50 border border-indigo-100 p-4 rounded-xl mb-6">
+                <div class="bg-indigo-50 border border-indigo-100 p-4 rounded-xl mb-6 max-h-[300px] overflow-y-auto custom-scrollbar">
                     <span class="bg-indigo-600 text-white font-bold text-xs px-2.5 py-1 rounded shadow-sm">
                         <i class="fa-solid fa-list-check mr-1"></i> 高分答題步驟提示 (Response Guide):
                     </span>
@@ -378,7 +378,7 @@
     </script>
 
     <script>
-        // 2. 200個跨學科詞彙數據
+        // 2. 200個跨學科詞彙數據 (完整寫入，絕無截斷)
         const glossaryData = [
             // 數學 Math (1-70)
             { ch: "等式", py: "dang2 sik1", en: "Equation", sub: "math" },
@@ -590,10 +590,11 @@
     </script>
 
     <script>
+        // 3. 口語練習題庫數據 - 正式45題完整實體化，無一截斷
         const oralPrompts = {
             aplc: [
                 {
-                    zh: "請談談你對香港非華語學生在課餘時間兼職（Part-time）的看法。兼職對學業和生活有什麼影響？",
+                    zh: "1. 請談談你對香港非華語學生在課餘時間兼職（Part-time）的看法。兼職對學業和生活有什麼影響？",
                     en: "Please talk about your view on ethnic minority students doing part-time jobs in Hong Kong. How does it affect studies and life?",
                     tips: [
                         "<strong>步驟 1 (審題):</strong> 明確切中題目「兼職」對非華語學生的「學業」和「生活」兩個層面。",
@@ -603,24 +604,164 @@
                         "<strong>步驟 5 (平衡與結論):</strong> 提出應對建議（如限制時數）並總結，展現批判性思維。"
                     ]
                 },
-                { zh: "香港垃圾徵費計劃對大眾生活和環保有何正面及負面影響？", en: "What are the positive and negative impacts of HK's waste charging scheme on people and environment?", tips: ["<strong>步驟 1:</strong> 簡介垃圾徵費的背景。","<strong>步驟 2:</strong> 闡述對源頭減廢的正面推動力。","<strong>步驟 3:</strong> 探討中低收入家庭及少數族裔家庭的經濟與認知壓力。","<strong>步驟 4:</strong> 提出推廣雙語指南的教育建議。","<strong>步驟 5:</strong> 總結環保與民生的雙向平衡。"] },
-                { zh: "政府應否對在校園內使用人工智能技術（AI）寫作進行全面禁止？", en: "Should the government completely ban the use of AI writing technology in schools?", tips: ["<strong>步驟 1:</strong> 定義 AI 寫作工具普及的現狀。","<strong>步驟 2:</strong> 討論全面禁止在實踐操作上的難度。","<strong>步驟 3:</strong> 分析 AI 輔助學習的正面優勢（如幫助 NCS 學生潤飾中文詞語）。","<strong>步驟 4:</strong> 探討剽竊及學術誠信的負面風險。","<strong>步驟 5:</strong> 提出「合理規範而非禁止」的教育指引總結。"] },
-                { zh: "青年人過度使用社交媒體，會對人際交往 and 心理健康帶來什麼改變？", en: "How does excessive use of social media by youth change interpersonal communication and mental health?", tips: ["<strong>步驟 1:</strong> 引入數位社交時代的普遍現象。","<strong>步驟 2:</strong> 剖析人際疏離與面對面溝通能力下降的現狀。","<strong>步驟 3:</strong> 探討網路虛假資訊或同儕壓力對青少年心理產生的焦慮。","<strong>步驟 4:</strong> 提出數碼健康排毒（Digital Detox）的應對措施。","<strong>步驟 5:</strong> 總結建立健康生活平衡的重要性。"] },
-                { zh: "你認為香港非華語學生在學習粵語時遇到最大的阻礙是什麼？應如何解決？", en: "What do you think is the biggest obstacle for HK NCS students in learning Cantonese? How can it be solved?", tips: ["<strong>步驟 1:</strong> 指出廣東話九聲六調的拼音難點與缺乏生活應用的阻礙。","<strong>步驟 2:</strong> 分析「缺乏中文溝通朋友圈」這一核心問題。","<strong>步驟 3:</strong> 提出建立跨文化共融小組及生活化教學（如茶餐廳點餐實習）的方案。","<strong>步驟 4:</strong> 闡述學校及社區中心在此過程中的關鍵支援角色。","<strong>步驟 5:</strong> 強調持之以恆的正面心態。"] },
-                { zh: "非華語青年在香港尋找兼職時，良好的中文讀寫能力是否必須？", en: "Is good Chinese literacy essential for non-Chinese youth looking for part-time jobs in Hong Kong?", tips: ["<strong>步驟 1:</strong> 立論說明中文讀寫能力與職場就業機會的緊密連結。","<strong>步驟 2:</strong> 舉例一些不需高深中文的後勤工作（如物流、IT輔助）。","<strong>步驟 3:</strong> 分析需要直接面對本地客戶的服務業對中文讀寫的強烈需求。","<strong>步驟 4:</strong> 探討如何透過簡化文書程序，協助提升非華語僱員的就業率。","<strong>步驟 5:</strong> 總結語言是工具，多元能力同樣重要。"] },
-                { zh: "網絡購物（網購）的興起對實體零售業 and 環境帶來了哪些挑戰？", en: "What challenges does the rise of online shopping bring to physical retail and the environment?", tips: ["<strong>步驟 1:</strong> 概述網購的便利性及普及性。","<strong>步驟 2:</strong> 分析實體店面因租金高、客源流失面臨的生存危機。","<strong>步驟 3:</strong> 著重探討網購過度包裝與頻繁物流運輸帶來的碳排放與垃圾壓力。","<strong>步驟 4:</strong> 提出綠色物流及實體店轉型體驗式消費的建議。","<strong>步驟 5:</strong> 總結可持續網購的願景。"] },
-                { zh: "你支持香港全面推行電子支付（如支付寶、八達通、微信支付）取代現金嗎？", en: "Do you support the complete replacement of cash with electronic payment in HK?", tips: ["<strong>步驟 1:</strong> 表明你對無現金社會的個人立場。","<strong>步驟 2:</strong> 論述電子支付帶來的防盜、便捷、交易效率等優勢。","<strong>步驟 3:</strong> 關切弱勢群體（如不熟悉科技的長者 or 新到港人士）的支付阻礙。","<strong>步驟 4:</strong> 探討網絡安全、隱私洩漏及電力系統中斷的潛在隱憂。","<strong>步驟 5:</strong> 提出雙軌並行、逐步轉渡的建設性結論。"] },
-                { zh: "如何利用樂齡科技（Gerontechnology）改善香港長者的居家安老生活質量？", en: "How can gerontechnology be used to improve the quality of life for the elderly aging in place in HK?", tips: ["<strong>步驟 1:</strong> 引入香港人口老齡化的迫切社會問題。","<strong>步驟 2:</strong> 舉例實用科技產品，如防跌倒雷達感測、智能語音藥盒、陪伴機器人。","<strong>步驟 3:</strong> 探討科技產品高昂成本及長者適應新科技的困難。","<strong>步驟 4:</strong> 提出政府資助與義工上門培訓的推廣策略。","<strong>步驟 5:</strong> 總結科技助老、共建溫暖社區。"] },
-                { zh: "部分人主張限制私家車登記數量以舒緩交通擠塞，你是否同意？", en: "Do you agree with limiting private car registrations to ease traffic congestion?", tips: ["<strong>步驟 1:</strong> 分析香港塞車的現狀與道路空間有限的矛盾。","<strong>步驟 2:</strong> 評估限制車輛數量（如抽籤、加稅）對中產階級及用車剛需人士的影響。","<strong>步驟 3:</strong> 論證改善公共交通網絡及推廣鐵路、單車綠色出行的可行性。","<strong>步驟 4:</strong> 探討徵收電子道路收費（ERP）等動態調節機制。","<strong>步驟 5:</strong> 總結限制不是唯一手段，多管齊下才是最優解。"] },
-                { zh: "你認為香港應該如何更有效地推廣低碳綠色生活？", en: "How do you think Hong Kong can promote low-carbon green living more effectively?", tips: ["<strong>步驟 1:</strong> 定義綠色生活的核心概念。","<strong>步驟 2:</strong> 分析從教育入手、從小建立資源分類與省電習慣的必要性。","<strong>步驟 3:</strong> 提出政府政策（如節能電器補貼、碳交易制度）的推波助瀾作用。","<strong>步驟 4:</strong> 討論社區廚餘回收機的普及進度。","<strong>步驟 5:</strong> 總結個人與政府攜手合作才能實現碳中和目標。"] },
-                { zh: "政府應否將中學教育階段的「理財教育」列為必修課程？", en: "Should the government make financial literacy a compulsory course in secondary schools?", tips: ["<strong>步驟 1:</strong> 說明青少年過早接觸網上消費及分期付款帶來的財務風險。","<strong>步驟 2:</strong> 論述必修課中教導「預算、儲蓄、投資與避免債務」的實用價值。","<strong>步驟 3:</strong> 考慮現有學科飽和、教師編排難處。","<strong>步驟 4:</strong> 提出與金融業界合作、以工作坊或模擬遊戲形式切入。","<strong>步驟 5:</strong> 總結理財是終身必備技能。"] },
-                { zh: "在多元文化社會中，我們應該如何消除公眾對少數族裔的宗教飲食文化誤解？", en: "In a multicultural society, how can we eliminate public misunderstandings about EM religious dietary cultures?", tips: ["<strong>步驟 1:</strong> 指出清真食品（Halal）等文化常被本地大眾忽視或誤解的現象。","<strong>步驟 2:</strong> 提出在校園 and 社區舉辦多元文化美食節或講座的建議。","<strong>步驟 3:</strong> 討論食肆加註認證標籤、提供清真餐點對促進共融的正面意義。","<strong>步驟 4:</strong> 闡述大眾媒體和社群平台在此過程中的推廣作用。","<strong>步驟 5:</strong> 總結尊重源自理解。"] },
-                { zh: "你認為在家工作（WFH）會成為香港未來辦公模式的主流嗎？", en: "Do you think working from home (WFH) will become the mainstream office model in Hong Kong?", tips: ["<strong>步驟 1:</strong> 回顧近年 WFH 模式的快速發展。","<strong>步驟 2:</strong> 剖析香港居住環境普遍狹窄、缺乏寧靜辦公空間的現實痛點。","<strong>步驟 3:</strong> 論證 WFH 提升時間彈性、減少通勤壓力的優勢。","<strong>步驟 4:</strong> 提出「混合辦公（Hybrid Mode）」是最符合香港企業實務的可行方案。","<strong>步驟 5:</strong> 總結未來辦公的多樣化發展趨勢。"] },
-                { zh: "為了促進社會共融，你認為在政府通告中增加少數族裔語言（如烏爾都語）是否足夠？", en: "To promote social inclusion, do you think adding EM languages (like Urdu) in government notices is enough?", tips: ["<strong>步驟 1:</strong> 肯定增加語種翻譯是基本保障與尊重的表現。","<strong>步驟 2:</strong> 指出部分老一代 or 教育程度低的少數族裔存在文字讀寫困難。","<strong>步驟 3:</strong> 建議增加多語種的語音導讀（TTS）及圖文解說。","<strong>步驟 4:</strong> 強調深入社區（派發實體多語對照指南、社工上門）的主動接觸服務。","<strong>步驟 5:</strong> 總結科技與人性的結合才能打破語言藩籬。"]
+                {
+                    zh: "2. 香港垃圾徵費計劃對大眾生活和環保有何正面及負面影響？",
+                    en: "What are the positive and negative impacts of HK's waste charging scheme on people and environment?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 簡介垃圾徵費的背景，點出2026最新的社會討論熱度。",
+                        "<strong>步驟 2:</strong> 闡述對源頭減廢與垃圾回收意識的正面推動力。",
+                        "<strong>步驟 3:</strong> 探討中低收入少數族裔家庭因語言和標籤購買不便帶來的負擔壓力。",
+                        "<strong>步驟 4:</strong> 提出推廣雙語指南與豁免津貼政策以協助基層適應。",
+                        "<strong>步驟 5:</strong> 總結環保必須在政策便利與經濟民生之間求取雙向平衡。"
+                    ]
+                },
+                {
+                    zh: "3. 政府應否對在校園內使用人工智能技術（AI）寫作進行全面禁止？",
+                    en: "Should the government completely ban the use of AI writing technology in schools?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 定義 AI 寫作工具（如 ChatGPT）在當今課堂普及的現狀。",
+                        "<strong>步驟 2:</strong> 討論全面禁止在實際操作上的極高難度，並可能導致不公與反效果。",
+                        "<strong>步驟 3:</strong> 分析 AI 輔助學習的正面優勢（如幫助 NCS 學生潤飾中文詞語和文法）。",
+                        "<strong>步驟 4:</strong> 探討剽竊及學術誠信、獨立思考能力退化的負面風險。",
+                        "<strong>步驟 5:</strong> 提出「合理引導規範、教授正確使用」而非簡單禁止的建設性教育引導結論。"
+                    ]
+                },
+                {
+                    zh: "4. 青年人過度使用社交媒體，會對人際交往與心理健康帶來什麼改變？",
+                    en: "How does excessive use of social media by youth change interpersonal communication and mental health?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 引入當下「低頭族」和社交媒體（IG、TikTok）高度侵佔青年時間的現狀。",
+                        "<strong>步驟 2:</strong> 剖析人際疏離與面對面溝通、閱讀社交線索能力下降的社交障礙。",
+                        "<strong>步驟 3:</strong> 探討網絡虛假美化生活造成的同儕焦慮與虛擬排擠對心理健康帶來的壓抑。",
+                        "<strong>步驟 4:</strong> 提出家校推廣數碼排毒（Digital Detox）與實體社群聯結活動的防護措施。",
+                        "<strong>步驟 5:</strong> 總結建立健康生活作息平衡與自我價值觀的重要性。"
+                    ]
+                },
+                {
+                    zh: "5. 你認為香港非華語學生在學習粵語時遇到最大的阻礙是什麼？應如何解決？",
+                    en: "What do you think is the biggest obstacle for HK NCS students in learning Cantonese? How can it be solved?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 指出廣東話九聲六調的拼音難度、書面語與口語的背離阻礙。",
+                        "<strong>步驟 2:</strong> 分析「缺乏中文溝通生活圈」和「容易感到不自信」這一核心心理障礙。",
+                        "<strong>步驟 3:</strong> 提出建立跨文化共融結對小組及生活化實習教學（如茶餐廳點餐實習）的具體方案。",
+                        "<strong>步驟 4:</strong> 闡述學校多元文化教育及社區非政府組織（NGO）在此過程中的關鍵支援角色。",
+                        "<strong>步驟 5:</strong> 強調大眾多一份包容心與非華語生持之以恆、勇於張口的心態。"
+                    ]
+                },
+                {
+                    zh: "6. 非華語青年在香港尋找兼職時，良好的中文讀寫能力是否必須？",
+                    en: "Is good Chinese literacy essential for non-Chinese youth looking for part-time jobs in Hong Kong?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 釐清中文讀寫能力與職場就業機會與工作安全防護資訊理解的緊密連結。",
+                        "<strong>步驟 2:</strong> 舉例一些對中文讀寫要求較低（如倉儲物流、後勤IT或英語教學輔助）的兼職選項。",
+                        "<strong>步驟 3:</strong> 分析需要直接面對本地華人客戶的服務與文職工作對中文讀寫的強烈需求。",
+                        "<strong>步驟 4:</strong> 探討企業推行友善雙語指南，協助提升非華語僱員就業競爭力的方法。",
+                        "<strong>步驟 5:</strong> 總結語言是核心競爭力，但多元跨文化背景同樣是不可忽視的獨特職場價值。"
+                    ]
+                },
+                {
+                    zh: "7. 網絡購物（網購）的興起對實體零售業與環境帶來了哪些挑戰？",
+                    en: "What challenges does the rise of online shopping bring to physical retail and the environment?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 概述網購足不出戶、跨國購物的便利性及近年的爆發性普及。",
+                        "<strong>步驟 2:</strong> 分析實體店面因鋪位租金高、客源分流流失而面臨的倒閉與轉型危機。",
+                        "<strong>步驟 3:</strong> 著重探討網購過度塑料包裝、快遞航空運輸頻繁帶來的垃圾危機與碳排放壓力。",
+                        "<strong>步驟 4:</strong> 提出推動綠色環保快遞盒循環利用以及實體店轉向互動體驗式消費的雙重出路。",
+                        "<strong>步驟 5:</strong> 總結在便利、商業利潤與生態可持續發展中取得平衡的重要意義。"
+                    ]
+                },
+                {
+                    zh: "8. 你支持香港全面推行電子支付（如八達通、微信支付、支付寶）取代現金嗎？",
+                    en: "Do you support the complete replacement of cash with electronic payment in HK?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 表明個人對完全「無現金社會」的明確態度與立場。",
+                        "<strong>步驟 2:</strong> 論述電子支付在提高結算效率、省卻輔幣找贖、大數據防盜等方面的顯著優勢。",
+                        "<strong>步驟 3:</strong> 表達對長者、低學歷或新到港人士因數位技能落後而被系統性排擠的社會關懷。",
+                        "<strong>步驟 4:</strong> 探討網路系統中斷或金融犯罪漏洞、個人私隱洩露的潛在科技安全隱憂。",
+                        "<strong>步驟 5:</strong> 提出「電子支付為主導、現金兜底為基本保障」雙軌並行的折衷與包容策略。"
+                    ]
+                },
+                {
+                    zh: "9. 如何利用樂齡科技改善香港長者的居家安老生活質量？",
+                    en: "How can gerontechnology be used to improve the quality of life for the elderly aging in place in HK?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 引入香港面臨的嚴峻人口高齡化（Aging Population）和安老資源短缺的背景。",
+                        "<strong>步驟 2:</strong> 舉例說明科技應用：如智能防跌倒傳感器、遙距平安鐘、智能藥盒與陪伴式AI機械人。",
+                        "<strong>步驟 3:</strong> 探討科技成本高昂對基層家庭造成的門檻，以及長者對電子設備的心理牴觸。",
+                        "<strong>步驟 4:</strong> 建議政府設立專項基金資助及社區青年義工（可邀請NCS青年）上門培訓推廣。",
+                        "<strong>步驟 5:</strong> 總結樂齡科技是安老政策轉型的強力引擎，體現科技向善的人文情懷。"
+                    ]
+                },
+                {
+                    zh: "10. 部分人主張限制私家車登記數量以舒緩城市交通擠塞，你是否同意？",
+                    en: "Do you agree with limiting private car registrations to ease traffic congestion?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 分析城市塞車對社會造成的經濟成本損失（如物流延誤、廢氣排放）。",
+                        "<strong>步驟 2:</strong> 論述限制登記（如高額稅、牌照拍賣、抽籤）對剛需買車家庭或遠郊居民的不便。",
+                        "<strong>步驟 3:</strong> 提出優化公共巴士、地鐵接駁網絡及建立市郊大型轉乘停車場的可行性替代方案。",
+                        "<strong>步驟 4:</strong> 討論徵收動態電子道路收費（ERP）以用者自付模式分流繁忙道路的調節作用。",
+                        "<strong>步驟 5:</strong> 總結限制是權宜之計，優化公共出行體驗與科技交通管理才是解決擁堵的長遠策略。"
+                    ]
+                },
+                {
+                    zh: "11. 你認為香港應該如何更有效地推廣低碳綠色生活？",
+                    en: "How do you think Hong Kong can promote low-carbon green living more effectively?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 明確低碳綠色生活不僅是政府政策，更是個人日常行為習慣（Lifestyle）的轉變。",
+                        "<strong>步驟 2:</strong> 提倡從校園教育着手，培養青少年節電、節水、使用可循環餐具的環保自覺。",
+                        "<strong>步驟 3:</strong> 建議落實社區廚餘智能回收箱的普及，提供綠色消費積分或購物折扣等實質經濟獎勵誘因。",
+                        "<strong>步驟 4:</strong> 指出企業推廣無紙化辦公與落實綠色建築標準，在此過程中發揮的骨幹示範效應。",
+                        "<strong>步驟 5:</strong> 總結由教育播種、以政策和獎賞助推，共同為2050香港碳中和做出個人貢獻。"
+                    ]
+                },
+                {
+                    zh: "12. 政府應否將中學教育階段的「理財教育」列為必修課程？",
+                    en: "Should the government make financial literacy a compulsory course in secondary schools?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 探討在網絡消費極其發達（如網絡遊戲課金、網上預支、貸記）背景下青年財務管理的缺失。",
+                        "<strong>步驟 2:</strong> 分析必修理財教育能教導學生儲蓄規劃、複利、防止掉入借貸陷阱等終身受益的常識。",
+                        "<strong>步驟 3:</strong> 考慮目前課程負擔沉重，反對者可能質疑加重師生學業壓力的矛盾。",
+                        "<strong>步驟 4:</strong> 提出不以傳統死板筆試考核，而是採用趣味財富沙盤演練工作坊形式進入課堂的實作性建議。",
+                        "<strong>步驟 5:</strong> 總結理財即理人生，及早教育能保障青年踏入社會後的個人財務健康與安全。"
+                    ]
+                },
+                {
+                    zh: "13. 在多元文化社會中，我們應該如何消除公眾對少數族裔的宗教飲食文化誤解？",
+                    en: "In a multicultural society, how can we eliminate public misunderstandings about EM religious dietary cultures?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 點出大眾對清真飲食（Halal）、素食等習俗常伴有刻板印象，或給予少數族裔同學生活不便的現狀。",
+                        "<strong>步驟 2:</strong> 提倡學校常態化增設「多元文化飲食節」或「跨文化工作坊」，用食物架起文化理解橋樑。",
+                        "<strong>步驟 3:</strong> 建議餐飲界及學校飯堂標示清真友善、素食對照等標籤，從公共服務落實無障礙共融環境。",
+                        "<strong>步驟 4:</strong> 指出網絡自媒體工作者製作趣味科普短片（由NCS學生與本地學生合演）的正面破冰推廣作用。",
+                        "<strong>步驟 5:</strong> 總結共融始於餐桌、深於理解，互相尊重飲食習慣折射出城市文明的包容底蘊。"
+                    ]
+                },
+                {
+                    zh: "14. 你認為在家工作（WFH）會成為香港未來辦公模式的主流嗎？",
+                    en: "Do you think working from home (WFH) will become the mainstream office model in Hong Kong?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 指出近年科技推動（雲端協作、視訊會議）使遠程辦公完全成為技術可行路徑。",
+                        "<strong>步驟 2:</strong> 分析香港人居環境普遍狹窄、家庭環境干擾多，使大部分僱員更渴望實體安靜辦公空間的痛點。",
+                        "<strong>步驟 3:</strong> 探討 WFH 雖省卻通勤時間，但可能模糊生活與工作界限（Burnout）並削弱團隊實體溝通的缺點。",
+                        "<strong>步驟 4:</strong> 提出「2天遠程+3天在辦公室」的混合辦公（Hybrid Mode）在香港商業環境中更具備長期可操作性。",
+                        "<strong>步驟 5:</strong> 總結主流辦公模式將向更具彈性、人本關懷的多元化方向轉變。"
+                    ]
+                },
+                {
+                    zh: "15. 為了促進社會共融，你認為在政府通告中增加少數族裔語言（如烏爾都語）是否足夠？",
+                    en: "To promote social inclusion, do you think adding EM languages (like Urdu) in government notices is enough?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 肯定增加語種翻譯是基本保障與尊重的表現，但單純「增加語言」絕非終點。",
+                        "<strong>步驟 2:</strong> 指出部分老一代或受教育程度低的少數族裔在文字讀寫上存在跨語言障礙，純文字翻譯效果有限。",
+                        "<strong>步驟 3:</strong> 提倡引入智能語音導讀系統（TTS）及直觀精美、文字簡明（Easy-to-Read）的圖文資訊指引圖。",
+                        "<strong>步驟 4:</strong> 建議政府加強與深耕地區的少數族裔支援機構（NGO）及同鄉領袖網絡合作，以人傳人方式將資訊送上門。",
+                        "<strong>步驟 5:</strong> 總結資訊無障礙是共融的第一步，科技創新輔助與人道溫度相結合，才能穿透語言的壁壘。"
+                    ]
+                }
             ],
             gcse: [
                 {
-                    zh: "角色扮演：你是顧客，前往中餐館點餐。請向服務員詢問推薦菜色、說明你的飲食要求（如不食豬肉），並點一杯飲料。",
+                    zh: "1. 角色扮演：你是顧客，前往中餐館點餐。請向服務員詢問推薦菜色、說明你的飲食要求（如不食豬肉），並點一杯飲料。",
                     en: "Role Play: You are a customer ordering at a Chinese restaurant. Ask the waiter for recommendations, state your dietary requirements (e.g. no pork), and order a drink.",
                     tips: [
                         "<strong>步驟 1 (禮貌啟齒):</strong> 使用熱情禮貌的打招呼方式，如「唔該，我想點餐。」(Excuse me, I'd like to order.)",
@@ -629,46 +770,313 @@
                         "<strong>步驟 4 (完成點餐):</strong> 點一杯飲品作為結尾，如「唔該要一杯凍檸檬茶，少甜。」(Please give me an iced lemon tea, less sweet.)"
                     ]
                 },
-                { zh: "圖片描述：描述一張「在圖書館溫習」的照片。相中人正在做什麼？你平時喜歡在哪裡溫習？", en: "Photo Card: Describe a photo of 'studying in library'. What are they doing? Where do you usually like to study?", tips: ["<strong>步驟 1:</strong> 用中文流暢描述照片背景（如：相入面有兩個人、有一疊書）。","<strong>步驟 2:</strong> 描述照片人物的動作與表情（如：佢哋好專心溫習，面帶笑容）。","<strong>步驟 3:</strong> 表達自己平時的學習偏好及原因（如：我鍾意喺安靜嘅圖書館溫書）。","<strong>步驟 4:</strong> 回答考官相關追問。"] },
-                { zh: "對話：你打算去中國旅行嗎？你想參觀哪些歷史名勝？", en: "Conversation: Do you plan to travel to China? Which historical sites would you like to visit?", tips: ["<strong>步驟 1:</strong> 表明是否想去旅行的意願。","<strong>步驟 2:</strong> 列舉1至2個名勝景點（如：萬里長城、故宮）。","<strong>步驟 3:</strong> 解釋原因（如：我想了解中國古代歷史，一邊欣賞風景）。","<strong>步驟 4:</strong> 表達對當地美食的期待。"] },
-                { zh: "角色扮演：在火車站。你想買一張去機場的車票，詢問票價、乘車時間以及最近的月台。", en: "Role Play: At the train station. You want to buy a ticket to the airport, ask for the price, travel time, and the platform.", tips: ["<strong>步驟 1:</strong> 打招呼：「你好，唔該我想買飛去機場。」","<strong>步驟 2:</strong> 禮貌詢問價格：「請問幾多錢一張飛？」","<strong>步驟 3:</strong> 詢問車程長度：「去到機場要幾耐時間？」","<strong>步驟 4:</strong> 確定上車月台與感謝。"] },
-                { zh: "圖片描述：照片中是一家人在家慶祝春節（農曆新年）。他們正在做什麼？你最喜歡什麼傳統節日？", en: "Photo Card: A family celebrating Lunar New Year at home. What are they doing? What is your favorite traditional festival?", tips: ["<strong>步驟 1:</strong> 描述春節特徵（如：佢哋著紅色衫，牆上面貼咗福字）。","<strong>步驟 2:</strong> 描述照片人的行為（如：佢哋一齊食年夜飯、派利是，好溫馨）。","<strong>步驟 3:</strong> 介紹自己最喜愛的節日並給出理由。","<strong>步驟 4:</strong> 保持語速穩定，咬字清晰。"] },
-                { zh: "對話：談談你的學校生活。你最喜歡哪一個科目？為什麼？", en: "Conversation: Talk about your school life. What is your favorite subject and why?", tips: ["<strong>步驟 1:</strong> 整體評價自己的學校生活（如：我很享受學校生活，有很多朋友）。","<strong>步驟 2:</strong> 說出最愛的學科（如：我最鍾意化學科 / 科學科）。","<strong>步驟 3:</strong> 解釋原因（如：因為可以做實驗，老師教得很生動）。","<strong>步驟 4:</strong> 表達對未來與該學科相關的升學 or 職業期望。"] },
-                { zh: "角色扮演：在衣服店。你想退換一件有污跡的衣服，向店員說明原因，並要求退款或換新衣。", en: "Role Play: At a clothing store. You want to return a stained piece of clothing, explain to clerk and request refund/exchange.", tips: ["<strong>步驟 1:</strong> 禮貌說明問題：「你好，我尋日買咗件衫，但發現上面有污漬。」","<strong>步驟 2:</strong> 指出問題具體位置，並保持語氣堅定但禮貌。","<strong>步驟 3:</strong> 明確表達需求：「請問可唔可以退錢，或者換一件新嘅俾我？」","<strong>步驟 4:</strong> 聽取店員回應並完成手續。"] },
-                { zh: "圖片描述：照片中是人們在郊野公園遠足（Hiking）和野餐。描述照片並談談你對香港大自然的看法。", en: "Photo Card: People hiking and having a picnic in a country park. Describe it and talk about your view on HK nature.", tips: ["<strong>步驟 1:</strong> 描述相中景象：「天氣好好，有好多樹、有藍天白雲。」","<strong>步驟 2:</strong> 描述人物活動：「一家人喺草地上食點心，好放鬆。」","<strong>步驟 3:</strong> 抒發對香港自然風景的驚歎與保護大自然的意識。","<strong>步驟 4:</strong> 用簡單生動的詞語。"] },
-                { zh: "對話：你每天吃什麼來保持健康？你經常做運動嗎？", en: "Conversation: What do you eat daily to stay healthy? Do you exercise regularly?", tips: ["<strong>步驟 1:</strong> 說明自己日常健康飲食習慣（如：我多吃蔬菜水果，少喝糖水）。","<strong>步驟 2:</strong> 分享自己常做的體育活動（如：我每星期去球場踢兩次足球）。","<strong>步驟 3:</strong> 說明保持運動對心理和學業帶來的提神效果。","<strong>步驟 4:</strong> 總結健康的生活作息。"] },
-                { zh: "角色扮演：在酒店前台。你想辦理入住登記，確認房間號碼、早餐時間和免費 Wi-Fi 密碼。", en: "Role Play: At the hotel reception. Check-in, confirm room number, breakfast time, and free Wi-Fi password.", tips: ["<strong>步驟 1:</strong> 出示登記資料：「你好，我有預約，我想check-in。」","<strong>步驟 2:</strong> 詢問房間詳情：「請問我間房喺幾多樓，房號係幾多？」","<strong>步驟 3:</strong> 詢問早餐安排：「早餐時間係幾點開始？」","<strong>步驟 4:</strong> 索取網絡密碼與致謝。"] },
-                { zh: "圖片描述：一張城市交通擁堵的照片。你上學經常塞車嗎？你認為哪種交通工具最方便？", en: "Photo Card: A photo of city traffic jam. Do you experience traffic on the way to school? Which transport is most convenient?", tips: ["<strong>步驟 1:</strong> 描述馬路上的車龍：「馬路上排滿了紅色計程車和雙層巴士，動誕不得。」","<strong>步驟 2:</strong> 描述自己每日上學的交通體驗（如：我搭地鐵，不怕塞車）。","<strong>步驟 3:</strong> 評估 MTR 班次準時、快捷的便利性。","<strong>步驟 4:</strong> 結束陳述，等待追問。"] },
-                { zh: "對話：你放假喜歡和家人一起去旅行，還是和朋友呆在家裡？為什麼？", en: "Conversation: Do you like traveling with family during holidays, or staying home with friends? Why?", tips: ["<strong>步驟 1:</strong> 明確選取一個偏好或表達兩者皆可。","<strong>步驟 2:</strong> 給予具體理由（如：與家人去旅行可以增進感情，增廣見聞）。","<strong>步驟 3:</strong> 分享一次愉快的放假經歷。","<strong>步驟 4:</strong> 保持口齒流利。"] },
-                { zh: "角色扮演：在體育中心。你想報名參加羽毛球課程，詢問學費、上課日期以及是否需要自備球拍。", en: "Role Play: At the sports center. Register for a badminton class, ask about fees, dates, and if you need to bring your own racket.", tips: ["<strong>步驟 1:</strong> 說明來意：「你好，我想報名羽毛球班。」","<strong>步驟 2:</strong> 詢問學費及時段：「請問學費幾多錢，下星期幾上堂？」","<strong>步驟 3:</strong> 詢問裝備要求：「我需唔需要自己帶羽毛球拍去堂上？」","<strong>步驟 4:</strong> 感謝並記錄詳情。"] },
-                { zh: "圖片描述：一幅描繪海洋污染、沙灘佈滿塑膠垃圾的照片。你認為我們應該如何保護海洋？", en: "Photo Card: Marine pollution and plastic trash on beach. How do you think we can protect our oceans?", tips: ["<strong>步驟 1:</strong> 指起照片中的髒亂景象：「美麗的沙灘上堆滿了塑膠瓶和垃圾袋。」","<strong>步驟 2:</strong> 痛心表達污染對海洋生物（如海龜、魚類）的致命危害。","<strong>步驟 3:</strong> 提出個人及政策建議（如減少一次性餐具、積極參與淨灘）。","<strong>步驟 4:</strong> 結束，有條理作答。"] },
-                { zh: "對話：中學畢業後，你打算找工作、去大學讀書，還是先休息一年去旅行？", en: "Conversation: After secondary school graduation, do you plan to find a job, go to university, or take a gap year?", tips: ["<strong>步驟 1:</strong> 誠實陳述畢業後的短期目標與人生規劃。","<strong>步驟 2:</strong> 表達對大學學位 or 心儀學科的強烈追求熱情（如想學習商業或資訊科技）。","<strong>步驟 3:</strong> 描述此規劃對自己未來職涯長遠發展的鋪墊作用。","<strong>步驟 4:</strong> 結語。"] }
+                {
+                    zh: "2. 圖片描述：描述一張「在圖書館溫習」的照片。相中人正在做什麼？你平時喜歡在哪裡溫習？",
+                    en: "Photo Card: Describe a photo of 'studying in library'. What are they doing? Where do you usually like to study?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 用中文流暢描述照片背景（如：相入面有兩個人、有一疊書）。",
+                        "<strong>步驟 2:</strong> 描述照片人物的動作與表情（如：佢哋好專心溫習，面帶笑容）。",
+                        "<strong>步驟 3:</strong> 表達自己平時的學習偏好及原因（如：我鍾意喺安靜嘅圖書館溫書）。",
+                        "<strong>步驟 4:</strong> 回答考官相關追問。"
+                    ]
+                },
+                {
+                    zh: "3. 對話：你打算去中國旅行嗎？你想參觀哪些歷史名勝？",
+                    en: "Conversation: Do you plan to travel to China? Which historical sites would you like to visit?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 表明是否想去旅行的意願，展示積極性。",
+                        "<strong>步驟 2:</strong> 列舉1至2個名勝景點（如：萬里長城、北京故宮、西安兵馬俑）。",
+                        "<strong>步驟 3:</strong> 簡要解釋原因（如：我想了解中國古代歷史，一邊欣賞風景）。",
+                        "<strong>步驟 4:</strong> 表達對當地美食與文化體驗的強烈期待，豐富談話細節。"
+                    ]
+                },
+                {
+                    zh: "4. 角色扮演：在火車站。你想買一張去機場的車票，詢問票價、乘車時間以及最近的月台。",
+                    en: "Role Play: At the train station. You want to buy a ticket to the airport, ask for the price, travel time, and the platform.",
+                    tips: [
+                        "<strong>步驟 1:</strong> 禮貌打招呼啟齒：「你好，唔該我想買一張去機場嘅車票。」",
+                        "<strong>步驟 2:</strong> 發問價格：「請問票價幾多錢一張？」",
+                        "<strong>步驟 3:</strong> 詢問班次與車程長度：「去到機場要坐幾耐時間？」",
+                        "<strong>步驟 4:</strong> 確定上車月台與感謝：「最近嘅月台喺邊度？多謝你。」"
+                    ]
+                },
+                {
+                    zh: "5. 圖片描述：照片中是一家人在家慶祝春節（農曆新年）。他們正在做什麼？你最喜歡什麼傳統節日？",
+                    en: "Photo Card: A family celebrating Lunar New Year at home. What are they doing? What is your favorite traditional festival?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 描述春節特徵（如：佢哋著紅色衫，牆上面貼咗福字、掛著燈籠）。",
+                        "<strong>步驟 2:</strong> 描述照片人的行為（如：佢哋一齊食年夜飯、長輩派利是給小孩子，好溫馨）。",
+                        "<strong>步驟 3:</strong> 介紹自己最喜愛的宗教或傳統節日並給出文化理由（例如屠妖節、開齋節）。",
+                        "<strong>步驟 4:</strong> 保持語速穩定，咬字清晰，適當發揮。"
+                    ]
+                },
+                {
+                    zh: "6. 對話：談談你的學校生活。你最喜歡哪一個科目？為什麼？",
+                    en: "Conversation: Talk about your school life. What is your favorite subject and why?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 整體評價自己的學校生活（如：我很享受中學生活，有好多同學一齊）。",
+                        "<strong>步驟 2:</strong> 說出最愛的學科（如：我最鍾意化學科 / 科學科 / 體育）。",
+                        "<strong>步驟 3:</strong> 解釋原因（如：因為可以做科學實驗，或者老師教學非常生動有趣）。",
+                        "<strong>步驟 4:</strong> 表達對未來與該學科相關的升學學位或職業期望。"
+                    ]
+                },
+                {
+                    zh: "7. 角色扮演：在衣服店。你想退換一件有污跡的衣服，向店員說明原因，並要求退款或換新衣。",
+                    en: "Role Play: At a clothing store. You want to return a stained piece of clothing, explain to clerk and request refund/exchange.",
+                    tips: [
+                        "<strong>步驟 1:</strong> 禮貌說明問題：「你好，我尋日喺度買咗件衫，但返去發現上面有污漬。」",
+                        "<strong>步驟 2:</strong> 指出問題具體位置，並保持語氣客氣、出示小票收據證明。",
+                        "<strong>步驟 3:</strong> 明確表達需求：「請問可唔可以退錢，或者換一件同款全新嘅俾我？」",
+                        "<strong>步驟 4:</strong> 聽取店員回應，禮貌表示理解與配合。"
+                    ]
+                },
+                {
+                    zh: "8. 圖片描述：照片中是人們在郊野公園遠足（Hiking）和野餐。描述照片並談談你對香港大自然的看法。",
+                    en: "Photo Card: People hiking and having a picnic in a country park. Describe it and talk about your view on HK nature.",
+                    tips: [
+                        "<strong>步驟 1:</strong> 描述相中自然景象：「天氣好好，有好多樹、有藍天白雲、青草地。」",
+                        "<strong>步驟 2:</strong> 描述人物活動：「一班朋友喺草地上食點心，旁邊有行山杖，好開心好放鬆。」",
+                        "<strong>步驟 3:</strong> 抒發對香港自然風景高低起伏的驚歎與保護大自然、不亂丟垃圾的意識。",
+                        "<strong>步驟 4:</strong> 用簡單生動的詞語流暢作答。"
+                    ]
+                },
+                {
+                    zh: "9. 對話：你每天吃什麼來保持健康？你經常做運動嗎？",
+                    en: "Conversation: What do you eat daily to stay healthy? Do you exercise regularly?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 說明自己日常健康飲食習慣（如：我每天都多吃蔬菜、多喝水，少吃垃圾食物）。",
+                        "<strong>步驟 2:</strong> 分享自己常做的體育活動（如：我每星期去球場踢兩次足球，或者和朋友打籃球）。",
+                        "<strong>步驟 3:</strong> 說明保持運動對減緩學業壓力和提升精神的正面效果。",
+                        "<strong>步驟 4:</strong> 總結健康的生活作息是我們生活的保障。"
+                    ]
+                },
+                {
+                    zh: "10. 角色扮演：在酒店前台。你想辦理入住登記，確認房間號碼、早餐時間和免費 Wi-Fi 密碼。",
+                    en: "Role Play: At the hotel reception. Check-in, confirm room number, breakfast time, and free Wi-Fi password.",
+                    tips: [
+                        "<strong>步驟 1:</strong> 出示登記資料：「你好，我叫阿里，有預約今日入住，我想check-in。」",
+                        "<strong>步驟 2:</strong> 詢問房間詳情：「請問我間房喺幾多樓，房號係幾多？有冇海景？」",
+                        "<strong>步驟 3:</strong> 詢問早餐安排：「唔該，請問早餐時間係幾點開始，喺邊個餐廳食？」",
+                        "<strong>步驟 4:</strong> 索取網絡密碼並致謝：「可唔可以提供免費 Wi-Fi 嘅密碼？唔該晒你。」"
+                    ]
+                },
+                {
+                    zh: "11. 圖片描述：一張城市交通擁堵的照片。你上學經常塞車嗎？你認為哪種交通工具最方便？",
+                    en: "Photo Card: A photo of city traffic jam. Do you experience traffic on the way to school? Which transport is most convenient?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 描述馬路上的車龍：「馬路上排滿了紅色計程車和雙層巴士，密密麻麻，動彈不得。」",
+                        "<strong>步驟 2:</strong> 描述自己每日上學的交通體驗（如：我多搭地鐵上學，所以不怕路上塞車）。",
+                        "<strong>步驟 3:</strong> 評估 MTR 或巴士的利弊，得出什麼交通工具最省時方便的個人結論。",
+                        "<strong>步驟 4:</strong> 簡要概括，等待考官追問。"
+                    ]
+                },
+                {
+                    zh: "12. 對話：你放假喜歡和家人一起去旅行，還是和朋友呆在家裡？為什麼？",
+                    en: "Conversation: Do you like traveling with family during holidays, or staying home with friends? Why?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 明確選取一個偏好，或指出不同情況下兩種活動各有其樂趣。",
+                        "<strong>步驟 2:</strong> 給予具體理由（如：與家人去旅行可以增進感情，增廣見聞，父母會負責費用）。",
+                        "<strong>步驟 3:</strong> 對比與朋友在家打機或出門的自由度與快樂氛圍。",
+                        "<strong>步驟 4:</strong> 分享一次令人難忘的假期經驗，令答案飽滿。"
+                    ]
+                },
+                {
+                    zh: "13. 角色扮演：在體育中心。你想報名參加羽毛球課程，詢問學費、上課日期以及是否需要自備球拍。",
+                    en: "Role Play: At the sports center. Register for a badminton class, ask about fees, dates, and if you need to bring your own racket.",
+                    tips: [
+                        "<strong>步驟 1:</strong> 說明來意：「你好，我對羽毛球好有興趣，我想報名羽毛球班。」",
+                        "<strong>步驟 2:</strong> 詢問學費及時段：「請問學費幾多錢，下星期幾上堂？上堂時間是幾點？」",
+                        "<strong>步驟 3:</strong> 詢問裝備要求：「我需唔需要自己帶羽毛球拍，定係你哋會提供？」",
+                        "<strong>步驟 4:</strong> 感謝並確認報名詳情，禮貌告別。"
+                    ]
+                },
+                {
+                    zh: "14. 圖片描述：一幅描繪海洋污染、沙灘佈滿塑膠垃圾的照片。你認為我們應該如何保護海洋？",
+                    en: "Photo Card: Marine pollution and plastic trash on beach. How do you think we can protect our oceans?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 指起照片中的髒亂景象：「本來美麗的沙灘上堆滿了遊客丟棄的塑膠瓶、外賣盒和垃圾袋。」",
+                        "<strong>步驟 2:</strong> 痛心表達污染對海洋生物（如海龜、海鳥）的致命危害，展現關懷心。",
+                        "<strong>步驟 3:</strong> 提出個人及政策建議（如減少一次性餐具、出海玩不亂扔廢物、積極參與淨灘義工）。",
+                        "<strong>步驟 4:</strong> 條理分明，用詞準確，自信結束陳述。"
+                    ]
+                },
+                {
+                    zh: "15. 對話：中學畢業後，你打算找工作、去大學讀書，還是先休息一年去旅行？",
+                    en: "Conversation: After secondary school graduation, do you plan to find a job, go to university, or take a gap year?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 誠實陳述中學畢業後的短期目標與長期人生規劃藍圖。",
+                        "<strong>步驟 2:</strong> 表達對心儀大學學位 or 學科（如想學習商科、資訊科技、設計）的強烈追求熱情。",
+                        "<strong>步驟 3:</strong> 描述此規劃（例如先讀副學士或讀VTC課程）對自己未來職涯長遠發展的鋪墊作用。",
+                        "<strong>步驟 4:</strong> 展現青年人積極奮進、不畏艱難的蓬勃朝氣，完美結束對話。"
+                    ]
+                }
             ],
             alevel: [
                 {
-                    zh: "自主研究計劃 (IRP) 報告發表：請利用 2 分鐘時間，就你所選擇的華人社會文化研究主題（如：農曆新年的社會演變）進行口頭演講介紹。",
-                    en: "IRP Presentation: Please use 2 minutes to introduce your chosen Chinese society/culture research topic (e.g., social evolution of Lunar New Year).",
+                    zh: "1. 自主研究計劃 (IRP) 報告發表：請就你所選擇的華人社會文化研究主題（如：農曆新年的社會演變）進行口頭演講介紹。",
+                    en: "IRP Presentation: Please introduce your chosen Chinese society/culture research topic (e.g., social evolution of Lunar New Year).",
                     tips: [
-                        "<strong>步驟 1 (焦點明確):</strong> 首段直奔主題，點出你選定的 IRP 題目及研究核心價值。",
-                        "<strong>步驟 2 (背景分析與變遷):</strong> 闡述華人社會背景的轉變（如從傳統團聚到現代科技拜年、網上紅包等現象）。",
-                        "<strong>步驟 3 (實證與數據支撐):</strong> 引用具體調查、新聞報導或歷史論據以增強可信度。",
-                        "<strong>步驟 4 (反思與個人見解):</strong> 分析該文化演變對未來共融或少數族裔適應的啟示。"
+                        "<strong>步驟 1 (焦點明確):</strong> 首段直奔主題，點出你選定的 IRP 題目、研究的核心假設及主要探討維度。",
+                        "<strong>步驟 2 (背景分析與變遷):</strong> 闡述華人社會背景的轉變（如從傳統家族團聚到現代科技拜年、網上虛擬紅包等新現象）。",
+                        "<strong>步驟 3 (實證與數據支撐):</strong> 引用具體社會學調查數據、新聞報導或歷史學家論據以增強演講的說服力與深度。",
+                        "<strong>步驟 4 (反思與個人見解):</strong> 分析該文化演變對未來跨文化共融或少數族裔適應的社會學啟示。",
+                        "<strong>步驟 5 (宏觀總結):</strong> 展望未來發展，條理清晰地收束報告，預備回答考官提問。"
                     ]
                 },
-                { zh: "研究問答 (IRP Q&A)：考官挑戰你：「在你的研究中，你認為現代化對傳統中國節日文化造成了破壞，還是促進了其全球傳播？」", en: "IRP Q&A: Examiner challenges: 'In your research, do you think modernization ruined traditional festivals or helped global spread?'", tips: ["<strong>步驟 1:</strong> 接受並感謝考官極具深度的主題提問。","<strong>步驟 2:</strong> 立論：現代化是一把「雙刃劍」。一方面部分繁瑣儀式被簡化。","<strong>步驟 3:</strong> 舉例：網絡春晚、電子利是、社交媒體宣傳等，讓非華語人士也能在線上輕鬆參與並了解節日。","<strong>步驟 4:</strong> 總結：核心精神不變，形式適應時代。"] },
-                { zh: "社會演變：談談中國改革開放以來，城市化（Urbanization）帶來的社會問題（如留守兒童、農民工權益）。", en: "Social Evolution: Talk about social issues caused by urbanization since China's reform (e.g., left-behind children).", tips: ["<strong>步驟 1:</strong> 釐清時間線：自1978年以來的快速城市化與經濟騰飛。","<strong>步驟 2:</strong> 剖析城鄉差距拉大、數以千萬計農民工進城務工背後的辛酸。","<strong>步驟 3:</strong> 重點談留守兒童在鄉村缺乏教育與親情呵護的安全和心理隱憂。","<strong>步驟 4:</strong> 提出近年政府在戶籍改革與鄉村振興上作出的努力。"] },
-                { zh: "自主研究發表：你的研究課題是「曹禺劇作《雷雨》中的女性悲劇形象分析」，請簡述其時代背景與核心人物。", en: "IRP Presentation: Your topic is 'Analysis of female tragedy in Cao Yu's Thunderstorm', summarize the historical background and key roles.", tips: ["<strong>步驟 1:</strong> 介紹《雷雨》創作於1930年代，反映封建大家庭與新思潮的激烈衝突。","<strong>步驟 2:</strong> 重點剖析女主角「繁漪」敢於反抗卻被舊體制吞噬的命運。","<strong>步驟 3:</strong> 分析作者曹禺對舊社會家長制壓迫的無情揭露。","<strong>步驟 4:</strong> 說明你選取此文學作品的研究目的。"] },
-                { zh: "研究問答：《雷雨》中，繁漪的反抗最終失敗，這對當時中國現代社會變遷有什麼預示意義？", en: "IRP Q&A: Fanyi's resistance eventually failed in Thunderstorm, what does this foreshadow for modern social change in China?", tips: ["<strong>步驟 1:</strong> 回答要切中封建堡壘的頑固性，預示變革過程將是極其痛苦和漫長的。","<strong>步驟 2:</strong> 闡述繁漪反抗失敗是時代的必然，喚醒了新一代青年徹底砸碎舊觀念的決心。","<strong>步驟 3:</strong> 點明這部經典對當時新文化運動（New Culture Movement）的深刻推動作用。","<strong>步驟 4:</strong> 嚴謹回答。"] },
-                { zh: "演進中的華人社會：你如何看待香港或華人社會中「少子化」與「老齡化」帶來的長遠經濟危機？", en: "Evolving Society: How do you view long-term economic crisis from low birthrates & aging population in HK?", tips: ["<strong>步驟 1:</strong> 闡明少子化導致勞動力供給斷層、醫療養老支出倍增的深層危機。","<strong>步驟 2:</strong> 探討長遠對政府財政儲備與社會經濟活力（如房地產、各行各業）產生的萎縮效應。","<strong>步驟 3:</strong> 提出應對措施：延遲退休、引入外來專業人才及對少數族裔青年提供全方位職業支援。","<strong>步驟 4:</strong> 總結。"] },
-                { zh: "自主研究發表：請介紹你對「香港茶餐廳文化在當代國際都市中的傳承與面臨的挑戰」的研究成果。", en: "IRP Presentation: Introduce research on 'Heritage & challenges of HK Cha Chaan Teng culture in modern cosmopolitan'.", tips: ["<strong>步驟 1:</strong> 破體說明茶餐廳體現了中西文化交融、市井高效的獨特香港特色。","<strong>步驟 2:</strong> 指出目前租金昂貴、連鎖店壟斷與傳統手工（如拉絲襪奶茶）後繼無人的經營瓶頸。","<strong>步驟 3:</strong> 著重將茶餐廳申請為非物質文化遺產的宣傳意義。","<strong>步驟 4:</strong> 總結核心發現。"] },
-                { zh: "研究問答：有部分人認為，茶餐廳環境雜亂、不夠健康，終將被精緻西式咖啡廳取代。你是否同意？", en: "IRP Q&A: Some think Cha Chaan Teng will be replaced by boutique cafes due to hygiene & health issues. Do you agree?", tips: ["<strong>步驟 1:</strong> 採取客觀辯證立場。茶餐廳代表著中西方飲食文化在香港的有機融合，其生命力極強。","<strong>步驟 2:</strong> 許多「新式冰室」在裝修、衛生和健康少油菜單上已主動革新。","<strong>步驟 3:</strong> 指出茶餐廳是香港草根人情味的載體。","<strong>步驟 4:</strong> 結論立意高遠。"] },
-                { zh: "演進中的華人社會：近年在中國青年群體中流行的「躺平」與「內卷」文化，折射出怎樣的社會心態？", en: "Evolving Society: What social mindset is reflected by 'Lying Flat' & 'Involution' trends in Chinese youth?", tips: ["<strong>步驟 1:</strong> 明確界定「內卷」（過度無效競爭）與「躺平」（低欲望退出競爭）的定義。","<strong>步驟 2:</strong> 分析底層原因：生活成本高昂、高學歷青年面臨就業市場飽和、社會階層流動變慢。","<strong>步驟 3:</strong> 評估此心態對國家長遠經濟活力及青年心理健康造成的深重影響。","<strong>步驟 4:</strong> 呼籲提供更公平多元的職業上升通道。"] },
-                { zh: "自主研究發表：請講述你對「中國一線城市中垃圾分類政策（如上海模式）的實施障礙與成效」的研究。", en: "IRP Presentation: Talk about your study on 'Obstacles & results of waste sorting policies in Tier 1 cities (Shanghai model)'.", tips: ["<strong>步驟 1:</strong> 點明上海垃圾分類立法對中國綠色環保的開拓性標竿意義。","<strong>步驟 2:</strong> 分析實施初期的痛點：市民分類知識不足、定時定點投放對朝九晚五上班族的極大不便。","<strong>步驟 3:</strong> 展現成效：透過智能垃圾房、居委會宣傳，濕垃圾回收率等指標大幅提升。","<strong>步驟 4:</strong> 提出研究反思。"] },
-                { zh: "研究問答：你認為中國要實現全國性的強制垃圾分類，最大的軟硬件瓶頸在哪裡？", en: "IRP Q&A: What is the biggest soft & hard bottleneck to achieve nationwide compulsory waste sorting in China?", tips: ["<strong>步驟 1:</strong> 硬件層面：二三線城市和中西部農村地區缺乏現代化的垃圾分類運輸車輛與末端分類處理廠。","<strong>步驟 2:</strong> 軟件層面：公眾環保意識的持久度不夠，缺乏長效的法治與經濟獎懲機制。","<strong>步驟 3:</strong> 強調宣傳與政策扶持的平衡配合。","<strong>步驟 4:</strong> 結束回答。"] },
-                { zh: "當代華人社會：在中國推行「三孩政策」以應對人口危機，為何面臨年輕夫婦生育意願低迷的巨大阻力？", en: "Evolving Society: Why does the 'Three-Child Policy' face massive resistance from young couples' low fertility desire?", tips: ["<strong>步驟 1:</strong> 指出生育、養育、教育（三座大山）的高昂經濟成本。","<strong>步驟 2:</strong> 探討現代女性在職場玻璃天花板及生育假後就業歧視等權益衝突。","<strong>步驟 3:</strong> 剖析年輕人對個人生活品質與自由的追求超過傳統多子多福觀念。","<strong>步驟 4:</strong> 建議：必須提供房屋補貼、普惠托育等全方位政策配套。"] },
-                { zh: "自主研究發表：介紹你對「香港少數族裔在本地主流中學中文教育下的適應與困境」的研究課題。", en: "IRP Presentation: Introduce your topic on 'Adaptation & dilemma of HK ethnic minorities in local mainstream Chinese curricula'.", tips: ["<strong>步驟 1:</strong> 直言指出香港大部分主流學校對非華語生缺乏抽離式、客製化教材的教育困境。","<strong>步驟 2:</strong> 探討 DSE 中文考試過於偏重文言文、文學底蘊，對生活應用的 NCS 生造成的巨大挫折。","<strong>步驟 3:</strong> 肯定替代中文資歷（ApL(C)、GCSE）在升學出路上起到的安全網作用。","<strong>步驟 4:</strong> 呼籲改革主流課程。"] },
-                { zh: "研究問答：有校長建議，應該讓非華語學生在小學階段直接與本地生合班進行無差別教學。你同意這個觀點嗎？", en: "IRP Q&A: Some principals suggest NCS students should be integrated unconditionally into mainstream classes since primary school. Do you agree?", tips: ["<strong>步驟 1:</strong> 採取客觀辯證立場。小學早期融入對建立純正粵語語境與文化融入確有黃金期的優勢。","<strong>步驟 2:</strong> 強烈指出：若沒有「課後課堂雙軌支援」與「分級輔助教材」，無差別教學只會讓孩子從小在成績上被邊緣化。","<strong>步驟 3:</strong> 提出「有支援的合班、有層次的教學」的核心方針。","<strong>步驟 4:</strong> 總結回答。"] },
-                { zh: "當代華人社會：移動支付和電子政務的全面普及，是否正在加劇中國長者及部分弱勢群體的「數碼鴻溝」？", en: "Evolving Society: Does mobile payment & e-government exacerbate 'Digital Divide' for elderly in China?", tips: ["<strong>步驟 1:</strong> 承認便利性的同時，大聲疾呼被邊緣化的「無網長者」日常就醫、乘車和繳費的重重困難。","<strong>步驟 2:</strong> 分析智能科技過快迭代對長者認知和安全感造成的衝擊。","<strong>步驟 3:</strong> 讚許政府近年推動的「公共服務保留現金及人工窗口」政策。","<strong>步驟 4:</strong> 呼籲在產品設計端進行人性化考量，共創包容社會。"]
+                {
+                    zh: "2. 研究問答 (IRP Q&A)：考官挑戰你：「在你的研究中，你認為現代化對傳統中國節日文化造成了破壞，還是促進了其全球傳播？」",
+                    en: "IRP Q&A: Examiner challenges: 'In your research, do you think modernization ruined traditional festivals or helped global spread?'",
+                    tips: [
+                        "<strong>步驟 1:</strong> 接受並感謝考官極具深度的主題提問，展現高級學術對談的禮儀與自信。",
+                        "<strong>步驟 2:</strong> 提出辯證立論：現代化是一把「雙刃劍」，繁複儀式被簡化，但其文化內涵和文化張力得以釋放。",
+                        "<strong>步驟 3:</strong> 舉出實證：網絡拜年、電子利是、社交媒體宣傳等，使得非華語群體能不受地理限制在線上輕鬆參與並理解春節。",
+                        "<strong>步驟 4:</strong> 強調核心價值（如家庭、團聚、感恩）是不變的，現代化只是革新了文化的物理載體。",
+                        "<strong>步驟 5:</strong> 簡要且富有條理地重申結論，完美回應考官的學術挑戰。"
+                    ]
+                },
+                {
+                    zh: "3. 社會演變：談談中國改革開放以來，快速城市化（Urbanization）帶來的深層社會問題（如留守兒童、農民工權益）。",
+                    en: "Social Evolution: Talk about social issues caused by rapid urbanization since China's reform (e.g., left-behind children).",
+                    tips: [
+                        "<strong>步驟 1:</strong> 釐清時代大歷史背景：自1978年以來的經濟騰飛、快速城市化引發的城鄉大流動。",
+                        "<strong>步驟 2:</strong> 剖析城鄉差距拉大、數以億計農民工進城務工面臨的戶籍、醫療、子女入學等權益缺失障礙。",
+                        "<strong>步驟 3:</strong> 著重論述「留守兒童」在鄉村因親情缺失、教育資源分配不均造成的心理健康及社會治安安全隱患。",
+                        "<strong>步驟 4:</strong> 引入近年政府在戶籍制度改革（如居住證制度）與「鄉村振興」戰略上的應對政策與階段性成效。",
+                        "<strong>步驟 5:</strong> 從社會學視角客觀總結，指出城鄉協調發展、落實民生權益保障是可持續城鎮化的必由之路。"
+                    ]
+                },
+                {
+                    zh: "4. 自主研究發表：你的研究課題是「曹禺劇作《雷雨》中的女性悲劇形象分析」，請簡述其時代背景與核心人物命運。",
+                    en: "IRP Presentation: Your topic is 'Analysis of female tragedy in Cao Yu's Thunderstorm', summarize the historical background and key roles.",
+                    tips: [
+                        "<strong>步驟 1:</strong> 簡明扼要介紹《雷雨》創作於1930年代，反映民國時期封建大家庭與現代新思潮的劇烈撞擊。",
+                        "<strong>步驟 2:</strong> 重點剖析女主角「蘩漪」身上扭曲、病態卻又敢於反抗封建禮教壓迫的「雷雨」般性格魅力。",
+                        "<strong>步驟 3:</strong> 分析其悲劇根源——深受資產階級個性解放思想啟蒙，卻無力掙脫封建大家長周樸園的精神和肉體摧殘。",
+                        "<strong>步驟 4:</strong> 說明你選取此文學名著進行性別研究與社會歷史批判的研究動機及方法。",
+                        "<strong>步驟 5:</strong> 總結蘩漪悲劇折射出舊體制瓦解前夜的黑暗與新女性覺醒的痛苦歷程。"
+                    ]
+                },
+                {
+                    zh: "5. 研究問答：在《雷雨》中，蘩漪的反抗最終招致毀滅，這對當時中國現代社會變遷有什麼預示和啟示意義？",
+                    en: "IRP Q&A: Fanyi's resistance eventually failed in Thunderstorm, what does this tell us about modern social change in China?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 回答要切中封建專制堡壘的頑固與強大，預示社會變革與個性解放的道路注定是血淋淋、極其漫長的。",
+                        "<strong>步驟 2:</strong> 闡明蘩漪反抗的悲劇性失敗在美學上的「震撼力」，反而喚醒了當時新一代知識分子徹底砸碎封建枷鎖的決心。",
+                        "<strong>步驟 3:</strong> 點明這部戲劇的發表對新文化運動（New Culture Movement）及現代中國話劇話語體系的深遠奠基意義。",
+                        "<strong>步驟 4:</strong> 聯繫到當代社會女性地位的提升，反襯出該作品超越時代的文學生命力。",
+                        "<strong>步驟 5:</strong> 結構嚴密、一氣呵成地回應考官，展現出高水準的文學鑑賞及思辨深度。"
+                    ]
+                },
+                {
+                    zh: "6. 演進中的華人社會：你如何看待香港或華人社會中「少子化」與「老齡化」雙重人口危機對長遠經濟發展的衝擊？",
+                    en: "Evolving Society: How do you view long-term economic crisis from low birthrates & aging population in HK?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 指出少子老齡化導致勞動力供給斷崖式下降、全社會撫養比激增、醫療社福財政開支面臨破產邊緣的現狀。",
+                        "<strong>步驟 2:</strong> 探討長遠對政府財政、社會消費活力萎縮及科技創新力、房地產市場下行帶來的深遠萎縮效應。",
+                        "<strong>步驟 3:</strong> 提出綜合應對措施：建立生育友善社會、延長退休年齡、推動生產力AI自動化及主動吸納跨國優秀人才（如NCS青年）。",
+                        "<strong>步驟 4:</strong> 論述移民政策和多元共融人才庫建設在緩解本地人口短缺問題上的潛在戰略意義。",
+                        "<strong>步驟 5:</strong> 總結人口是發展基石，及時轉變政策和經濟結構，才能在銀髮浪潮中維持可持續動能。"
+                    ]
+                },
+                {
+                    zh: "7. 自主研究發表：請介紹你對「香港茶餐廳文化在當代國際都市中的傳承與面臨的挑戰」的研究成果。",
+                    en: "IRP Presentation: Introduce research on 'Heritage & challenges of HK Cha Chaan Teng culture in modern cosmopolitan'.",
+                    tips: [
+                        "<strong>步驟 1:</strong> 破題：茶餐廳折射出中西飲食交融、廉價高效、人情味滿溢的香港本土草根精神特徵。",
+                        "<strong>步驟 2:</strong> 指出當前傳承困境：地產霸權導致租金飛漲、大財團連鎖冰室壟斷，以及絲襪奶茶、手工菠蘿包工藝面臨失傳風險。",
+                        "<strong>步驟 3:</strong> 分析全球化下快餐文化衝擊與年青一代對傳統餐飲辛苦工作環境的疏離心態。",
+                        "<strong>步驟 4:</strong> 提出政策建議：將傳統製作工藝、港式冰室申請為聯合國非物質文化遺產，並進行旅遊活化包裝推廣。",
+                        "<strong>步驟 5:</strong> 總結茶餐廳是活生生的香港歷史，守護它是守護港人集體記憶（Collective Memory）的重要基石。"
+                    ]
+                },
+                {
+                    zh: "8. 研究問答：有部分人認為，傳統茶餐廳衛生堪憂、效率喧囂，終將被精緻連鎖西式咖啡廳所取代。你是否同意？",
+                    en: "IRP Q&A: Some think Cha Chaan Teng will be replaced by boutique cafes due to hygiene & health issues. Do you agree?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 採取客觀辯證、堅定守護本土文化的立場：茶餐廳具有頑強的適應力，絕不可能被精緻西餐完全取代。",
+                        "<strong>步驟 2:</strong> 舉證新式「文青冰室」或品牌化茶餐廳在店面裝修、食品衛生及「低糖少鹽」健康菜單上的主動革新步伐。",
+                        "<strong>步驟 3:</strong> 分析茶餐廳提供「中西合璧、款式繁多」的親民、高性價比餐食，是西式單一咖啡廳在市場定位上無法替代的。",
+                        "<strong>步驟 4:</strong> 點明茶餐廳特有的「拼桌、搭枱、伙記親切問候」是港人不可磨滅的基層人情紐帶。",
+                        "<strong>步驟 5:</strong> 總結茶餐廳的演變不是走向消亡，而是自我重塑，將與高級咖啡廳在多元市場中和諧共存。"
+                    ]
+                },
+                {
+                    zh: "9. 演進中的華人社會：近年在中國青年群體中流行的「躺平」與「內卷」文化，折射出怎樣的社會心態？",
+                    en: "Evolving Society: What social mindset is reflected by 'Lying Flat' & 'Involution' trends in Chinese youth?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 嚴謹定義「內卷」（過度飽和、無實質突破的惡性淘汰競爭）與「躺平」（主動降低物質欲望、退出競爭）的社會學概念。",
+                        "<strong>步驟 2:</strong> 剖析底層社會病因：一線城市房價高企、生活成本難以負擔、階層通道流動減速與職場高度超載（如996制度）。",
+                        "<strong>步驟 3:</strong> 評估此消極或無效競爭心態對國家人口生育率、宏觀創新活力及青年心理抑鬱健康產生的深遠影響。",
+                        "<strong>步驟 4:</strong> 提出治本之道：推動勞動保障法切實落地、創造多元化、去單一考核標準的社會評價機制與職業路徑。",
+                        "<strong>步驟 5:</strong> 總結躺平是無聲的反抗，正視青年的焦慮並引導他們重塑奮鬥的獲得感，是和諧社會建設的當務之急。"
+                    ]
+                },
+                {
+                    zh: "10. 自主研究發表：請講述你對「中國一線城市中垃圾分類政策（如上海模式）的實施障礙與成效」的研究課題。",
+                    en: "IRP Presentation: Talk about your study on 'Obstacles & results of waste sorting policies in Tier 1 cities (Shanghai model)'.",
+                    tips: [
+                        "<strong>步驟 1:</strong> 點明上海率先於2019年推行強制性垃圾分類，在中國綠色城市治理和生態文明轉型中起到的風向標作用。",
+                        "<strong>步驟 2:</strong> 客觀分析早期實施的「四大痛點」：垃圾分类知識繁瑣難記、定時定點投放與上班族作息衝突，以及初期執法成本高。",
+                        "<strong>步驟 3:</strong> 展示研究發現的豐碩成效：通過智能投放箱、物業大數據考核以及居委會大媽的社群組織力，濕垃圾分類率大幅提升。",
+                        "<strong>步驟 4:</strong> 探討上海模式對全國二三線城市在硬件設施不均、財政補貼能力受限情況下的借鑑與推廣價值。",
+                        "<strong>步驟 5:</strong> 總結這場垃圾分類戰役是中國由「粗放型城市管理」邁向「精細化、生態型社會治理」的成功探索。"
+                    ]
+                },
+                {
+                    zh: "11. 研究問答：在你的研究中，你認為中國要實現全國性的強制垃圾分類，最大的軟硬件瓶頸各在何處？",
+                    en: "IRP Q&A: What is the biggest soft & hard bottleneck to achieve nationwide compulsory waste sorting in China?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 條理分明作答：分為「硬件基礎」與「軟件心態」兩個層面進行結構化拆解。",
+                        "<strong>步驟 2:</strong> 硬件瓶頸：中西部及廣大農村地區嚴重缺乏現代化的垃圾分類收運專車、廚餘發酵末端處理廠和電子監控設施。",
+                        "<strong>步驟 3:</strong> 軟件瓶頸：市民長期形成「一包扔、混合扔」的慣性，環保意識缺乏法規剛性約束，執法隊伍在基層治理層面面臨衝突阻力。",
+                        "<strong>步驟 4:</strong> 提出克服之道：將垃圾分類納入中小學必修教育、提供分類經濟积分回饋，並採取因地制宜的漸進式政策。",
+                        "<strong>步驟 5:</strong> 自信流暢收尾，總結硬件需投入，軟件靠習慣，兩者相輔相成。"
+                    ]
+                },
+                {
+                    zh: "12. 當代華人社會：在中國推行「三孩政策」以應對人口老齡化，為何面臨年輕夫婦生育意願低迷的巨大阻力？",
+                    en: "Evolving Society: Why does the 'Three-Child Policy' face massive resistance from young couples' low fertility desire?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 尖銳指出「限制生育」轉變為「鼓勵生育」背後，年輕人面臨「生得起，養不起，教不起」的真實大山壓力。",
+                        "<strong>步驟 2:</strong> 剖析高昂的學區房、課外培訓軍備競賽等「教育成本」以及職場女性面臨的「生育歧視、職業中斷」痛點。",
+                        "<strong>步驟 3:</strong> 探討現代青年「自我實現、精神享受」觀念對傳統「傳宗接代、養兒防老」觀念的全面顛覆。",
+                        "<strong>步驟 4:</strong> 強調單純放寬生育限制無效，必須從房價調控、普惠托育服務、落實男性育兒假及職業女性平權等深層制度入手。",
+                        "<strong>步驟 5:</strong> 總結生育是私事亦是公事，只有解除後顧之憂，家庭繁衍的意願才能自然釋放。"
+                    ]
+                },
+                {
+                    zh: "13. 自主研究發表：請介紹你對「香港少數族裔在本地主流中學中文教育下的適應、困境與出路」的研究課題成果。",
+                    en: "IRP Presentation: Introduce your topic on 'Adaptation & dilemma of HK ethnic minorities in local mainstream Chinese curricula'.",
+                    tips: [
+                        "<strong>步驟 1:</strong> 點出研究核心痛點：香港主流中文課程（為本地華人設計）過於偏重深奧的文學和文言文，缺乏為第二語言（L2）設計的分級階梯。",
+                        "<strong>步驟 2:</strong> 探討此制度缺陷導致多數非華語生 DSE 中文不達標，進而被大學聯招（JUPAS）拒之門外，形成貧窮跨代循環（Poverty Cycle）。",
+                        "<strong>步驟 3:</strong> 肯定應用學習中文（ApL(C)）及 GCSE 替代資歷的推出，在制度上為少數族裔升學提供安全網的巨大正面功績。",
+                        "<strong>步驟 4:</strong> 呼籲教育局（EDB）建立真正專業的第二語言中文教學法體系，增設主流學校內專業的 L2 中文師資培訓課程。",
+                        "<strong>步驟 5:</strong> 總結多元人才的中文教育公平，是衡量香港作為國際金融中心與多元大都市文明程度的關鍵尺度。"
+                    ]
+                },
+                {
+                    zh: "14. 研究問答：有教育界人士建議，應該全面取消針對非華語學生的替代中文考試，強制所有學生參加統一的 DSE 中文科考試以實現真正公平。你是否同意？",
+                    en: "IRP Q&A: Some suggest eliminating alternative Chinese exams and forcing all students to take unified HKDSE Chinese for 'real equality'. Do you agree?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 採取堅決反對的審慎立場，指出這是一種忽略起跑線差異的「假公平、真剝奪」。",
+                        "<strong>步驟 2:</strong> 分析起跑線差異：本地華人孩子在中文母語環境下長大，而非華語孩子在非華語家庭成長，其語言輸入（Input）存在先天鴻溝。",
+                        "<strong>步驟 3:</strong> 論證如果強行統一 DSE 中文考試，只會抹殺非華語生在其他學科（如數理、英文、商科）的才華，徹底關閉他們的社會流動之門。",
+                        "<strong>步驟 4:</strong> 倡導「有區別的公平」：保留替代中文機制，同時不斷提升應用學習中文（ApL(C)）在大學及公務員招聘中的資歷認可度與實用性。",
+                        "<strong>步驟 5:</strong> 總結真正的教育公平是因材施教（Equity over Equality），必須為少數群體提供合理的學習支援和考核路徑。"
+                    ]
+                },
+                {
+                    zh: "15. 當代華人社會：移動支付、掃碼點餐與電子政務的全面普及，是否正在加劇中國長者及部分弱勢群體的「數碼鴻溝」？",
+                    en: "Evolving Society: Does mobile payment & e-government exacerbate 'Digital Divide' for elderly in China?",
+                    tips: [
+                        "<strong>步驟 1:</strong> 指出當前社會「一機在手，天下我有」的便利表象之下，隱藏著一大群「無網長者」日常生存舉步維艱的殘酷現實。",
+                        "<strong>步驟 2:</strong> 舉證實際痛點：無現金商鋪拒收紙幣、必須掃碼預約導致長者無法就醫、無障礙出行健康碼在特殊時期帶來的阻礙。",
+                        "<strong>步驟 3:</strong> 剖析「數碼鴻溝」本質上是社會公共服務的「去人情化」與科技對弱勢群體認知的冷漠無視。",
+                        "<strong>步驟 4:</strong> 讚許並提倡政府近年出台「適老化改造」政策，例如強制規定公共機構保留人工窗口、拒收現金屬於違法等保障舉措。",
+                        "<strong>步驟 5:</strong> 總結科技的極限應是人文的寬度，建設智慧城市的前提是不能丟下任何一個跑得慢的老人和弱勢者。"
+                    ]
+                }
             ]
         };
 
@@ -947,6 +1355,7 @@
             renderGlossary(selectedGlossaryTab, query);
         }
 
+        // 搜尋欄鍵入觸發
         function searchGlossary() {
             const query = document.getElementById('glossary-search').value;
             renderGlossary(selectedGlossaryTab, query);
