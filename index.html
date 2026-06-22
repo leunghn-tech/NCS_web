@@ -3,184 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NCS 融學平台 - 學生與家長支援</title>
-    
-    <!-- 引入 Tailwind CSS 進行快速排版與設計 -->
+    <title>NCS 融學平台 | 全方位支援</title>
+    <!-- 引入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- 引入 FontAwesome 圖示庫 -->
+    <!-- 引入 FontAwesome 圖示 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <style>
-        /* 自定義一些簡單的動畫效果 */
-        .fade-in {
-            animation: fadeIn 0.5s ease-in-out;
+    <!-- 設定平台專屬主色調 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563EB',   /* 學生專區 / 主題藍色 */
+                        secondary: '#10B981', /* 家長專區 / 綠色 */
+                        school: '#0D9488',    /* 選校 / 藍綠色 */
+                        pathway: '#9333EA',   /* 升學 / 紫色 */
+                        sen: '#E11D48',       /* SEN / 玫瑰紅 */
+                        culture: '#EA580C'    /* 文化 / 橙色 */
+                    }
+                }
+            }
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* 隱藏未選中的視圖 */
-        .hidden-view {
-            display: none !important;
-        }
-    </style>
+    </script>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col">
+<body class="bg-slate-50 font-sans text-gray-800 min-h-screen flex flex-col">
 
-    <!-- 導覽列 -->
-    <nav class="bg-blue-600 text-white shadow-md sticky top-0 z-50">
+    <!-- 共用導覽列 -->
+    <nav class="bg-primary text-white shadow-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
-                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchView('home')">
+            <div class="flex justify-between h-16 items-center">
+                <!-- Logo 區塊 -->
+                <a href="index.html" class="flex items-center space-x-3 hover:opacity-80 transition">
                     <i class="fa-solid fa-graduation-cap text-2xl"></i>
-                    <span class="font-bold text-xl tracking-wider">NCS 融學平台</span>
-                </div>
+                    <span class="font-bold text-xl tracking-wide">NCS 融學平台</span>
+                </a>
                 
                 <!-- 桌面版選單 -->
-                <div class="hidden md:flex space-x-6 items-center font-medium">
-                    <button onclick="switchView('home')" class="nav-btn hover:text-blue-200 transition-colors border-b-2 border-transparent" id="nav-home">首頁</button>
-                    <button onclick="switchView('student')" class="nav-btn hover:text-blue-200 transition-colors border-b-2 border-transparent" id="nav-student"><i class="fa-solid fa-backpack mr-1"></i> 學生專區</button>
-                    <button onclick="switchView('parent')" class="nav-btn hover:text-blue-200 transition-colors border-b-2 border-transparent" id="nav-parent"><i class="fa-solid fa-people-roof mr-1"></i> 家長專區</button>
-                    <button onclick="switchView('login')" class="bg-white text-blue-600 px-5 py-2 rounded-full font-bold hover:bg-blue-50 transition-colors shadow-sm ml-4">登入 / 註冊</button>
+                <div class="hidden md:flex space-x-6 font-medium text-sm items-center">
+                    <a href="index.html" class="text-blue-200 font-bold border-b-2 border-blue-200 pb-1">首頁</a>
+                    <a href="student.html" class="hover:text-blue-200 transition">學生</a>
+                    <a href="parent.html" class="hover:text-blue-200 transition">家長</a>
+                    <a href="school.html" class="hover:text-blue-200 transition">選校</a>
+                    <a href="pathway.html" class="hover:text-blue-200 transition">升學</a>
+                    <a href="sen.html" class="hover:text-blue-200 transition">SEN</a>
+                    <!-- 登入按鈕 -->
+                    <button class="bg-white text-primary px-4 py-2 rounded-full font-bold hover:bg-blue-50 transition shadow-sm text-sm ml-4">
+                        登入 / 註冊
+                    </button>
+                </div>
+                
+                <!-- 手機版選單按鈕 (保留視覺，功能日後可加) -->
+                <div class="md:hidden flex items-center">
+                    <button class="text-white hover:text-blue-200 focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- 主要內容區 -->
-    <main class="flex-grow">
+    <!-- 橫幅區域 (Hero Section) -->
+    <header class="bg-gradient-to-b from-blue-50 to-white py-20 text-center relative overflow-hidden">
+        <!-- 背景裝飾點綴 -->
+        <div class="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none" style="background-image: radial-gradient(#2563EB 1px, transparent 1px); background-size: 30px 30px;"></div>
         
-        <!-- ================= 首頁視圖 ================= -->
-        <div id="view-home" class="view-section fade-in">
-            <!-- Hero 區塊 -->
-            <div class="bg-gradient-to-b from-blue-100 to-gray-50 py-20 px-4">
-                <div class="max-w-4xl mx-auto text-center">
-                    <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
-                        跨越語言界限，<br class="md:hidden"><span class="text-blue-600">連結學習與家庭</span>
-                    </h1>
-                    <p class="text-xl text-gray-600 mb-10">
-                        專為香港非華語 (NCS) 學生與家長打造的全方位支援平台。<br>提供功課急救、母語翻譯與升學導航，讓中文不再是阻礙。
-                    </p>
-                    <div class="flex flex-col sm:flex-row justify-center gap-4">
-                        <button onclick="switchView('student')" class="flex items-center justify-center space-x-2 bg-blue-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition-all shadow-lg hover:-translate-y-1">
-                            <i class="fa-solid fa-book-open"></i>
-                            <span>進入學生專區</span>
-                        </button>
-                        <button onclick="switchView('parent')" class="flex items-center justify-center space-x-2 bg-emerald-500 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-emerald-600 transition-all shadow-lg hover:-translate-y-1">
-                            <i class="fa-solid fa-users"></i>
-                            <span>家長支援導航</span>
-                        </button>
-                    </div>
+        <div class="max-w-5xl mx-auto px-4 relative z-10">
+            <span class="bg-blue-100 text-primary font-bold px-4 py-1.5 rounded-full text-sm mb-6 inline-block shadow-sm">
+                <i class="fa-solid fa-sparkles mr-1"></i> 2026/27 學年全新升級
+            </span>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-6 tracking-tight leading-tight">
+                跨越語言界限，<br class="hidden sm:block">
+                <span class="text-primary text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
+                    連結學習與家庭
+                </span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600 mb-10 leading-relaxed max-w-2xl mx-auto">
+                專為香港非華語（NCS）學生與家長打造的超級樞紐。<br>
+                從 AI 功課急救、家校溝通、選校策略到 SEN 支援，讓中文不再是阻礙。
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="student.html" class="bg-primary text-white px-8 py-3.5 rounded-full font-bold shadow-lg hover:bg-blue-700 transition transform hover:-translate-y-0.5 inline-flex items-center justify-center">
+                    <i class="fa-solid fa-rocket mr-2"></i> 進入學生專區
+                </a>
+                <a href="parent.html" class="bg-white text-gray-800 border border-gray-200 px-8 py-3.5 rounded-full font-bold shadow-sm hover:border-gray-300 hover:bg-gray-50 transition inline-flex items-center justify-center">
+                    <i class="fa-solid fa-users mr-2"></i> 家長支援導航
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 核心功能區塊 (六大模組) -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="text-center mb-14">
+            <h2 class="text-3xl font-extrabold text-gray-900 mb-4">平台六大核心支援</h2>
+            <div class="w-16 h-1 bg-primary mx-auto rounded-full mb-4"></div>
+            <p class="text-gray-500 text-lg">全方位涵蓋學習、生活、升學與特殊需求</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- 1. 學生專區 -->
+            <a href="student.html" class="cursor-pointer bg-white rounded-2xl shadow-sm hover:shadow-xl transition p-8 border border-gray-100 flex flex-col group relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-blue-50 rounded-bl-full -mr-4 -mt-4 transition group-hover:scale-110"></div>
+                <div class="bg-primary text-white w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-md relative z-10">
+                    <i class="fa-solid fa-book-open text-2xl"></i>
                 </div>
-            </div>
+                <h3 class="font-bold text-xl mb-3 text-gray-900 relative z-10">學習與語言支援</h3>
+                <p class="text-gray-600 mb-6 flex-grow relative z-10">提供 2026 最新分級閱讀、歷屆試題庫，以及結合 AI 的功課急救與廣東話教練。</p>
+                <div class="text-primary font-bold flex items-center relative z-10">進入專區 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i></div>
+            </a>
 
-            <!-- 特色功能區塊 -->
-            <div class="py-16 px-4 max-w-7xl mx-auto">
-                <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">平台核心支援</h2>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <!-- 卡片 1 -->
-                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                        <div class="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-6 text-2xl">
-                            <i class="fa-solid fa-language"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-3">功課與語言急救箱</h3>
-                        <p class="text-gray-600 leading-relaxed">智能拍題翻譯、跨學科雙語詞彙庫，以及 AI 廣東話語音教練，隨時解決學習卡關。</p>
-                    </div>
-                    <!-- 卡片 2 -->
-                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                        <div class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center text-emerald-600 mb-6 text-2xl">
-                            <i class="fa-solid fa-comments"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-3">無障礙家校溝通</h3>
-                        <p class="text-gray-600 leading-relaxed">學校通告一鍵解碼翻譯，搭配母語輔助伴讀系統，讓家長能輕鬆參與子女教育。</p>
-                    </div>
-                    <!-- 卡片 3 -->
-                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                        <div class="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600 mb-6 text-2xl">
-                            <i class="fa-solid fa-compass"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-3">升學與資歷導航</h3>
-                        <p class="text-gray-600 leading-relaxed">為家長與學生提供清晰的 DSE、GCSE 等替代中文資歷路線圖，規劃未來出路。</p>
-                    </div>
+            <!-- 2. 家長專區 -->
+            <a href="parent.html" class="cursor-pointer bg-white rounded-2xl shadow-sm hover:shadow-xl transition p-8 border border-gray-100 flex flex-col group relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-green-50 rounded-bl-full -mr-4 -mt-4 transition group-hover:scale-110"></div>
+                <div class="bg-secondary text-white w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-md relative z-10">
+                    <i class="fa-solid fa-users text-2xl"></i>
                 </div>
-            </div>
-        </div>
+                <h3 class="font-bold text-xl mb-3 text-gray-900 relative z-10">家長賦能與溝通</h3>
+                <p class="text-gray-600 mb-6 flex-grow relative z-10">一鍵通告翻譯、最新津貼資助申請多語種指南，以及家校溝通實用句型庫。</p>
+                <div class="text-secondary font-bold flex items-center relative z-10">進入專區 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i></div>
+            </a>
 
-        <!-- ================= 學生專區 (佔位) ================= -->
-        <div id="view-student" class="view-section hidden-view fade-in py-20 px-4 max-w-7xl mx-auto text-center">
-            <i class="fa-solid fa-backpack text-6xl text-blue-500 mb-6"></i>
-            <h2 class="text-3xl font-bold text-gray-800 mb-4">學生專區</h2>
-            <p class="text-gray-600 max-w-2xl mx-auto mb-8">這裡將會提供「智能拍題翻譯」、「雙語詞彙庫」與「廣東話語音教練」等功能。</p>
-            <button onclick="switchView('home')" class="text-blue-600 hover:underline"><i class="fa-solid fa-arrow-left mr-1"></i> 返回首頁</button>
-        </div>
+            <!-- 3. 選校搜尋 -->
+            <a href="school.html" class="cursor-pointer bg-white rounded-2xl shadow-sm hover:shadow-xl transition p-8 border border-gray-100 flex flex-col group relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-teal-50 rounded-bl-full -mr-4 -mt-4 transition group-hover:scale-110"></div>
+                <div class="bg-school text-white w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-md relative z-10">
+                    <i class="fa-solid fa-school text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-xl mb-3 text-gray-900 relative z-10">NCS 友善學校搜尋</h3>
+                <p class="text-gray-600 mb-6 flex-grow relative z-10">全港中小學數據庫，篩選支援配套、宗教友善措施及歷年 NCS 學生比例。</p>
+                <div class="text-school font-bold flex items-center relative z-10">開始搜尋 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i></div>
+            </a>
 
-        <!-- ================= 家長專區 (佔位) ================= -->
-        <div id="view-parent" class="view-section hidden-view fade-in py-20 px-4 max-w-7xl mx-auto text-center">
-            <i class="fa-solid fa-people-roof text-6xl text-emerald-500 mb-6"></i>
-            <h2 class="text-3xl font-bold text-gray-800 mb-4">家長專區</h2>
-            <p class="text-gray-600 max-w-2xl mx-auto mb-8">這裡將會提供「通告相機翻譯」、「香港學制指南」等功能。</p>
-            <button onclick="switchView('home')" class="text-emerald-600 hover:underline"><i class="fa-solid fa-arrow-left mr-1"></i> 返回首頁</button>
-        </div>
+            <!-- 4. 升學導航 -->
+            <a href="pathway.html" class="cursor-pointer bg-white rounded-2xl shadow-sm hover:shadow-xl transition p-8 border border-gray-100 flex flex-col group relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-purple-50 rounded-bl-full -mr-4 -mt-4 transition group-hover:scale-110"></div>
+                <div class="bg-pathway text-white w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-md relative z-10">
+                    <i class="fa-solid fa-compass text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-xl mb-3 text-gray-900 relative z-10">升學與職涯導航</h3>
+                <p class="text-gray-600 mb-6 flex-grow relative z-10">2026 JUPAS 替代中文要求解析、VTC 多元出路指南及校友真實成功案例。</p>
+                <div class="text-pathway font-bold flex items-center relative z-10">探索出路 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i></div>
+            </a>
 
-        <!-- ================= 登入區 (佔位) ================= -->
-        <div id="view-login" class="view-section hidden-view fade-in py-20 px-4 flex justify-center items-center">
-            <div class="bg-white p-10 rounded-2xl shadow-lg max-w-md w-full text-center border border-gray-100">
-                <i class="fa-solid fa-user-circle text-5xl text-blue-600 mb-4"></i>
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">登入平台</h2>
-                <p class="text-gray-500 mb-8">未來我們將在此加入 Firebase 登入功能。</p>
-                <button onclick="switchView('home')" class="text-gray-500 hover:text-blue-600 transition-colors">取消並返回</button>
-            </div>
-        </div>
+            <!-- 5. SEN 支援 -->
+            <a href="sen.html" class="cursor-pointer bg-white rounded-2xl shadow-sm hover:shadow-xl transition p-8 border border-gray-100 flex flex-col group relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-rose-50 rounded-bl-full -mr-4 -mt-4 transition group-hover:scale-110"></div>
+                <div class="bg-sen text-white w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-md relative z-10">
+                    <i class="fa-solid fa-hands-holding-child text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-xl mb-3 text-gray-900 relative z-10">SEN 特殊教育支援</h3>
+                <p class="text-gray-600 mb-6 flex-grow relative z-10">針對雙重弱勢，提供多語種初步評估工具、跨語言治療資源及 NGO 轉介網絡。</p>
+                <div class="text-sen font-bold flex items-center relative z-10">獲取支援 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i></div>
+            </a>
 
+            <!-- 6. 文化共融 -->
+            <a href="culture.html" class="cursor-pointer bg-white rounded-2xl shadow-sm hover:shadow-xl transition p-8 border border-gray-100 flex flex-col group relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-orange-50 rounded-bl-full -mr-4 -mt-4 transition group-hover:scale-110"></div>
+                <div class="bg-culture text-white w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-md relative z-10">
+                    <i class="fa-solid fa-earth-asia text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-xl mb-3 text-gray-900 relative z-10">文化共融與適應</h3>
+                <p class="text-gray-600 mb-6 flex-grow relative z-10">香港生活指南、心理健康多語種熱線及促進共融的社區活動與興趣班推介。</p>
+                <div class="text-culture font-bold flex items-center relative z-10">了解更多 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i></div>
+            </a>
+
+        </div>
     </main>
 
     <!-- 頁尾 -->
-    <footer class="bg-gray-800 text-gray-300 py-8 text-center">
-        <p>© 2024 NCS 融學支援平台. 版權所有.</p>
+    <footer class="bg-slate-900 text-slate-400 py-10 mt-auto border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between text-sm">
+            <div class="flex items-center space-x-2 mb-4 md:mb-0">
+                <i class="fa-solid fa-graduation-cap text-xl text-primary"></i>
+                <span class="font-bold text-white tracking-wide">NCS 融學平台</span>
+            </div>
+            <p class="mb-4 md:mb-0">&copy; 2026 NCS 融學支援平台. 版權所有.</p>
+            <div class="flex space-x-5">
+                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-facebook text-lg"></i></a>
+                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-instagram text-lg"></i></a>
+                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-youtube text-lg"></i></a>
+            </div>
+        </div>
     </footer>
 
-    <!-- 頁面切換腳本 -->
-    <script>
-        function switchView(viewId) {
-            // 1. 隱藏所有視圖
-            const views = document.querySelectorAll('.view-section');
-            views.forEach(view => {
-                view.classList.add('hidden-view');
-            });
-
-            // 2. 顯示目標視圖
-            const targetView = document.getElementById('view-' + viewId);
-            if (targetView) {
-                targetView.classList.remove('hidden-view');
-            }
-
-            // 3. 更新導覽列按鈕的底線狀態
-            const navBtns = document.querySelectorAll('.nav-btn');
-            navBtns.forEach(btn => {
-                btn.classList.remove('border-white');
-                btn.classList.add('border-transparent');
-            });
-
-            // 只有在非登入頁面時才加上底線
-            if (viewId !== 'login') {
-                const activeNavBtn = document.getElementById('nav-' + viewId);
-                if (activeNavBtn) {
-                    activeNavBtn.classList.remove('border-transparent');
-                    activeNavBtn.classList.add('border-white');
-                }
-            }
-            
-            // 4. 切換頁面後自動滾動到最上方
-            window.scrollTo(0, 0);
-        }
-
-        // 頁面載入時預設顯示首頁
-        document.addEventListener('DOMContentLoaded', () => {
-            switchView('home');
-        });
-    </script>
 </body>
 </html>
