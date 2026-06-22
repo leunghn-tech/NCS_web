@@ -25,17 +25,14 @@
 
     <main class="flex-grow max-w-3xl mx-auto px-4 py-8 w-full flex flex-col justify-center">
         <div id="quiz-container" class="bg-white rounded-2xl shadow-xl p-6 md:p-8 fade-in relative">
-            
-            <!-- Progress -->
             <div class="flex justify-between text-sm font-bold text-indigo-500 mb-4">
-                <span id="progress-text">Question 1 / 20</span>
+                <span id="progress-text">Question 1 / 30</span>
                 <span id="score-text">Score: 0</span>
             </div>
             <div class="w-full bg-gray-200 rounded-full h-2 mb-8">
-                <div id="progress-bar" class="bg-indigo-600 h-2 rounded-full transition-all duration-300" style="width: 5%"></div>
+                <div id="progress-bar" class="bg-indigo-600 h-2 rounded-full transition-all duration-300" style="width: 3.3%"></div>
             </div>
 
-            <!-- Question -->
             <div class="mb-8">
                 <div class="flex items-start">
                     <h2 id="q-zh" class="text-xl md:text-2xl font-bold text-gray-900 mb-2">載入中...</h2>
@@ -47,12 +44,8 @@
                 </div>
             </div>
 
-            <!-- Options -->
-            <div id="options-container" class="space-y-3">
-                <!-- Buttons injected by JS -->
-            </div>
+            <div id="options-container" class="space-y-3"></div>
 
-            <!-- Feedback -->
             <div id="feedback-container" class="hidden mt-6 p-4 rounded-xl">
                 <h3 id="feedback-title" class="font-bold text-lg mb-1"></h3>
                 <div class="flex items-start mt-2">
@@ -62,17 +55,15 @@
                 <p id="feedback-en" class="text-xs text-gray-600 italic mt-1"></p>
             </div>
 
-            <!-- Next Button -->
             <button id="next-btn" onclick="nextQuestion()" class="hidden w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl transition shadow-md">
                 下一題 Next Question <i class="fa-solid fa-arrow-right ml-2"></i>
             </button>
         </div>
 
-        <!-- Result Screen -->
         <div id="result-container" class="hidden bg-white rounded-2xl shadow-xl p-8 text-center fade-in">
             <div class="text-indigo-500 text-6xl mb-4"><i class="fa-solid fa-award"></i></div>
             <h2 class="text-3xl font-bold text-gray-900 mb-2">測驗完成 Quiz Completed!</h2>
-            <p class="text-lg text-gray-600 mb-6">Your score is <span id="final-score" class="font-bold text-indigo-600 text-2xl"></span> / 20</p>
+            <p class="text-lg text-gray-600 mb-6">Your score is <span id="final-score" class="font-bold text-indigo-600 text-2xl"></span> / 30</p>
             <button onclick="location.reload()" class="bg-indigo-600 text-white px-6 py-3 rounded-full font-bold hover:bg-indigo-700 transition">重新測試 Restart</button>
             <a href="student.html" class="block mt-4 text-indigo-500 hover:underline">返回首頁 Return Home</a>
         </div>
@@ -80,116 +71,38 @@
 
     <script>
         const questions = [
-            {
-                zh: "ApL(C) 課程主要是為哪一類學生設計的？", en: "Which group of students is the ApL(C) course primarily designed for?",
-                options: [
-                    { zh: "母語為中文的本地學生", en: "Local students whose mother tongue is Chinese", correct: false },
-                    { zh: "在香港就讀的非華語學生", en: "Non-Chinese speaking (NCS) students studying in Hong Kong", correct: true },
-                    { zh: "準備去外國留學的學生", en: "Students preparing to study abroad", correct: false },
-                    { zh: "成年新移民", en: "Adult new immigrants", correct: false }
-                ],
-                exp_zh: "ApL(C) 是專為非華語學生提供的替代中文資歷，幫助他們升學及就業。", exp_en: "ApL(C) is an alternative Chinese qualification specifically designed for NCS students for further studies and career pursuits."
-            },
-            {
-                zh: "ApL(C) 課程的評估模式是怎樣的？", en: "What is the assessment mode for the ApL(C) course?",
-                options: [
-                    { zh: "只有一個期末公開筆試", en: "Only one final public written exam", correct: false },
-                    { zh: "100% 由課程提供機構進行持續評估", en: "100% continuous assessment by the course provider", correct: true },
-                    { zh: "50% 持續評估，50% 考評局筆試", en: "50% continuous assessment, 50% HKEAA written exam", correct: false },
-                    { zh: "只需交一篇畢業論文", en: "Only need to submit a graduation thesis", correct: false }
-                ],
-                exp_zh: "ApL(C) 沒有公開考試，成績完全基於機構（如 VTC）在課堂上的持續評估。", exp_en: "ApL(C) has no public exam; results are based entirely on continuous assessments by the provider (e.g., VTC) during classes."
-            },
-            {
-                zh: "在 HKDSE 證書上，ApL(C) 最基本的及格成績稱為什麼？", en: "What is the basic passing grade for ApL(C) on the HKDSE certificate called?",
-                options: [
-                    { zh: "Level 1", en: "Level 1", correct: false },
-                    { zh: "及格 (Pass)", en: "Pass", correct: false },
-                    { zh: "達標 (Attained)", en: "Attained", correct: true },
-                    { zh: "滿意 (Satisfactory)", en: "Satisfactory", correct: false }
-                ],
-                exp_zh: "ApL(C) 成績分為「達標」、「達標並表現優異(I)」及「達標並表現優異(II)」。", exp_en: "ApL(C) results are reported as 'Attained', 'Attained with Distinction (I)', and 'Attained with Distinction (II)'."
-            },
-            {
-                zh: "ApL(C) 的「達標」(Attained) 成績，等同於 HKDSE 中文科的哪個級別？", en: "The 'Attained' result in ApL(C) is accepted as equivalent to which level of the HKDSE Chinese subject?",
-                options: [
-                    { zh: "第一級 (Level 1)", en: "Level 1", correct: false },
-                    { zh: "第二級 (Level 2)", en: "Level 2", correct: true },
-                    { zh: "第三級 (Level 3)", en: "Level 3", correct: false },
-                    { zh: "第四級 (Level 4)", en: "Level 4", correct: false }
-                ],
-                exp_zh: "教育局和公務員事務局接受「達標」等同於 DSE 中文科第二級。", exp_en: "The EDB and Civil Service Bureau accept 'Attained' as equivalent to Level 2 in DSE Chinese."
-            },
-            {
-                zh: "在資歷架構 (QF) 下，ApL(C) 課程等同於哪一個級別的證書？", en: "Under the Qualifications Framework (QF), which level of certificate is the ApL(C) course equivalent to?",
-                options: [
-                    { zh: "資歷架構第一至第二級", en: "QF Level 1 to Level 2", correct: false },
-                    { zh: "資歷架構第一至第三級", en: "QF Level 1 to Level 3", correct: true },
-                    { zh: "資歷架構第四級", en: "QF Level 4", correct: false },
-                    { zh: "不獲資歷架構認可", en: "Not recognized by QF", correct: false }
-                ],
-                exp_zh: "視乎學生的最終成績，ApL(C) 可銜接資歷架構的第一、第二或最高第三級證書。", exp_en: "Depending on the student's final result, ApL(C) is articulated to QF Level 1, Level 2, or up to Level 3 certificate."
-            },
-            {
-                zh: "ApL(C) 的上課總時數大約是多少？", en: "What is the approximate total number of contact hours for an ApL(C) course?",
-                options: [
-                    { zh: "100 小時", en: "100 hours", correct: false },
-                    { zh: "180 小時", en: "180 hours", correct: false },
-                    { zh: "270 小時", en: "270 hours", correct: true },
-                    { zh: "400 小時", en: "400 hours", correct: false }
-                ],
-                exp_zh: "課程通常橫跨中四至中六，總學習時數約為 270 小時。", exp_en: "The course usually spans from Secondary 4 to 6, with a total of around 270 learning hours."
-            },
-            {
-                zh: "大學聯招 (JUPAS) 接受 ApL(C) 成績作為入學的中文要求嗎？", en: "Does JUPAS accept ApL(C) results to meet the Chinese language requirement for admission?",
-                options: [
-                    { zh: "完全不接受", en: "Completely not accepted", correct: false },
-                    { zh: "只接受達標並表現優異", en: "Only accept Attained with Distinction", correct: false },
-                    { zh: "接受，大部分院校認可作為替代中文資歷", en: "Yes, most institutions recognize it as an Alternative Chinese Language Qualification", correct: true },
-                    { zh: "只適用於副學士課程", en: "Only applicable to Associate Degree programmes", correct: false }
-                ],
-                exp_zh: "教資會資助大學普遍接受 ApL(C) 作為 NCS 學生的基本替代中文入學條件。", exp_en: "UGC-funded universities generally accept ApL(C) as a basic alternative Chinese admission requirement for NCS students."
-            },
-            {
-                zh: "ApL(C) 課程的內容設計主要圍繞哪些情境？", en: "What contexts are the ApL(C) course contents mainly designed around?",
-                options: [
-                    { zh: "中國文學與古典詩詞", en: "Chinese literature and classical poetry", correct: false },
-                    { zh: "服務業、商業及實用生活", en: "Services, commerce, and practical daily life", correct: true },
-                    { zh: "歷史與哲學", en: "History and philosophy", correct: false },
-                    { zh: "科學研究與工程", en: "Scientific research and engineering", correct: false }
-                ],
-                exp_zh: "應用學習強調實用性，因此圍繞職場（如款待、零售）及日常溝通。", exp_en: "Applied Learning emphasizes practicality, focusing on workplace (e.g., hospitality, retail) and daily communication."
-            },
-            {
-                zh: "如果學生取得「達標並表現優異(II)」，等同 DSE 中文科的哪個級別？", en: "If a student gets 'Attained with Distinction (II)', what is the equivalent level in DSE Chinese?",
-                options: [
-                    { zh: "第三級 (Level 3)", en: "Level 3", correct: false },
-                    { zh: "第四級或以上 (Level 4 or above)", en: "Level 4 or above", correct: true },
-                    { zh: "第五級 (Level 5)", en: "Level 5", correct: false },
-                    { zh: "第二級 (Level 2)", en: "Level 2", correct: false }
-                ],
-                exp_zh: "自 2018 年起，優異(II) 大致等同 DSE 第四級或以上的表現。", exp_en: "Since 2018, Distinction (II) is broadly comparable to Level 4 or above in the DSE."
-            },
-            {
-                zh: "合資格的非華語學生修讀 ApL(C) 需要繳交多少學費？", en: "How much tuition fee do eligible NCS students need to pay for taking ApL(C)?",
-                options: [
-                    { zh: "$10,000", en: "$10,000", correct: false },
-                    { zh: "$5,000", en: "$5,000", correct: false },
-                    { zh: "半價收費", en: "Half price", correct: false },
-                    { zh: "全額資助，學生免費", en: "Fully funded, free for students", correct: true }
-                ],
-                exp_zh: "教育局會全額資助合資格中學生的 ApL(C) 課程費用。", exp_en: "The EDB fully subsidizes the course fees of ApL(C) for eligible secondary school students."
-            },
-            { zh: "教育局對報讀 ApL(C) 的「非華語」定義中，學生接受以中文為教學語言的教育不能超過多少年？", en: "Under EDB's definition of NCS for ApL(C), a student must not have received education with Chinese as the medium of instruction for more than how many years?", options: [{zh: "三年", en: "3 years", correct: false}, {zh: "六年", en: "6 years", correct: true}, {zh: "九年", en: "9 years", correct: false}, {zh: "沒有限制", en: "No limit", correct: false}], exp_zh: "學生在過去接受中小學教育期間，在「以中文為教學語言」的學校就讀不能超過六年。", exp_en: "The student must have received education in schools using Chinese as the medium of instruction for not more than 6 years." },
-            { zh: "考評局 (HKEAA) 如何監控機構的持續評估分數？", en: "How does HKEAA monitor the continuous assessment scores given by the providers?", options: [{zh: "完全信任機構，不作干預", en: "Trust providers completely, no intervention", correct: false}, {zh: "抽樣審核並進行分數調整 (Moderation)", en: "Sample moderation and score adjustment", correct: true}, {zh: "派員到課堂監考", en: "Send staff to invigilate in class", correct: false}, {zh: "要求學生額外參加全港統一面試", en: "Require students to take an extra territory-wide interview", correct: false}], exp_zh: "考評局會檢視學生課業樣本進行 Moderation，以確保不同機構的評分標準一致。", exp_en: "HKEAA moderates sample student work to ensure grading standards are consistent across different providers." },
-            { zh: "ApL(C) 課程要求學生達到多少出席率才能獲發成績？", en: "What is the attendance rate requirement for students to receive a result in ApL(C)?", options: [{zh: "50%", en: "50%", correct: false}, {zh: "70%", en: "70%", correct: false}, {zh: "80%", en: "80%", correct: true}, {zh: "100%", en: "100%", correct: false}], exp_zh: "大部分機構要求最低 80% 的出席率。", exp_en: "Most providers require a minimum attendance rate of 80%." },
-            { zh: "ApL(C) 屬於 HKDSE 科目架構中的哪一類？", en: "Which category does ApL(C) belong to in the HKDSE subject framework?", options: [{zh: "甲類 (核心及選修科目)", en: "Category A (Core and Elective)", correct: false}, {zh: "乙類 (應用學習科目)", en: "Category B (Applied Learning)", correct: true}, {zh: "丙類 (其他語言科目)", en: "Category C (Other Languages)", correct: false}, {zh: "丁類 (特殊教育)", en: "Category D (Special Ed)", correct: false}], exp_zh: "所有應用學習科目均屬於 HKDSE 乙類科目。", exp_en: "All Applied Learning subjects are under Category B of HKDSE." },
-            { zh: "學生通常在什麼階段開始修讀 ApL(C)？", en: "At what stage do students usually start taking ApL(C)?", options: [{zh: "中一", en: "Secondary 1", correct: false}, {zh: "中四", en: "Secondary 4", correct: true}, {zh: "中六", en: "Secondary 6", correct: false}, {zh: "大學一年級", en: "University Year 1", correct: false}], exp_zh: "課程一般從中四開始，為期三年。", exp_en: "The course generally starts in Secondary 4 and lasts for three years." },
-            { zh: "ApL(C) 的教學語言有什麼特別之處？", en: "What is special about the medium of instruction for ApL(C)?", options: [{zh: "只限用全普通話", en: "Strictly Putonghua only", correct: false}, {zh: "可輔以英語或學生的母語解釋困難概念", en: "Can be supplemented by English or student's mother tongue for difficult concepts", correct: true}, {zh: "必須全英語授課", en: "Must be entirely in English", correct: false}, {zh: "禁止使用任何外語", en: "Foreign languages are strictly forbidden", correct: false}], exp_zh: "為確保學生理解實用情境，導師可靈活運用輔助語言。", exp_en: "Instructors can flexibly use supplementary languages to ensure students understand practical contexts." },
-            { zh: "哪間機構是目前提供 ApL(C) 課程的主要提供者之一？", en: "Which institution is one of the main providers of the ApL(C) course currently?", options: [{zh: "職業訓練局 (VTC)", en: "Vocational Training Council (VTC)", correct: true}, {zh: "香港紅十字會", en: "Hong Kong Red Cross", correct: false}, {zh: "醫院管理局", en: "Hospital Authority", correct: false}, {zh: "消費者委員會", en: "Consumer Council", correct: false}], exp_zh: "VTC 及部分大專院校是教育局委託的常見課程提供者。", exp_en: "VTC and some tertiary institutions are common course providers commissioned by EDB." },
-            { zh: "如果非華語學生同時擁有 ApL(C) 和 GCSE 中文成績，大學聯招 (JUPAS) 會如何處理？", en: "If an NCS student has both ApL(C) and GCSE Chinese results, how will JUPAS handle it?", options: [{zh: "兩者分數相加", en: "Add the scores together", correct: false}, {zh: "只計算 ApL(C)", en: "Only count ApL(C)", correct: false}, {zh: "彈性考慮並取其對學生最有利的成績", en: "Flexibly consider and take the best result for the student", correct: true}, {zh: "取消其申請資格", en: "Disqualify the application", correct: false}], exp_zh: "大學在處理替代中文資歷時，通常會取最高或最有利的成績計算。", exp_en: "Universities usually take the highest or most favorable alternative Chinese qualification." },
-            { zh: "與其他 DSE 核心中文科相比，ApL(C) 最大特點是？", en: "Compared to core DSE Chinese, what is the biggest feature of ApL(C)?", options: [{zh: "需要背誦大量文言文", en: "Requires memorizing many classical texts", correct: false}, {zh: "重視職場與日常真實溝通，而非學術鑒賞", en: "Focuses on real workplace/daily communication rather than academic appreciation", correct: true}, {zh: "寫作字數要求達二千字", en: "Requires 2000-word essays", correct: false}, {zh: "只有聽力測試", en: "Only tests listening", correct: false}], exp_zh: "ApL(C) 完全切合生活與職業需求，減輕了文學分析的壓力。", exp_en: "ApL(C) perfectly fits life and career needs, reducing the pressure of literary analysis." },
-            { zh: "ApL(C) 的「達標並表現優異(I)」等同 HKDSE 中文科的哪一級別？", en: "What is 'Attained with Distinction (I)' in ApL(C) equivalent to in HKDSE Chinese?", options: [{zh: "第二級 (Level 2)", en: "Level 2", correct: false}, {zh: "第三級 (Level 3)", en: "Level 3", correct: true}, {zh: "第四級 (Level 4)", en: "Level 4", correct: false}, {zh: "第五級 (Level 5)", en: "Level 5", correct: false}], exp_zh: "優異(I) 成績獲公認等同於 DSE 中文科第三級表現。", exp_en: "Distinction (I) is widely recognized as equivalent to Level 3 performance in DSE Chinese." }
+            { zh: "ApL(C) 課程主要是為哪一類學生設計的？", en: "Which group of students is the ApL(C) course primarily designed for?", options: [{zh:"母語為中文的本地學生", en:"Local students whose mother tongue is Chinese", correct:false},{zh:"在香港就讀的非華語學生", en:"Non-Chinese speaking (NCS) students studying in HK", correct:true},{zh:"準備出國留學的學生", en:"Students preparing to study abroad", correct:false},{zh:"成年新移民", en:"Adult immigrants", correct:false}], exp_zh: "ApL(C) 是專為非華語學生提供的替代中文資歷，幫助他們升學及就業。", exp_en: "ApL(C) is an alternative qualification designed for NCS students for further studies and careers." },
+            { zh: "ApL(C) 課程的評估模式是怎樣的？", en: "What is the assessment mode for the ApL(C) course?", options: [{zh:"只有一個期末公開筆試", en:"Only one final written public exam", correct:false},{zh:"100% 由課程提供機構進行持續評估", en:"100% continuous assessment by the course provider", correct:true},{zh:"50% 持續評估，50% 考評局筆試", en:"50% continuous assessment, 50% written exam", correct:false},{zh:"只需交一篇畢業論文", en:"Only need to submit a thesis", correct:false}], exp_zh: "ApL(C) 沒有公開考試，成績完全基於課程提供機構（如 VTC）的持續評估。", exp_en: "ApL(C) has no public exam; results are based entirely on continuous assessment by providers." },
+            { zh: "在 HKDSE 證書上，ApL(C) 最基本的及格成績稱為什麼？", en: "What is the basic passing grade for ApL(C) on the HKDSE certificate?", options: [{zh:"Level 1", en:"Level 1", correct:false},{zh:"及格 (Pass)", en:"Pass", correct:false},{zh:"達標 (Attained)", en:"Attained", correct:true},{zh:"滿意 (Satisfactory)", en:"Satisfactory", correct:false}], exp_zh: "ApL(C) 成績分為「達標」、「達標並表現優異(I)」及「達標並表現優異(II)」。", exp_en: "Results are reported as 'Attained', 'Attained with Distinction (I)', and '(II)'." },
+            { zh: "ApL(C) 的「達標」成績，等同於 HKDSE 中文科的哪個級別？", en: "The 'Attained' result in ApL(C) is accepted as equivalent to which level of DSE Chinese?", options: [{zh:"第一級 (Level 1)", en:"Level 1", correct:false},{zh:"第二級 (Level 2)", en:"Level 2", correct:true},{zh:"第三級 (Level 3)", en:"Level 3", correct:false},{zh:"第四級 (Level 4)", en:"Level 4", correct:false}], exp_zh: "教育局和公務員事務局接受「達標」等同於 DSE 中文科第二級。", exp_en: "The EDB and Civil Service Bureau accept 'Attained' as equivalent to Level 2 in DSE Chinese." },
+            { zh: "在資歷架構 (QF) 下，ApL(C) 課程等同於哪一個級別的證書？", en: "Under QF, which level of certificate is the ApL(C) course equivalent to?", options: [{zh:"資歷架構第一至第二級", en:"QF Level 1 to 2", correct:false},{zh:"資歷架構第一至第三級", en:"QF Level 1 to 3", correct:true},{zh:"資歷架構第四級", en:"QF Level 4", correct:false},{zh:"不獲資歷架構認可", en:"Not recognized", correct:false}], exp_zh: "視乎學生的最終成績，ApL(C) 可銜接資歷架構的第一、第二或第三級證書。", exp_en: "Depending on final results, ApL(C) maps to QF Levels 1, 2, or 3." },
+            { zh: "ApL(C) 的上課總時數大約是多少？", en: "What is the approximate total number of contact hours for an ApL(C) course?", options: [{zh:"100 小時", en:"100 hours", correct:false},{zh:"180 小時", en:"180 hours", correct:false},{zh:"270 小時", en:"270 hours", correct:true},{zh:"400 小時", en:"400 hours", correct:false}], exp_zh: "課程通常橫跨中四至中六，總學習時數約為 270 小時。", exp_en: "The course spans from Secondary 4 to 6, with around 270 total contact hours." },
+            { zh: "大學聯招 (JUPAS) 接受 ApL(C) 成績作為入學的中文要求嗎？", en: "Does JUPAS accept ApL(C) results to meet the Chinese language requirement?", options: [{zh:"完全不接受", en:"Completely not accepted", correct:false},{zh:"只接受達標並表現優異", en:"Only accept Distinction", correct:false},{zh:"認可作為替代中文資歷", en:"Yes, recognized as an Alternative Chinese Language Qualification", correct:true},{zh:"只適用於副學士", en:"Only for Associate Degrees", correct:false}], exp_zh: "大部分大學接受 ApL(C) 作為符合基本替代中文入學條件。", exp_en: "Most UGC-funded universities accept ApL(C) as an alternative qualification." },
+            { zh: "ApL(C) 課程的內容設計主要圍繞哪些情境？", en: "What contexts are the ApL(C) course contents mainly designed around?", options: [{zh:"中國文學與古典詩詞", en:"Chinese literature and classical poetry", correct:false},{zh:"服務業、商業及實用生活", en:"Services, commerce, and practical daily life", correct:true},{zh:"歷史與哲學", en:"History and philosophy", correct:false},{zh:"科學研究與工程", en:"Scientific research and engineering", correct:false}], exp_zh: "應用學習強調實用性，因此圍繞職場（如款待、零售）及日常溝通。", exp_en: "Applied Learning focuses on practical workplace and daily communication contexts." },
+            { zh: "如果學生取得「達標並表現優異(II)」，等同 DSE 中文科的哪個級別？", en: "If a student gets 'Attained with Distinction (II)', what is the equivalent level in DSE Chinese?", options: [{zh:"第三級 (Level 3)", en:"Level 3", correct:false},{zh:"第四級或以上 (Level 4 or above)", en:"Level 4 or above", correct:true},{zh:"第五級 (Level 5)", en:"Level 5", correct:false},{zh:"第二級 (Level 2)", en:"Level 2", correct:false}], exp_zh: "自 2018 年起，優異(II) 大致等同 DSE 第四級或以上的表現。", exp_en: "Since 2018, Distinction (II) is comparable to DSE Level 4 or above." },
+            { zh: "合資格的非華語學生修讀 ApL(C) 需要繳交多少學費？", en: "How much tuition fee do eligible NCS students need to pay for taking ApL(C)?", options: [{zh:"$10,000", en:"$10,000", correct:false},{zh:"$5,000", en:"$5,000", correct:false},{zh:"半價收費", en:"Half price", correct:false},{zh:"全額資助，學生免費", en:"Fully subsidized, free for students", correct:true}], exp_zh: "教育局全額資助合資格學生的 ApL(C) 課程費用。", exp_en: "The EDB fully subsidizes course fees for eligible secondary school students." },
+            { zh: "教育局定義中，非華語學生在「以中文為教學語言」的學校就讀不能超過多久？", en: "For ApL(C), a student must not have studied in schools using Chinese as medium of instruction for over how long?", options: [{zh:"三年", en:"3 years", correct:false},{zh:"六年", en:"6 years", correct:true},{zh:"九年", en:"9 years", correct:false},{zh:"沒有限制", en:"No limit", correct:false}], exp_zh: "在過去接受中小學教育期間，在以中文為教學語言的學校就讀不能超過六年。", exp_en: "The student must have studied in Chinese-instruction schools for no more than 6 years." },
+            { zh: "考評局 (HKEAA) 如何調整機構的持續評估分數？", en: "How does HKEAA moderate assessment scores given by the providers?", options: [{zh:"完全不作干預", en:"No intervention", correct:false},{zh:"抽樣審核並進行分數調整 (Moderation)", en:"Sample moderation and score adjustment", correct:true},{zh:"派員到課堂監考", en:"Send staff to invigilate in class", correct:false},{zh:"要求參加額外全港面試", en:"Require an extra territory-wide interview", correct:false}], exp_zh: "考評局會檢視學生課業樣本進行 Moderation，以確保不同機構的評分標準一致。", exp_en: "HKEAA moderates sample work to ensure grading standards are consistent." },
+            { zh: "ApL(C) 課程要求學生達到多少出席率才能獲發成績？", en: "What is the attendance rate requirement for students to receive a result in ApL(C)?", options: [{zh:"50%", en:"50%", correct:false},{zh:"70%", en:"70%", correct:false},{zh:"80%", en:"80%", correct:true},{zh:"100%", en:"100%", correct:false}], exp_zh: "大部分機構要求最低 80% 的出席率。", exp_en: "Most course providers require a minimum attendance rate of 80%." },
+            { zh: "ApL(C) 屬於 HKDSE 科目架構中的哪一類？", en: "Which category does ApL(C) belong to in the HKDSE subject framework?", options: [{zh:"甲類", en:"Category A", correct:false},{zh:"乙類 (應用學習科目)", en:"Category B (Applied Learning)", correct:true},{zh:"丙類", en:"Category C", correct:false},{zh:"丁類", en:"Category D", correct:false}], exp_zh: "所有應用學習科目均屬於 HKDSE 乙類科目。", exp_en: "All Applied Learning subjects are under Category B of HKDSE." },
+            { zh: "學生通常在什麼階段開始修讀 ApL(C)？", en: "At what stage do students usually start taking ApL(C)?", options: [{zh:"中一", en:"Secondary 1", correct:false},{zh:"中四", en:"Secondary 4", correct:true},{zh:"中六", en:"Secondary 6", correct:false},{zh:"大學一年級", en:"University Year 1", correct:false}], exp_zh: "課程一般從中四開始，為期三年。", exp_en: "The course generally starts in Secondary 4 and lasts for three years." },
+            { zh: "ApL(C) 的教學語言有什麼特別之處？", en: "What is special about the medium of instruction for ApL(C)?", options: [{zh:"只限用全普通話", en:"Putonghua only", correct:false},{zh:"可輔以英語或學生的母語解釋困難概念", en:"Can be supplemented by English/mother tongue", correct:true},{zh:"必須全英語授課", en:"Must be in English", correct:false},{zh:"禁止使用外語", en:"No foreign languages", correct:false}], exp_zh: "為確保學生理解實用情境，導師可靈活運用輔助語言。", exp_en: "Instructors can flexibly use supplementary languages to ensure comprehension." },
+            { zh: "哪間機構是目前提供 ApL(C) 課程的主要提供者之一？", en: "Which institution is one of the main providers of the ApL(C) course currently?", options: [{zh: "職業訓練局 (VTC)", en: "Vocational Training Council (VTC)", correct: true },{zh: "香港紅十字會", en: "Hong Kong Red Cross", correct: false },{zh: "醫院管理局", en: "Hospital Authority", correct: false },{zh: "消費者委員會", en: "Consumer Council", correct: false }], exp_zh: "VTC 及部分大專院校是教育局委託的常見課程提供者。", exp_en: "VTC and some colleges are common course providers commissioned by EDB." },
+            { zh: "如果非華語學生同時擁有 ApL(C) 和 GCSE 中文成績，大學聯招 (JUPAS) 會如何處理？", en: "If an NCS student has both ApL(C) and GCSE Chinese results, how will JUPAS handle it?", options: [{zh: "兩者分數相加", en: "Add the scores together", correct: false },{zh: "只計算 ApL(C)", en: "Only count ApL(C)", correct: false },{zh: "彈性考慮並取其對學生最有利的成績", en: "Flexibly consider and take the best result", correct: true },{zh: "取消其申請資格", en: "Disqualify the application", correct: false }], exp_zh: "大學通常會取最高或最有利的成績計算。", exp_en: "Universities usually take the highest or most favorable alternative Chinese qualification." },
+            { zh: "與其他 DSE 核心中文科相比，ApL(C) 最大特點是？", en: "Compared to core DSE Chinese, what is the biggest feature of ApL(C)?", options: [{zh: "需要背誦大量文言文", en: "Requires memorizing classical texts", correct: false },{zh: "重視職場與日常真實溝通", en: "Focuses on workplace/daily real communication", correct: true },{zh: "寫作要求達二千字", en: "Requires 2000-word essays", correct: false },{zh: "只有聽力測試", en: "Only tests listening", correct: false}], exp_zh: "ApL(C) 切合生活與職業需求，不考文言文及文學分析。", exp_en: "ApL(C) perfectly fits career needs, with no classical Chinese analysis." },
+            { zh: "ApL(C) 的「達標並表現優異(I)」等同 HKDSE 中文科的哪一級別？", en: "What is 'Attained with Distinction (I)' equivalent to in DSE Chinese?", options: [{zh: "第二級 (Level 2)", en: "Level 2", correct: false },{zh: "第三級 (Level 3)", en: "Level 3", correct: true },{zh: "第四級 (Level 4)", en: "Level 4", correct: false },{zh: "第五級 (Level 5)", en: "Level 5", correct: false}], exp_zh: "優異(I) 成績獲公認等同於 DSE 中文科第三級表現。", exp_en: "Distinction (I) is widely recognized as equivalent to Level 3 in DSE Chinese." },
+            
+            // 以下新增 10 題 (21-30) 以達到 30 題要求
+            { zh: "應用學習中文 (ApL(C)) 課程的學生成績是屬於標準參照，這意味著：", en: "The grading of ApL(C) is criterion-referenced, which means:", options: [{zh:"成績與其他考生表現比較", en:"Grading depends on other candidates", correct:false},{zh:"根據是否達到既定客觀標準評分", en:"Grading depends on preset objective standards", correct:true},{zh:"由考官主觀隨意評定", en:"Grading is subjective by examiners", correct:false},{zh:"全部人均可獲得優異成績", en:"Everyone automatically gets Distinction", correct:false}], exp_zh: "標準參照意味着考生成績只與預設標準掛鉤，不受其他考生表現影響。", exp_en: "Criterion-referenced means grades are based on objective standards, not rank." },
+            { zh: "ApL(C) 的評估範疇中，聽、說、讀、寫的分值比例是？", en: "In the assessment of ApL(C), what is the ratio of listening, speaking, reading, and writing?", options: [{zh:"寫作佔50%，其他各16.6%", en:"Writing 50%, others 16.6%", correct:false},{zh:"四個範疇均衡評估，各佔比例", en:"Balanced assessment across all four areas", correct:true},{zh:"口試佔80%", en:"Speaking accounts for 80%", correct:false},{zh:"只評估閱讀及寫作", en:"Only reading and writing are assessed", correct:false}], exp_zh: "課程提供機構會設計多元化任務，全面且均衡地評核聽、說、讀、寫四項技能。", exp_en: "The provider designs diverse tasks to assess all four skills in a balanced way." },
+            { zh: "公務員事務局認可 ApL(C) 的「達標並表現優異」等同公務員入職的：", en: "The CSB recognizes ApL(C) 'Distinction' as meeting which civil service requirement?", options: [{zh:"中學文憑試中文科第二級", en:"DSE Chinese Level 2", correct:false},{zh:"中學文憑試中文科第三級", en:"DSE Chinese Level 3", correct:true},{zh:"中學文憑試中文科第四級", en:"DSE Chinese Level 4", correct:false},{zh:"不予承認", en:"Not recognized", correct:false}], exp_zh: "「達標並表現優異（I或II）」在申請公務員職位時被視為等同文憑試中文科第三級。", exp_en: "Distinction is treated as equivalent to DSE Chinese Level 3 for civil service jobs." },
+            { zh: "如果非華語學生在 ApL(C) 科目中缺席評估，能申請補考嗎？", en: "Can an NCS student apply for a make-up assessment if they miss an ApL(C) task?", options: [{zh:"完全不接受任何補考", en:"No make-up assessments allowed", correct:false},{zh:"提供合理證明下，可向課程機構申請補課或補評估", en:"Can apply to the provider with valid proof", correct:true},{zh:"可以無限次重複補考", en:"Can retake unlimited times", correct:false},{zh:"直接由考評局決定補試日期", en:"HKEAA directly schedules a make-up date", correct:false}], exp_zh: "若因病或其他合理原因缺席，學生需根據機構指引，向課程主辦方申請補考安排。", exp_en: "With medical or valid reasons, students can apply to providers for make-ups." },
+            { zh: "ApL(C) 成績可否用於報讀香港副學士 (Associate Degree) 或高級文憑 (Higher Diploma)？", en: "Can ApL(C) results be used to apply for Associate Degrees or Higher Diplomas in HK?", options: [{zh:"不可以，只可用於學士學位", en:"No, only for Bachelor degrees", correct:false},{zh:"可以，達標成績完全滿足中文入學要求", en:"Yes, 'Attained' satisfies the Chinese requirement", correct:true},{zh:"必須取得優異(II)才行", en:"Must obtain Distinction (II)", correct:false},{zh:"只能報讀非學術性課程", en:"Only for non-academic courses", correct:false}], exp_zh: "所有副學士與高級文憑均認可「達標」為符合中文入學門檻（等同DSE二級）。", exp_en: "All AD and HD programs accept 'Attained' as satisfying the Chinese language entry gate." },
+            { zh: "ApL(C) 課程的評核任務通常在什麼時候進行？", en: "When are the assessments of the ApL(C) course usually held?", options: [{zh:"集中在中六最後一個月", en:"Concentrated in the last month of S6", correct:false},{zh:"在三年課程中分階段以「持續評估」形式進行", en:"Staged throughout the 3-year course as continuous assessment", correct:true},{zh:"每學期結束時由大專院校統一考試", en:"Uniform terminal exams by institutions", correct:false},{zh:"沒有固定時間，隨意進行", en:"Unscheduled and ad hoc", correct:false}], exp_zh: "ApL(C) 採取分散式持續評估，橫跨中四至中六多個單元，減低一試定生死壓力。", exp_en: "Assessments are continuous and spread over modules across Secondary 4 to 6." },
+            { zh: "在 ApL(C) 的實用寫作中，下列哪項通常是評估核心？", en: "In ApL(C) practical writing, which of the following is usually the assessment core?", options: [{zh:"文言文字彙運用", en:"Classical vocabulary", correct:false},{zh:"職場便條、電郵或簡單報告的格式與語氣", en:"Format and tone of workplace memos, emails, or reports", correct:true},{zh:"修辭手法的多樣性", en:"Variety of rhetorical devices", correct:false},{zh:"個人抒情與文學創作", en:"Personal lyrical and creative writing", correct:false}], exp_zh: "寫作考核高度模擬職場需求，如撰寫電郵、投訴覆函或工作報告，強調實用格式與合適語氣。", exp_en: "Writing tests simulate workplace needs, emphasizing proper formats and appropriate tone." },
+            { zh: "ApL(C)「達標並表現優異(I)」等同於香港資歷架構 (QF) 的哪一級？", en: "ApL(C) 'Distinction (I)' corresponds to which level on the HK Qualifications Framework (QF)?", options: [{zh:"第一級 (Level 1)", en:"Level 1", correct:false},{zh:"第二級 (Level 2)", en:"Level 2", correct:false},{zh:"第三級 (Level 3)", en:"Level 3", correct:true},{zh:"第四級 (Level 4)", en:"Level 4", correct:false}], exp_zh: "達標成績對應資歷架構第二級，而表現優異（I及II）則對應第三級資歷。", exp_en: "Attained maps to QF Level 2, while Distinction (I) and (II) map to QF Level 3." },
+            { zh: "哪類非華語學生**不符合**報讀 ApL(C) 的資歷要求？", en: "Which group of NCS students is NOT eligible to enroll in ApL(C)?", options: [{zh:"在香港學校接受了10年中文教學的中學生", en:"High schoolers taught in Chinese for 10 years", correct:true},{zh:"在小學階段只學過簡短中文的少數族裔學生", en:"EM students with basic Chinese in primary school", correct:false},{zh:"中途插班來港，不懂中文的非華語學生", en:"NCS students newly arrived in Hong Kong with no Chinese background", correct:false},{zh:"在港出生但中文讀寫能力薄弱的少數族裔學生", en:"EM students born in HK with weak Chinese literacy", correct:false}], exp_zh: "如果已接受中文教學超過六年，代表其已具備本地生基礎，不符合教育局對非華語學生的替代認定。", exp_en: "Students with over 6 years of Chinese medium instruction are ineligible." },
+            { zh: "修讀 ApL(C) 課程期間，如果學生出席率不足 80%，最嚴重的後果是：", en: "During the ApL(C) course, if attendance falls below 80%, the worst consequence is:", options: [{zh:"只被罰款學費", en:"Only a tuition fee penalty", correct:false},{zh:"不能參加部分課外活動", en:"Banned from some activities", correct:false},{zh:"無法獲取 HKDSE 的 ApL(C) 評級和資歷證書", en:"Cannot receive the DSE grade and QF certificate", correct:true},{zh:"降班到中四重修", en:"Demoted to Secondary 4 to retake", correct:false}], exp_zh: "出席率低於 80% 的學生將無法獲准參加最終評核，DSE 證書上該科會被標示為不予評級。", exp_en: "Failure to meet the 80% attendance rate disqualifies candidates from receiving a final grade." }
         ];
 
         let currentQuestion = 0;
@@ -228,7 +141,6 @@
         }
 
         function selectOption(selectedOpt, btnElement) {
-            // Disable all buttons
             const allBtns = document.getElementById('options-container').children;
             for(let b of allBtns) { b.disabled = true; b.classList.remove('hover:border-indigo-400', 'hover:bg-indigo-50', 'cursor-pointer'); }
 
@@ -244,7 +156,6 @@
                 document.getElementById('score-text').innerText = `Score: ${score}`;
             } else {
                 btnElement.classList.add('border-red-500', 'bg-red-50');
-                // Find correct one and highlight
                 for(let b of allBtns) {
                     if(q.options.find(o => o.zh === b.querySelector('.font-bold').innerText).correct) {
                         b.classList.add('border-green-500', 'bg-green-50');
