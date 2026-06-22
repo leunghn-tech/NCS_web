@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>學生專區 | NCS 融學平台</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563EB',
+                        secondary: '#10B981',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #a8a8a8; }
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans text-gray-800 min-h-screen flex flex-col">
+
+    <!-- 導覽列 -->
+    <nav class="bg-primary text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <a href="index.html" class="flex items-center space-x-3 hover:opacity-80 transition">
+                    <i class="fa-solid fa-graduation-cap text-2xl"></i>
+                    <span class="font-bold text-xl tracking-wide">NCS 融學平台</span>
+                </a>
+                <div class="hidden md:flex space-x-6 font-medium text-sm items-center">
+                    <a href="index.html" class="hover:text-blue-200 transition">首頁</a>
+                    <a href="student.html" class="text-blue-200 font-bold border-b-2 border-blue-200 pb-1">學生</a>
+                    <a href="parent.html" class="hover:text-blue-200 transition">家長</a>
+                    <a href="school.html" class="hover:text-blue-200 transition">選校</a>
+                    <a href="pathway.html" class="hover:text-blue-200 transition">升學</a>
+                    <a href="sen.html" class="hover:text-blue-200 transition">SEN</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        <div class="flex items-center justify-between mb-8">
+            <h1 class="text-2xl md:text-3xl font-extrabold text-gray-900 flex items-center">
+                <div class="bg-primary text-white w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center mr-3 md:mr-4 shadow-md"><i class="fa-solid fa-book-open text-xl md:text-2xl"></i></div>
+                學生專區 <span class="text-lg md:text-xl font-normal text-gray-500 ml-3 hidden sm:inline">| 學習與語言支援</span>
+            </h1>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10">
+            
+            <!-- 左側：中文分級閱讀 -->
+            <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col h-[850px]">
+                <div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-900 flex items-center">
+                            <i class="fa-solid fa-layer-group text-primary mr-2"></i> 分級閱讀庫 (30篇)
+                        </h2>
+                        <p class="text-sm text-gray-500 mt-1">互動式生字卡：滑鼠移至藍色底線文字查看拼音</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-2 mb-4 overflow-x-auto pb-3 custom-scrollbar h-[50px]">
+                    <button onclick="filterReadings('all')" id="tab-all" class="tab-btn flex-shrink-0 flex items-center px-4 py-2 rounded-full text-sm font-bold bg-primary text-white transition whitespace-nowrap shadow-sm">全部</button>
+                    <button onclick="filterReadings(1)" id="tab-1" class="tab-btn flex-shrink-0 flex items-center px-4 py-2 rounded-full text-sm font-bold bg-gray-100 text-gray-600 hover:bg-green-100 hover:text-green-700 transition whitespace-nowrap shadow-sm">Level 1 (基礎)</button>
+                    <button onclick="filterReadings(2)" id="tab-2" class="tab-btn flex-shrink-0 flex items-center px-4 py-2 rounded-full text-sm font-bold bg-gray-100 text-gray-600 hover:bg-yellow-100 hover:text-yellow-700 transition whitespace-nowrap shadow-sm">Level 2 (日常)</button>
+                    <button onclick="filterReadings(3)" id="tab-3" class="tab-btn flex-shrink-0 flex items-center px-4 py-2 rounded-full text-sm font-bold bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-700 transition whitespace-nowrap shadow-sm">Level 3 (進階)</button>
+                    <button onclick="filterReadings(4)" id="tab-4" class="tab-btn flex-shrink-0 flex items-center px-4 py-2 rounded-full text-sm font-bold bg-gray-100 text-gray-600 hover:bg-red-100 hover:text-red-700 transition whitespace-nowrap shadow-sm">Level 4 (精通)</button>
+                </div>
+
+                <div id="reading-container" class="space-y-4 overflow-y-auto flex-grow custom-scrollbar pr-2 pb-4">
+                    <!-- JS 動態插入 -->
+                </div>
+            </section>
+
+            <!-- 右側：真實下載區 + 新增的考試挑戰區 -->
+            <div class="flex flex-col space-y-8 h-[850px]">
+                
+                <!-- 區塊 A：官方考試資源下載 -->
+                <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col">
+                    <div class="mb-4 border-b border-gray-100 pb-4">
+                        <h2 class="text-xl font-bold text-gray-900 flex items-center">
+                            <i class="fa-solid fa-file-pdf text-red-500 mr-2"></i> 官方考試資源下載
+                        </h2>
+                        <p class="text-sm text-gray-500 mt-1">連結至 EDB 及 Edexcel 官方首頁獲取最新指引。</p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="border border-gray-100 rounded-xl p-4 hover:shadow-md transition">
+                            <div class="flex items-start justify-between">
+                                <div class="flex items-center">
+                                    <div class="bg-red-100 text-red-600 p-3 rounded-lg mr-4"><i class="fa-solid fa-link text-xl"></i></div>
+                                    <div>
+                                        <h3 class="font-bold text-gray-900 text-sm md:text-base">HKDSE ApL(C) 官方專頁</h3>
+                                        <p class="text-xs md:text-sm text-gray-500">教育局應用學習中文課程最新指引與大綱。</p>
+                                    </div>
+                                </div>
+                                <a href="https://www.edb.gov.hk/tc/curriculum-development/cross-kla-studies/applied-learning/applied-learning-chinese/index.html" target="_blank" rel="noopener noreferrer" class="bg-blue-50 text-primary hover:bg-primary hover:text-white px-3 py-2 rounded-lg text-sm font-bold transition flex items-center whitespace-nowrap ml-2">
+                                    <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> 官方專頁
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="border border-gray-100 rounded-xl p-4 hover:shadow-md transition">
+                            <div class="flex items-start justify-between">
+                                <div class="flex items-center">
+                                    <div class="bg-red-100 text-red-600 p-3 rounded-lg mr-4"><i class="fa-solid fa-link text-xl"></i></div>
+                                    <div>
+                                        <h3 class="font-bold text-gray-900 text-sm md:text-base">Edexcel A-Level 中文</h3>
+                                        <p class="text-xs md:text-sm text-gray-500">最新考試大綱與樣本試卷下載區。</p>
+                                    </div>
+                                </div>
+                                <a href="https://qualifications.pearson.com/en/qualifications/edexcel-a-levels/chinese-2017.html" target="_blank" rel="noopener noreferrer" class="bg-blue-50 text-primary hover:bg-primary hover:text-white px-3 py-2 rounded-lg text-sm font-bold transition flex items-center whitespace-nowrap ml-2">
+                                    <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> 官方專頁
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="border border-gray-100 rounded-xl p-4 hover:shadow-md transition">
+                            <div class="flex items-start justify-between">
+                                <div class="flex items-center">
+                                    <div class="bg-blue-100 text-blue-600 p-3 rounded-lg mr-4"><i class="fa-solid fa-link text-xl"></i></div>
+                                    <div>
+                                        <h3 class="font-bold text-gray-900 text-sm md:text-base">Edexcel GCSE 中文</h3>
+                                        <p class="text-xs md:text-sm text-gray-500">英國官方 GCSE 考試題型與評分準則。</p>
+                                    </div>
+                                </div>
+                                <a href="https://qualifications.pearson.com/en/qualifications/edexcel-gcses/chinese-2017.html" target="_blank" rel="noopener noreferrer" class="bg-blue-50 text-primary hover:bg-primary hover:text-white px-3 py-2 rounded-lg text-sm font-bold transition flex items-center whitespace-nowrap ml-2">
+                                    <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> 官方專頁
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 區塊 B：考試制度知識挑戰 (互動題庫入口) -->
+                <section class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl shadow-sm border border-indigo-100 p-6 flex flex-col flex-grow">
+                    <div class="mb-4 border-b border-indigo-100 pb-4">
+                        <h2 class="text-xl font-bold text-indigo-900 flex items-center">
+                            <i class="fa-solid fa-gamepad text-indigo-600 mr-2"></i> 考試制度知識挑戰 (Bilingual)
+                        </h2>
+                        <p class="text-sm text-indigo-700 mt-1">附語音朗讀與中英對照，助您全面了解各大考試制度！</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-4 mt-2">
+                        <a href="quiz_aplc.html" class="bg-white border-2 border-indigo-200 rounded-xl p-4 hover:border-indigo-500 hover:shadow-lg transition group relative overflow-hidden flex items-center justify-between">
+                            <div class="flex items-center z-10">
+                                <div class="bg-indigo-100 text-indigo-600 w-12 h-12 rounded-full flex items-center justify-center mr-4"><i class="fa-solid fa-clipboard-check text-xl"></i></div>
+                                <div>
+                                    <h3 class="font-bold text-gray-900 text-lg">HKDSE ApL(C) 題庫</h3>
+                                    <p class="text-xs text-gray-500">20題 • 認識香港應用學習中文</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-indigo-300 group-hover:text-indigo-600 transition z-10"></i>
+                            <div class="absolute inset-0 bg-indigo-50 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></div>
+                        </a>
+
+                        <a href="quiz_alevel.html" class="bg-white border-2 border-purple-200 rounded-xl p-4 hover:border-purple-500 hover:shadow-lg transition group relative overflow-hidden flex items-center justify-between">
+                            <div class="flex items-center z-10">
+                                <div class="bg-purple-100 text-purple-600 w-12 h-12 rounded-full flex items-center justify-center mr-4"><i class="fa-solid fa-graduation-cap text-xl"></i></div>
+                                <div>
+                                    <h3 class="font-bold text-gray-900 text-lg">Edexcel A-Level 題庫</h3>
+                                    <p class="text-xs text-gray-500">20題 • 認識英國高考中文科</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-purple-300 group-hover:text-purple-600 transition z-10"></i>
+                            <div class="absolute inset-0 bg-purple-50 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></div>
+                        </a>
+
+                        <a href="quiz_gcse.html" class="bg-white border-2 border-blue-200 rounded-xl p-4 hover:border-blue-500 hover:shadow-lg transition group relative overflow-hidden flex items-center justify-between">
+                            <div class="flex items-center z-10">
+                                <div class="bg-blue-100 text-blue-600 w-12 h-12 rounded-full flex items-center justify-center mr-4"><i class="fa-solid fa-pen-nib text-xl"></i></div>
+                                <div>
+                                    <h3 class="font-bold text-gray-900 text-lg">Edexcel GCSE 題庫</h3>
+                                    <p class="text-xs text-gray-500">20題 • 認識英國會考中文科</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-blue-300 group-hover:text-blue-600 transition z-10"></i>
+                            <div class="absolute inset-0 bg-blue-50 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></div>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- 頁尾 -->
+    <footer class="bg-slate-900 text-slate-400 py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center text-sm">
+            <p>&copy; 2026 NCS 融學支援平台. 學生專區.</p>
+        </div>
+    </footer>
+
+    <script>
+        function parseContent(text) {
+            const regex = /#([^|]+)\|([^|]+)\|([^#]+)#/g;
+            return text.replace(regex, (match, word, jyutping, english) => {
+                return `<span class="group relative inline-block cursor-help text-primary font-bold border-b border-dashed border-primary pb-0.5 mx-0.5 transition hover:bg-blue-50">
+                            ${word}
+                            <span class="absolute bottom-full left-1/2 transform -translate-x-1/2 hidden group-hover:block text-xs bg-gray-800 text-white px-2 py-1.5 rounded-md whitespace-nowrap mb-1 z-10 font-normal shadow-lg">
+                                <span class="text-yellow-300 font-mono">${jyutping}</span><br>${english}
+                            </span>
+                        </span>`;
+            });
+        }
+
+        const readingData = [
+            // Level 1
+            { id: 1, level: 1, title: "自我介紹", content: "#你好|nei5 hou2|Hello#，我#叫|giu3|am called#阿里。我#是|si6|am#巴基斯坦人。我#十五|sap6 ng5|fifteen#歲。", trans: "Hello, my name is Ali. I am Pakistani. I am 15 years old." },
+            { id: 2, level: 1, title: "我的家人", content: "我有#爸爸|baa1 baa1|father#、#媽媽|maa1 maa1|mother#和一個#妹妹|mui4 mui2|younger sister#。我們#住|zyu6|live#在屯門。", trans: "I have a father, mother, and one younger sister. We live in Tuen Mun." },
+            { id: 3, level: 1, title: "數字與顏色", content: "我#喜歡|hei2 fun1|like##紅色|hung4 sik1|red color#和#藍色|laam4 sik1|blue color#。我有#三|saam1|three#個蘋果。", trans: "I like red and blue. I have three apples." },
+            { id: 4, level: 1, title: "星期與時間", content: "今天是#星期一|sing1 kei4 jat1|Monday#。現在是#早上|zou2 soeng6|morning##八點|baat3 dim2|8 o'clock#，我要#上學|soeng5 hok6|go to school#。", trans: "Today is Monday. It is 8:00 AM now, I need to go to school." },
+            { id: 5, level: 1, title: "喜歡的食物", content: "我#最|zeoi3|most#喜歡吃#牛肉|ngau4 juk6|beef#和#白飯|baak6 faan6|white rice#。我#不吃|bat1 hek3|do not eat#豬肉。", trans: "I like eating beef and white rice the most. I do not eat pork." },
+            { id: 6, level: 1, title: "身體部位", content: "這是我的#眼睛|ngaan5 zing1|eyes#，那是我的#耳朵|ji5 do2|ears#。我的#頭髮|tau4 faat3|hair#是黑色的。", trans: "These are my eyes, those are my ears. My hair is black." },
+            { id: 7, level: 1, title: "交通工具", content: "我每天#搭|daap3|take (transport)#港鐵和#巴士|baa1 si2|bus#去學校。", trans: "I take the MTR and bus to school every day." },
+            { id: 8, level: 1, title: "買東西", content: "這個#多少錢|do1 siu2 cin4|how much money#？太#貴|gwai3|expensive#了，可以#便宜|pin4 ji4|cheaper#一點嗎？", trans: "How much is this? Too expensive, can it be cheaper?" },
+            // Level 2
+            { id: 9, level: 2, title: "在茶餐廳點餐", content: "#伙記|fo2 gei3|Waiter#，#唔該|m4 goi1|Excuse me/Please#一杯#熱奶茶|jit6 naai5 caa4|Hot milk tea#和一份三文治。", trans: "Waiter, a hot milk tea and a sandwich please." },
+            { id: 10, level: 2, title: "問路", content: "請問#地鐵站|dei6 tit3 zaam6|MTR station#怎麼去？一直#往前走|wong5 cin4 zau2|walk straight ahead#，然後#轉右|zyun3 jau6|turn right#。", trans: "Excuse me, how to get to the MTR station? Walk straight ahead, then turn right." },
+            { id: 11, level: 2, title: "看醫生", content: "醫生，我#發燒|faat3 siu1|have a fever#和#咳嗽|kat1 sau3|cough#。我#覺得|gok3 dak1|feel#很#辛苦|san1 fu2|uncomfortable/tired#。", trans: "Doctor, I have a fever and cough. I feel very uncomfortable." },
+            { id: 12, level: 2, title: "天氣預報", content: "明天有#大雨|daai6 jyu5|heavy rain#和#雷暴|leoi4 bou6|thunderstorm#，記得帶#雨傘|jyu5 saan3|umbrella#出門。", trans: "Tomorrow there will be heavy rain and thunderstorms, remember to bring an umbrella." },
+            { id: 13, level: 2, title: "我的愛好", content: "放假時，我喜歡和朋友去#踢足球|tek3 zuk1 kau4|play football#和#看電影|hon3 din6 jing2|watch movies#。", trans: "During holidays, I like to play football and watch movies with friends." },
+            { id: 14, level: 2, title: "週末計畫", content: "這個#週末|zau1 mut6|weekend#，我打算去圖書館#溫習|wan1 zaap6|revise#，因為快要#考試|haau2 si3|exam#了。", trans: "This weekend, I plan to go to the library to revise because exams are coming." },
+            { id: 15, level: 2, title: "邀請朋友", content: "下星期六是我的#生日|saang1 jat6|birthday#，我想#邀請|jiu1 cing2|invite#你來我家參加#派對|paai3 deoi3|party#。", trans: "Next Saturday is my birthday, I want to invite you to my house for a party." },
+            { id: 16, level: 2, title: "租屋", content: "這間#單位|daan1 wai2|flat/apartment#有兩個房間，#租金|zou1 gam1|rent#是每個月八千元，包#水電|seoi2 din6|water and electricity#嗎？", trans: "This flat has two rooms, the rent is 8000 per month, does it include water and electricity?" },
+            // Level 3
+            { id: 17, level: 3, title: "學校陸運會通告", content: "敬啟者：本校將於下週五舉辦#週年陸運會|zau1 nin4 luk6 wan6 wui2|Annual Athletics Meet#。全體學生必須#穿著|cyun1 zoek3|wear#整齊運動服#出席|ceot1 zik6|attend#。如有#缺席|kyut3 zik6|absent#，必須提交家長信。", trans: "To whom it may concern: Our school will hold the Annual Athletics Meet next Friday. All students must wear proper PE uniform to attend. If absent, a parent's letter must be submitted." },
+            { id: 18, level: 3, title: "家長日通知", content: "為了讓家長了解學生的#學習進度|hok6 zaap6 zeon3 dou6|learning progress#，本校定於本月二十日舉行#家長教師會|gaa1 zoeng2 gaau3 si1 wui2|Parent-Teacher Association#面談。", trans: "To let parents understand students' learning progress, our school scheduled a PTA meeting on the 20th of this month." },
+            { id: 19, level: 3, title: "學校規則", content: "學生必須#遵守|zeon1 sau2|obey#校規，嚴禁在走廊#奔跑|ban1 paau2|run#。上課時請將手機#關機|gwaan1 gei1|turn off#或調至#靜音|zing6 jam1|silent mode#。", trans: "Students must obey school rules, running in the corridor is strictly prohibited. Please turn off phones or switch to silent mode during class." },
+            { id: 20, level: 3, title: "惡劣天氣安排", content: "若天文台懸掛#八號風球|baat3 hou6 fung1 kau4|Typhoon Signal No. 8#或#黑色暴雨警告|hak1 sik1 bou6 jyu5 ging2 gou3|Black Rainstorm Warning#，所有課程將會#取消|ceoi2 siu1|cancelled#。", trans: "If the Observatory issues Typhoon Signal No. 8 or Black Rainstorm Warning, all classes will be cancelled." },
+            { id: 21, level: 3, title: "圖書館守則", content: "讀者請#保持安靜|bou2 ci4 on1 zing6|keep quiet#。借閱的書籍必須在#到期日|dou3 kei4 jat6|due date#前#歸還|gwai1 waan4|return#，否則將被#罰款|fat6 faan2|fined#。", trans: "Readers please keep quiet. Borrowed books must be returned before the due date, otherwise a fine will be charged." },
+            { id: 22, level: 3, title: "課外活動報名", content: "本年度的#課外活動|fo3 ngoi6 wut6 dung6|extracurricular activities#現已接受報名。同學可於網上系統#遞交|dai6 gaau1|submit#申請，#名額有限|ming4 ngaak2 jau5 haan6|limited quota#，先到先得。", trans: "Enrollment for this year's extracurricular activities is now open. Students can submit applications online. Quota is limited, first-come, first-served." },
+            { id: 23, level: 3, title: "考試時間表", content: "#期終試|kei4 zung1 si3|Final Examination#將於下月舉行。請同學核對時間表，並帶齊文具和#學生證|hok6 saang1 zing3|student ID card#進入#試場|si3 coeng4|examination hall#。", trans: "The Final Examination will be held next month. Please check the timetable and bring all stationery and student ID card to enter the examination hall." },
+            // Level 4
+            { id: 24, level: 4, title: "寫一封求職信", content: "敬啟者：本人從網上得知貴公司正#招聘|ziu1 ping3|recruiting#助理一職，特來信#應徵|jing3 zing1|apply#。本人具備良好的#溝通能力|kau1 tung1 nang4 lik6|communication skills#，並能#熟練|suk6 lin6|proficiently#操作電腦軟件。隨信附上#履歷表|lei5 lik6 biu2|resume#，懇請 貴公司給予#面試機會|min6 si3 gei1 wui2|interview opportunity#。", trans: "Dear Sir/Madam: I learned from the internet that your company is recruiting an assistant, I am writing to apply. I possess good communication skills and can proficiently operate computer software. Attached is my resume, I sincerely hope to be given an interview opportunity." },
+            { id: 25, level: 4, title: "投訴信", content: "本人對於貴餐廳昨晚的#服務質素|fuk6 mou6 zat1 sou3|service quality#深感#不滿|bat1 mun5|dissatisfied#。侍應態度#惡劣|ok3 lyut3|rude/bad#，且食物不潔，望貴公司盡快#徹查|cit3 caa4|investigate thoroughly#並作出#交代|gaau1 doi6|explanation#。", trans: "I am deeply dissatisfied with your restaurant's service quality last night. The waiter's attitude was rude and the food was unhygienic. I hope your company will investigate thoroughly and provide an explanation soon." },
+            { id: 26, level: 4, title: "報章社論：環保議題", content: "近年#全球暖化|cyun4 kau4 nyun5 faa3|global warming#問題日益#嚴重|jim4 zung6|serious#。政府應加強推廣#源頭減廢|jyun4 tau4 gaam2 fai3|waste reduction at source#及#資源回收|zi1 jyun4 wui4 sau1|resource recycling#，市民亦有#責任|zaak3 jam6|responsibility#實踐綠色生活。", trans: "In recent years, the problem of global warming has become increasingly serious. The government should strengthen the promotion of waste reduction at source and resource recycling, and citizens also have the responsibility to practice a green lifestyle." },
+            { id: 27, level: 4, title: "青年問題探討", content: "部分青少年過度#沉迷|cam4 mai4|addicted to#智能手機，導致#缺乏|kyut3 fat6|lack of#面對面的#社交互動|se5 gaau1 wu6 dung6|social interaction#。家長和學校應提供適當的#輔導|fu6 dou6|guidance#。", trans: "Some teenagers are overly addicted to smartphones, leading to a lack of face-to-face social interaction. Parents and schools should provide appropriate guidance." },
+            { id: 28, level: 4, title: "面試自我介紹", content: "各位面試官好。我是一個#積極進取|zik1 gik6 zeon3 ceoi2|proactive and aggressive#的人，擅長#團隊合作|tyun4 deoi2 hap6 zok3|teamwork#。我希望能在貴機構發揮#所長|so2 coeng4|strengths/expertise#，並不斷#自我增值|zi6 ngo5 zang1 zik6|self-improvement#。", trans: "Hello interviewers. I am a proactive person who is good at teamwork. I hope to utilize my strengths in your organization and continuously improve myself." },
+            { id: 29, level: 4, title: "科技與生活", content: "人工智能的#普及|pou2 kap6|popularization#為人類生活帶來#便利|bin6 lei6|convenience#，但也引發了關於#隱私外洩|jan2 si1 ngoi6 sit3|privacy leakage#和#取代人力|ceoi2 doi6 jan4 lik6|replacing human labor#的#爭議|zang1 ji5|controversy#。", trans: "The popularization of artificial intelligence brings convenience to human life, but also triggers controversies regarding privacy leakage and replacing human labor." },
+            { id: 30, level: 4, title: "寫給校長的建議信", content: "尊敬的校長：為了#營造|jing4 zou6|create/foster#更和諧的校園環境，本人#建議|gin3 ji5|suggest/recommend#增設多語種的#佈告欄|bou3 gou3 laan4|notice board#，以#促進|cuk1 zeon3|promote#不同文化背景學生的#共融|gung6 jung4|inclusion#。祝 教安。", trans: "Dear Principal: In order to foster a more harmonious campus environment, I recommend adding multi-lingual notice boards to promote the inclusion of students from different cultural backgrounds. Best regards." }
+        ];
+
+        function renderReadings(items) {
+            const container = document.getElementById('reading-container');
+            container.innerHTML = '';
+            if (items.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-center py-4">沒有找到相關資源。</p>';
+                return;
+            }
+            const levelStyles = {
+                1: { bg: 'bg-green-100', text: 'text-green-700', border: 'hover:border-green-300', label: 'Level 1: 基礎' },
+                2: { bg: 'bg-yellow-100', text: 'text-yellow-700', border: 'hover:border-yellow-300', label: 'Level 2: 日常' },
+                3: { bg: 'bg-orange-100', text: 'text-orange-700', border: 'hover:border-orange-300', label: 'Level 3: 進階' },
+                4: { bg: 'bg-red-100', text: 'text-red-700', border: 'hover:border-red-300', label: 'Level 4: 精通' }
+            };
+
+            items.forEach(item => {
+                const style = levelStyles[item.level];
+                const parsedContent = parseContent(item.content);
+                const div = document.createElement('div');
+                div.className = `border border-gray-100 rounded-xl p-4 transition bg-slate-50/50 fade-in ${style.border}`;
+                div.innerHTML = `
+                    <div class="flex justify-between mb-2">
+                        <span class="${style.bg} ${style.text} font-bold px-2.5 py-0.5 rounded text-xs shadow-sm">${style.label}</span>
+                        <span class="text-xs text-gray-400">#${item.id}</span>
+                    </div>
+                    <h3 class="font-bold text-lg text-gray-900 mb-2">${item.title}</h3>
+                    <div class="text-gray-800 text-base leading-relaxed mb-3 tracking-wide">${parsedContent}</div>
+                    <div class="bg-gray-100/50 p-2 rounded border-l-2 border-gray-300">
+                        <p class="text-sm text-gray-600 italic">"${item.trans}"</p>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function filterReadings(level) {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-primary', 'text-white');
+                btn.classList.add('bg-gray-100', 'text-gray-600');
+            });
+            const activeBtn = document.getElementById(`tab-${level}`);
+            activeBtn.classList.remove('bg-gray-100', 'text-gray-600');
+            activeBtn.classList.add('bg-primary', 'text-white');
+
+            if (level === 'all') {
+                renderReadings(readingData);
+            } else {
+                const filtered = readingData.filter(item => item.level === level);
+                renderReadings(filtered);
+            }
+        }
+
+        window.onload = () => {
+            renderReadings(readingData);
+        };
+    </script>
+</body>
+</html>
