@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GCSE Chinese 知識挑戰 | NCS 融學平台</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-blue-50 font-sans text-gray-800 min-h-screen flex flex-col">
+
+    <nav class="bg-blue-600 text-white shadow-md">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="student.html" class="flex items-center space-x-2 hover:text-blue-200 transition">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span class="font-bold text-sm">返回學生專區</span>
+            </a>
+            <div class="font-bold text-lg"><i class="fa-solid fa-pen-nib mr-2"></i>GCSE Quiz</div>
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-3xl mx-auto px-4 py-8 w-full flex flex-col justify-center">
+        <div id="quiz-container" class="bg-white rounded-2xl shadow-xl p-6 md:p-8 fade-in relative">
+            <div class="flex justify-between text-sm font-bold text-blue-500 mb-4">
+                <span id="progress-text">Question 1 / 20</span>
+                <span id="score-text">Score: 0</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2 mb-8">
+                <div id="progress-bar" class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: 5%"></div>
+            </div>
+
+            <div class="mb-8">
+                <div class="flex items-start">
+                    <h2 id="q-zh" class="text-xl md:text-2xl font-bold text-gray-900 mb-2">載入中...</h2>
+                    <button onclick="speakText(document.getElementById('q-zh').innerText, 'zh-HK')" class="ml-3 text-blue-500 hover:text-blue-700 bg-blue-50 p-2 rounded-full focus:outline-none"><i class="fa-solid fa-volume-up"></i></button>
+                </div>
+                <div class="flex items-start mt-2">
+                    <p id="q-en" class="text-sm md:text-base text-gray-500 italic">Loading...</p>
+                    <button onclick="speakText(document.getElementById('q-en').innerText, 'en-GB')" class="ml-3 text-gray-400 hover:text-gray-600 bg-gray-50 p-2 rounded-full text-xs focus:outline-none"><i class="fa-solid fa-volume-up"></i></button>
+                </div>
+            </div>
+
+            <div id="options-container" class="space-y-3"></div>
+
+            <div id="feedback-container" class="hidden mt-6 p-4 rounded-xl">
+                <h3 id="feedback-title" class="font-bold text-lg mb-1"></h3>
+                <div class="flex items-start mt-2">
+                    <p id="feedback-zh" class="text-sm font-medium text-gray-800"></p>
+                    <button onclick="speakText(document.getElementById('feedback-zh').innerText, 'zh-HK')" class="ml-2 text-blue-500 hover:text-blue-700 focus:outline-none"><i class="fa-solid fa-volume-up text-sm"></i></button>
+                </div>
+                <p id="feedback-en" class="text-xs text-gray-600 italic mt-1"></p>
+            </div>
+
+            <button id="next-btn" onclick="nextQuestion()" class="hidden w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition shadow-md">
+                下一題 Next Question <i class="fa-solid fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+
+        <div id="result-container" class="hidden bg-white rounded-2xl shadow-xl p-8 text-center fade-in">
+            <div class="text-blue-500 text-6xl mb-4"><i class="fa-solid fa-award"></i></div>
+            <h2 class="text-3xl font-bold text-gray-900 mb-2">測驗完成 Quiz Completed!</h2>
+            <p class="text-lg text-gray-600 mb-6">Your score is <span id="final-score" class="font-bold text-blue-600 text-2xl"></span> / 20</p>
+            <button onclick="location.reload()" class="bg-blue-600 text-white px-6 py-3 rounded-full font-bold hover:bg-blue-700 transition">重新測試 Restart</button>
+            <a href="student.html" class="block mt-4 text-blue-500 hover:underline">返回首頁 Return Home</a>
+        </div>
+    </main>
+
+    <script>
+        const questions = [
+            { zh: "Edexcel GCSE 中文科的最新評分制度是怎樣的？", en: "What is the latest grading system for Edexcel GCSE Chinese?", options: [{zh:"A* 到 G", en:"A* to G", correct:false},{zh:"9 到 1 (9 為最高)", en:"9 to 1 (9 is highest)", correct:true},{zh:"優、良、及格、不及格", en:"Excellent, Good, Pass, Fail", correct:false},{zh:"100分滿分制", en:"100 marks scale", correct:false}], exp_zh: "英國官方已將 GCSE 評分標準從舊制的 A*-G 轉換為 9-1，9 代表最優異的成績。", exp_en: "The UK official grading has changed from A*-G to 9-1, with 9 being the highest possible grade." },
+            { zh: "GCSE 考試分為哪兩個難度層級 (Tiers)？", en: "What are the two difficulty tiers in the GCSE exam?", options: [{zh:"Level 1 和 Level 2", en:"Level 1 and Level 2", correct:false},{zh:"基礎卷 (Foundation) 和 高級卷 (Higher)", en:"Foundation and Higher", correct:true},{zh:"普通卷和榮譽卷", en:"Ordinary and Honours", correct:false},{zh:"AS 和 A2", en:"AS and A2", correct:false}], exp_zh: "學生必須在報考時選擇報讀基礎卷（較易）或高級卷（較難）。", exp_en: "Students must choose to enter either the Foundation tier (easier) or Higher tier (harder)." },
+            { zh: "GCSE 中文科總共評估多少項語言技能？", en: "How many language skills are assessed in GCSE Chinese?", options: [{zh:"2項 (閱讀與寫作)", en:"2 (Reading & Writing)", correct:false},{zh:"3項 (聽力、閱讀、寫作)", en:"3 (Listen, Read, Write)", correct:false},{zh:"4項 (聽力、口語、閱讀、寫作)", en:"4 (Listen, Speak, Read, Write)", correct:true},{zh:"5項 (加入翻譯)", en:"5 (plus translation)", correct:false}], exp_zh: "GCSE 平均地評估聽 (Paper 1)、說 (Paper 2)、讀 (Paper 3) 和寫 (Paper 4)。", exp_en: "GCSE assesses Listening (Paper 1), Speaking (Paper 2), Reading (Paper 3) and Writing (Paper 4) equally." },
+            { zh: "每一項語言技能 (聽、說、讀、寫) 佔總成績的多少比例？", en: "What percentage of the total grade does each language skill account for?", options: [{zh:"寫作佔 40%，其他各 20%", en:"Writing 40%, others 20%", correct:false},{zh:"全部各佔 25%", en:"25% each", correct:true},{zh:"聽力和口語各 30%", en:"Listening/Speaking 30% each", correct:false},{zh:"閱讀佔 50%", en:"Reading 50%", correct:false}], exp_zh: "四張試卷的權重完全相等，各佔最終成績的 25%。", exp_en: "The four papers have equal weighting, each accounting for 25% of the final grade." },
+            { zh: "學生可以混合報考不同層級的試卷嗎？(例如聽力報基礎，寫作報高級)", en: "Can a student mix and match tiers? (e.g. Foundation Listening, Higher Writing)", options: [{zh:"可以，完全自由配搭", en:"Yes, completely free to mix", correct:false},{zh:"不可以，所有四份卷必須考同一層級", en:"No, must take the same tier for all 4 papers", correct:true},{zh:"口試可以不同，其他必須一樣", en:"Only speaking can be different", correct:false},{zh:"只限重考生可以", en:"Only for retakers", correct:false}], exp_zh: "規定極其嚴格，考生在同一考季必須四份卷都選擇 Foundation 或是 Higher。", exp_en: "The rule is strict: candidates must enter all four papers at the same tier in a single exam series." },
+            { zh: "如果選擇「基礎卷 (Foundation)」，學生能取得的最高等級是什麼？", en: "If a student takes the Foundation tier, what is the highest grade they can achieve?", options: [{zh:"等級 3", en:"Grade 3", correct:false},{zh:"等級 5", en:"Grade 5", correct:true},{zh:"等級 7", en:"Grade 7", correct:false},{zh:"等級 9", en:"Grade 9", correct:false}], exp_zh: "基礎卷的等級範圍是 1 到 5。如果學生想要考獲 6 至 9 級，必須報考高級卷。", exp_en: "Foundation tier awards grades 1 to 5. To get grades 6-9, a student must take the Higher tier." },
+            { zh: "「高級卷 (Higher)」的評分範圍涵蓋哪些等級？", en: "What is the grade range for the Higher tier?", options: [{zh:"4 到 9", en:"4 to 9", correct:false},{zh:"3 到 9", en:"3 to 9", correct:true},{zh:"1 到 9", en:"1 to 9", correct:false},{zh:"6 到 9", en:"6 to 9", correct:false}], exp_zh: "高級卷的目標是取得 4-9 級，但設有安全網，最低可給予等級 3。", exp_en: "Higher tier targets grades 4-9, but has a safety net allowing a grade 3." },
+            { zh: "口試 (Speaking Paper) 分為哪三個部分？", en: "What are the three parts of the Speaking Paper?", options: [{zh:"角色扮演、圖片描述、一般對話", en:"Role play, photo card, general conversation", correct:true},{zh:"朗讀、回答問題、小組討論", en:"Reading aloud, Q&A, group discussion", correct:false},{zh:"個人演講、辯論、聽力測試", en:"Presentation, debate, listening test", correct:false},{zh:"翻譯、情境對話、看圖說故事", en:"Translation, scenario dialog, story-telling", correct:false}], exp_zh: "口試非常生活化，考生需完成角色扮演 (Role play)、描述圖片卡及一般對答。", exp_en: "The speaking test is practical, involving a role play, describing a photo card, and general conversation." },
+            { zh: "在閱讀卷 (Paper 3) 中，有沒有翻譯的題型？", en: "Is there a translation task in the Reading paper (Paper 3)?", options: [{zh:"沒有", en:"No", correct:false},{zh:"有，要求將英文翻譯成中文", en:"Yes, translating English to Chinese", correct:false},{zh:"有，要求將中文短文翻譯成英文", en:"Yes, translating a Chinese passage into English", correct:true},{zh:"只有造句", en:"Only sentence making", correct:false}], exp_zh: "閱讀卷包含了理解題（英/中作答）以及一段由中文翻譯成英文的任務。", exp_en: "The reading paper includes comprehension questions and a section translating Chinese into English." },
+            { zh: "寫作卷 (Paper 4) 中包含的翻譯任務方向是？", en: "What is the translation direction in the Writing paper (Paper 4)?", options: [{zh:"中文譯成英文", en:"Chinese to English", correct:false},{zh:"英文譯成中文", en:"English to Chinese", correct:true},{zh:"不需要翻譯", en:"No translation needed", correct:false},{zh:"圖畫翻譯", en:"Picture translation", correct:false}], exp_zh: "與閱讀卷相反，寫作卷要求學生用中文寫作，包含將英文句子/短文翻譯成中文。", exp_en: "Unlike the reading paper, the writing paper requires translating English sentences/passages into Chinese." },
+            { zh: "GCSE 中文口試前，學生有多少準備時間？", en: "How much preparation time is given to a student before the GCSE speaking test?", options: [{zh:"沒有準備時間", en:"No prep time", correct:false},{zh:"5 分鐘", en:"5 minutes", correct:false},{zh:"12 分鐘", en:"12 minutes", correct:true},{zh:"30 分鐘", en:"30 minutes", correct:false}], exp_zh: "學生在進入考室前有 12 分鐘的準備時間，用於準備角色扮演和圖片卡內容。", exp_en: "Students get 12 minutes of preparation time for the role play and photo card before the test." },
+            { zh: "GCSE 課程包含了多少個核心主題 (Themes)？", en: "How many broad themes are covered in the GCSE curriculum?", options: [{zh:"3個", en:"3", correct:false},{zh:"5個", en:"5", correct:true},{zh:"7個", en:"7", correct:false},{zh:"沒有固定主題", en:"No fixed themes", correct:false}], exp_zh: "五大主題：身份與文化、本地區域、學校、未來抱負、國際/全球視野。", exp_en: "Five themes: Identity & culture, Local area, School, Future aspirations, and International/global dimension." },
+            { zh: "聽力考試中，學生需要用哪種語言回答問題？", en: "In the Listening exam, what language(s) must students use to answer questions?", options: [{zh:"全中文", en:"All in Chinese", correct:false},{zh:"全英文", en:"All in English", correct:false},{zh:"根據題目要求，部分用英文，部分用中文（或選擇題）", en:"Depending on the section, some English, some Chinese (or MCQ)", correct:true},{zh:"只能用拼音", en:"Only Pinyin", correct:false}], exp_zh: "聽力卷會明確指示作答語言，Section A 通常用英文答，Section B 需用中文或選填選項。", exp_en: "The paper dictates the language. Section A is usually answered in English, Section B in Chinese or MCQs." },
+            { zh: "對於香港的大學聯招 (JUPAS)，GCSE 成績通常用來做什麼？", en: "For HK JUPAS, what is the GCSE result usually used for?", options: [{zh:"取代 DSE 英文科", en:"Replace DSE English", correct:false},{zh:"作為非華語學生的「替代中文」最低門檻", en:"As the minimum 'Alternative Chinese' requirement for NCS", correct:true},{zh:"計算雙倍加分", en:"Double bonus points", correct:false},{zh:"沒什麼用途", en:"Not very useful", correct:false}], exp_zh: "很多大學接受 GCSE 等級 4 (或舊制 C) 作為非華語學生滿足入學的最低中文要求。", exp_en: "Many universities accept GCSE Grade 4 (or old Grade C) as the minimum Chinese requirement for NCS students." },
+            { zh: "考試中可以使用字典嗎？", en: "Are dictionaries allowed in any of the GCSE exams?", options: [{zh:"可以", en:"Yes", correct:false},{zh:"只允許在寫作卷使用", en:"Only in the Writing paper", correct:false},{zh:"不可以", en:"No", correct:true},{zh:"口試準備時可以使用", en:"Allowed during speaking prep", correct:false}], exp_zh: "與 A-Level 一樣，GCSE 所有試卷及準備時間均嚴禁使用字典。", exp_en: "Just like A-Level, dictionaries are strictly prohibited in all GCSE exams and prep time." },
+            { zh: "GCSE 的評核模式是什麼？", en: "What is the assessment format for GCSE?", options: [{zh:"模組化 (Modular - 可分階段考)", en:"Modular (can be taken in stages)", correct:false},{zh:"線性化 (Linear - 課程完結時一次過考)", en:"Linear (all exams taken at the end of the course)", correct:true},{zh:"100% 校本評核", en:"100% Coursework", correct:false},{zh:"只有網上選擇題", en:"Only online MCQs", correct:false}], exp_zh: "英國教育改革後，所有 GCSE 科目均為線性化，所有考試都在課程最後的 5-6 月一次過進行。", exp_en: "After reforms, all GCSEs are linear, meaning all exams are taken together at the end of the course in May/June." },
+            { zh: "高級卷 (Higher Tier) 寫作卷的長文任務大約需要寫多少字？", en: "Approximately how many characters are required for the long essay task in the Higher Writing paper?", options: [{zh:"50 - 80 字", en:"50 - 80 chars", correct:false},{zh:"130 - 250 字", en:"130 - 250 chars", correct:true},{zh:"400 - 500 字", en:"400 - 500 chars", correct:false},{zh:"1000 字以上", en:"Over 1000 chars", correct:false}], exp_zh: "高級卷的長文寫作任務要求較高，通常需要 130 到 250 個中文字。", exp_en: "The long essay task in the Higher tier typically requires 130 to 250 Chinese characters." },
+            { zh: "口語考試是由誰來評分的？", en: "Who marks the Speaking test?", options: [{zh:"由學校老師評分，考評局抽查", en:"Marked by school teachers, moderated by exam board", correct:false},{zh:"由學校老師主持錄音，但由 Pearson (Edexcel) 官方考官評分", en:"Conducted by teachers but marked by Pearson official examiners", correct:true},{zh:"AI 電腦自動評分", en:"AI auto-grading", correct:false},{zh:"同學互相評分", en:"Peer grading", correct:false}], exp_zh: "雖然錄音過程由學生的老師主持，但錄音檔會送交 Pearson 統一由專業考官評分。", exp_en: "Although conducted by the student's teacher, the recording is sent to Pearson to be marked by official examiners." },
+            { zh: "聽力考試中，學生聽同一段錄音的次數限制是？", en: "What is the limit on how many times a student hears the recording in the Listening exam?", options: [{zh:"一次", en:"Once", correct:false},{zh:"兩次（統一播放）", en:"Twice (played centrally)", correct:true},{zh:"三次", en:"Three times", correct:false},{zh:"學生可以無限次自己重播", en:"Students can replay infinitely", correct:false}], exp_zh: "有別於 A-Level 學生自己控制，GCSE 聽力是考場統一播放，每段對話只會播放兩次。", exp_en: "Unlike A-Level where students control it, GCSE listening is played centrally and heard twice only." },
+            { zh: "GCSE 中文科在香港適合哪個年齡/年級的學生報考？", en: "What age/grade is the GCSE Chinese qualification most suitable for in Hong Kong?", options: [{zh:"小學生 (10歲以下)", en:"Primary students (Under 10)", correct:false},{zh:"中三至中五 (約14-16歲)", en:"S3 to S5 (approx. 14-16 years old)", correct:true},{zh:"大學生", en:"University students", correct:false},{zh:"成年人", en:"Adults", correct:false}], exp_zh: "GCSE 是英國中學會考，程度相對基礎，香港 NCS 學生通常在中三至中五階段報考以確保有基本的替代資歷。", exp_en: "GCSE is a secondary school certificate with foundational difficulty. HK NCS students usually take it in S3-S5 to secure a basic alternative qualification." }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function speakText(text, lang) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = lang;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function loadQuestion() {
+            document.getElementById('feedback-container').classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+            
+            const q = questions[currentQuestion];
+            document.getElementById('q-zh').innerText = q.zh;
+            document.getElementById('q-en').innerText = q.en;
+            document.getElementById('progress-text').innerText = `Question ${currentQuestion + 1} / ${questions.length}`;
+            document.getElementById('progress-bar').style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            
+            q.options.forEach((opt) => {
+                const btn = document.createElement('button');
+                btn.className = 'w-full text-left bg-gray-50 border-2 border-gray-200 hover:border-blue-400 hover:bg-blue-50 rounded-xl p-4 transition duration-200 group';
+                btn.innerHTML = `<div class="font-bold text-gray-800 text-lg group-hover:text-blue-700">${opt.zh}</div><div class="text-sm text-gray-500 italic mt-1 group-hover:text-blue-500">${opt.en}</div>`;
+                btn.onclick = () => selectOption(opt, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectOption(selectedOpt, btnElement) {
+            const allBtns = document.getElementById('options-container').children;
+            for(let b of allBtns) { b.disabled = true; b.classList.remove('hover:border-blue-400', 'hover:bg-blue-50', 'cursor-pointer'); }
+            const feedback = document.getElementById('feedback-container');
+            const q = questions[currentQuestion];
+
+            if(selectedOpt.correct) {
+                btnElement.classList.add('border-green-500', 'bg-green-50');
+                document.getElementById('feedback-title').innerText = '✅ 正確 Correct!';
+                document.getElementById('feedback-title').className = 'font-bold text-lg mb-1 text-green-600';
+                feedback.className = 'mt-6 p-4 rounded-xl bg-green-50 border border-green-200 block fade-in';
+                score++;
+                document.getElementById('score-text').innerText = `Score: ${score}`;
+            } else {
+                btnElement.classList.add('border-red-500', 'bg-red-50');
+                for(let b of allBtns) { if(q.options.find(o => o.zh === b.querySelector('.font-bold').innerText).correct) b.classList.add('border-green-500', 'bg-green-50'); }
+                document.getElementById('feedback-title').innerText = '❌ 不正確 Incorrect';
+                document.getElementById('feedback-title').className = 'font-bold text-lg mb-1 text-red-600';
+                feedback.className = 'mt-6 p-4 rounded-xl bg-red-50 border border-red-200 block fade-in';
+            }
+            document.getElementById('feedback-zh').innerText = q.exp_zh;
+            document.getElementById('feedback-en').innerText = q.exp_en;
+            document.getElementById('next-btn').classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if(currentQuestion < questions.length) loadQuestion();
+            else {
+                document.getElementById('quiz-container').classList.add('hidden');
+                document.getElementById('result-container').classList.remove('hidden');
+                document.getElementById('final-score').innerText = score;
+            }
+        }
+        window.onload = loadQuestion;
+    </script>
+</body>
+</html>
