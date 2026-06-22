@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A-Level Chinese 知識挑戰 | NCS 融學平台</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-purple-50 font-sans text-gray-800 min-h-screen flex flex-col">
+
+    <nav class="bg-purple-600 text-white shadow-md">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="student.html" class="flex items-center space-x-2 hover:text-purple-200 transition">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span class="font-bold text-sm">返回學生專區</span>
+            </a>
+            <div class="font-bold text-lg"><i class="fa-solid fa-graduation-cap mr-2"></i>A-Level Quiz</div>
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-3xl mx-auto px-4 py-8 w-full flex flex-col justify-center">
+        <div id="quiz-container" class="bg-white rounded-2xl shadow-xl p-6 md:p-8 fade-in relative">
+            <div class="flex justify-between text-sm font-bold text-purple-500 mb-4">
+                <span id="progress-text">Question 1 / 20</span>
+                <span id="score-text">Score: 0</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2 mb-8">
+                <div id="progress-bar" class="bg-purple-600 h-2 rounded-full transition-all duration-300" style="width: 5%"></div>
+            </div>
+
+            <div class="mb-8">
+                <div class="flex items-start">
+                    <h2 id="q-zh" class="text-xl md:text-2xl font-bold text-gray-900 mb-2">載入中...</h2>
+                    <button onclick="speakText(document.getElementById('q-zh').innerText, 'zh-HK')" class="ml-3 text-purple-500 hover:text-purple-700 bg-purple-50 p-2 rounded-full focus:outline-none"><i class="fa-solid fa-volume-up"></i></button>
+                </div>
+                <div class="flex items-start mt-2">
+                    <p id="q-en" class="text-sm md:text-base text-gray-500 italic">Loading...</p>
+                    <button onclick="speakText(document.getElementById('q-en').innerText, 'en-GB')" class="ml-3 text-gray-400 hover:text-gray-600 bg-gray-50 p-2 rounded-full text-xs focus:outline-none"><i class="fa-solid fa-volume-up"></i></button>
+                </div>
+            </div>
+
+            <div id="options-container" class="space-y-3"></div>
+
+            <div id="feedback-container" class="hidden mt-6 p-4 rounded-xl">
+                <h3 id="feedback-title" class="font-bold text-lg mb-1"></h3>
+                <div class="flex items-start mt-2">
+                    <p id="feedback-zh" class="text-sm font-medium text-gray-800"></p>
+                    <button onclick="speakText(document.getElementById('feedback-zh').innerText, 'zh-HK')" class="ml-2 text-purple-500 hover:text-purple-700 focus:outline-none"><i class="fa-solid fa-volume-up text-sm"></i></button>
+                </div>
+                <p id="feedback-en" class="text-xs text-gray-600 italic mt-1"></p>
+            </div>
+
+            <button id="next-btn" onclick="nextQuestion()" class="hidden w-full mt-6 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-xl transition shadow-md">
+                下一題 Next Question <i class="fa-solid fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+
+        <div id="result-container" class="hidden bg-white rounded-2xl shadow-xl p-8 text-center fade-in">
+            <div class="text-purple-500 text-6xl mb-4"><i class="fa-solid fa-award"></i></div>
+            <h2 class="text-3xl font-bold text-gray-900 mb-2">測驗完成 Quiz Completed!</h2>
+            <p class="text-lg text-gray-600 mb-6">Your score is <span id="final-score" class="font-bold text-purple-600 text-2xl"></span> / 20</p>
+            <button onclick="location.reload()" class="bg-purple-600 text-white px-6 py-3 rounded-full font-bold hover:bg-purple-700 transition">重新測試 Restart</button>
+            <a href="student.html" class="block mt-4 text-purple-500 hover:underline">返回首頁 Return Home</a>
+        </div>
+    </main>
+
+    <script>
+        const questions = [
+            { zh: "Edexcel A-Level 中文考試總共有多少份試卷 (Papers)？", en: "How many papers are there in total for the Edexcel A-Level Chinese exam?", options: [{zh:"兩份", en:"2", correct:false},{zh:"三份", en:"3", correct:true},{zh:"四份", en:"4", correct:false},{zh:"五份", en:"5", correct:false}], exp_zh: "A-Level 中文分為 Paper 1 (聽讀譯)、Paper 2 (寫作及翻譯) 和 Paper 3 (口語)。", exp_en: "A-Level Chinese consists of Paper 1 (Listen/Read/Translate), Paper 2 (Write/Translate), and Paper 3 (Speaking)." },
+            { zh: "Paper 1 (聽力、閱讀與翻譯) 佔整個考試總分的多少百分比？", en: "What percentage of the total grade does Paper 1 account for?", options: [{zh:"25%", en:"25%", correct:false},{zh:"30%", en:"30%", correct:false},{zh:"40%", en:"40%", correct:true},{zh:"50%", en:"50%", correct:false}], exp_zh: "Paper 1 佔總分 40%，Paper 2 佔 30%，Paper 3 佔 30%。", exp_en: "Paper 1 is 40%, Paper 2 is 30%, and Paper 3 is 30% of the total qualification." },
+            { zh: "A-Level 考試中的「獨立研究計劃 (IRP)」是在哪一份試卷中進行評估的？", en: "In which paper is the Independent Research Project (IRP) assessed?", options: [{zh:"Paper 1", en:"Paper 1", correct:false},{zh:"Paper 2", en:"Paper 2", correct:false},{zh:"Paper 3", en:"Paper 3", correct:true},{zh:"校本評核 (SBA)", en:"SBA", correct:false}], exp_zh: "IRP 是 Paper 3 (口語考試) 的第二部分，學生需對自選的中國文化主題進行演講和討論。", exp_en: "IRP is part 2 of the Paper 3 speaking exam where students present and discuss a chosen Chinese culture topic." },
+            { zh: "在 Paper 2 中，學生必須回答關於甚麼題材的文章？", en: "In Paper 2, what subject matter must students write essays about?", options: [{zh:"文學作品或電影", en:"Literary texts or films", correct:true},{zh:"純粹的時事新聞", en:"Pure current affairs", correct:false},{zh:"商務信件", en:"Business letters", correct:false},{zh:"科學報告", en:"Scientific reports", correct:false}], exp_zh: "學生必須對兩篇文學作品，或一篇文學作品加一部電影進行批判性寫作 (兩篇 Essay)。", exp_en: "Students must write two essays analyzing either two literary texts, or one literary text and one film." },
+            { zh: "Edexcel A-Level 中文的評分等級 (Grading system) 是怎樣的？", en: "What is the grading system for Edexcel A-Level Chinese?", options: [{zh:"1 至 9 級", en:"Grades 1 to 9", correct:false},{zh:"A* 至 E 級", en:"Grades A* to E", correct:true},{zh:"達標與不達標", en:"Attained / Not Attained", correct:false},{zh:"百分制 (0-100)", en:"0-100 percentage", correct:false}], exp_zh: "A-Level 沿用傳統的字母等級，最高為 A*，及格線為 E。", exp_en: "A-Level uses traditional letter grades, highest is A*, passing grade is E." },
+            { zh: "Paper 1 的翻譯部分方向是甚麼？", en: "What is the translation direction in Paper 1?", options: [{zh:"中文譯成英文", en:"Chinese into English", correct:true},{zh:"英文譯成中文", en:"English into Chinese", correct:false},{zh:"雙向翻譯", en:"Two-way translation", correct:false},{zh:"沒有翻譯題", en:"No translation", correct:false}], exp_zh: "Paper 1 考查將中文文本翻譯成英文。Paper 2 則是將英文翻譯成中文。", exp_en: "Paper 1 tests translating Chinese text into English. Paper 2 tests English into Chinese." },
+            { zh: "A-Level 考試允許學生在筆試中使用字典嗎？", en: "Are students allowed to use dictionaries during the A-Level written exams?", options: [{zh:"可以，但只能用英中字典", en:"Yes, but only Eng-Chi dictionary", correct:false},{zh:"可以，電子字典也可", en:"Yes, even electronic ones", correct:false},{zh:"不可以", en:"No", correct:true},{zh:"只限在寫作卷使用", en:"Only in the writing paper", correct:false}], exp_zh: "所有 A-Level 中文考試均嚴格禁止使用任何字典。", exp_en: "All A-Level Chinese examinations strictly prohibit the use of any dictionaries." },
+            { zh: "Paper 1 (聽力、閱讀與翻譯) 考試時間多長？", en: "How long is the Paper 1 exam?", options: [{zh:"1.5 小時", en:"1.5 hours", correct:false},{zh:"2 小時", en:"2 hours", correct:true},{zh:"2.5 小時", en:"2.5 hours", correct:false},{zh:"3 小時", en:"3 hours", correct:false}], exp_zh: "Paper 1 的考試時間為 2 小時整。", exp_en: "The duration for Paper 1 is exactly 2 hours." },
+            { zh: "聽力考試中，錄音的播放速度和暫停由誰控制？", en: "In the listening exam, who controls the audio playback and pausing?", options: [{zh:"監考員統一播放", en:"Invigilator plays it centrally", correct:false},{zh:"電腦自動控制", en:"Computer automatic control", correct:false},{zh:"學生自己操控 MP3/播放器", en:"Students control their own MP3/players", correct:true},{zh:"只能聽兩次", en:"Can only listen twice", correct:false}], exp_zh: "A-Level 學生可自主控制錄音，在兩小時內隨時暫停或重聽聽力材料。", exp_en: "A-Level students have individual control over the audio recording and can pause/replay it within the 2 hours." },
+            { zh: "Paper 2 (書面回應與翻譯) 的考試時間多長？", en: "How long is the Paper 2 exam?", options: [{zh:"2 小時", en:"2 hours", correct:false},{zh:"2 小時 40 分鐘", en:"2 hours 40 minutes", correct:true},{zh:"3 小時", en:"3 hours", correct:false},{zh:"3 小時 15 分鐘", en:"3 hours 15 minutes", correct:false}], exp_zh: "Paper 2 需要寫兩篇長文及一段英譯中，給予 2 小時 40 分鐘的作答時間。", exp_en: "Paper 2 requires two essays and one translation, so 2 hours and 40 minutes are given." },
+            { zh: "口語考試 (Paper 3) 總共需時約多久？", en: "Approximately how long does the speaking exam (Paper 3) take?", options: [{zh:"10-12 分鐘", en:"10-12 mins", correct:false},{zh:"15-18 分鐘", en:"15-18 mins", correct:false},{zh:"21-23 分鐘", en:"21-23 mins", correct:true},{zh:"30 分鐘", en:"30 mins", correct:false}], exp_zh: "口語考試包含 5 分鐘準備時間，以及 16-18 分鐘的正式說話評估。", exp_en: "The speaking exam consists of 5 mins prep time and 16-18 mins of formal speaking assessment." },
+            { zh: "A-Level 中文課程的四大核心主題之一包含什麼？", en: "What is included in one of the four core themes of the A-Level Chinese course?", options: [{zh:"太空科技發展", en:"Space technology development", correct:false},{zh:"當代華人社會的變遷", en:"Changes in contemporary Chinese society", correct:true},{zh:"歐洲歷史", en:"European history", correct:false},{zh:"香港法律體系", en:"Hong Kong legal system", correct:false}], exp_zh: "四大主題涵蓋：當代華人社會變遷、中國文化、演變中的華人社會、1978年以來的中國。", exp_en: "Themes cover: Changes in contemporary society, Chinese culture, Evolving society, and China post-1978." },
+            { zh: "如果學生對成績不滿意，可以選擇重考單一一卷 (例如只重考 Paper 1) 嗎？", en: "If dissatisfied, can a student choose to retake just one single paper (e.g., only Paper 1)?", options: [{zh:"可以", en:"Yes", correct:false},{zh:"不可以，必須重考整個科目", en:"No, must retake the whole qualification", correct:true},{zh:"只允許重考口試", en:"Only speaking can be retaken", correct:false},{zh:"需經老師批准", en:"Needs teacher's approval", correct:false}], exp_zh: "Edexcel A-Level 是線性結構 (Linear)，重考必須同時重考所有三份試卷。", exp_en: "Edexcel A-Level is a linear qualification; retaking requires retaking all three papers in the same series." },
+            { zh: "在 Paper 2 的文學/電影寫作中，每篇 Essay 建議寫多少字？", en: "What is the recommended word count for each essay in Paper 2?", options: [{zh:"150 - 200 字", en:"150 - 200 words", correct:false},{zh:"250 - 500 字", en:"250 - 500 words", correct:true},{zh:"800 - 1000 字", en:"800 - 1000 words", correct:false},{zh:"沒有限制", en:"No limit", correct:false}], exp_zh: "雖然官方沒有嚴格字數上限，但建議每篇文章應在 250 至 500 個中文字之間，重在分析深度。", exp_en: "Recommended length is 250 to 500 characters per essay, focusing on analytical depth." },
+            { zh: "Paper 3 口試的第一部分 (Task 1) 是甚麼形式？", en: "What is the format of Task 1 in the Paper 3 speaking exam?", options: [{zh:"小組討論", en:"Group discussion", correct:false},{zh:"基於刺激材料 (Stimulus) 的討論", en:"Discussion based on a stimulus card", correct:true},{zh:"朗讀短文", en:"Reading a passage aloud", correct:false},{zh:"即席演講", en:"Impromptu speech", correct:false}], exp_zh: "學生有 5 分鐘準備一張主題卡，然後與考官進行 6-7 分鐘的討論。", exp_en: "Students have 5 mins to prepare a stimulus card, followed by a 6-7 mins discussion with the examiner." },
+            { zh: "「獨立研究計劃」(IRP) 允許學生研究什麼內容？", en: "What are students allowed to research for their IRP?", options: [{zh:"任何與中國文化/社會相關的主題", en:"Any topic related to Chinese culture/society", correct:true},{zh:"只限於考試局指定的三個題目", en:"Only 3 topics specified by exam board", correct:false},{zh:"必須是關於香港的議題", en:"Must be about Hong Kong", correct:false},{zh:"只能研究中國古代歷史", en:"Only ancient Chinese history", correct:false}], exp_zh: "IRP 給予學生極大自由度，只要主題與華語國家的歷史、社會、文化相關即可。", exp_en: "IRP provides great flexibility as long as the topic is related to the history, society, or culture of Chinese-speaking countries." },
+            { zh: "A-Level 考試有基礎卷 (Foundation) 和高級卷 (Higher) 的區分嗎？", en: "Are there Foundation and Higher tiers in the A-Level exam?", options: [{zh:"有", en:"Yes", correct:false},{zh:"沒有，所有考生考同一份卷", en:"No, all candidates take the same papers", correct:true},{zh:"只有聽力有分", en:"Only listening is tiered", correct:false},{zh:"視乎學校決定", en:"Depends on the school", correct:false}], exp_zh: "與 GCSE 不同，A-Level 是單一層級考試 (Untiered)，所有學生面對相同難度的試卷。", exp_en: "Unlike GCSE, A-Level is untiered; all students face papers of the same difficulty." },
+            { zh: "Paper 1 的總分是多少？", en: "What is the total marks for Paper 1?", options: [{zh:"60 分", en:"60 marks", correct:false},{zh:"80 分", en:"80 marks", correct:true},{zh:"100 分", en:"100 marks", correct:false},{zh:"120 分", en:"120 marks", correct:false}], exp_zh: "Paper 1 滿分為 80 分，佔全卷 40%。", exp_en: "Paper 1 is out of 80 marks, which is 40% of the total." },
+            { zh: "Paper 2 的翻譯部分，分值是多少？", en: "What is the mark allocation for the translation section in Paper 2?", options: [{zh:"10 分", en:"10 marks", correct:false},{zh:"20 分", en:"20 marks", correct:true},{zh:"30 分", en:"30 marks", correct:false},{zh:"40 分", en:"40 marks", correct:false}], exp_zh: "Paper 2 總分 120 分，其中兩篇作文各 50 分，英譯中佔 20 分。", exp_en: "Paper 2 totals 120 marks: two essays are 50 marks each, and the English-to-Chinese translation is 20 marks." },
+            { zh: "A-Level 中文資歷在香港的大學聯招 (JUPAS) 中通常被如何看待？", en: "How is the A-Level Chinese qualification usually treated in Hong Kong's JUPAS?", options: [{zh:"完全不予理會", en:"Ignored completely", correct:false},{zh:"等同於 DSE 英文", en:"Equivalent to DSE English", correct:false},{zh:"獲廣泛承認為非華語學生的替代中文資歷", en:"Widely accepted as an Alternative Chinese Language qualification for NCS", correct:true},{zh:"只計算一半分數", en:"Only half marks are counted", correct:false}], exp_zh: "A-Level 中文被香港大部分大學認可，非華語學生常以此滿足入學的「基本中文要求」。", exp_en: "A-Level Chinese is recognized by most HK universities for NCS students to fulfill the basic Chinese requirement." }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function speakText(text, lang) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = lang;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function loadQuestion() {
+            document.getElementById('feedback-container').classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+            
+            const q = questions[currentQuestion];
+            document.getElementById('q-zh').innerText = q.zh;
+            document.getElementById('q-en').innerText = q.en;
+            document.getElementById('progress-text').innerText = `Question ${currentQuestion + 1} / ${questions.length}`;
+            document.getElementById('progress-bar').style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            
+            q.options.forEach((opt) => {
+                const btn = document.createElement('button');
+                btn.className = 'w-full text-left bg-gray-50 border-2 border-gray-200 hover:border-purple-400 hover:bg-purple-50 rounded-xl p-4 transition duration-200 group';
+                btn.innerHTML = `<div class="font-bold text-gray-800 text-lg group-hover:text-purple-700">${opt.zh}</div><div class="text-sm text-gray-500 italic mt-1 group-hover:text-purple-500">${opt.en}</div>`;
+                btn.onclick = () => selectOption(opt, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectOption(selectedOpt, btnElement) {
+            const allBtns = document.getElementById('options-container').children;
+            for(let b of allBtns) { b.disabled = true; b.classList.remove('hover:border-purple-400', 'hover:bg-purple-50', 'cursor-pointer'); }
+            const feedback = document.getElementById('feedback-container');
+            const q = questions[currentQuestion];
+
+            if(selectedOpt.correct) {
+                btnElement.classList.add('border-green-500', 'bg-green-50');
+                document.getElementById('feedback-title').innerText = '✅ 正確 Correct!';
+                document.getElementById('feedback-title').className = 'font-bold text-lg mb-1 text-green-600';
+                feedback.className = 'mt-6 p-4 rounded-xl bg-green-50 border border-green-200 block fade-in';
+                score++;
+                document.getElementById('score-text').innerText = `Score: ${score}`;
+            } else {
+                btnElement.classList.add('border-red-500', 'bg-red-50');
+                for(let b of allBtns) { if(q.options.find(o => o.zh === b.querySelector('.font-bold').innerText).correct) b.classList.add('border-green-500', 'bg-green-50'); }
+                document.getElementById('feedback-title').innerText = '❌ 不正確 Incorrect';
+                document.getElementById('feedback-title').className = 'font-bold text-lg mb-1 text-red-600';
+                feedback.className = 'mt-6 p-4 rounded-xl bg-red-50 border border-red-200 block fade-in';
+            }
+            document.getElementById('feedback-zh').innerText = q.exp_zh;
+            document.getElementById('feedback-en').innerText = q.exp_en;
+            document.getElementById('next-btn').classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if(currentQuestion < questions.length) loadQuestion();
+            else {
+                document.getElementById('quiz-container').classList.add('hidden');
+                document.getElementById('result-container').classList.remove('hidden');
+                document.getElementById('final-score').innerText = score;
+            }
+        }
+        window.onload = loadQuestion;
+    </script>
+</body>
+</html>
