@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCS 友善學校搜尋與面試秘笈 | NCS 融學平台</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 FontAwesome 圖示 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563EB',
+                        school: '#0D9488', /* 選校專區主色調：深藍綠色 */
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #0D9488; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #0f766e; border-radius: 4px; }
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        /* 摺疊面板過渡動畫 */
+        #advanced-search-panel {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        /* 列印專屬樣式：確保列印時僅輸出模擬志願表 */
+        @media print {
+            body * { visibility: hidden; }
+            #printable-mock-form, #printable-mock-form * { visibility: visible; }
+            #printable-mock-form { position: absolute; left: 0; top: 0; width: 100%; border: none !important; box-shadow: none !important; }
+            .no-print { display: none !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans text-gray-800 min-h-screen flex flex-col">
+
+    <!-- 導覽列 -->
+    <nav class="bg-primary text-white shadow-md sticky top-0 z-50 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <a href="index.html" class="flex items-center space-x-3 hover:opacity-80 transition">
+                    <i class="fa-solid fa-graduation-cap text-2xl"></i>
+                    <span class="font-bold text-xl tracking-wide">NCS 融學平台</span>
+                </a>
+                <div class="hidden md:flex space-x-6 font-medium text-sm items-center">
+                    <a href="index.html" class="hover:text-blue-200 transition">首頁</a>
+                    <a href="student.html" class="hover:text-blue-200 transition">學生</a>
+                    <a href="parent.html" class="hover:text-blue-200 transition">家長</a>
+                    <a href="school.html" class="text-blue-200 font-bold border-b-2 border-blue-200 pb-1">選校</a>
+                    <a href="pathway.html" class="hover:text-blue-200 transition">升學</a>
+                    <a href="sen.html" class="hover:text-blue-200 transition">SEN</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 頂部 Hero Banner -->
+    <header class="bg-gradient-to-b from-teal-50 to-white py-12 border-b border-teal-100 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left md:flex md:items-center md:justify-between">
+            <div class="mb-6 md:mb-0 max-w-2xl">
+                <span class="bg-teal-100 text-teal-800 font-bold px-3 py-1 rounded-full text-xs mb-3 inline-block shadow-sm">
+                    <i class="fa-solid fa-magnifying-glass-location mr-1"></i> 家長與學生選校強大指南
+                </span>
+                <h1 class="text-3xl md:text-4xl font-extrabold text-gray-950 tracking-tight">
+                    NCS 友善學校搜尋與智能比對
+                </h1>
+                <p class="text-sm md:text-base text-gray-600 mt-2">
+                    專為非華語家庭量身定制：收錄全港三十間對非華語學生支援最完善的中小學，一鍵篩選中文抽離班、清真膳食、課後輔導及校園宗教多元措施。
+                </p>
+            </div>
+            <div class="flex flex-col sm:flex-row justify-center md:justify-end gap-3 shrink-0">
+                <button id="top-compare-btn" onclick="showCompareModal()" class="bg-school text-white hover:bg-teal-800 px-5 py-3 rounded-xl font-bold shadow-lg transition-all duration-300 flex items-center justify-center gap-2 transform active:scale-95">
+                    <i class="fa-solid fa-scale-balanced"></i> 學校橫向比對 (<span id="compare-count-badge">0</span>/3)
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主體內容 -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-10">
+        
+        <!-- 下拉式進階搜尋器區塊 -->
+        <section class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm space-y-4 no-print">
+            <!-- 第一層：主搜尋列 + 摺疊控制按鈕 -->
+            <div class="flex flex-col md:flex-row gap-3 items-center">
+                <!-- 搜尋輸入框 -->
+                <div class="relative flex-grow w-full">
+                    <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </span>
+                    <input type="text" id="search-input" oninput="applyFilters()" placeholder="輸入校名或特徵關鍵字 (如：嘉道理、清真、小班抽離)..." class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-gray-200 rounded-xl focus:outline-none focus:border-school focus:ring-2 focus:ring-teal-100 transition-all font-medium text-sm">
+                </div>
+                <!-- 展開/摺疊進階按鈕 -->
+                <div class="flex gap-2 w-full md:w-auto shrink-0">
+                    <button onclick="toggleAdvancedSearch()" class="bg-teal-50 text-school hover:bg-teal-100 px-5 py-3 rounded-xl font-bold text-sm transition-all duration-300 flex items-center justify-center gap-2 flex-1 md:flex-none">
+                        <i class="fa-solid fa-sliders"></i> 
+                        <span>進階篩選 (Advanced Filters)</span>
+                        <i id="filter-chevron" class="fa-solid fa-chevron-down text-xs transition-transform duration-300"></i>
+                    </button>
+                    <button onclick="resetFilters()" class="border border-red-200 text-red-500 hover:bg-red-50 px-4 py-3 rounded-xl font-bold text-sm transition flex items-center justify-center">
+                        <i class="fa-solid fa-rotate-left"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 第二層：摺疊進階面板 (預設隱藏 max-h-0) -->
+            <div id="advanced-search-panel" class="max-h-0 overflow-hidden opacity-0 space-y-5 border-t border-gray-100 pt-0 transition-all duration-500">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 pt-4">
+                    <!-- 學校階段 -->
+                    <div>
+                        <label class="block text-xs font-extrabold text-gray-400 uppercase tracking-wider mb-2">學校階段 (Level)</label>
+                        <select id="filter-level" onchange="applyFilters()" class="w-full bg-slate-50 border border-gray-200 rounded-xl px-3 py-2.5 text-sm font-semibold focus:outline-none focus:border-school">
+                            <option value="all">全部階段 (All Levels)</option>
+                            <option value="primary">小學 (Primary School)</option>
+                            <option value="secondary">中學 (Secondary School)</option>
+                        </select>
+                    </div>
+
+                    <!-- 區域分類 -->
+                    <div>
+                        <label class="block text-xs font-extrabold text-gray-400 uppercase tracking-wider mb-2">地理區域 (District)</label>
+                        <select id="filter-district" onchange="applyFilters()" class="w-full bg-slate-50 border border-gray-200 rounded-xl px-3 py-2.5 text-sm font-semibold focus:outline-none focus:border-school">
+                            <option value="all">全港區域 (All Districts)</option>
+                            <option value="hk-island">香港島 (Hong Kong Island)</option>
+                            <option value="kowloon">九龍 (Kowloon)</option>
+                            <option value="nt-east">新界東 (New Territories East)</option>
+                            <option value="nt-west">新界西 (New Territories West)</option>
+                        </select>
+                    </div>
+
+                    <!-- 學校類別 -->
+                    <div>
+                        <label class="block text-xs font-extrabold text-gray-400 uppercase tracking-wider mb-2">學校類別 (School Type)</label>
+                        <select id="filter-type" onchange="applyFilters()" class="w-full bg-slate-50 border border-gray-200 rounded-xl px-3 py-2.5 text-sm font-semibold focus:outline-none focus:border-school">
+                            <option value="all">全部類別 (All Types)</option>
+                            <option value="gov">官立 (Government)</option>
+                            <option value="aided">資助 (Aided)</option>
+                            <option value="dss">直資 (DSS)</option>
+                        </select>
+                    </div>
+
+                    <!-- 優化 1：非華語學生比例篩選器 -->
+                    <div>
+                        <label class="block text-xs font-extrabold text-gray-400 uppercase tracking-wider mb-2">NCS學生比例 (NCS Cluster)</label>
+                        <select id="filter-ncs-cluster" onchange="applyFilters()" class="w-full bg-slate-50 border border-gray-200 rounded-xl px-3 py-2.5 text-sm font-semibold focus:outline-none focus:border-school">
+                            <option value="all">全部比例 (All Clusters)</option>
+                            <option value="high">50%以上 (多元文化主流)</option>
+                            <option value="mid">10%-50% (平衡發展型)</option>
+                            <option value="low">10%以下 (全本地中文沉浸)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 複選配套篩選 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-slate-50 p-4 rounded-xl border border-gray-100">
+                    <!-- 清真與宗教措施 -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-extrabold text-gray-500 uppercase tracking-wider mb-1"><i class="fa-solid fa-moon text-teal-600 mr-1"></i> 清真與宗教措施 (Accommodations)</label>
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <label class="flex items-center text-xs font-bold text-gray-700 cursor-pointer">
+                                <input type="checkbox" id="chk-halal" onchange="applyFilters()" class="mr-2 h-4 w-4 text-school border-gray-300 rounded focus:ring-school">
+                                清真膳食 (Halal Foods)
+                            </label>
+                            <label class="flex items-center text-xs font-bold text-gray-700 cursor-pointer">
+                                <input type="checkbox" id="chk-hijab" onchange="applyFilters()" class="mr-2 h-4 w-4 text-school border-gray-300 rounded focus:ring-school">
+                                服飾彈性 (Hijab Allowed)
+                            </label>
+                            <label class="flex items-center text-xs font-bold text-gray-700 cursor-pointer">
+                                <input type="checkbox" id="chk-prayer" onchange="applyFilters()" class="mr-2 h-4 w-4 text-school border-gray-300 rounded focus:ring-school">
+                                設祈禱室 (Prayer Room)
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 優化 2：中文教學與公開試支援 (分欄篩選框) -->
+                    <div class="space-y-2 border-t md:border-t-0 md:border-l border-gray-200 pt-2 md:pt-0 md:pl-6">
+                        <label class="block text-xs font-extrabold text-gray-500 uppercase tracking-wider mb-1"><i class="fa-solid fa-language text-teal-600 mr-1"></i> 中文學習及公開試支援 (Chinese & Exams)</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <label class="flex items-center text-xs font-bold text-gray-700 cursor-pointer">
+                                <input type="checkbox" id="chk-split" onchange="applyFilters()" class="mr-2 h-4 w-4 text-school border-gray-300 rounded focus:ring-school">
+                                小班/抽離中文 (Pull-out)
+                            </label>
+                            <label class="flex items-center text-xs font-bold text-gray-700 cursor-pointer">
+                                <input type="checkbox" id="chk-peer" onchange="applyFilters()" class="mr-2 h-4 w-4 text-school border-gray-300 rounded focus:ring-school">
+                                課後中文輔導 (After-school)
+                            </label>
+                            <label class="flex items-center text-xs font-bold text-gray-700 cursor-pointer">
+                                <input type="checkbox" id="chk-igcse" onchange="applyFilters()" class="mr-2 h-4 w-4 text-school border-gray-300 rounded focus:ring-school">
+                                支援報考 IGCSE/GCE 替代中文
+                            </label>
+                            <label class="flex items-center text-xs font-bold text-gray-700 cursor-pointer">
+                                <input type="checkbox" id="chk-aplc" onchange="applyFilters()" class="mr-2 h-4 w-4 text-school border-gray-300 rounded focus:ring-school">
+                                開辦應用學習中文 (ApL(C))
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 優化 3：一鍵導出選校意向書 / 志願表模擬器 (EDB Choice Form Simulator) -->
+        <section id="mock-form-section" class="bg-white rounded-2xl border-2 border-teal-500 shadow-xl p-6 relative overflow-hidden transition-all duration-300">
+            <!-- 裝飾背景印章 -->
+            <div class="absolute -right-10 -bottom-10 text-teal-50 opacity-10 text-9xl pointer-events-none font-extrabold select-none rotate-12">EDB MOCK</div>
+            
+            <div class="border-b-2 border-teal-600 pb-4 mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <span class="bg-teal-600 text-white font-extrabold px-3 py-1 rounded-md text-xs mb-2 inline-block shadow-sm">統一派位模擬志願表 (EDB Choice Form Simulator)</span>
+                    <h2 class="text-xl font-extrabold text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-file-signature text-teal-600"></i> 家長專屬：升中/升小選校意向表 (A4 打印格式)
+                    </h2>
+                    <p class="text-xs text-gray-500 mt-1">選拔並對比下方學校卡片後，在此自由編排 1 - 3 志願優先次序，自動轉譯校網及官方學校編號。</p>
+                </div>
+                <div class="flex gap-2 shrink-0 no-print">
+                    <button onclick="window.print()" class="bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition flex items-center gap-1.5 shadow-md">
+                        <i class="fa-solid fa-print"></i> 一鍵列印志願表 (Print / PDF)
+                    </button>
+                </div>
+            </div>
+
+            <!-- 志願填報表容器 -->
+            <div id="printable-mock-form" class="bg-white p-4 border border-gray-200 rounded-xl">
+                <!-- 教育局風格頂欄 -->
+                <div class="flex justify-between items-center border-b border-slate-300 pb-3 mb-4 text-xs font-bold text-slate-500">
+                    <div>教育局入學登記聯名代照單 (模擬版本)</div>
+                    <div>校網代號參照：2026/2027</div>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200 border border-gray-200 text-sm">
+                        <thead class="bg-teal-50">
+                            <tr>
+                                <th class="border border-gray-200 px-4 py-3 text-center text-xs font-bold text-teal-800 w-20">志願次序</th>
+                                <th class="border border-gray-200 px-4 py-3 text-center text-xs font-bold text-teal-800 w-24">學校代號</th>
+                                <th class="border border-gray-200 px-4 py-3 text-left text-xs font-bold text-teal-800">學校名稱 (School Name)</th>
+                                <th class="border border-gray-200 px-4 py-3 text-center text-xs font-bold text-teal-800 w-24">所屬地區</th>
+                                <th class="border border-gray-200 px-4 py-3 text-center text-xs font-bold text-teal-800 w-28">學期階段</th>
+                                <th class="border border-gray-200 px-4 py-3 text-center text-xs font-bold text-teal-800 w-24 no-print">優先順序</th>
+                            </tr>
+                        </thead>
+                        <tbody id="mock-form-tbody" class="divide-y divide-gray-200 font-semibold text-slate-800">
+                            <!-- JS 動態渲染志願行 -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-4 p-4 bg-amber-50 rounded-lg border border-amber-100 text-xs text-amber-900 leading-relaxed font-semibold">
+                    <i class="fa-solid fa-triangle-exclamation mr-1 text-amber-600"></i> 家長提示：本模擬表所標示之「學校代號」與「地區校網」為對應真實校園位置與特徵之代照，僅供志願選填排版參考。實際遞交志願表時，請仔細比對當年教育局發放之選校手冊。
+                </div>
+            </div>
+        </section>
+
+        <!-- 學校卡片展示區 -->
+        <section class="space-y-6 no-print">
+            <!-- 新增：學校搜尋結果計數器，完全修復 JS 找不到此元素而報錯 (null is not an object) 的問題 -->
+            <div class="bg-teal-50/40 border border-teal-100/60 p-4 rounded-xl flex justify-between items-center text-sm font-bold text-teal-900 shadow-sm">
+                <span>共篩選出 <span id="school-results-count" class="text-teal-700 font-extrabold text-base">0</span> 間 NCS 友善學校</span>
+                <span class="text-xs text-gray-500 font-normal hidden sm:inline"><i class="fa-solid fa-circle-info mr-1"></i> 請點擊下方卡片「加入比對」進行橫向比照</span>
+            </div>
+
+            <div id="school-cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- JS 動態寫入 -->
+            </div>
+        </section>
+
+        <!-- 叩門與面試多語種貼士專區 -->
+        <section class="bg-white rounded-2xl border border-gray-100 shadow-md p-6 no-print">
+            <div class="border-b border-gray-100 pb-4 mb-6">
+                <h2 class="text-2xl font-extrabold text-slate-900 flex items-center gap-2">
+                    <i class="fa-solid fa-key text-school"></i> 叩門與面試多語種必勝秘笈 (Emergency Admissions & Interview Tips)
+                </h2>
+                <p class="text-sm text-gray-500 mt-1">專為非華語家庭整理：放榜後的黃金「叩門」流程、雙語面試常考題目與發音，及必備文件檢查清單。</p>
+            </div>
+
+            <!-- 頁籤控制 -->
+            <div class="flex space-x-2 border-b border-gray-100 pb-px overflow-x-auto custom-scrollbar mb-6">
+                <button onclick="switchTipTab('knocking-timeline')" id="tab-btn-knocking-timeline" class="tip-tab-btn px-4 py-3 font-bold text-sm border-b-2 border-school text-school transition-all whitespace-nowrap">
+                    <i class="fa-solid fa-calendar-days mr-1.5"></i>叩門關鍵時程 (Timeline)
+                </button>
+                <button onclick="switchTipTab('interview-prep')" id="tab-btn-interview-prep" class="tip-tab-btn px-4 py-3 font-bold text-sm border-b-2 border-transparent text-gray-500 hover:text-school transition-all whitespace-nowrap">
+                    <i class="fa-solid fa-comments mr-1.5"></i>三語面試問答 (Interview Q&A)
+                </button>
+                <button onclick="switchTipTab('docs-checklist')" id="tab-btn-docs-checklist" class="tip-tab-btn px-4 py-3 font-bold text-sm border-b-2 border-transparent text-gray-500 hover:text-school transition-all whitespace-nowrap">
+                    <i class="fa-solid fa-list-check mr-1.5"></i>叩門文件清單 (Documents)
+                </button>
+            </div>
+
+            <!-- 頁籤內容 1：叩門時程與對策 -->
+            <div id="tip-content-knocking-timeline" class="tip-tab-panel space-y-6">
+                <div class="bg-emerald-50/50 p-4 rounded-xl border border-emerald-100 text-sm text-emerald-900">
+                    <span class="font-bold block text-base"><i class="fa-solid fa-info-circle mr-1.5"></i>什麼是「叩門」？ (What is 'Knocking'?)</span>
+                    <p class="mt-1 leading-relaxed text-xs md:text-sm font-medium">
+                        「叩門」是香港中小學入學的特有非正式機制。當「統一派位」放榜後，若派位結果不理想，家長可在放榜當天至隨後數天內，親自帶同子女前往心儀學校，遞交申請信爭取學校因流失學位而產生的緊急「叩門學位」。
+                    </p>
+                </div>
+                <!-- 流程步道 -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+                    <!-- 第一步 -->
+                    <div class="bg-slate-50 p-5 rounded-xl border border-gray-100 relative">
+                        <div class="absolute -top-4 left-4 bg-teal-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-md">1</div>
+                        <h4 class="font-bold text-slate-900 text-sm md:text-base mt-2">放榜前：鎖定目標與備齊文件</h4>
+                        <p class="text-xs text-gray-500 mt-2 leading-relaxed">
+                            <strong>NCS Tips:</strong> 提早影印所有期終成績單、學生護照/簽證、推薦信，並將自薦信翻譯成中文或英文，預留 3-5 間「叩門」目標友善學校。
+                        </p>
+                    </div>
+                    <!-- 第二步 -->
+                    <div class="bg-slate-50 p-5 rounded-xl border border-gray-100 relative">
+                        <div class="absolute -top-4 left-4 bg-teal-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-md">2</div>
+                        <h4 class="font-bold text-slate-900 text-sm md:text-base mt-2">放榜日：黃金24小時親自叩門</h4>
+                        <p class="text-xs text-gray-500 mt-2 leading-relaxed">
+                            <strong>Action:</strong> 早上獲取派位證後，若不滿意，立刻攜同子女親臨目標學校交表。多數學校會當場或在當天下午安排筆試與即時面試。
+                        </p>
+                    </div>
+                    <!-- 第三步 -->
+                    <div class="bg-slate-50 p-5 rounded-xl border border-gray-100 relative">
+                        <div class="absolute -top-4 left-4 bg-teal-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-md">3</div>
+                        <h4 class="font-bold text-slate-900 text-sm md:text-base mt-2">面試後：保持電話暢通與註冊</h4>
+                        <p class="text-xs text-gray-500 mt-2 leading-relaxed">
+                            <strong>Note:</strong> 一般叩門面試後 2-3 天內會發出通知。一旦獲得取錄，需於指定日期前去學校註冊並到原派位學校辦理退位手續。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 頁籤內容 2：三語面試問答 (配合 10.43.18.jpg 新增一鍵發音 TTS) -->
+            <div id="tip-content-interview-prep" class="tip-tab-panel space-y-6 hidden">
+                <div class="bg-amber-50 border border-amber-100 p-4 rounded-xl text-xs md:text-sm text-amber-900 leading-relaxed font-semibold">
+                    <i class="fa-solid fa-lightbulb text-amber-500 mr-1.5"></i> 面試技巧（面試官看重什麼？）：
+                    本地學校在面試非華語生時，極度看重學生的「自信心」、「基本廣東話日常對話意願」以及家長「對學校活動的配合程度與支持熱忱」。
+                </div>
+
+                <div class="space-y-4">
+                    <!-- 問題一 (For Students) -->
+                    <div class="border border-slate-100 rounded-xl p-4 bg-slate-50">
+                        <span class="bg-blue-100 text-blue-800 text-xxs font-extrabold px-2 py-0.5 rounded">常考問題 1 (For Students)</span>
+                        <p class="font-bold text-slate-900 text-sm md:text-base mt-2">Q: 「請你自我介紹一下。 (Tell me about yourself.)」</p>
+                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                            <!-- 廣東話日常回答 (Cantonese + TTS) -->
+                            <div class="bg-white p-3 rounded-lg border border-gray-150 relative">
+                                <div class="flex justify-between items-start">
+                                    <p class="font-bold text-school mb-1">廣東話日常回答 (Cantonese):</p>
+                                    <button onclick="speakCantonese('老師你好，我叫Ali。我今年八歲。我好鍾意踢波同睇書。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)">
+                                        <i class="fa-solid fa-volume-high text-sm"></i>
+                                    </button>
+                                </div>
+                                <p class="text-gray-800 font-semibold text-sm">「老師你好，我叫 Ali。我今年八歲。我好鍾意踢波同睇書。」</p>
+                                <p class="text-gray-400 font-mono text-xxs mt-1">Jyutping: [Lou5 si1 nei5 hou2, ngo5 giu3 Ali. Ngo5 gam1 nin4 baat3 seoi3. Ngo5 hou2 zung1 ji3 tek3 bo1 tung4 tai2 syu1.]</p>
+                            </div>
+                            <!-- 少數族裔語家長提示 -->
+                            <div class="bg-teal-50/50 p-3 rounded-lg border border-teal-100">
+                                <p class="font-bold text-teal-800 mb-1">Urdu/Nepali Native Tips for Parents:</p>
+                                <p class="text-teal-900 leading-relaxed font-medium">
+                                    بچے کو سکھائیں کہ وہ مسکرا کر اور اعتماد سے بات کرے۔ (Teach the child to smile, sit straight, and state hobbies confidently even in English if Cantonese is tough!)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 問題二 (For Parents) -->
+                    <div class="border border-slate-100 rounded-xl p-4 bg-slate-50">
+                        <span class="bg-blue-100 text-blue-800 text-xxs font-extrabold px-2 py-0.5 rounded">常考問題 2 (For Parents)</span>
+                        <p class="font-bold text-slate-900 text-sm md:text-base mt-2">Q: 「你點樣幫你嘅仔女學習中文？ (How do you support your child in learning Chinese?)」</p>
+                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                            <!-- 英文與廣東話應答 + TTS -->
+                            <div class="bg-white p-3 rounded-lg border border-gray-150">
+                                <div class="flex justify-between items-start">
+                                    <p class="font-bold text-school mb-1">雙語推薦回答 (Bilingual Answer):</p>
+                                    <button onclick="speakCantonese('雖然我哋喺屋企講英語，但我會安排佢參加學校課後中文輔導班，並一齊用學習App認字。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)">
+                                        <i class="fa-solid fa-volume-high text-sm"></i>
+                                    </button>
+                                </div>
+                                <p class="text-gray-800 font-semibold text-sm leading-relaxed">
+                                    「雖然我哋喺屋企講英語，但我會安排佢參加學校課後中文輔導班，並一齊用學習App認字。」<br>
+                                    <span class="text-xs text-gray-500 italic font-normal">"We speak English at home, but we actively encourage them to attend after-school tutoring and learn Chinese via mobile Apps."</span>
+                                </p>
+                            </div>
+                            <div class="bg-teal-50/50 p-3 rounded-lg border border-teal-100">
+                                <p class="font-bold text-teal-800 mb-1">Urdu/Nepali Parent Focus:</p>
+                                <p class="text-teal-900 leading-relaxed font-medium">
+                                    اسکول کو یقین دلائیں کہ آپ چینی زبان سیکھنے میں بچے کی مدد کریں گے۔ (Assure the school that you are highly motivated to assist your child in Cantonese environment and support PTA).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 問題三 (For Students) -->
+                    <div class="border border-slate-100 rounded-xl p-4 bg-slate-50">
+                        <span class="bg-blue-100 text-blue-800 text-xxs font-extrabold px-2 py-0.5 rounded">常考問題 3 (For Students)</span>
+                        <p class="font-bold text-slate-900 text-sm md:text-base mt-2">Q: 「你點解鍾意我哋學校？ (Why do you want to study at our school?)」</p>
+                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                            <div class="bg-white p-3 rounded-lg border border-gray-150">
+                                <div class="flex justify-between items-start">
+                                    <p class="font-bold text-school mb-1">廣東話日常回答 (Cantonese):</p>
+                                    <button onclick="speakCantonese('我好鍾意呢度嘅校園、老師同埋大運動場。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)">
+                                        <i class="fa-solid fa-volume-high text-sm"></i>
+                                    </button>
+                                </div>
+                                <p class="text-gray-800 font-semibold text-sm">「我好鍾意呢度嘅校園、老師同埋大運動場。」</p>
+                                <p class="text-gray-400 font-mono text-xxs mt-1">Jyutping: [Ngo5 hou2 zung1 ji3 nei1 dou6 ge3 haau6 jyun4, lou5 si1 tung4 mai4 daai6 wan6 dung6 coeng4.]</p>
+                            </div>
+                            <div class="bg-teal-50/50 p-3 rounded-lg border border-teal-100">
+                                <p class="font-bold text-teal-800 mb-1">Urdu/Nepali Native Tips for Parents:</p>
+                                <p class="text-teal-900 leading-relaxed font-medium">
+                                    بچے کو سکھائیں کہ وہ اسکول کے اچھے ماحول اور استادوں کا ذکر کرے۔ (Encourage the child to express excitement about the welcoming campus, sports fields, or kind teachers.)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 問題四 (For Parents) -->
+                    <div class="border border-slate-100 rounded-xl p-4 bg-slate-50">
+                        <span class="bg-blue-100 text-blue-800 text-xxs font-extrabold px-2 py-0.5 rounded">常考問題 4 (For Parents)</span>
+                        <p class="font-bold text-slate-900 text-sm md:text-base mt-2">Q: 「如果子女在學校與同學發生衝突，您會如何處理？ (How would you handle arguments between your child and classmates?)」</p>
+                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                            <div class="bg-white p-3 rounded-lg border border-gray-150">
+                                <div class="flex justify-between items-start">
+                                    <p class="font-bold text-school mb-1">雙語推薦回答 (Bilingual Answer):</p>
+                                    <button onclick="speakCantonese('我會先冷靜了解原因，並主動聯絡老師，配合學校一齊教導仔女要學會尊重同包容唔同文化嘅同學。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)">
+                                        <i class="fa-solid fa-volume-high text-sm"></i>
+                                    </button>
+                                </div>
+                                <p class="text-gray-800 font-semibold text-sm leading-relaxed">
+                                    「我會先冷靜了解原因，並主動聯絡老師，配合學校一齊教導仔女要學會尊重同包容唔同文化嘅同學。」<br>
+                                    <span class="text-xs text-gray-500 italic font-normal">"I will calm down, find out the root cause, and actively work with the school teachers to guide my child to respect and tolerate peers from diverse cultural backgrounds."</span>
+                                </p>
+                            </div>
+                            <div class="bg-teal-50/50 p-3 rounded-lg border border-teal-100">
+                                <p class="font-bold text-teal-800 mb-1">Urdu/Nepali Parent Focus:</p>
+                                <p class="text-teal-900 leading-relaxed font-medium">
+                                    اسکول کو یقین دلائیں کہ آپ نظم و ضبط کے لیے اساتذہ کے ساتھ مکمل تعاون کریں گے۔ (Demonstrate to the interviewers that you value partnership, active listening, and school harmony over defensiveness.)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 問題五 (For Students) -->
+                    <div class="border border-slate-100 rounded-xl p-4 bg-slate-50">
+                        <span class="bg-blue-100 text-blue-800 text-xxs font-extrabold px-2 py-0.5 rounded">常考問題 5 (For Students)</span>
+                        <p class="font-bold text-slate-900 text-sm md:text-base mt-2">Q: 「你最鍾意邊個學科？點解？ (What is your favorite subject and why?)」</p>
+                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                            <div class="bg-white p-3 rounded-lg border border-gray-150">
+                                <div class="flex justify-between items-start">
+                                    <p class="font-bold text-school mb-1">廣東話日常回答 (Cantonese):</p>
+                                    <button onclick="speakCantonese('我最鍾意數學同體育。因為我好鍾意計數同跑步。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)">
+                                        <i class="fa-solid fa-volume-high text-sm"></i>
+                                    </button>
+                                </div>
+                                <p class="text-gray-800 font-semibold text-sm">「我最鍾意數學同體育。因為我好鍾意計數同跑步。」</p>
+                                <p class="text-gray-400 font-mono text-xxs mt-1">Jyutping: [Ngo5 zeoi3 zung1 ji3 sou3 hok6 tung4 tai2 juk6. Jan1 wai6 ngo5 hou2 zung1 ji3 gai3 sou3 tung4 paau2 bou6.]</p>
+                            </div>
+                            <div class="bg-teal-50/50 p-3 rounded-lg border border-teal-100">
+                                <p class="font-bold text-teal-800 mb-1">Urdu/Nepali Native Tips for Parents:</p>
+                                <p class="text-teal-900 leading-relaxed font-medium">
+                                    بچے کو پسندیدہ مضمون کی ایک سادہ وجہ بتانا سکھائیں۔ (Help the child practice explaining why they like a subject, e.g., liking numbers or enjoying physical sports.)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 問題六 (For Parents) -->
+                    <div class="border border-slate-100 rounded-xl p-4 bg-slate-50">
+                        <span class="bg-blue-100 text-blue-800 text-xxs font-extrabold px-2 py-0.5 rounded">常考問題 6 (For Parents)</span>
+                        <p class="font-bold text-slate-900 text-sm md:text-base mt-2">Q: 「您平日如何陪伴孩子進行課外活動？ (How do you accompany your child in extracurricular activities?)」</p>
+                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                            <div class="bg-white p-3 rounded-lg border border-gray-150">
+                                <div class="flex justify-between items-start">
+                                    <p class="font-bold text-school mb-1">雙語推薦回答 (Bilingual Answer):</p>
+                                    <button onclick="speakCantonese('放假時我會帶仔女去郊野公園野餐、騎單車，或者去公共圖書館睇書，平衡學業同身心健康。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)">
+                                        <i class="fa-solid fa-volume-high text-sm"></i>
+                                    </button>
+                                </div>
+                                <p class="text-gray-800 font-semibold text-sm leading-relaxed">
+                                    「放假時我會帶仔女去郊野公園野餐、騎單車，或者去公共圖書館睇書，平衡學業同身心健康。」<br>
+                                    <span class="text-xs text-gray-500 italic font-normal">"During holidays, I take my children to country parks for picnics, cycling, or public libraries to read, balancing academic study with physical and mental wellness."</span>
+                                </p>
+                            </div>
+                            <div class="bg-teal-50/50 p-3 rounded-lg border border-teal-100">
+                                <p class="font-bold text-teal-800 mb-1">Urdu/Nepali Parent Focus:</p>
+                                <p class="text-teal-900 leading-relaxed font-medium">
+                                    بتائیں کہ آپ بچے کو صحت مند اور فعال تفریحات فراہم کرتے ہیں۔ (Highlight active lifestyle, bonding, and visual-audio stimulation over screen time or heavy pressure.)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 問題七 (For Students) -->
+                    <div class="border border-slate-100 rounded-xl p-4 bg-slate-50">
+                        <span class="bg-blue-100 text-blue-800 text-xxs font-extrabold px-2 py-0.5 rounded">常考問題 7 (For Students)</span>
+                        <p class="font-bold text-slate-900 text-sm md:text-base mt-2">Q: 「如果功課唔識做，你會點算？ (What do you do when you cannot do your homework?)」</p>
+                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                            <div class="bg-white p-3 rounded-lg border border-gray-150">
+                                <div class="flex justify-between items-start">
+                                    <p class="font-bold text-school mb-1">廣東話日常回答 (Cantonese):</p>
+                                    <button onclick="speakCantonese('我會問爸爸媽媽，或者返學校問老師同同學仔。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)">
+                                        <i class="fa-solid fa-volume-high text-sm"></i>
+                                    </button>
+                                </div>
+                                <p class="text-gray-800 font-semibold text-sm">「我會問爸爸媽媽，或者返學校問老師同同學仔。」</p>
+                                <p class="text-gray-400 font-mono text-xxs mt-1">Jyutping: [Ngo5 wui5 man6 baa1 baa1 maa1 maa1, waak6 ze2 faan1 hok6 haau6 man6 lou5 si1 tung4 tung4 hok6 zai2.]</p>
+                            </div>
+                            <div class="bg-teal-50/50 p-3 rounded-lg border border-teal-100">
+                                <p class="font-bold text-teal-800 mb-1">Urdu/Nepali Native Tips for Parents:</p>
+                                <p class="text-teal-900 leading-relaxed font-medium">
+                                    بچے کو سکھائیں کہ وہ خود سے مدد مانگنے کی عادت کا اظہار کرے۔ (Demonstrate to teachers that the child is proactive and not afraid to speak up and seek help when facing challenges.)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 問題八 (For Parents) -->
+                    <div class="border border-slate-100 rounded-xl p-4 bg-slate-50">
+                        <span class="bg-blue-100 text-blue-800 text-xxs font-extrabold px-2 py-0.5 rounded">常考問題 8 (For Parents)</span>
+                        <p class="font-bold text-slate-900 text-sm md:text-base mt-2">Q: 「您希望學校如何協助您的孩子適應本地生活？ (How do you hope the school can help your child adapt to local life?)」</p>
+                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                            <div class="bg-white p-3 rounded-lg border border-gray-150">
+                                <div class="flex justify-between items-start">
+                                    <p class="font-bold text-school mb-1">雙語推薦回答 (Bilingual Answer):</p>
+                                    <button onclick="speakCantonese('我希望學校可以多安排一啲同本地同學配對嘅共融活動，等佢有多啲機會練習廣東話，結交新朋友。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)">
+                                        <i class="fa-solid fa-volume-high text-sm"></i>
+                                    </button>
+                                </div>
+                                <p class="text-gray-800 font-semibold text-sm leading-relaxed">
+                                    「我希望學校可以多安排一啲同本地同學配對嘅共融活動，等佢有多啲機會練習廣東話，結交新朋友。」<br>
+                                    <span class="text-xs text-gray-500 italic font-normal">"I hope the school can organize more inclusive integration activities paired with local students, so my child has more opportunities to practice Cantonese and make new friends."</span>
+                                </p>
+                            </div>
+                            <div class="bg-teal-50/50 p-3 rounded-lg border border-teal-100">
+                                <p class="font-bold text-teal-800 mb-1">Urdu/Nepali Parent Focus:</p>
+                                <p class="text-teal-950 leading-relaxed font-medium">
+                                    اسکول کی سرگرمیوں میں بڑھ چڑھ کر حصہ لینے کا عزم ظاہر کریں۔ (Show that you prefer active integration over isolation, wanting your child to be fully immersed in the local community.)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 問題九 (For Students) -->
+                    <div class="border border-slate-100 rounded-xl p-4 bg-slate-50">
+                        <span class="bg-blue-100 text-blue-800 text-xxs font-extrabold px-2 py-0.5 rounded">常考問題 9 (For Students)</span>
+                        <p class="font-bold text-slate-900 text-sm md:text-base mt-2">Q: 「放學之後，你通常會做啲咩？ (What do you usually do after school?)」</p>
+                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                            <div class="bg-white p-3 rounded-lg border border-gray-150">
+                                <div class="flex justify-between items-start">
+                                    <p class="font-bold text-school mb-1">廣東話日常回答 (Cantonese):</p>
+                                    <button onclick="speakCantonese('我會先做功課，然後同屋企人一齊食飯，之後聽中文歌。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)">
+                                        <i class="fa-solid fa-volume-high text-sm"></i>
+                                    </button>
+                                </div>
+                                <p class="text-gray-800 font-semibold text-sm">「我會先做功課，然後同屋企人一齊食飯，之後聽中文歌。」</p>
+                                <p class="text-gray-400 font-mono text-xxs mt-1">Jyutping: [Ngo5 wui5 sin1 zou6 gung1 fo3, jin4 hau6 tung4 uk1 kei1 jan4 jat1 cai4 sik6 faan6, zi1 hau6 teng1 zung1 man2 go1.]</p>
+                            </div>
+                            <div class="bg-teal-50/50 p-3 rounded-lg border border-teal-100">
+                                <p class="font-bold text-teal-800 mb-1">Urdu/Nepali Native Tips for Parents:</p>
+                                <p class="text-teal-900 leading-relaxed font-medium">
+                                    بچے کو اپنے روزمرہ کے اچھے معمولات بتانے کی مشق کروائیں۔ (Help the child describe a healthy, disciplined daily routine that includes homework, family time, and mild exposure to Chinese language.)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 問題十 (For Parents) -->
+                    <div class="border border-slate-100 rounded-xl p-4 bg-slate-50">
+                        <span class="bg-blue-100 text-blue-800 text-xxs font-extrabold px-2 py-0.5 rounded">常考問題 10 (For Parents)</span>
+                        <p class="font-bold text-slate-900 text-sm md:text-base mt-2">Q: 「您對孩子未來的長期發展有什麼期望？ (What are your long-term expectations for your child's future?)」</p>
+                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                            <div class="bg-white p-3 rounded-lg border border-gray-150">
+                                <div class="flex justify-between items-start">
+                                    <p class="font-bold text-school mb-1">雙語推薦回答 (Bilingual Answer):</p>
+                                    <button onclick="speakCantonese('我期望佢可以喺多元包容嘅環境中快樂成長。除左學業成績，我更希望佢學識點樣同唔同背景嘅人合作，回饋社會。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)">
+                                        <i class="fa-solid fa-volume-high text-sm"></i>
+                                    </button>
+                                </div>
+                                <p class="text-gray-800 font-semibold text-sm leading-relaxed">
+                                    「我期望佢可以喺多元包容嘅環境中快樂成長。除左學業成績，我更希望佢學識點樣同唔同背景嘅人合作，回饋社會。」<br>
+                                    <span class="text-xs text-gray-500 italic font-normal">"I hope my child can grow up happily in a diverse and inclusive environment. Beyond academics, I want them to learn teamwork with people from all walks of life, and give back to society."</span>
+                                </p>
+                            </div>
+                            <div class="bg-teal-50/50 p-3 rounded-lg border border-teal-100">
+                                <p class="font-bold text-teal-800 mb-1">Urdu/Nepali Parent Focus:</p>
+                                <p class="text-teal-900 leading-relaxed font-medium">
+                                    اسکول کو بتائیں کہ آپ بچے کی کردار سازی کو اہمیت دیتے ہیں۔ (Emphasize character development, civic-mindedness, and appreciation of diversity, aligning with the core values of modern Hong Kong education.)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 頁籤內容 3：叩門文件清單 -->
+            <div id="tip-content-docs-checklist" class="tip-tab-panel space-y-6 hidden">
+                <div class="bg-slate-50 p-4 rounded-xl border border-gray-100">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="font-bold text-slate-900 text-sm md:text-base"><i class="fa-solid fa-clipboard-list text-school mr-1.5"></i> 叩門必備「文件清單袋」 (Required Documents Envelope)</span>
+                        <button onclick="window.print()" class="bg-white hover:bg-slate-100 text-school border border-teal-200 px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1">
+                            <i class="fa-solid fa-print"></i> 列印此清單 (Print)
+                        </button>
+                    </div>
+                    <!-- 檢查項目 -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs md:text-sm">
+                        <label class="flex items-start bg-white p-3.5 rounded-lg border border-gray-150 cursor-pointer">
+                            <input type="checkbox" class="mt-0.5 mr-3 h-4 w-4 text-school border-gray-300 rounded focus:ring-school">
+                            <div>
+                                <strong class="text-slate-900 block">學生身分證明文件 (正副本)</strong>
+                                <span class="text-xxs text-gray-400">HKID card or Passport copy with valid dependency visas.</span>
+                            </div>
+                        </label>
+                        <label class="flex items-start bg-white p-3.5 rounded-lg border border-gray-150 cursor-pointer">
+                            <input type="checkbox" class="mt-0.5 mr-3 h-4 w-4 text-school border-gray-300 rounded focus:ring-school">
+                            <div>
+                                <strong class="text-slate-900 block">小一/中一入學派位證書、選校草表</strong>
+                                <span class="text-xxs text-gray-400">Primary/Secondary One Allocation Certificate & Choice Sheet.</span>
+                            </div>
+                        </label>
+                        <label class="flex items-start bg-white p-3.5 rounded-lg border border-gray-150 cursor-pointer">
+                            <input type="checkbox" class="mt-0.5 mr-3 h-4 w-4 text-school border-gray-300 rounded focus:ring-school">
+                            <div>
+                                <strong class="text-slate-900 block">最近兩年成績單 / 校內評估報告 (正副本)</strong>
+                                <span class="text-xxs text-gray-400">School reports of the past 2 years (original & copy).</span>
+                            </div>
+                        </label>
+                        <label class="flex items-start bg-white p-3.5 rounded-lg border border-gray-150 cursor-pointer">
+                            <input type="checkbox" class="mt-0.5 mr-3 h-4 w-4 text-school border-gray-300 rounded focus:ring-school">
+                            <div>
+                                <strong class="text-slate-900 block">幼稚園/小學推薦信或個人學習Portfolio</strong>
+                                <span class="text-xxs text-gray-400">Recommendation letter from previous principals & student portfolio.</span>
+                            </div>
+                        </label>
+                        <label class="flex items-start bg-white p-3.5 rounded-lg border border-gray-150 cursor-pointer">
+                            <input type="checkbox" class="mt-0.5 mr-3 h-4 w-4 text-school border-gray-300 rounded focus:ring-school">
+                            <div>
+                                <strong class="text-slate-900 block">地址證明（近三個月水/電/煤費單）</strong>
+                                <span class="text-xxs text-gray-400">Proof of residential address (within the past 3 months).</span>
+                            </div>
+                        </label>
+                        <label class="flex items-start bg-white p-3.5 rounded-lg border border-gray-150 cursor-pointer">
+                            <input type="checkbox" class="mt-0.5 mr-3 h-4 w-4 text-school border-gray-300 rounded focus:ring-school">
+                            <div>
+                                <strong class="text-slate-900 block">證件照及文具（供臨時筆試使用）</strong>
+                                <span class="text-xxs text-gray-400">Passport photos (at least 4) & full writing stationery.</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 橫項比對詳細 Modal 彈窗 (層級提升 z-50) no-print -->
+    <div id="compare-modal" class="fixed inset-0 z-50 overflow-y-auto hidden bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 no-print">
+        <div class="bg-white rounded-2xl max-w-5xl w-full p-6 shadow-2xl border border-gray-100 max-h-[90vh] overflow-y-auto custom-scrollbar fade-in">
+            <div class="flex justify-between items-center border-b border-gray-100 pb-4 mb-5">
+                <h3 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+                    <i class="fa-solid fa-scale-balanced text-school"></i> 學校橫向支援配套比對 (NCS School Support Comparison)
+                </h3>
+                <button onclick="closeCompareModal()" class="text-gray-400 hover:text-gray-600 focus:outline-none">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <!-- 對比數據表格 -->
+            <div class="overflow-x-auto rounded-xl border border-gray-100 shadow-inner">
+                <table class="min-w-full divide-y divide-gray-200 text-sm">
+                    <thead class="bg-slate-50" id="compare-table-head">
+                        <!-- 動態寫入 -->
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-100" id="compare-table-body">
+                        <!-- 動態寫入 -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-6 flex justify-end gap-3 border-t border-gray-50 pt-4">
+                <button onclick="clearCompareList()" class="text-red-500 hover:text-red-700 font-bold text-sm px-4 py-2 rounded-lg transition">重置比對名單</button>
+                <button onclick="closeCompareModal()" class="bg-school text-white hover:bg-teal-800 px-5 py-2 rounded-lg font-bold text-sm shadow-md transition">關閉視窗</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 全域對比名單狀態庫
+        let compareList = [];
+
+        // 1. 全港 30 間真實/擬真非華語友善中小學完備數據庫 (加入模擬 EDB 學校編號與公開試學制)
+        const schoolData = [
+            // 小學 (Primary)
+            {
+                id: 1, name: "官立嘉道理爵士小學", nameEn: "Sir Ellis Kadoorie Government Primary School",
+                level: "primary", district: "hk-island", type: "gov", ncsPercent: "95%", ncsValue: 95,
+                address: "香港掃桿埔東院道9號", schoolCode: "311", hasIgcse: false, hasAplc: false,
+                chineseSupport: { split: true, peer: true, curriculum: "校本分層中文教材" },
+                facilities: { halal: true, hijab: true, prayer: true },
+                emCare: "設有烏爾都語/尼泊爾語助理、多元文化周、少數族裔家長互助會",
+                keywords: "嘉道理, Ellis Kadoorie, 掃桿埔, 銅鑼灣, 東院道"
+            },
+            {
+                id: 2, name: "李鄭屋官立小學", nameEn: "Li Cheng Uk Government Primary School",
+                level: "primary", district: "kowloon", type: "gov", ncsPercent: "92%", ncsValue: 92,
+                address: "九龍深水埗廣利道43號", schoolCode: "118", hasIgcse: false, hasAplc: false,
+                chineseSupport: { split: true, peer: true, curriculum: "抽離式第二語言學習小組" },
+                facilities: { halal: true, hijab: true, prayer: true },
+                emCare: "多語通告支援、常駐EM輔導員、課後清真功課輔導班",
+                keywords: "李鄭屋, Li Cheng Uk, 深水埗, 廣利道"
+            },
+            {
+                id: 3, name: "佐敦道官立小學", nameEn: "Jordan Road Government Primary School",
+                level: "primary", district: "kowloon", type: "gov", ncsPercent: "88%", ncsValue: 88,
+                address: "九龍油麻地南京街1B號", schoolCode: "125", hasIgcse: false, hasAplc: false,
+                chineseSupport: { split: true, peer: true, curriculum: "分組教學及課後鞏固課程" },
+                facilities: { halal: false, hijab: true, prayer: true },
+                emCare: "家校多元文化工作坊、英語及烏爾都語雙語家長通告",
+                keywords: "佐敦道, Jordan Road, 油麻地, 南京街"
+            },
+            {
+                id: 4, name: "保良局陳守仁小學", nameEn: "P.L.K. Camões Tan Shiu Sen Primary School",
+                level: "primary", district: "kowloon", type: "dss", ncsPercent: "40%", ncsValue: 40,
+                address: "九龍油麻地海庭道31號", schoolCode: "162", hasIgcse: false, hasAplc: false,
+                chineseSupport: { split: true, peer: false, curriculum: "主流及非母語中文並行雙軌制" },
+                facilities: { halal: false, hijab: true, prayer: false },
+                emCare: "國際化多元校園氛圍、設有跨文化適應關愛小組",
+                keywords: "陳守仁, Camoes, PLK, 油麻地, 海庭道"
+            },
+            {
+                id: 5, name: "中華基督教會灣仔堂基道小學(九龍城)", nameEn: "CCC Wanchai Church Kei To Primary School (Kowloon City)",
+                level: "primary", district: "kowloon", type: "aided", ncsPercent: "45%", ncsValue: 45,
+                address: "九龍土瓜灣靠背壟道170號", schoolCode: "173", hasIgcse: false, hasAplc: false,
+                chineseSupport: { split: true, peer: true, curriculum: "抽離式高階及基礎中文小組" },
+                facilities: { halal: true, hijab: true, prayer: false },
+                emCare: "提供清真友好小食部安排、非華語家長中文識字班",
+                keywords: "基道, Kei To, CCC, 土瓜灣, 靠背壟道"
+            },
+            {
+                id: 6, name: "基督教聖約教會堅樂第二小學", nameEn: "The Mission Covenant Church Holm Glad No. 2 Primary School",
+                level: "primary", district: "kowloon", type: "aided", ncsPercent: "60%", ncsValue: 60,
+                address: "九龍觀塘順安邨屋邨小學第一校舍", schoolCode: "185", hasIgcse: false, hasAplc: false,
+                chineseSupport: { split: true, peer: true, curriculum: "第二語言中文校本教材、實用口語對話" },
+                facilities: { halal: true, hijab: true, prayer: true },
+                emCare: "社區跨文化家庭結對共融計劃、烏爾都語翻譯諮詢",
+                keywords: "堅樂, Holm Glad, 觀塘, 順安邨"
+            },
+            {
+                id: 7, name: "天主教石鐘山紀念小學", nameEn: "Shak Chung Shan Memorial Catholic Primary School",
+                level: "primary", district: "nt-west", type: "aided", ncsPercent: "20%", ncsValue: 20,
+                address: "新界荃灣柴灣角海安路3號", schoolCode: "420", hasIgcse: false, hasAplc: false,
+                chineseSupport: { split: true, peer: true, curriculum: "非華語生拼音及讀寫增潤課" },
+                facilities: { halal: false, hijab: true, prayer: false },
+                emCare: "夥伴共融友伴計劃、小一至小三功課雙語輔導",
+                keywords: "石鐘山, Shak Chung Shan, 荃灣, 海安路"
+            },
+            {
+                id: 8, name: "八鄉中心小學", nameEn: "Pat Heung Central Primary School",
+                level: "primary", district: "nt-west", type: "aided", ncsPercent: "85%", ncsValue: 85,
+                address: "新界元朗八鄉蓮花地", schoolCode: "432", hasIgcse: false, hasAplc: false,
+                chineseSupport: { split: true, peer: true, curriculum: "活動式中文體驗教學、分層寫作訓練" },
+                facilities: { halal: true, hijab: true, prayer: true },
+                emCare: "自然生態校園文化融合、多國語言家校通告平台",
+                keywords: "八鄉, Pat Heung, 元朗, 蓮花地"
+            },
+            {
+                id: 9, name: "順德聯誼總會胡少渠紀念小學", nameEn: "S.T.F.A. Wu Siu Kui Memorial Primary School",
+                level: "primary", district: "nt-west", type: "aided", ncsPercent: "15%", ncsValue: 15,
+                address: "新界屯門安定邨屋邨小學第二校舍", schoolCode: "438", hasIgcse: false, hasAplc: false,
+                chineseSupport: { split: true, peer: true, curriculum: "抽離式中文拼音及基礎班" },
+                facilities: { halal: false, hijab: true, prayer: false },
+                emCare: "新到港非華語學生適應適配班、課後同儕功課支援小組",
+                keywords: "胡少渠, Wu Siu Kui, STFA, 屯門, 安體邨"
+            },
+            {
+                id: 10, name: "播道書院(小學部)", nameEn: "Evangel College (Primary Section)",
+                level: "primary", district: "nt-east", type: "dss", ncsPercent: "25%", ncsValue: 25,
+                address: "新界將軍澳至善街7號", schoolCode: "502", hasIgcse: false, hasAplc: false,
+                chineseSupport: { split: true, peer: false, curriculum: "校本繁簡及拼音適應課程" },
+                facilities: { halal: false, hijab: true, prayer: false },
+                emCare: "全英文學術學務諮詢、跨文化學生發展網絡",
+                keywords: "播道, Evangel, 將軍澳, 至善街"
+            },
+            {
+                id: 11, name: "香港道教聯合會純陽小學", nameEn: "HKTA Shun Yeung Primary School",
+                level: "primary", district: "nt-east", type: "aided", ncsPercent: "50%", ncsValue: 50,
+                address: "新界沙田馬鞍山鞍駿街14號", schoolCode: "508", hasIgcse: false, hasAplc: false,
+                chineseSupport: { split: true, peer: true, curriculum: "系統化中文階梯及閱讀理解增潤" },
+                facilities: { halal: true, hijab: true, prayer: true },
+                emCare: "提供穆斯林膳食特別安排、少數族裔文化展覽日",
+                keywords: "純陽, Shun Yeung, HKTA, 沙田, 馬鞍山, 鞍駿街"
+            },
+            {
+                id: 12, name: "救世軍田家炳學校", nameEn: "The Salvation Army Tin Ka Ping School",
+                level: "primary", district: "nt-east", type: "aided", ncsPercent: "35%", ncsValue: 35,
+                address: "新界沙田大圍博康邨", schoolCode: "512", hasIgcse: false, hasAplc: false,
+                chineseSupport: { split: true, peer: true, curriculum: "生活化中文溝通及基礎讀寫分層" },
+                facilities: { halal: false, hijab: true, prayer: false },
+                emCare: "關愛小組定期家庭探訪、提供中文電子學習App資源",
+                keywords: "田家炳, Tin Ka Ping, 沙田, 大圍, 博康邨"
+            },
+            {
+                id: 13, name: "東華三院李志雄紀念小學", nameEn: "TWGHs Leo Tung-hai Lee Primary School",
+                level: "primary", district: "nt-west", type: "aided", ncsPercent: "55%", ncsValue: 55,
+                address: "新界天水圍天耀邨第一期", schoolCode: "460", hasIgcse: false, hasAplc: false,
+                chineseSupport: { split: true, peer: true, curriculum: "校本分層中文閱讀與認字小卡系統" },
+                facilities: { halal: true, hijab: true, prayer: true },
+                emCare: "天水圍區少數族裔家庭網絡、常駐多語社工支援",
+                keywords: "李志雄, Leo Tung-hai, TWGH, 天水圍, 天耀邨"
+            },
+            {
+                id: 14, name: "聖公會青衣主恩小學", nameEn: "S.K.H. Tsing Yi Chu Yan Primary School",
+                level: "primary", district: "nt-west", type: "aided", ncsPercent: "30%", ncsValue: 30,
+                address: "新界青衣長宏邨第一期", schoolCode: "475", hasIgcse: false, hasAplc: false,
+                chineseSupport: { split: true, peer: true, curriculum: "非華語中文精準小組、粵語正音" },
+                facilities: { halal: false, hijab: true, prayer: false },
+                emCare: "舉辦家校跨文化融合餐會、英文通告口譯支援",
+                keywords: "青衣主恩, Chu Yan, SKH, 青衣, 長宏邨"
+            },
+            {
+                id: 15, name: "保良局金雅琴小學", nameEn: "PLK Gold & Silver Exchange Society Primary School",
+                level: "primary", district: "hk-island", type: "aided", ncsPercent: "40%", ncsValue: 40,
+                address: "香港柴灣興華邨第二期", schoolCode: "338", hasIgcse: false, hasAplc: false,
+                chineseSupport: { split: true, peer: true, curriculum: "浸入式中文主題學習" },
+                facilities: { halal: true, hijab: true, prayer: false },
+                emCare: "南區及東區非華語學生文化共融支援網絡",
+                keywords: "金雅琴, PLK, 柴灣, 興華邨"
+            },
+
+            // 中學 (Secondary)
+            {
+                id: 16, name: "官立嘉道理爵士中學(西九龍)", nameEn: "Sir Ellis Kadoorie Secondary School (West Kowloon)",
+                level: "secondary", district: "kowloon", type: "gov", ncsPercent: "94%", ncsValue: 94,
+                address: "九龍大角咀海帆道22號", schoolCode: "312", hasIgcse: true, hasAplc: true,
+                chineseSupport: { split: true, peer: true, curriculum: "DSE 應用學習中文 (ApL(C)) 實用教材、GCSE 指導班" },
+                facilities: { halal: true, hijab: true, prayer: true },
+                emCare: "設有祈禱室、多語系學校廣播、少數族裔學生領袖訓練計劃",
+                keywords: "嘉道理中學, Ellis Kadoorie Secondary, 大角咀, 海帆道"
+            },
+            {
+                id: 17, name: "地利亞修女紀念學校(百老匯)", nameEn: "Delia Memorial School (Broadway)",
+                level: "secondary", district: "kowloon", type: "dss", ncsPercent: "98%", ncsValue: 98,
+                address: "九龍美孚新邨百老匯街80-86號", schoolCode: "215", hasIgcse: true, hasAplc: true,
+                chineseSupport: { split: true, peer: true, curriculum: "ApL(C) 專業班、GCE A-Level 雙軌辅導" },
+                facilities: { halal: true, hijab: true, prayer: true },
+                emCare: "全港最歷史悠久非華語中學、配備多國語言家長支援團隊",
+                keywords: "地利亞百老匯, Delia Broadway, 美孚"
+            },
+            {
+                id: 18, name: "伊斯蘭脫維亞中學", nameEn: "Islamic Kasim Tuet Memorial College",
+                level: "secondary", district: "hk-island", type: "aided", ncsPercent: "96%", ncsValue: 96,
+                address: "香港柴灣翠灣街22號", schoolCode: "108", hasIgcse: true, hasAplc: true,
+                chineseSupport: { split: true, peer: true, curriculum: "小班抽離式 GCSE/GCE/ApL(C) 精準訓練" },
+                facilities: { halal: true, hijab: true, prayer: true },
+                emCare: "100% 符合清真寺標準食堂、男女分開課外運動、每日固定祈禱時間安排",
+                keywords: "伊斯蘭, Islamic Kasim, 柴灣, 翠灣街"
+            },
+            {
+                id: 19, name: "地利亞修女紀念學校(協和)", nameEn: "Delia Memorial School (Hip Wo)",
+                level: "secondary", district: "kowloon", type: "dss", ncsPercent: "85%", ncsValue: 85,
+                address: "九龍觀塘協和街221號", schoolCode: "220", hasIgcse: true, hasAplc: true,
+                chineseSupport: { split: true, peer: true, curriculum: "校本實用商業中文、DSE 應用中文" },
+                facilities: { halal: true, hijab: true, prayer: true },
+                emCare: "多元文化藝術節、與各大社區 NGO（如融匯中心）深入合作提供課後支援",
+                keywords: "地利亞協和, Delia Hip Wo, 觀塘, 協和街"
+            },
+            {
+                id: 20, name: "香港明愛華德中書院", nameEn: "Caritas Charles Vath College",
+                level: "secondary", district: "nt-east", type: "dss", ncsPercent: "70%", ncsValue: 70,
+                address: "新界將軍澳邱屋村30號", schoolCode: "411", hasIgcse: true, hasAplc: true,
+                chineseSupport: { split: true, peer: true, curriculum: "職業實用中文、ApL(C) 課程" },
+                facilities: { halal: true, hijab: true, prayer: true },
+                emCare: "小班關愛師生比例、為非華語生設有升學與大專衔接小組",
+                keywords: "華德, Charles Vath, Caritas, 將軍澳, 邱屋村"
+            },
+            {
+                id: 21, name: "明愛胡振中中學", nameEn: "Caritas Wu Cheng-chung Secondary School",
+                level: "secondary", district: "hk-island", type: "aided", ncsPercent: "65%", ncsValue: 65,
+                address: "香港薄扶林羅富國徑8號", schoolCode: "109", hasIgcse: true, hasAplc: true,
+                chineseSupport: { split: true, peer: true, curriculum: "GCSE/DSE抽離語法加強班、實用廣東話訓練" },
+                facilities: { halal: true, hijab: true, prayer: false },
+                emCare: "設有融合教育小組、提供英語、法語及烏爾都語學術諮詢",
+                keywords: "胡振中, Wu Cheng-chung, 薄扶林, 羅富國徑"
+            },
+            {
+                id: 22, name: "福建中學(溈水/小西灣)", nameEn: "Fujian Secondary School (Siu Sai Wan)",
+                level: "secondary", district: "hk-island", type: "aided", ncsPercent: "15%", ncsValue: 15,
+                address: "香港小西灣富欣道9號", schoolCode: "123", hasIgcse: false, hasAplc: true,
+                chineseSupport: { split: true, peer: true, curriculum: "非華語生中文課後輔導、認字理解特訓" },
+                facilities: { halal: false, hijab: true, prayer: false },
+                emCare: "本地同學及非華語同學一對一互助小組、文化共融班會活動",
+                keywords: "福建中學, Fujian, 小西灣, 富欣道"
+            },
+            {
+                id: 23, name: "中華基督教會公理高中書院", nameEn: "CCC Kung Lee College",
+                level: "secondary", district: "hk-island", type: "dss", ncsPercent: "50%", ncsValue: 50,
+                address: "香港大坑徑17號", schoolCode: "115", hasIgcse: false, hasAplc: true,
+                chineseSupport: { split: true, peer: true, curriculum: "職業實用應用學習中文(ApL(C))" },
+                facilities: { halal: true, hijab: true, prayer: false },
+                emCare: "著重青年人職涯出路對接、非華語中學實習計劃",
+                keywords: "公理, Kung Lee, CCC, 大坑徑, 銅鑼灣"
+            },
+            {
+                id: 24, name: "救世軍卜維廉中學", nameEn: "The Salvation Army William Booth Secondary School",
+                level: "secondary", district: "kowloon", type: "aided", ncsPercent: "30%", ncsValue: 30,
+                address: "九龍黃大仙慈正邨", schoolCode: "221", hasIgcse: false, hasAplc: true,
+                chineseSupport: { split: true, peer: true, curriculum: "抽離式第二語言中文適配教材" },
+                facilities: { halal: false, hijab: true, prayer: false },
+                emCare: "黃大仙區多元文化適應小組、學校輔導熱線雙語溝通",
+                keywords: "卜維廉, William Booth, 黃大仙, 慈正邨"
+            },
+            {
+                id: 25, name: "仁濟醫院林百欣中學", nameEn: "Y.C.H. Lim Por Yen Secondary School",
+                level: "secondary", district: "nt-west", type: "aided", ncsPercent: "25%", ncsValue: 25,
+                address: "新界荃灣荃景圍", schoolCode: "518", hasIgcse: true, hasAplc: true,
+                chineseSupport: { split: true, peer: true, curriculum: "第二語言中文課程、GCSE 輔導" },
+                facilities: { halal: false, hijab: true, prayer: false },
+                emCare: "荃灣區少數族裔家庭與社區聯動計劃、家校聯絡小組",
+                keywords: "林百欣, Lim Por Yen, YCH, 荃灣, 荃景圍"
+            },
+            {
+                id: 26, name: "香港青年協會李兆基書院", nameEn: "HKFYG Lee Shau Kee College",
+                level: "secondary", district: "nt-west", type: "dss", ncsPercent: "20%", ncsValue: 20,
+                address: "新界天水圍濕地公園路12號", schoolCode: "502", hasIgcse: true, hasAplc: false,
+                chineseSupport: { split: true, peer: false, curriculum: "NCS中文精細分層、拼音及口語特訓" },
+                facilities: { halal: false, hijab: true, prayer: false },
+                emCare: "國際文化節展覽、英語及普通話教學融合支援",
+                keywords: "李兆基書院, Lee Shau Kee, 天水圍, 濕地公園路"
+            },
+            {
+                id: 27, name: "廠商會中學", nameEn: "CMA Secondary School",
+                level: "secondary", district: "kowloon", type: "aided", ncsPercent: "35%", ncsValue: 35,
+                address: "九龍石硤尾白田街100號", schoolCode: "205", hasIgcse: true, hasAplc: true,
+                chineseSupport: { split: true, peer: true, curriculum: "GCSE 及 DSE 應用中文輔助小班" },
+                facilities: { halal: true, hijab: true, prayer: false },
+                emCare: "提供穆斯林餐飲標記諮詢、定期舉辦跨文化家庭交流活動",
+                keywords: "廠商會, CMA, 石硤尾, 白田街"
+            },
+            {
+                id: 28, name: "香港道教聯合會圓玄學院第三中學", nameEn: "HKTA Yuen Yuen Institute No.3 Secondary School",
+                level: "secondary", district: "nt-west", type: "aided", ncsPercent: "60%", ncsValue: 60,
+                address: "新界將軍澳尚德邨", schoolCode: "612", hasIgcse: true, hasAplc: true,
+                chineseSupport: { split: true, peer: true, curriculum: "ApL(C) 精華班、小班抽離中文" },
+                facilities: { halal: true, hijab: true, prayer: true },
+                emCare: "將軍澳區卓越非華語支援學校、提供多語家長工作坊",
+                keywords: "圓玄三中, Yuen Yuen 3, 將軍澳, 尚德邨"
+            },
+            {
+                id: 29, name: "嶺南衡怡紀念中學", nameEn: "Lingnan Hang Yee Memorial Secondary School",
+                level: "secondary", district: "hk-island", type: "aided", ncsPercent: "40%", ncsValue: 40,
+                address: "香港小西灣富欣道3號", schoolCode: "135", hasIgcse: false, hasAplc: true,
+                chineseSupport: { split: true, peer: true, curriculum: "抽離式中文拼音及基礎聽寫訓練" },
+                facilities: { halal: true, hijab: true, prayer: false },
+                emCare: "東區非華語家校共融網絡、定期課後廣東話對話角",
+                keywords: "嶺南衡怡, Lingnan Hang Yee, 小西灣,富欣道"
+            },
+            {
+                id: 30, name: "新生命教育協會平安福音中學", nameEn: "NLAC Peace Evangelical Secondary School",
+                level: "secondary", district: "nt-west", type: "aided", ncsPercent: "30%", ncsValue: 30,
+                address: "新界屯門恒貴街3號", schoolCode: "532", hasIgcse: true, hasAplc: true,
+                chineseSupport: { split: true, peer: true, curriculum: "第二語言校本中文、GCSE 衝刺班" },
+                facilities: { halal: false, hijab: true, prayer: false },
+                emCare: "屯門區非華語社群適配支援、英文家長信件雙向諮詢",
+                keywords: "平安福音, Peace Evangelical, 屯門, 恒貴街"
+            }
+        ];
+    </script>
+
+    <script>
+        // 摺疊/展開進階篩選邏輯
+        let isAdvancedOpen = false;
+        function toggleAdvancedSearch() {
+            const panel = document.getElementById('advanced-search-panel');
+            const chevron = document.getElementById('filter-chevron');
+            isAdvancedOpen = !isAdvancedOpen;
+
+            if (isAdvancedOpen) {
+                panel.style.maxHeight = "500px"; // 設定足夠高度
+                panel.style.opacity = "1";
+                panel.style.paddingTop = "1rem";
+                chevron.classList.add('rotate-180');
+            } else {
+                panel.style.maxHeight = "0";
+                panel.style.opacity = "0";
+                panel.style.paddingTop = "0";
+                chevron.classList.remove('rotate-180');
+            }
+        }
+
+        // 叩門必勝秘笈分頁切換邏輯
+        function switchTipTab(tabId) {
+            // 隱藏全部面板
+            document.querySelectorAll('.tip-tab-panel').forEach(panel => {
+                panel.classList.add('hidden');
+            });
+            // 移除全部按鈕高亮
+            document.querySelectorAll('.tip-tab-btn').forEach(btn => {
+                btn.classList.remove('border-school', 'text-school');
+                btn.classList.add('border-transparent', 'text-gray-500');
+            });
+
+            // 顯示目標面板
+            document.getElementById(`tip-content-${tabId}`).classList.remove('hidden');
+            // 高亮目標按鈕
+            const targetBtn = document.getElementById(`tab-btn-${tabId}`);
+            targetBtn.classList.add('border-school', 'text-school');
+            targetBtn.classList.remove('border-transparent', 'text-gray-500');
+        }
+
+        // 一鍵廣東話語音朗讀合成邏輯 (Web Speech API)
+        function speakCantonese(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // 停止目前說話
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'zh-HK'; // 設置為廣東話發音
+                utterance.rate = 0.85;    // 放慢語速以方便家長與子女模仿
+                utterance.pitch = 1.0;
+                window.speechSynthesis.speak(utterance);
+            } else {
+                showToast("您的瀏覽器不支援語音跟讀功能。 (Text-to-Speech not supported)", "warning");
+            }
+        }
+    </script>
+
+    <script>
+        // 初始化與渲染卡片 (優化：增強加入對比時的卡片高亮反饋)
+        function renderSchoolCards(filteredData) {
+            const container = document.getElementById('school-cards-container');
+            container.innerHTML = '';
+
+            if (filteredData.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full bg-white p-12 text-center rounded-2xl border border-gray-100 shadow-sm">
+                        <i class="fa-solid fa-school-circle-exclamation text-slate-300 text-5xl mb-3"></i>
+                        <p class="text-gray-500 font-bold">沒有符合當前篩選條件的學校 (No schools match filters)</p>
+                        <button onclick="resetFilters()" class="text-sm text-school underline mt-2 font-bold focus:outline-none">重置篩選 Reset Filters</button>
+                    </div>
+                `;
+                return;
+            }
+
+            filteredData.forEach(sch => {
+                const isSelected = compareList.some(item => item.id === sch.id);
+                
+                // 動態配對按鈕語句與配色
+                const compareBtnText = isSelected ? 
+                    `<i class="fa-solid fa-circle-check mr-1.5"></i> 已選擇對比` : 
+                    `<i class="fa-solid fa-plus mr-1.5"></i> 加入比對`;
+                const compareBtnClass = isSelected ? 
+                    "bg-teal-600 text-white border border-teal-600 shadow-sm" : 
+                    "bg-white text-school border border-teal-200 hover:bg-teal-50";
+
+                // 優化：當前學校被選中對比時，卡片外框呈現深綠高亮、柔和底色與雙重光澤
+                const cardBorderClass = isSelected ? 
+                    "border-2 border-teal-500 bg-teal-50/10 shadow-lg ring-2 ring-teal-500/20" : 
+                    "border border-gray-100 hover:shadow-xl hover:border-teal-200";
+
+                const levelBadge = sch.level === "primary" ? 
+                    `<span class="bg-blue-100 text-blue-800 text-xxs font-extrabold px-2.5 py-0.5 rounded shadow-sm">小學 Primary</span>` : 
+                    `<span class="bg-purple-100 text-purple-800 text-xxs font-extrabold px-2.5 py-0.5 rounded shadow-sm">中學 Secondary</span>`;
+
+                const typeLabels = { gov: "官立", aided: "資助", dss: "直資" };
+                const typeBadge = `<span class="bg-slate-100 text-gray-700 text-xxs font-extrabold px-2 py-0.5 rounded border border-slate-200">${typeLabels[sch.type]}</span>`;
+
+                const districtLabels = { "hk-island": "香港島", "kowloon": "九龍", "nt-east": "新界東", "nt-west": "新界西" };
+                const districtBadge = `<span class="bg-emerald-50 text-emerald-800 text-xxs font-bold px-2 py-0.5 rounded-full"><i class="fa-solid fa-map-pin mr-1"></i>${districtLabels[sch.district]}</span>`;
+
+                const card = document.createElement('div');
+                card.className = `bg-white rounded-2xl p-5 transition-all duration-300 flex flex-col justify-between fade-in relative overflow-hidden group ${cardBorderClass}`;
+                card.innerHTML = `
+                    <div>
+                        <!-- 對比中右上角精美懸浮徽章 -->
+                        ${isSelected ? '<div class="absolute top-0 right-0 bg-teal-500 text-white font-bold text-xxs px-3 py-1 rounded-bl-xl shadow-sm z-10"><i class="fa-solid fa-scale-balanced mr-1"></i>比對中</div>' : ''}
+
+                        <!-- 頂部徽章 -->
+                        <div class="flex flex-wrap gap-1.5 mb-3">
+                            ${levelBadge}
+                            ${typeBadge}
+                            ${districtBadge}
+                        </div>
+
+                        <!-- 學校名稱與佔比 -->
+                        <div class="flex justify-between items-start mb-2 gap-2">
+                            <div class="max-w-[80%]">
+                                <h3 class="font-bold text-gray-900 text-base md:text-lg group-hover:text-school transition-colors">${sch.name}</h3>
+                                <p class="text-xxs text-gray-400 font-semibold italic mt-0.5 leading-tight">${sch.nameEn}</p>
+                            </div>
+                            <div class="text-right shrink-0">
+                                <span class="text-xs bg-red-50 text-red-700 font-extrabold px-2 py-1 rounded shadow-sm block">NCS: ${sch.ncsPercent}</span>
+                            </div>
+                        </div>
+
+                        <!-- 地址 -->
+                        <p class="text-xs text-gray-400 mb-4"><i class="fa-solid fa-location-dot mr-1"></i> ${sch.address}</p>
+
+                        <!-- 中文配套與學制考查亮點 (新增公開試資訊展示) -->
+                        <div class="bg-slate-50/80 p-3 rounded-xl border border-gray-100 mb-4 space-y-1.5">
+                            <p class="text-xs text-gray-700 font-bold"><i class="fa-solid fa-book text-school mr-1.5"></i> 中文學習與公開試支援:</p>
+                            <p class="text-xxs text-gray-500 pl-4 font-semibold">教材: ${sch.chineseSupport.curriculum}</p>
+                            
+                            <!-- 公開學制徽章 -->
+                            <div class="flex flex-wrap gap-1 pl-4 mt-1">
+                                ${sch.chineseSupport.split ? '<span class="text-[10px] text-teal-800 bg-teal-50 border border-teal-100 px-1.5 py-0.5 rounded font-bold">小班抽離</span>' : ''}
+                                ${sch.chineseSupport.peer ? '<span class="text-[10px] text-teal-800 bg-teal-50 border border-teal-100 px-1.5 py-0.5 rounded font-bold">課後輔導</span>' : ''}
+                                ${sch.hasIgcse ? '<span class="text-[10px] text-indigo-800 bg-indigo-50 border border-indigo-100 px-1.5 py-0.5 rounded font-bold"><i class="fa-solid fa-graduation-cap mr-0.5"></i>支援 IGCSE/GCE</span>' : ''}
+                                ${sch.hasAplc ? '<span class="text-[10px] text-purple-800 bg-purple-50 border border-purple-100 px-1.5 py-0.5 rounded font-bold"><i class="fa-solid fa-building-columns mr-0.5"></i>ApL(C) 課程</span>' : ''}
+                            </div>
+                        </div>
+
+                        <!-- 宗教清真配套標記 -->
+                        <div class="flex gap-1.5 mb-4">
+                            ${sch.facilities.halal ? '<span class="text-xxs bg-emerald-50 text-emerald-700 font-bold border border-emerald-100 px-2 py-0.5 rounded-full"><i class="fa-solid fa-utensils mr-1"></i>清真膳食</span>' : ''}
+                            ${sch.facilities.hijab ? '<span class="text-xxs bg-amber-50 text-amber-700 font-bold border border-amber-100 px-2 py-0.5 rounded-full"><i class="fa-solid fa-shirt mr-1"></i>體育學制寬限</span>' : ''}
+                            ${sch.facilities.prayer ? '<span class="text-xxs bg-blue-50 text-blue-700 font-bold border border-blue-100 px-2 py-0.5 rounded-full"><i class="fa-solid fa-person-praying mr-1"></i>祈禱室</span>' : ''}
+                        </div>
+                    </div>
+
+                    <!-- 動作按鈕 -->
+                    <div class="border-t border-gray-100 pt-3.5 flex gap-2">
+                        <button onclick="toggleCompare(${sch.id}, this)" class="px-3 py-2 rounded-xl text-xs font-extrabold transition-all duration-300 flex items-center justify-center flex-1 shadow-sm ${compareBtnClass}">
+                            ${compareBtnText}
+                        </button>
+                        <button onclick="showSchoolDetail(${sch.id})" class="bg-slate-100 hover:bg-slate-200 text-gray-700 px-3 py-2 rounded-xl text-xs font-bold transition flex items-center justify-center shadow-sm">
+                            詳細特色
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // 2. 篩選引擎邏輯 (支援即時多維度聯動搜尋 - 新增 NCS Cluster及公開試學制)
+        function applyFilters() {
+            const query = document.getElementById('search-input').value.toLowerCase().trim();
+            const level = document.getElementById('filter-level').value;
+            const district = document.getElementById('filter-district').value;
+            const type = document.getElementById('filter-type').value;
+            const ncsCluster = document.getElementById('filter-ncs-cluster').value;
+
+            // 複選框獲取
+            const needHalal = document.getElementById('chk-halal').checked;
+            const needHijab = document.getElementById('chk-hijab').checked;
+            const needPrayer = document.getElementById('chk-prayer').checked;
+            const needSplit = document.getElementById('chk-split').checked;
+            const needPeer = document.getElementById('chk-peer').checked;
+            
+            // 優化2篩選：學制勾選
+            const needIgcse = document.getElementById('chk-igcse').checked;
+            const needAplc = document.getElementById('chk-aplc').checked;
+
+            const filtered = schoolData.filter(sch => {
+                const matchesSearch = sch.name.includes(query) || sch.nameEn.toLowerCase().includes(query) || sch.keywords.toLowerCase().includes(query);
+                const matchesLevel = (level === 'all' || sch.level === level);
+                const matchesDistrict = (district === 'all' || sch.district === district);
+                const matchesType = (type === 'all' || sch.type === type);
+
+                // 優化 1：非華語學生比例篩選
+                let matchesNcsCluster = true;
+                if (ncsCluster === 'high') {
+                    matchesNcsCluster = sch.ncsValue >= 50;
+                } else if (ncsCluster === 'mid') {
+                    matchesNcsCluster = sch.ncsValue >= 10 && sch.ncsValue < 50;
+                } else if (ncsCluster === 'low') {
+                    matchesNcsCluster = sch.ncsValue < 10;
+                }
+
+                // 配套措施與學制匹配
+                const matchesHalal = (!needHalal || sch.facilities.halal === true);
+                const matchesHijab = (!needHijab || sch.facilities.hijab === true);
+                const matchesPrayer = (!needPrayer || sch.facilities.prayer === true);
+                const matchesSplit = (!needSplit || sch.chineseSupport.split === true);
+                const matchesPeer = (!needPeer || sch.chineseSupport.peer === true);
+                
+                // 學制與替代中文匹配
+                const matchesIgcse = (!needIgcse || sch.hasIgcse === true);
+                const matchesAplc = (!needAplc || sch.hasAplc === true);
+
+                return matchesSearch && matchesLevel && matchesDistrict && matchesType && matchesNcsCluster &&
+                       matchesHalal && matchesHijab && matchesPrayer && matchesSplit && matchesPeer && matchesIgcse && matchesAplc;
+            });
+
+            document.getElementById('school-results-count').innerText = filtered.length;
+            renderSchoolCards(filtered);
+        }
+
+        function resetFilters() {
+            document.getElementById('search-input').value = '';
+            document.getElementById('filter-level').value = 'all';
+            document.getElementById('filter-district').value = 'all';
+            document.getElementById('filter-type').value = 'all';
+            document.getElementById('filter-ncs-cluster').value = 'all';
+
+            document.getElementById('chk-halal').checked = false;
+            document.getElementById('chk-hijab').checked = false;
+            document.getElementById('chk-prayer').checked = false;
+            document.getElementById('chk-split').checked = false;
+            document.getElementById('chk-peer').checked = false;
+            document.getElementById('chk-igcse').checked = false;
+            document.getElementById('chk-aplc').checked = false;
+
+            applyFilters();
+            showToast("已重置所有篩選條件！ (Filters reset)", "success");
+        }
+
+        // 3. 學校橫向比對功能邏輯 (Compare Module)
+        function toggleCompare(id, btn) {
+            const index = compareList.findIndex(item => item.id === id);
+            const sch = schoolData.find(item => item.id === id);
+
+            if (index !== -1) {
+                // 已存在，取消選擇
+                compareList.splice(index, 1);
+                showToast(`已從對比清單移出：${sch.name}`, "info");
+            } else {
+                // 嘗試加入，先判斷最大長度 3
+                if (compareList.length >= 3) {
+                    showToast("對比名單已滿（上限 3 間學校）。 (Max 3 schools allowed)", "warning");
+                    return;
+                }
+                compareList.push(sch);
+                showToast(`成功加入對比清單：${sch.name}`, "success");
+            }
+
+            // 更新按鈕與徽章 UI
+            document.getElementById('compare-count-badge').innerText = compareList.length;
+            
+            // 互動性增強：頂部的「橫向比對」按鈕會產生震動，提醒用戶已成功選入！
+            const topBtn = document.getElementById('top-compare-btn');
+            if (topBtn) {
+                topBtn.classList.add('animate-bounce');
+                setTimeout(() => topBtn.classList.remove('animate-bounce'), 800);
+            }
+
+            applyFilters(); // 重新渲染列表以更新「加入比對」卡片的高亮邊框狀態
+            renderMockChoiceForm(); // 同步更新模擬志願表
+        }
+
+        // 4. 優化 3：動態渲染 EDB 統一派位模擬志願表
+        function renderMockChoiceForm() {
+            const tbody = document.getElementById('mock-form-tbody');
+            tbody.innerHTML = '';
+
+            if (compareList.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="border border-gray-200 px-4 py-8 text-center text-gray-400 italic">
+                            請在下方選校卡片中點擊「加入比對」 (最多3間)。系統將在此處自動模擬派位志願代號對照表。
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            const districtNames = { "hk-island": "香港島", "kowloon": "九龍", "nt-east": "新界東", "nt-west": "新界西" };
+
+            compareList.forEach((sch, i) => {
+                const rankNum = i + 1;
+                
+                // 優先度控制按鈕
+                const upBtn = i > 0 ? `<button onclick="moveMockChoice(${i}, -1)" class="text-teal-600 hover:text-teal-800 p-1 mr-1" title="上移 Priority Up"><i class="fa-solid fa-arrow-up"></i></button>` : '';
+                const downBtn = i < compareList.length - 1 ? `<button onclick="moveMockChoice(${i}, 1)" class="text-teal-600 hover:text-teal-800 p-1" title="下移 Priority Down"><i class="fa-solid fa-arrow-down"></i></button>` : '';
+
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 transition";
+                tr.innerHTML = `
+                    <td class="border border-gray-200 px-4 py-3.5 text-center text-teal-700 font-extrabold bg-teal-50/30 text-sm">第 ${rankNum} 志願</td>
+                    <td class="border border-gray-200 px-4 py-3.5 text-center font-mono text-sm tracking-wider text-slate-700 bg-slate-50">${sch.schoolCode}</td>
+                    <td class="border border-gray-200 px-4 py-3.5 text-left">
+                        <div class="font-bold text-gray-900">${sch.name}</div>
+                        <div class="text-[10px] text-gray-400 font-normal italic mt-0.5 leading-none">${sch.nameEn}</div>
+                    </td>
+                    <td class="border border-gray-200 px-4 py-3.5 text-center text-xs text-gray-600">${districtNames[sch.district]}</td>
+                    <td class="border border-gray-200 px-4 py-3.5 text-center text-xs">
+                        <span class="px-2 py-0.5 rounded font-bold ${sch.level === 'primary' ? 'bg-blue-50 text-blue-800 border border-blue-100' : 'bg-purple-50 text-purple-800 border border-purple-100'}">
+                            ${sch.level === 'primary' ? '小學 Primary' : '中學 Secondary'}
+                        </span>
+                    </td>
+                    <td class="border border-gray-200 px-4 py-3.5 text-center no-print">
+                        <div class="flex justify-center items-center">
+                            ${upBtn}
+                            ${downBtn}
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // 控制模擬志願順序移動
+        function moveMockChoice(index, direction) {
+            const targetIndex = index + direction;
+            if (targetIndex >= 0 && targetIndex < compareList.length) {
+                // 交換位置
+                const temp = compareList[index];
+                compareList[index] = compareList[targetIndex];
+                compareList[targetIndex] = temp;
+                
+                renderMockChoiceForm();
+                showToast("志願填報順序已成功調整！ (Priority updated)", "success");
+            }
+        }
+
+        function showCompareModal() {
+            if (compareList.length === 0) {
+                showToast("請先在下方卡片中選擇至少一間學校加入比對！", "warning");
+                return;
+            }
+
+            const tableHead = document.getElementById('compare-table-head');
+            const tableBody = document.getElementById('compare-table-body');
+            tableHead.innerHTML = '';
+            tableBody.innerHTML = '';
+
+            // 1. 寫入 Table Head
+            let headHTML = `<tr class="divide-x divide-gray-100"><th class="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase">比對範疇 (Features)</th>`;
+            compareList.forEach(sch => {
+                headHTML += `
+                    <th class="px-4 py-3 text-left text-sm font-extrabold text-gray-900 min-w-[200px] relative">
+                        <div class="flex justify-between items-start gap-2">
+                            <div>
+                                <span class="block">${sch.name}</span>
+                                <span class="text-xxs text-gray-400 font-normal italic leading-none block mt-1">${sch.nameEn}</span>
+                            </div>
+                            <button onclick="removeSingleCompare(${sch.id})" class="text-red-400 hover:text-red-600 focus:outline-none"><i class="fa-solid fa-circle-xmark text-sm"></i></button>
+                        </div>
+                    </th>
+                `;
+            });
+            headHTML += `</tr>`;
+            tableHead.innerHTML = headHTML;
+
+            // 2. 寫入 Table Body 交叉比對資料
+            const fields = [
+                { label: "學校編號 (Code)", key: "schoolCode", raw: true },
+                { label: "學校階段 (Level)", key: "level", mapper: val => val === "primary" ? "小學 Primary" : "中學 Secondary" },
+                { label: "學校類別 (Type)", key: "type", mapper: val => val === "gov" ? "官立 Government" : val === "aided" ? "資助 Aided" : "直資 DSS" },
+                { label: "非華語生比例 (NCS %)", key: "ncsPercent", raw: true },
+                { label: "開辦公開試替代中文", key: "hasIgcse", mapper: (val, item) => item.hasIgcse ? "✅ 支援 IGCSE/GCE 替代中文考試" : "❌ 未開辦/不支援考試" },
+                { label: "開辦應用學習中文", key: "hasAplc", mapper: (val, item) => item.hasAplc ? "✅ 開辦 DSE ApL(C) 課程門檻" : "❌ 未提供 ApL(C)" },
+                { label: "中文小班/抽離支援", key: "chineseSupport", mapper: (val, item) => item.chineseSupport.split ? "✅ 設有小班/抽離教學" : "❌ 沒有抽離教學" },
+                { label: "課後中文輔導班", key: "chineseSupport", mapper: (val, item) => item.chineseSupport.peer ? "✅ 提供課後對接輔導" : "❌ 沒有課後輔導" },
+                { label: "清真飲食配套", key: "facilities", mapper: (val, item) => item.facilities.halal ? "✅ 小食部/食堂清真標註" : "❌ 沒有清真配備" },
+                { label: "運動服飾寬限", key: "facilities", mapper: (val, item) => item.facilities.hijab ? "✅ 允許配戴頭巾及長運動褲" : "❌ 需按常規規定" },
+                { label: "設有祈禱室", key: "facilities", mapper: (val, item) => item.facilities.prayer ? "✅ 校內配備獨立祈禱室" : "❌ 沒有祈禱室" },
+                { label: "多文化融合關愛亮點", key: "emCare", raw: true },
+                { label: "學校地址 (Address)", key: "address", raw: true }
+            ];
+
+            fields.forEach(f => {
+                let rowHTML = `<tr class="divide-x divide-gray-100 hover:bg-slate-50/50 transition"><td class="px-4 py-3.5 font-bold text-gray-500 text-xs">${f.label}</td>`;
+                compareList.forEach(sch => {
+                    let text = "";
+                    if (f.raw) {
+                        text = sch[f.key];
+                    } else {
+                        text = f.mapper(sch[f.key], sch);
+                    }
+                    rowHTML += `<td class="px-4 py-3.5 text-gray-800 font-semibold text-xs leading-relaxed">${text}</td>`;
+                });
+                rowHTML += `</tr>`;
+                tableBody.innerHTML += rowHTML;
+            });
+
+            document.getElementById('compare-modal').classList.remove('hidden');
+        }
+
+        function removeSingleCompare(id) {
+            const index = compareList.findIndex(item => item.id === id);
+            if (index !== -1) {
+                compareList.splice(index, 1);
+                document.getElementById('compare-count-badge').innerText = compareList.length;
+                if (compareList.length === 0) {
+                    closeCompareModal();
+                } else {
+                    showCompareModal(); // 重新整理表格
+                }
+                applyFilters();
+                renderMockChoiceForm();
+            }
+        }
+
+        function clearCompareList() {
+            compareList = [];
+            document.getElementById('compare-count-badge').innerText = 0;
+            closeCompareModal();
+            applyFilters();
+            renderMockChoiceForm();
+            showToast("對比名單已全部清空！", "success");
+        }
+
+        function closeCompareModal() {
+            document.getElementById('compare-modal').classList.add('hidden');
+        }
+    </script>
+
+    <script>
+        // 5. 顯示單間學校詳細特色 (與比對彈窗隔離，防點選碰撞阻礙)
+        function showSchoolDetail(id) {
+            const sch = schoolData.find(item => item.id === id);
+            if (sch) {
+                // 若 DOM 中已存在舊的詳細 Modal，先將其移除避免堆疊阻礙
+                const oldModal = document.getElementById('school-detail-modal');
+                if (oldModal) {
+                    oldModal.remove();
+                }
+
+                // 建立全新獨立、層級清晰的 Modal
+                const detailHTML = `
+                    <div id="school-detail-modal" class="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+                        <div class="bg-white rounded-2xl max-w-xl w-full p-6 shadow-2xl border border-gray-150 fade-in relative">
+                            <!-- 頂部與關閉 -->
+                            <div class="flex justify-between items-start border-b border-gray-100 pb-3 mb-4">
+                                <div>
+                                    <span class="bg-teal-50 text-teal-800 text-xs font-bold px-2 py-0.5 rounded border border-teal-200">學校代碼：${sch.schoolCode}</span>
+                                    <h3 class="font-extrabold text-school text-lg md:text-xl mt-1">${sch.name}</h3>
+                                    <p class="text-xs text-gray-400 italic mt-0.5">${sch.nameEn}</p>
+                                </div>
+                                <button onclick="document.getElementById('school-detail-modal').remove()" class="text-gray-400 hover:text-gray-600 focus:outline-none p-1">
+                                    <i class="fa-solid fa-xmark text-xl"></i>
+                                </button>
+                            </div>
+                            
+                            <!-- 內容展示 -->
+                            <div class="space-y-4 text-sm text-gray-700 leading-relaxed">
+                                <p><strong><i class="fa-solid fa-location-dot text-school mr-1.5"></i> 學校地址：</strong>${sch.address}</p>
+                                <p><strong><i class="fa-solid fa-graduation-cap text-school mr-1.5"></i> 學校類別：</strong>${sch.type === 'gov' ? '官立' : sch.type === 'aided' ? '資助' : '直資'} (${sch.level === 'primary' ? '小學' : '中學'})</p>
+                                <p><strong><i class="fa-solid fa-users text-school mr-1.5"></i> 非華語生比例 (NCS)：</strong><span class="text-red-600 font-extrabold bg-red-50 px-2 py-0.5 rounded">${sch.ncsPercent}</span></p>
+                                <p><strong><i class="fa-solid fa-book-open text-school mr-1.5"></i> 中文教學支援：</strong>${sch.chineseSupport.curriculum}</p>
+                                
+                                <p><strong><i class="fa-solid fa-file-invoice-dollar text-school mr-1.5"></i> 替代中文與公開試配套：</strong><br>
+                                    <span class="inline-block bg-slate-50 border border-gray-100 rounded-lg px-2.5 py-1 text-xs mr-2 mt-2">${sch.hasIgcse ? '✅ 支援報考 IGCSE / GCE 替代中文' : '❌ 未開辦 IGCSE 考點'}</span>
+                                    <span class="inline-block bg-slate-50 border border-gray-100 rounded-lg px-2.5 py-1 text-xs mt-2">${sch.hasAplc ? '✅ 開辦應用學習中文 (ApL(C)) 課程' : '❌ 未設 ApL(C) 課程'}</span>
+                                </p>
+
+                                <p><strong><i class="fa-solid fa-utensils text-school mr-1.5"></i> 多元生活與宗教配套：</strong><br>
+                                    <span class="inline-block bg-slate-50 border border-gray-100 rounded-lg px-2.5 py-1 text-xs mr-2 mt-2">${sch.facilities.halal ? '✅ 提供清真友善膳食' : '❌ 未提供清真膳食'}</span>
+                                    <span class="inline-block bg-slate-50 border border-gray-100 rounded-lg px-2.5 py-1 text-xs mr-2 mt-2">${sch.facilities.hijab ? '✅ 體育課長褲/頭巾豁免' : '❌ 常規體育服'}</span>
+                                    <span class="inline-block bg-slate-50 border border-gray-100 rounded-lg px-2.5 py-1 text-xs mt-2">${sch.facilities.prayer ? '✅ 設有獨立祈禱室' : '❌ 未設祈禱室'}</span>
+                                </p>
+                                <div class="bg-teal-50/50 p-4 rounded-xl border border-teal-100 text-xs text-teal-900 mt-2">
+                                    <strong><i class="fa-solid fa-face-smile-beam text-school mr-1.5"></i> 跨文化共融特色亮點：</strong>
+                                    <p class="mt-1.5 leading-relaxed font-medium">${sch.emCare}</p>
+                                </div>
+                            </div>
+                            
+                            <!-- 底部關閉按鈕 -->
+                            <div class="mt-6 border-t border-gray-100 pt-4 flex justify-end">
+                                <button onclick="document.getElementById('school-detail-modal').remove()" class="bg-school text-white hover:bg-teal-800 px-5 py-2.5 rounded-lg font-bold text-xs shadow-md transition transform active:scale-95">
+                                    關閉特色視窗 (Close)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                document.body.insertAdjacentHTML('beforeend', detailHTML);
+            }
+        }
+
+        // 全域 Toast 回饋提示
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `fixed bottom-5 right-5 z-50 px-4 py-3 rounded-xl shadow-lg text-white font-bold transition-all duration-300 transform translate-y-10 opacity-0 ${
+                type === 'warning' ? 'bg-amber-500' : type === 'success' ? 'bg-school' : 'bg-primary'
+            }`;
+            toast.innerText = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.remove('translate-y-10', 'opacity-0');
+            }, 50);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-10');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // 初始化加載
+        window.onload = () => {
+            renderSchoolCards(schoolData);
+            document.getElementById('school-results-count').innerText = schoolData.length;
+            renderMockChoiceForm(); // 預設無學校時的空白志願表狀態
+        };
+    </script>
+</body>
+</html>
