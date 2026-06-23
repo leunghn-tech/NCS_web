@@ -43,16 +43,16 @@
     <nav class="bg-primary text-white shadow-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
-                <a href="index.html" class="flex items-center space-x-3 hover:opacity-80 transition">
+                <a href="index.html" class="flex items-center space-x-3 hover:opacity-80 transition-all duration-300">
                     <i class="fa-solid fa-graduation-cap text-2xl"></i>
                     <span class="font-bold text-xl tracking-wide">NCS 融學平台</span>
                 </a>
                 <div class="hidden md:flex space-x-6 font-medium text-sm items-center">
-                    <a href="index.html" class="hover:text-blue-200 transition">首頁</a>
-                    <a href="student.html" class="hover:text-blue-200 transition">學生</a>
-                    <a href="parent.html" class="hover:text-blue-200 transition">家長</a>
-                    <a href="school.html" class="hover:text-blue-200 transition">選校</a>
-                    <a href="pathway.html" class="hover:text-blue-200 transition">升學</a>
+                    <a href="index.html" class="hover:text-blue-200 transition-all duration-300">首頁</a>
+                    <a href="student.html" class="hover:text-blue-200 transition-all duration-300">學生</a>
+                    <a href="parent.html" class="hover:text-blue-200 transition-all duration-300">家長</a>
+                    <a href="school.html" class="hover:text-blue-200 transition-all duration-300">選校</a>
+                    <a href="pathway.html" class="hover:text-blue-200 transition-all duration-300">升學</a>
                     <a href="sen.html" class="text-blue-200 font-bold border-b-2 border-blue-200 pb-1">SEN</a>
                 </div>
             </div>
@@ -74,7 +74,9 @@
                 </p>
             </div>
             <div class="shrink-0 flex justify-center">
-                <div class="bg-sen text-white w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center shadow-lg"><i class="fa-solid fa-hands-holding-child text-2xl md:text-3xl"></i></div>
+                <div class="bg-sen text-white w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center shadow-lg">
+                    <i class="fa-solid fa-hands-holding-child text-2xl md:text-3xl"></i>
+                </div>
             </div>
         </div>
     </header>
@@ -96,15 +98,16 @@
                 </div>
                 <!-- 篩選學制頁籤 -->
                 <div class="flex bg-slate-100 p-1 rounded-lg self-start md:self-auto shrink-0">
-                    <button onclick="switchQuizCategory('dyslexia')" id="qtab-aplc" class="q-tab-btn text-xs font-bold px-3 py-1.5 rounded-lg bg-white text-sen shadow-sm transition-all duration-300">讀寫障礙 (Dyslexia)</button>
-                    <button onclick="switchQuizCategory('adhd')" id="g-tab-alevel" class="q-tab-btn text-xs font-bold px-3 py-2 rounded-lg text-gray-600 hover:text-rose-600 transition-all">過動與專注力 (ADHD)</button>
-                    <button onclick="switchQuizCategory('asd')" id="g-tab-gcse" class="q-tab-btn px-3 py-2 rounded-lg text-xs font-bold text-gray-600 hover:text-rose-700 transition">自閉症譜系 (Autism)</button>
+                    <button onclick="switchQuizCategory('dyslexia')" id="qtab-dyslexia" class="q-tab-btn text-xs font-bold px-3 py-1.5 rounded-lg bg-white text-sen shadow-sm transition-all duration-300">讀寫障礙 (Dyslexia)</button>
+                    <button onclick="switchQuizCategory('adhd')" id="qtab-adhd" class="q-tab-btn text-xs font-bold px-3 py-1.5 rounded-lg text-gray-600 hover:text-rose-600 transition-all duration-300">過動與專注力 (ADHD)</button>
+                    <button onclick="switchQuizCategory('asd')" id="qtab-asd" class="q-tab-btn text-xs font-bold px-3 py-1.5 rounded-lg text-gray-600 hover:text-rose-600 transition-all duration-300">自閉症譜系 (Autism)</button>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- 修復 Grid 佈局：改用均分的 lg:grid-cols-2 -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <!-- 互動評估列表 -->
-                <div class="lg:col-span-1.5 bg-slate-50 p-5 rounded-2xl border border-gray-100 flex flex-col justify-between">
+                <div class="bg-slate-50 p-5 rounded-2xl border border-gray-100 flex flex-col justify-between">
                     <div>
                         <h3 class="font-extrabold text-gray-900 text-sm md:text-base mb-4 flex items-center gap-2"><i class="fa-solid fa-list-check text-sen"></i> 請剔選適用於您子女的日常表現：</h3>
                         <div id="quiz-options-container" class="space-y-3.5">
@@ -113,15 +116,16 @@
                     </div>
 
                     <div class="mt-6 pt-4 border-t border-gray-200 flex gap-3">
-                        <button onclick="resetScreening()" class="text-red-500 hover:text-red-700 font-bold text-xs md:text-sm px-4 py-2 rounded-lg transition">重置重填</button>
-                        <button onclick="calculateScreeningScore()" class="bg-sen hover:bg-rose-700 text-white font-extrabold px-6 py-2.5 rounded-xl transition shadow-md flex items-center justify-center gap-2 text-xs md:text-sm">
+                        <button onclick="resetScreening()" class="text-red-500 hover:text-red-700 font-bold text-xs md:text-sm px-4 py-2 rounded-lg transition-all duration-300">重置重填</button>
+                        <!-- 修復完整按鈕 class：確保 flex items-center justify-center gap-2 -->
+                        <button onclick="calculateScreeningScore()" class="flex-grow bg-sen hover:bg-rose-700 text-white font-extrabold px-6 py-2.5 rounded-xl transition-all duration-300 shadow-md flex items-center justify-center gap-2 text-xs md:text-sm">
                             <i class="fa-solid fa-square-poll-vertical"></i> 產生評估分析與建議
                         </button>
                     </div>
                 </div>
 
                 <!-- 評估報告展現 -->
-                <div class="lg:col-span-1.5 flex flex-col justify-between" id="screening-report-container">
+                <div class="flex flex-col justify-between" id="screening-report-container">
                     <div class="border-2 border-dashed border-gray-200 rounded-2xl p-8 text-center flex flex-col items-center justify-center h-full min-h-[320px]">
                         <i class="fa-solid fa-receipt text-slate-300 text-5xl mb-3 animate-bounce"></i>
                         <p class="text-base text-gray-500 font-bold">請在左側剔選符合表現，並點擊「產生評估分析與建議」按鈕。</p>
@@ -131,7 +135,7 @@
             </div>
         </section>
 
-        <!-- 第二區塊：香港學校「三層支援模式」解碼（全新加入） -->
+        <!-- 第二區塊：香港學校「三層支援模式」解碼 -->
         <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
             <div class="border-b border-gray-100 pb-4 mb-6">
                 <span class="bg-rose-600 text-white text-xxs font-extrabold px-2.5 py-1 rounded-md shadow-sm uppercase tracking-wider">教育政策政策 EDB Policy</span>
@@ -145,7 +149,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- 第一層 -->
-                <div class="border border-gray-150 rounded-2xl p-5 bg-slate-50/40 hover:border-blue-300 transition flex flex-col justify-between">
+                <div class="border border-gray-150 rounded-2xl p-5 bg-slate-50/40 hover:border-blue-300 transition-all duration-300 flex flex-col justify-between">
                     <div>
                         <div class="flex justify-between items-center mb-3">
                             <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-1 rounded-md">第一層支援 Tier 1</span>
@@ -163,7 +167,7 @@
                 </div>
 
                 <!-- 第二層 -->
-                <div class="border border-gray-150 rounded-2xl p-5 bg-slate-50/40 hover:border-amber-300 transition flex flex-col justify-between">
+                <div class="border border-gray-150 rounded-2xl p-5 bg-slate-50/40 hover:border-amber-300 transition-all duration-300 flex flex-col justify-between">
                     <div>
                         <div class="flex justify-between items-center mb-3">
                             <span class="bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-1 rounded-md">第二層支援 Tier 2</span>
@@ -181,7 +185,7 @@
                 </div>
 
                 <!-- 第三層 -->
-                <div class="border border-gray-150 rounded-2xl p-5 bg-slate-50/40 hover:border-rose-300 transition flex flex-col justify-between">
+                <div class="border border-gray-150 rounded-2xl p-5 bg-slate-50/40 hover:border-rose-300 transition-all duration-300 flex flex-col justify-between">
                     <div>
                         <div class="flex justify-between items-center mb-3">
                             <span class="bg-rose-100 text-rose-800 text-xs font-bold px-2.5 py-1 rounded-md">第三層支援 Tier 3</span>
@@ -200,7 +204,7 @@
             </div>
         </section>
 
-        <!-- 第三區塊：非華語家長常見「三大 SEN 觀念謬誤」互動澄清區（全新加入） -->
+        <!-- 第三區塊：非華語家長常見「三大 SEN 觀念謬誤」互動澄清區 -->
         <section class="bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl border border-rose-100 p-6">
             <div class="border-b border-rose-100 pb-4 mb-6">
                 <span class="bg-rose-600 text-white text-xxs font-extrabold px-2.5 py-1 rounded-md shadow-sm uppercase tracking-wider">觀念破冰 Myths vs Facts</span>
@@ -277,7 +281,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- 術語 1 -->
-                <div class="border border-gray-150 rounded-2xl p-5 hover:border-rose-200 hover:shadow-md transition bg-slate-50/30 flex flex-col justify-between">
+                <div class="border border-gray-150 rounded-2xl p-5 hover:border-rose-200 hover:shadow-md transition-all duration-300 bg-slate-50/30 flex flex-col justify-between">
                     <div>
                         <div class="flex justify-between items-center mb-3">
                             <span class="bg-rose-100 text-rose-800 text-xs font-bold px-2.5 py-1 rounded-md">教育評估 IEP</span>
@@ -295,7 +299,7 @@
                 </div>
 
                 <!-- 術語 2 -->
-                <div class="border border-gray-150 rounded-2xl p-5 hover:border-rose-200 hover:shadow-md transition bg-slate-50/30 flex flex-col justify-between">
+                <div class="border border-gray-150 rounded-2xl p-5 hover:border-rose-200 hover:shadow-md transition-all duration-300 bg-slate-50/30 flex flex-col justify-between">
                     <div>
                         <div class="flex justify-between items-center mb-3">
                             <span class="bg-rose-100 text-rose-800 text-xs font-bold px-2.5 py-1 rounded-md">言語治療 ST</span>
@@ -313,7 +317,7 @@
                 </div>
 
                 <!-- 術語 3 -->
-                <div class="border border-gray-150 rounded-2xl p-5 hover:border-rose-200 hover:shadow-md transition bg-slate-50/30 flex flex-col justify-between">
+                <div class="border border-gray-150 rounded-2xl p-5 hover:border-rose-200 hover:shadow-md transition-all duration-300 bg-slate-50/30 flex flex-col justify-between">
                     <div>
                         <div class="flex justify-between items-center mb-3">
                             <span class="bg-rose-100 text-rose-800 text-xs font-bold px-2.5 py-1 rounded-md">職業治療 OT</span>
@@ -330,8 +334,8 @@
                     </p>
                 </div>
 
-                <!-- 術語 4（全新加入） -->
-                <div class="border border-gray-150 rounded-2xl p-5 hover:border-rose-200 hover:shadow-md transition bg-slate-50/30 flex flex-col justify-between">
+                <!-- 術語 4 -->
+                <div class="border border-gray-150 rounded-2xl p-5 hover:border-rose-200 hover:shadow-md transition-all duration-300 bg-slate-50/30 flex flex-col justify-between">
                     <div>
                         <div class="flex justify-between items-center mb-3">
                             <span class="bg-rose-100 text-rose-800 text-xs font-bold px-2.5 py-1 rounded-md">專業診斷 EP</span>
@@ -348,8 +352,8 @@
                     </p>
                 </div>
 
-                <!-- 術語 5（全新加入） -->
-                <div class="border border-gray-150 rounded-2xl p-5 hover:border-rose-200 hover:shadow-md transition bg-slate-50/30 flex flex-col justify-between">
+                <!-- 術語 5 -->
+                <div class="border border-gray-150 rounded-2xl p-5 hover:border-rose-200 hover:shadow-md transition-all duration-300 bg-slate-50/30 flex flex-col justify-between">
                     <div>
                         <div class="flex justify-between items-center mb-3">
                             <span class="bg-rose-100 text-rose-800 text-xs font-bold px-2.5 py-1 rounded-md">校內統籌 SENCO</span>
@@ -366,8 +370,8 @@
                     </p>
                 </div>
 
-                <!-- 術語 6（全新加入） -->
-                <div class="border border-gray-150 rounded-2xl p-5 hover:border-rose-200 hover:shadow-md transition bg-slate-50/30 flex flex-col justify-between">
+                <!-- 術語 6 -->
+                <div class="border border-gray-150 rounded-2xl p-5 hover:border-rose-200 hover:shadow-md transition-all duration-300 bg-slate-50/30 flex flex-col justify-between">
                     <div>
                         <div class="flex justify-between items-center mb-3">
                             <span class="bg-rose-100 text-rose-800 text-xs font-bold px-2.5 py-1 rounded-md">特別援助 DA</span>
@@ -400,7 +404,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- NGO 1: 協康會 -->
-                <div class="border border-gray-150 rounded-2xl p-5 hover:shadow-lg transition flex flex-col justify-between">
+                <div class="border border-gray-150 rounded-2xl p-5 hover:shadow-lg transition-all duration-300 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center gap-3 mb-4">
                             <div class="bg-rose-50 text-sen w-11 h-11 rounded-xl flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-heart"></i></div>
@@ -420,7 +424,7 @@
                 </div>
 
                 <!-- NGO 2: 香港耀能協會 -->
-                <div class="border border-gray-150 rounded-2xl p-5 hover:shadow-lg transition flex flex-col justify-between">
+                <div class="border border-gray-150 rounded-2xl p-5 hover:shadow-lg transition-all duration-300 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center gap-3 mb-4">
                             <div class="bg-rose-50 text-sen w-11 h-11 rounded-xl flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-shield-heart"></i></div>
@@ -440,7 +444,7 @@
                 </div>
 
                 <!-- NGO 3: 愛培自閉症基金 -->
-                <div class="border border-gray-150 rounded-2xl p-5 hover:shadow-lg transition flex flex-col justify-between">
+                <div class="border border-gray-150 rounded-2xl p-5 hover:shadow-lg transition-all duration-300 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center gap-3 mb-4">
                             <div class="bg-rose-50 text-sen w-11 h-11 rounded-xl flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-puzzle-piece"></i></div>
@@ -466,15 +470,16 @@
             <div class="border-b border-rose-100 pb-4 mb-6">
                 <span class="bg-rose-600 text-white text-xxs font-extrabold px-2.5 py-1 rounded-md shadow-sm uppercase tracking-wider">主動求助 Consultation Form</span>
                 <h2 class="text-xl font-extrabold text-gray-900 flex items-center gap-2 mt-2">
-                    <i class="fa-solid fa-file-invoice text-sen"></i> 預約校內特殊教育主任 (SENCO) 或社工預約諮詢
+                    <i class="fa-solid fa-file-invoice text-sen"></i> 預約校內特殊教育主任 (SENCO) 或社工諮詢
                 </h2>
                 <p class="text-xs text-rose-900 mt-1 font-medium">
                     非華語家長如果擔憂子女的學習進度，可直接填寫此模擬信件。系統將為您自動生成符合格式的雙語預約需求。
                 </p>
             </div>
 
+            <!-- 修復 Grid 佈局：將 col-span-1.5 改為合法的 lg:col-span-1 與 lg:col-span-2 -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- 填寫控制 -->
+                <!-- 填寫控制 (佔 1 格) -->
                 <div class="lg:col-span-1 bg-white p-5 rounded-xl border border-rose-100/50 shadow-sm space-y-4">
                     <div class="grid grid-cols-2 gap-3">
                         <div>
@@ -508,12 +513,13 @@
                         </select>
                     </div>
 
-                    <button onclick="generateSencoForm()" class="w-full bg-sen hover:bg-rose-700 text-white font-extrabold py-3 rounded-xl transition shadow-md flex items-center justify-center gap-2">
+                    <!-- 修復完整按鈕 class：確保 flex items-center justify-center gap-2 -->
+                    <button onclick="generateSencoForm()" class="w-full bg-sen hover:bg-rose-700 text-white font-extrabold py-3 rounded-xl transition-all duration-300 shadow-md flex items-center justify-center gap-2">
                         <i class="fa-solid fa-file-lines"></i> 產生雙語聯絡預約函
                     </button>
                 </div>
 
-                <!-- 生成結果 -->
+                <!-- 生成結果 (佔 2 格) -->
                 <div class="lg:col-span-2 border-2 border-dashed border-rose-200 rounded-xl p-6 flex flex-col justify-between bg-white relative min-h-[300px]">
                     <div id="senco-form-preview" class="text-sm leading-relaxed text-gray-800 space-y-4">
                         <div class="text-center py-20 text-gray-400">
@@ -554,7 +560,7 @@
                     { zh: "2. 做功課或整理書包時，經常丟三落四，遺失鉛筆、作業本，忘記功課記事手冊（手冊）。", en: "2. Frequently loses stationeries, books, or forgets home assignment checklists." },
                     { zh: "3. 身體在座位上常坐立不安，頻繁搖晃身體，或無故離開座位四處走動。", en: "3. Restless in seat, frequently squirms, fidgets, or leaves seat without permission." },
                     { zh: "4. 日常說話時急於搶答，經常在老師或他人問話未完時就大聲回答，很難耐心排隊等候。", en: "4. Blurts out answers before questions are completed, has difficulty waiting for their turn." },
-                    { zh: "5. 經常在進行一項活動未完時，就突然轉向另一項活動，做事缺乏計畫 and 條理。", en: "5. Often leaves one activity incomplete to jump into another, lacking organization." }
+                    { zh: "5. 經常在進行一項活動未完時，就突然轉向另一項活動，做事缺乏計畫及條理。", en: "5. Often leaves one activity incomplete to jump into another, lacking organization." }
                 ]
             },
             asd: {
@@ -571,16 +577,16 @@
 
         let currentQuizCategory = 'dyslexia';
 
-        // 2. 切換初步篩查專區
+        // 2. 切換初步篩查專區 (修復 ID 匹配邏輯)
         function switchQuizCategory(category) {
             currentQuizCategory = category;
             
-            // 更新頁籤樣式
+            // 重置所有頁籤樣式
             document.querySelectorAll('.q-tab-btn').forEach(btn => {
-                btn.className = "q-tab-btn text-xs font-bold px-3 py-1.5 rounded-lg text-gray-600 hover:text-rose-600 transition-all";
+                btn.className = "q-tab-btn text-xs font-bold px-3 py-1.5 rounded-lg text-gray-600 hover:text-rose-600 transition-all duration-300";
             });
-            // 由於動態建立，事件直接綁定，這裡以點擊事件來源做簡單選中處理
-            const activeBtn = window.event.currentTarget;
+            // 精準匹配目標 ID 並高亮
+            const activeBtn = document.getElementById(`qtab-${category}`);
             if (activeBtn) {
                 activeBtn.className = "q-tab-btn text-xs font-bold px-3 py-1.5 rounded-lg bg-white text-sen shadow-sm transition-all duration-300";
             }
@@ -595,7 +601,7 @@
             const quiz = screeningData[currentQuizCategory];
             quiz.items.forEach((item, index) => {
                 const div = document.createElement('div');
-                div.className = "flex items-start p-3 bg-white border border-gray-150 rounded-xl hover:border-rose-200 transition";
+                div.className = "flex items-start p-3 bg-white border border-gray-150 rounded-xl hover:border-rose-200 transition-all duration-300";
                 div.innerHTML = `
                     <input type="checkbox" id="chk-${currentQuizCategory}-${index}" class="mt-1 mr-3 h-4.5 w-4.5 text-sen border-gray-300 rounded focus:ring-sen shrink-0">
                     <div>
@@ -731,7 +737,7 @@
                 <div class="p-5 border border-gray-200 rounded-2xl bg-white max-w-2xl mx-auto shadow-sm font-sans" style="line-height: 1.8;">
                     <div class="flex justify-between items-center border-b border-gray-100 pb-3 mb-4">
                         <span class="text-xs text-sen font-extrabold uppercase tracking-widest"><i class="fa-solid fa-paper-plane mr-1"></i> 預約諮詢信件預覽 (Bilingual Letter)</span>
-                        <button onclick="copyFormText()" class="bg-sen text-white text-xxs font-bold px-3 py-1.5 rounded-lg shadow hover:bg-rose-700 transition flex items-center gap-1.5">
+                        <button onclick="copyFormText()" class="bg-sen text-white text-xxs font-bold px-3 py-1.5 rounded-lg shadow hover:bg-rose-700 transition-all duration-300 flex items-center justify-center gap-1.5">
                             <i class="fa-solid fa-copy"></i> 一鍵複製內容
                         </button>
                     </div>
