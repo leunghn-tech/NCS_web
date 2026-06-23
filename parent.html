@@ -8,6 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- 引入 FontAwesome 圖示 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入 html2canvas 截圖引擎 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -206,11 +208,13 @@
                         </div>
                     </div>
                     
-                    <div id="letter-actions" class="hidden mt-6 border-t border-gray-100 pt-4 flex justify-between items-center no-print">
-                        <span class="text-xs text-gray-400 font-bold"><i class="fa-solid fa-circle-info mr-1"></i> 請點擊右側按鈕並調用印表機打印紙本信。</span>
-                        <button onclick="printExcuseLetter()" class="bg-primary text-white hover:bg-blue-600 px-5 py-2 rounded-lg text-sm font-bold shadow-md transition flex items-center gap-2">
-                            <i class="fa-solid fa-print"></i> 列印此告假信 (Print Letter)
-                        </button>
+                    <div id="letter-actions" class="hidden mt-6 border-t border-gray-100 pt-4 flex flex-col sm:flex-row justify-between items-center gap-3 no-print">
+                        <span class="text-xs text-gray-400 font-bold hidden md:inline-block"><i class="fa-solid fa-circle-info mr-1"></i> 點擊下方按鈕，系統將為您生成高畫質圖片。</span>
+                        <div class="flex gap-2 w-full sm:w-auto">
+                            <button onclick="downloadScreenshot()" class="bg-indigo-600 text-white hover:bg-indigo-700 px-6 py-2.5 rounded-lg text-sm font-bold shadow-md transition flex items-center justify-center gap-2 w-full sm:w-auto">
+                                <i class="fa-solid fa-camera"></i> 轉換並儲存為圖片 (Save as Image)
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1191,41 +1195,70 @@
             showToast("請假信生成成功！ (Excuse letter generated!)", "success");
         }
 
-        // 新增：高可靠性 iframe 隔離列印機制，克服沙盒安全阻攔
-        function printExcuseLetter() {
+        // 升級：萬無一失的圖片轉換下載功能 (Save as Image with Fallback)
+        function downloadScreenshot() {
             const printContent = document.getElementById('printable-letter-modal');
             if (!printContent) {
                 showToast("請先生成請假信。 (Please generate letter first)", "warning");
                 return;
             }
 
-            // 建立臨時隱藏的 iframe 用於無干擾打印
-            const iframe = document.createElement('iframe');
-            iframe.style.position = 'fixed';
-            iframe.style.right = '0';
-            iframe.style.bottom = '0';
-            iframe.style.width = '0';
-            iframe.style.height = '0';
-            iframe.style.border = '0';
-            document.body.appendChild(iframe);
+            showToast("正在生成高畫質圖片，請稍候... (Generating image...)", "info");
 
-            const doc = iframe.contentWindow.document;
-            doc.write('<html><head><title>Print Excuse Letter</title>');
-            // 這裡使用轉義的結尾標籤 <\/script> 避免被瀏覽器提早中斷
-            doc.write('<script src="https://cdn.tailwindcss.com"><\\/script>');
-            doc.write('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">');
-            doc.write('<style>body { font-family: sans-serif; padding: 20px; background-color: white !important; }</style>');
-            doc.write('</head><body>');
-            doc.write(printContent.innerHTML);
-            doc.write('</body></html>');
-            doc.close();
+            // 暫時調整樣式以確保截圖品質無邊框黑影
+            const originalBorder = printContent.style.border;
+            printContent.style.border = 'none';
 
-            // 延遲等待樣式與字型載入完畢，隨後調用列印
-            iframe.contentWindow.focus();
-            setTimeout(() => {
-                iframe.contentWindow.print();
-                document.body.removeChild(iframe); // 列印完成後自動釋放資源
-            }, 600);
+            html2canvas(printContent, {
+                scale: 2, // 2倍縮放確保清晰度
+                backgroundColor: '#ffffff',
+                useCORS: true,
+                logging: false
+            }).then(canvas => {
+                printContent.style.border = originalBorder; // 恢復樣式
+                
+                const imgData = canvas.toDataURL('image/png');
+                
+                // 1. 嘗試觸發系統自動下載
+                try {
+                    const link = document.createElement('a');
+                    link.download = 'NCS_Excuse_Letter.png';
+                    link.href = imgData;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                } catch (e) {
+                    console.log("自動下載受限於瀏覽器安全設定");
+                }
+                
+                // 2. 萬無一失方案：直接在畫面上顯示生成的圖片，讓家長長按/右鍵儲存！
+                const previewContainer = document.getElementById('letter-preview-content');
+                previewContainer.innerHTML = `
+                    <div class="text-center mb-5 fade-in">
+                        <p class="font-bold text-green-600 text-lg mb-3"><i class="fa-solid fa-circle-check"></i> 請假信圖片轉換成功！</p>
+                        <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl inline-block text-left text-sm text-amber-900 shadow-sm">
+                            <p class="font-bold mb-1"><i class="fa-solid fa-circle-exclamation mr-1"></i> 若沒有自動彈出下載，請手動儲存：</p>
+                            <p class="mb-1"><i class="fa-solid fa-mobile-screen-button mr-1.5"></i> <strong>手機/平板用戶：</strong>請<span class="text-red-600 font-extrabold underline">長按</span>下方信件圖片，然後選擇「儲存圖片 (Save Image)」。</p>
+                            <p><i class="fa-solid fa-computer-mouse mr-1.5"></i> <strong>電腦用戶：</strong>請在圖片上<span class="text-red-600 font-extrabold underline">點擊右鍵</span>，選擇「另存圖片 (Save Image As...)」。</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-center border-4 border-indigo-50 rounded-xl overflow-hidden p-2 bg-slate-100 shadow-inner fade-in">
+                        <img src="${imgData}" alt="請假信圖片" class="max-w-full h-auto shadow-sm" style="max-height: 60vh; object-fit: contain;">
+                    </div>
+                    <div class="text-center mt-6 fade-in">
+                        <button onclick="generateExcuseLetter()" class="text-secondary hover:text-emerald-700 font-bold text-sm bg-emerald-50 px-4 py-2 rounded-lg transition border border-emerald-100 shadow-sm"><i class="fa-solid fa-rotate-left mr-1"></i> 重新編輯請假信 (Edit Again)</button>
+                    </div>
+                `;
+                
+                // 隱藏原有的按鈕區塊
+                document.getElementById('letter-actions').classList.add('hidden');
+                showToast("請長按或右鍵儲存圖片！ (Please long-press to save)", "success");
+
+            }).catch(err => {
+                console.error("Screenshot error:", err);
+                printContent.style.border = originalBorder;
+                showToast("轉換圖片失敗，請嘗試手動手機截圖 (Failed to convert, please screenshot manually)", "warning");
+            });
         }
 
         // 5. 中學中文路徑智能決策評估器邏輯
