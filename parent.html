@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>家長專區 | NCS 融學平台</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 FontAwesome 圖示 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563EB',
+                        secondary: '#10B981', /* 家長專區主色調：溫暖翠綠色 */
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #10B981; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #059669; border-radius: 4px; }
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* 專門為打印請假信設計的紙張樣式 */
+        @media print {
+            body * { visibility: hidden; }
+            #printable-letter-modal, #printable-letter-modal * { visibility: visible; }
+            #printable-letter-modal { position: absolute; left: 0; top: 0; width: 100%; border: none; box-shadow: none; }
+            .no-print { display: none !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans text-gray-800 min-h-screen flex flex-col">
+
+    <nav class="bg-primary text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <a href="index.html" class="flex items-center space-x-3 hover:opacity-80 transition">
+                    <i class="fa-solid fa-graduation-cap text-2xl"></i>
+                    <span class="font-bold text-xl tracking-wide">NCS 融學平台</span>
+                </a>
+                <div class="hidden md:flex space-x-6 font-medium text-sm items-center">
+                    <a href="index.html" class="hover:text-blue-200 transition">首頁</a>
+                    <a href="student.html" class="hover:text-blue-200 transition">學生</a>
+                    <a href="parent.html" class="text-blue-200 font-bold border-b-2 border-blue-200 pb-1">家長</a>
+                    <a href="school.html" class="hover:text-blue-200 transition">選校</a>
+                    <a href="pathway.html" class="hover:text-blue-200 transition">升學</a>
+                    <a href="sen.html" class="hover:text-blue-200 transition">SEN</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主體內容 -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        
+        <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+            <h1 class="text-2xl md:text-3xl font-extrabold text-gray-900 flex items-center">
+                <div class="bg-secondary text-white w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center mr-3 md:mr-4 shadow-md">
+                    <i class="fa-solid fa-users text-xl md:text-2xl"></i>
+                </div>
+                家長專區 <span class="text-lg md:text-xl font-normal text-gray-500 ml-3 hidden sm:inline">| 家校溝通、電子工具與資源指南</span>
+            </h1>
+            <a href="index.html" class="self-start md:self-auto text-gray-500 hover:text-secondary transition flex items-center bg-white px-4 py-2 rounded-lg border border-gray-200 shadow-sm text-sm">
+                <i class="fa-solid fa-arrow-left mr-2"></i> 返回首頁
+            </a>
+        </div>
+
+        <section class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl shadow-sm border border-emerald-100 p-6 mb-10">
+            <div class="border-b border-emerald-100 pb-4 mb-6">
+                <h2 class="text-xl font-bold text-emerald-900 flex items-center">
+                    <i class="fa-solid fa-diagram-project text-secondary mr-2"></i> 
+                    中學非華語生「中文考試路徑」智能決策評估器 (Chinese Exam Path Finder)
+                </h2>
+                <p class="text-sm text-emerald-700 mt-1">針對香港中學階段家長最大痛點：結合孩子中文實力與未來升學方向，智能評估並推薦最合理的中文考試搭配。</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- 輸入表單 -->
+                <div class="lg:col-span-1 bg-white p-5 rounded-xl border border-emerald-100/80 shadow-sm space-y-4">
+                    <div>
+                        <label class="block text-xs font-extrabold text-gray-500 uppercase tracking-wider mb-2">1. 孩子當前的中文讀寫水平 (Chinese Literacy Level)</label>
+                        <select id="eval-chinese-level" class="w-full bg-slate-50 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-secondary font-semibold">
+                            <option value="none">幾乎不懂 (Almost None)</option>
+                            <option value="basic">基礎水平 (Basic: Recognizes daily words only)</option>
+                            <option value="oral">日常聽說良好，讀寫薄弱 (Good speaking, weak literacy)</option>
+                            <option value="good">讀寫良好，與本地生接近 (Fluent, close to native)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-extrabold text-gray-500 uppercase tracking-wider mb-2">2. 未來長遠升學與發展規劃 (Future Plan)</label>
+                        <select id="eval-future-plan" class="w-full bg-slate-50 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-secondary font-semibold">
+                            <option value="hk-uni">留港升讀主流大學 (Stay in HK for Bachelor's Degree)</option>
+                            <option value="abroad">計劃前往海外留學 (Plan to study abroad / Gap Year)</option>
+                            <option value="vocational">留港修讀職業專科或直接工作 (Vocational Diploma / Work)</option>
+                        </select>
+                    </div>
+
+                    <button onclick="evaluateChinesePath()" class="w-full bg-secondary text-white hover:bg-emerald-600 font-bold py-2.5 rounded-lg transition shadow-md flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> 智能評估建議 Get Recommendation
+                    </button>
+                </div>
+
+                <!-- 評估推薦結果顯示 -->
+                <div class="lg:col-span-2 bg-white p-6 rounded-xl border border-emerald-100/80 shadow-sm flex flex-col justify-between" id="eval-result-card">
+                    <div class="text-center py-8 text-gray-400">
+                        <i class="fa-solid fa-circle-question text-4xl text-emerald-200 mb-3"></i>
+                        <p class="text-sm">請在左側點選條件，並點擊「智能評估建議」按鈕。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-10">
+            <div class="border-b border-gray-100 pb-4 mb-6">
+                <h2 class="text-xl font-bold text-gray-900 flex items-center">
+                    <i class="fa-solid fa-file-signature text-secondary mr-2"></i> 
+                    中英雙語告假信生成器 (Bilingual Excuse Letter Generator)
+                </h2>
+                <p class="text-sm text-gray-500 mt-1">針對部分學校仍要求提交紙本手寫信：快速填表即可生成香港學校標準格式的中英雙語請假信，可直接列印並簽署。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- 填寫表單 -->
+                <div class="md:col-span-1 space-y-4 bg-slate-50/50 p-4 rounded-xl border border-gray-100">
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-600 mb-1">學生中文姓名 *</label>
+                            <input type="text" id="let-std-name-zh" placeholder="如: 阿里" class="w-full p-2 border border-gray-200 rounded-lg text-sm focus:border-secondary focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-600 mb-1">學生英文姓名 *</label>
+                            <input type="text" id="let-std-name-en" placeholder="e.g. Ali Khan" class="w-full p-2 border border-gray-200 rounded-lg text-sm focus:border-secondary focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-600 mb-1">班別 (Class) *</label>
+                            <input type="text" id="let-class" placeholder="如: 3B" class="w-full p-2 border border-gray-200 rounded-lg text-sm focus:border-secondary focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-600 mb-1">家長姓名 *</label>
+                            <input type="text" id="let-parent-name" placeholder="如: Mehmood Khan" class="w-full p-2 border border-gray-200 rounded-lg text-sm focus:border-secondary focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-600 mb-1">請假開始日期 *</label>
+                            <input type="date" id="let-start-date" class="w-full p-2 border border-gray-200 rounded-lg text-sm focus:border-secondary focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-600 mb-1">請假天數 (Days) *</label>
+                            <input type="number" id="let-days" min="1" value="1" class="w-full p-2 border border-gray-200 rounded-lg text-sm focus:border-secondary focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-600 mb-1">請假原因 (Reason) *</label>
+                        <select id="let-reason" onchange="toggleCustomReason()" class="w-full p-2 border border-gray-200 rounded-lg text-sm focus:border-secondary focus:outline-none font-medium">
+                            <option value="sick">因病發燒/不適 (Sick Leave: Fever/Unwell)</option>
+                            <option value="eid">慶祝宗教傳統節日 (開齋節/宰牲節) (Religious Festival: Eid)</option>
+                            <option value="family">突發家庭急事 (Family Emergency)</option>
+                            <option value="doctor">預約專科/牙科門診 (Medical/Dental Appointment)</option>
+                            <option value="other">其他原因 (Other Reasons)</option>
+                        </select>
+                        
+                        <!-- 自訂請假原因輸入框，當選擇「其他」時會自動顯現 -->
+                        <div id="custom-reason-inputs" class="hidden space-y-2 mt-2">
+                            <div>
+                                <label class="block text-xxs font-bold text-gray-500 mb-0.5">自訂中文請假原因 (Chinese Reason) *</label>
+                                <input type="text" id="let-custom-reason-zh" placeholder="如：需要離港處理緊急家事" class="w-full p-2 border border-gray-200 rounded-lg text-xs focus:border-secondary focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xxs font-bold text-gray-500 mb-0.5">Custom English Reason *</label>
+                                <input type="text" id="let-custom-reason-en" placeholder="e.g. need to leave HK to handle urgent family matters" class="w-full p-2 border border-gray-200 rounded-lg text-xs focus:border-secondary focus:outline-none">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-600 mb-1">家長聯絡電話 *</label>
+                        <input type="tel" id="let-phone" placeholder="e.g. 9123 4567" class="w-full p-2 border border-gray-200 rounded-lg text-sm focus:border-secondary focus:outline-none">
+                    </div>
+
+                    <button onclick="generateExcuseLetter()" class="w-full bg-secondary text-white hover:bg-emerald-600 font-bold py-2.5 rounded-lg transition shadow-md flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-file-pdf"></i> 生成請假信 / Generate
+                    </button>
+                </div>
+
+                <!-- 預覽與打印區域 -->
+                <div class="md:col-span-2 border-2 border-dashed border-gray-200 rounded-xl p-6 flex flex-col justify-between bg-white relative min-h-[400px]">
+                    <div id="letter-preview-content" class="text-sm leading-relaxed text-gray-800 space-y-4">
+                        <div class="text-center py-20 text-gray-400">
+                            <i class="fa-solid fa-print text-5xl mb-3 text-gray-200"></i>
+                            <p>完成左側表單後點擊生成，此處將顯示符合香港學校格式的中英雙語請假信預覽。</p>
+                        </div>
+                    </div>
+                    
+                    <div id="letter-actions" class="hidden mt-6 border-t border-gray-100 pt-4 flex justify-between items-center no-print">
+                        <span class="text-xs text-gray-400 font-bold"><i class="fa-solid fa-circle-info mr-1"></i> 請點擊右側按鈕並調用印表機打印紙本信。</span>
+                        <button onclick="printExcuseLetter()" class="bg-primary text-white hover:bg-blue-600 px-5 py-2 rounded-lg text-sm font-bold shadow-md transition flex items-center gap-2">
+                            <i class="fa-solid fa-print"></i> 列印此告假信 (Print Letter)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-10">
+            <div class="border-b border-gray-100 pb-4 mb-6">
+                <h2 class="text-xl font-bold text-gray-900 flex items-center">
+                    <i class="fa-solid fa-comment-dots text-secondary mr-2"></i> 
+                    家校溝通快捷句型庫 (School Communication Builder)
+                </h2>
+                <p class="text-sm text-gray-500 mt-1">選取情境，點擊喇叭聆聽粵語/英語發音、或一鍵複製句子貼到通訊軟體傳送給班主任。配有 **7 種非華語核心語言** 對照切換！</p>
+            </div>
+
+            <!-- 情境篩選按鈕 -->
+            <div class="flex items-center space-x-2 mb-6 overflow-x-auto pb-2 custom-scrollbar">
+                <button onclick="filterPhrases('all')" id="p-tab-all" class="p-tab-btn flex-shrink-0 px-4 py-2 rounded-full text-xs md:text-sm font-bold bg-secondary text-white transition shadow-sm">全部 All</button>
+                <button onclick="filterPhrases('leave')" id="p-tab-leave" class="p-tab-btn flex-shrink-0 px-4 py-2 rounded-full text-xs md:text-sm font-bold bg-gray-100 text-gray-600 hover:bg-emerald-50 hover:text-secondary transition">請假與遲到 Leave</button>
+                <button onclick="filterPhrases('homework')" id="p-tab-homework" class="p-tab-btn flex-shrink-0 px-4 py-2 rounded-full text-xs md:text-sm font-bold bg-gray-100 text-gray-600 hover:bg-emerald-50 hover:text-secondary transition">功課與學業 Homework</button>
+                <button onclick="filterPhrases('query')" id="p-tab-query" class="p-tab-btn flex-shrink-0 px-4 py-2 rounded-full text-xs md:text-sm font-bold bg-gray-100 text-gray-600 hover:bg-emerald-50 hover:text-secondary transition">表現查詢 Inquiry</button>
+                <button onclick="filterPhrases('notice')" id="p-tab-notice" class="p-tab-btn flex-shrink-0 px-4 py-2 rounded-full text-xs md:text-sm font-bold bg-gray-100 text-gray-600 hover:bg-emerald-50 hover:text-secondary transition">簽回通告 Circular</button>
+                <button onclick="filterPhrases('meet')" id="p-tab-meet" class="p-tab-btn flex-shrink-0 px-4 py-2 rounded-full text-xs md:text-sm font-bold bg-gray-100 text-gray-600 hover:bg-emerald-50 hover:text-secondary transition">預約會面 Meeting</button>
+                <button onclick="filterPhrases('culture')" id="p-tab-culture" class="p-tab-btn flex-shrink-0 px-4 py-2 rounded-full text-xs md:text-sm font-bold bg-gray-100 text-gray-600 hover:bg-emerald-50 hover:text-secondary transition">文化與宗教 Culture</button>
+            </div>
+
+            <!-- 句型卡片容器 -->
+            <div id="phrases-container" class="grid grid-cols-1 lg:grid-cols-2 gap-6 max-h-[600px] overflow-y-auto custom-scrollbar pr-2">
+                <!-- JS 動態寫入 -->
+            </div>
+        </section>
+
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-10 w-full">
+            <div class="border-b border-gray-100 pb-4 mb-5">
+                <h2 class="text-xl font-bold text-gray-900 flex items-center">
+                    <i class="fa-solid fa-hand-holding-dollar text-secondary mr-2"></i> 政府津貼資助大綱 (Financial Assistance Schemes)
+                </h2>
+                <p class="text-sm text-gray-500 mt-1">為在港非華語學生家庭提供的核心政府常見資助細節說明。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="border-l-4 border-emerald-500 bg-slate-50 p-4 rounded-r-xl">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-bold text-gray-900 text-sm md:text-base">1. 學生車船津貼 (Travel Subsidy)</span>
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-0.5 rounded">實報實銷 / 半額至全額</span>
+                    </div>
+                    <p class="text-xs text-gray-600"><strong>對象：</strong>居住地點與學校距離超出一公里，且需乘搭交通工具的學生。需通過學資處入息評估。</p>
+                    <p class="text-xs text-gray-500 mt-1"><strong>申請：</strong>在學資處紙本表格 or 「電子申辦系統」提交，併入「綜合申請檔案」。</p>
+                </div>
+
+                <div class="border-l-4 border-emerald-500 bg-slate-50 p-4 rounded-r-xl">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-bold text-gray-900 text-sm md:text-base">2. 上網費津貼 (Internet Access Subsidy)</span>
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-0.5 rounded">最多 $1,700 / 每個家庭</span>
+                    </div>
+                    <p class="text-xs text-gray-600"><strong>對象：</strong>符合資格的中小學生家庭，資助其在家網上學習之寬頻上網費用。需通過入息審查。</p>
+                    <p class="text-xs text-gray-500 mt-1"><strong>申請：</strong>在家庭為單位遞交學資處年度綜合申請時，一併評估發放。</p>
+                </div>
+
+                <div class="border-l-4 border-emerald-500 bg-slate-50 p-4 rounded-r-xl">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-bold text-gray-900 text-sm md:text-base">3. 學校書簿津貼 (Textbook Assistance)</span>
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-0.5 rounded">最多 $3,000+ / 依級別</span>
+                    </div>
+                    <p class="text-xs text-gray-600"><strong>對象：</strong>官立、資助、按額資助學校及直資中小學生。資助額根據各年級課本平均開銷釐定，需通過審查。</p>
+                    <p class="text-xs text-gray-500 mt-1"><strong>申請：</strong>每年 5-8 月提交新學年學資處綜合申請，約於 10-11 月收到發放撥款。</p>
+                </div>
+
+                <div class="border-l-4 border-emerald-500 bg-slate-50 p-4 rounded-r-xl flex flex-col justify-between">
+                    <div>
+                        <span class="font-bold text-gray-900 text-sm md:text-base block mb-1">4. 學生資助網上電子申辦系統</span>
+                        <p class="text-xs text-gray-600">可一站式在網上申請或延續中小學生資助計劃，免除手寫與郵寄繁瑣流程。</p>
+                    </div>
+                    <div class="mt-3 flex justify-start font-sans">
+                        <a href="https://www.wfsfaa.gov.hk/tc/sfo/index.htm" target="_blank" rel="noopener noreferrer" class="bg-emerald-50 text-secondary hover:bg-secondary hover:text-white px-4 py-2 rounded-lg text-xs font-bold transition flex items-center shadow-sm">
+                            <i class="fa-solid fa-arrow-up-right-from-square mr-1.5"></i> 前往 學生資助處 (SFO) 官網
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-10">
+            <div class="border-b border-gray-100 pb-4 mb-4">
+                <h2 class="text-xl font-bold text-gray-900 flex items-center">
+                    <i class="fa-solid fa-spell-check text-secondary mr-2"></i> 
+                    學校通告核心詞彙對照庫 (Notice Glossary)
+                </h2>
+                <p class="text-sm text-gray-500 mt-1">幫助非華語家長看懂日常紙本與電子學校通告的關鍵字（包含 2026 最新「人文科」、「科學科」等分拆新詞、呈分試、叩門與轉數快 FPS 電子付賬）。</p>
+            </div>
+
+            <!-- 關鍵字搜尋欄 -->
+            <div class="relative mb-5 max-w-md">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </span>
+                <input type="text" id="notice-search" oninput="searchNoticeKeywords()" placeholder="輸入中文、英文或拼音搜尋通告關鍵詞 (如: 呈分試 / Humanities)" class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-secondary">
+            </div>
+
+            <!-- 通告對照表 -->
+            <div class="overflow-y-auto max-h-[350px] custom-scrollbar pr-1 border border-gray-100 rounded-xl">
+                <table class="min-w-full divide-y divide-gray-100">
+                    <thead class="bg-slate-50 sticky top-0">
+                        <tr>
+                            <th class="px-4 py-2.5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">通告常現中文 Notice Keyword</th>
+                            <th class="px-4 py-2.5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">粵語拼音 Jyutping</th>
+                            <th class="px-4 py-2.5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">英文對照 English Translation</th>
+                            <th class="px-4 py-2.5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">家長應對指南 Parent Guide</th>
+                        </tr>
+                    </thead>
+                    <tbody id="notice-table-body" class="bg-white divide-y divide-gray-100 text-sm">
+                        <!-- JS 動態寫入 -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-10">
+            <div class="border-b border-gray-100 pb-4 mb-6">
+                <h2 class="text-xl font-bold text-gray-900 flex items-center">
+                    <i class="fa-solid fa-calendar-check text-secondary mr-2"></i> 家長核心日程與互動備忘清單 (Parent Calendar & Checklist)
+                </h2>
+                <p class="text-sm text-gray-500 mt-1">追蹤全學年關鍵教育大事。勾選狀態會自動儲存在您的瀏覽器中。</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- 左側：學年核心日程軸 -->
+                <div class="lg:col-span-1 bg-slate-50 p-5 rounded-2xl border border-gray-100">
+                    <h3 class="font-bold text-gray-900 text-sm mb-4 flex items-center">
+                        <i class="fa-solid fa-timeline text-secondary mr-2"></i> 2026/27 學年大事記
+                    </h3>
+                    <div class="space-y-4 relative before:absolute before:inset-y-0 before:left-3.5 before:w-0.5 before:bg-gray-200">
+                        <div class="relative pl-8 pb-1">
+                            <div class="absolute left-1 top-1 w-5.5 h-5.5 bg-secondary text-white rounded-full flex items-center justify-center text-xxs font-bold z-10"><i class="fa-solid fa-calendar-days"></i></div>
+                            <h4 class="font-bold text-xs text-gray-900">9月 / September</h4>
+                            <p class="text-xxs text-gray-500 mt-0.5">小一自行分配學位申請開始 / 新學年開課</p>
+                        </div>
+                        <div class="relative pl-8 pb-1">
+                            <div class="absolute left-1 top-1 w-5.5 h-5.5 bg-secondary text-white rounded-full flex items-center justify-center text-xxs font-bold z-10"><i class="fa-solid fa-dollar-sign"></i></div>
+                            <h4 class="font-bold text-xs text-gray-900">10月 / October</h4>
+                            <p class="text-xxs text-gray-500 mt-0.5">學生活動及家長日啟動，請多加留意電子通告平台</p>
+                        </div>
+                        <div class="relative pl-8 pb-1">
+                            <div class="absolute left-1 top-1 w-5.5 h-5.5 bg-secondary text-white rounded-full flex items-center justify-center text-xxs font-bold z-10"><i class="fa-solid fa-school"></i></div>
+                            <h4 class="font-bold text-xs text-gray-900">1月 / January</h4>
+                            <p class="text-xxs text-gray-500 mt-0.5">中一自行分配學位申請遞交 / 小一統一派位選校</p>
+                        </div>
+                        <div class="relative pl-8 pb-1">
+                            <div class="absolute left-1 top-1 w-5.5 h-5.5 bg-secondary text-white rounded-full flex items-center justify-center text-xxs font-bold z-10"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                            <h4 class="font-bold text-xs text-gray-900">5-6月 / May-Jun</h4>
+                            <p class="text-xxs text-gray-500 mt-0.5">學資處中小學學生資助 renew / 中一統一派位選校</p>
+                        </div>
+                        <div class="relative pl-8">
+                            <div class="absolute left-1 top-1 w-5.5 h-5.5 bg-primary text-white rounded-full flex items-center justify-center text-xxs font-bold z-10"><i class="fa-solid fa-trophy"></i></div>
+                            <h4 class="font-bold text-xs text-gray-900">7月 / July</h4>
+                            <p class="text-xxs text-gray-500 mt-0.5">公佈升學派位結果並到校註冊 / 暑假開始</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右側：互動備忘清單 -->
+                <div class="lg:col-span-2 flex flex-col justify-between">
+                    <div class="space-y-3" id="parent-checklist-container">
+                        <!-- 靜態與互動任務 -->
+                        <div class="flex items-start p-3.5 bg-slate-50/50 border border-gray-100 rounded-xl hover:border-emerald-200 transition">
+                            <input type="checkbox" id="chk-sfo" onchange="saveChecklistState()" class="mt-1 mr-3 h-4 w-4 text-secondary border-gray-300 rounded focus:ring-secondary">
+                            <div>
+                                <label for="chk-sfo" class="font-bold text-gray-900 text-sm md:text-base cursor-pointer">
+                                    遞交 2026/27 學生資助處(SFO)年度綜合申請
+                                </label>
+                                <p class="text-xs text-gray-500 mt-0.5">包含書簿津貼、車船津貼及上網費津貼，請保留稅單或收入證明。</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start p-3.5 bg-slate-50/50 border border-gray-100 rounded-xl hover:border-emerald-200 transition">
+                            <input type="checkbox" id="chk-pta" onchange="saveChecklistState()" class="mt-1 mr-3 h-4 w-4 text-secondary border-gray-300 rounded focus:ring-secondary">
+                            <div>
+                                <label for="chk-pta" class="font-bold text-gray-900 text-sm md:text-base cursor-pointer">
+                                    預約「家長日 (Parents' Day)」會面時間
+                                </label>
+                                <p class="text-xs text-gray-500 mt-0.5">如果需要雙語口譯，請在回條上註明「需要非華語支援老師或融匯中心口譯協助」。</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start p-3.5 bg-slate-50/50 border border-gray-100 rounded-xl hover:border-emerald-200 transition">
+                            <input type="checkbox" id="chk-app" onchange="saveChecklistState()" class="mt-1 mr-3 h-4 w-4 text-secondary border-gray-300 rounded focus:ring-secondary">
+                            <div>
+                                <label for="chk-app" class="font-bold text-gray-900 text-sm md:text-base cursor-pointer">
+                                    安裝學校官方手機電子平台 App
+                                </label>
+                                <p class="text-xs text-gray-500 mt-0.5">例如 eClass Parent、Graces 或 ClassDojo。開啟推送通知以免漏看即時通告。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 flex items-center justify-between text-xs text-gray-400 bg-slate-50 p-3 rounded-xl border border-gray-100">
+                        <span><i class="fa-solid fa-sd-card mr-1"></i> 進度已自動儲存於您的設備。</span>
+                        <button onclick="resetChecklist()" class="text-red-500 hover:text-red-700 font-bold transition">重置進度 / Reset</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-10">
+            <div class="border-b border-gray-100 pb-4 mb-6">
+                <h2 class="text-xl font-bold text-gray-900 flex items-center">
+                    <i class="fa-solid fa-circle-question text-secondary mr-2"></i> 
+                    家長常見問題互動解答 (Parent Frequently Asked Questions)
+                </h2>
+                <p class="text-sm text-gray-500 mt-1">匯集非華語家長在港最常碰到的實際操作疑難，提供精準的中英雙語指南。</p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ 1 -->
+                <div class="border border-gray-100 rounded-xl overflow-hidden">
+                    <button onclick="toggleFaq(1)" class="w-full flex justify-between items-center p-4 bg-slate-50 hover:bg-slate-100 transition text-left focus:outline-none">
+                        <span class="font-bold text-gray-900 text-sm md:text-base flex items-center">
+                            <span class="bg-emerald-100 text-secondary w-6 h-6 rounded-md flex items-center justify-center mr-3 text-xs font-bold">Q1</span>
+                            我的中文讀寫不好，可以用英文簽署中文通告嗎？
+                        </span>
+                        <i id="faq-icon-1" class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-200"></i>
+                    </button>
+                    <div id="faq-ans-1" class="hidden p-4 bg-white border-t border-gray-50 text-xs md:text-sm text-gray-600 leading-relaxed space-y-2">
+                        <p class="font-bold text-gray-800">✅ 答案指南：</p>
+                        <p>完全可以！在法律與學校行政上，家長以慣用的語言（如英文、烏爾都語）進行簽署是百分之百有效的。您也可以使用學校 App 的英文介面簽回通告，並在意見欄用英文填寫備註，班主任和學校校務處均會受理。</p>
+                        <p class="italic text-gray-400 border-l-2 border-gray-200 pl-3"><strong>English Translation:</strong> Yes, absolutely! Parents can sign circulars using their preferred signature language. School apps and physical slips signed in English are fully recognized by schools.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="border border-gray-100 rounded-xl overflow-hidden">
+                    <button onclick="toggleFaq(2)" class="w-full flex justify-between items-center p-4 bg-slate-50 hover:bg-slate-100 transition text-left focus:outline-none">
+                        <span class="font-bold text-gray-900 text-sm md:text-base flex items-center">
+                            <span class="bg-emerald-100 text-secondary w-6 h-6 rounded-md flex items-center justify-center mr-3 text-xs font-bold">Q2</span>
+                            甚麼是「應用學習中文 (ApL(C))」？孩子應該在中學報讀嗎？
+                        </span>
+                        <i id="faq-icon-2" class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-200"></i>
+                    </button>
+                    <div id="faq-ans-2" class="hidden p-4 bg-white border-t border-gray-50 text-xs md:text-sm text-gray-600 leading-relaxed space-y-2">
+                        <p class="font-bold text-gray-800">✅ 答案指南：</p>
+                        <p>ApL(C) 是專為非華語學生在 DSE 階段設計的「應用學習中文」科目，實用性高、難度低於常規 DSE 中文科。取得「達標」等同於 DSE 中文科第 2 級，可用於符合大學入學的中文門檻。如果您的孩子中文基礎薄弱，報讀 ApL(C) 是極佳的替代途徑，能避免因常規中文科不及格而無法升讀大學。</p>
+                        <p class="italic text-gray-400 border-l-2 border-gray-200 pl-3"><strong>English Translation:</strong> ApL(C) is an alternative Chinese curriculum in DSE for NCS students. Getting an 'Attained' grade satisfies university entry Chinese requirements, which is a safer path for students struggling with traditional Chinese.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="border border-gray-100 rounded-xl overflow-hidden">
+                    <button onclick="toggleFaq(3)" class="w-full flex justify-between items-center p-4 bg-slate-50 hover:bg-slate-100 transition text-left focus:outline-none">
+                        <span class="font-bold text-gray-900 text-sm md:text-base flex items-center">
+                            <span class="bg-emerald-100 text-secondary w-6 h-6 rounded-md flex items-center justify-center mr-3 text-xs font-bold">Q3</span>
+                            如果孩子因生病無法參加期終考試，我該怎麼辦？
+                        </span>
+                        <i id="faq-icon-3" class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-200"></i>
+                    </button>
+                    <div id="faq-ans-3" class="hidden p-4 bg-white border-t border-gray-50 text-xs md:text-sm text-gray-600 leading-relaxed space-y-2">
+                        <p class="font-bold text-gray-800">✅ 答案指南：</p>
+                        <p>1. <strong>第一時間致電：</strong>在考試當天早上 8:00 前致電學校校務處請假。<br>
+                           2. <strong>看醫生取病假紙：</strong>必須帶孩子看註冊西醫取得當天的「醫生證明書/病假紙」。<br>
+                           3. <strong>遞交請假信：</strong>孩子回校第一天，遞交家長手寫簽名的請假信和病假紙正本給班主任。學校會安排估分或補考補算成績。</p>
+                        <p class="italic text-gray-400 border-l-2 border-gray-200 pl-3"><strong>English Translation:</strong> Call the school office before 8:00 AM. Visit a doctor to get a medical certificate, and submit it with a parent letter on the day your child returns. Schools will arrange makeup marks.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="border border-gray-100 rounded-xl overflow-hidden">
+                    <button onclick="toggleFaq(4)" class="w-full flex justify-between items-center p-4 bg-slate-50 hover:bg-slate-100 transition text-left focus:outline-none">
+                        <span class="font-bold text-gray-900 text-sm md:text-base flex items-center">
+                            <span class="bg-emerald-100 text-secondary w-6 h-6 rounded-md flex items-center justify-center mr-3 text-xs font-bold">Q4</span>
+                            我的家庭低收入，孩子能獲得免費的課後中文輔導嗎？
+                        </span>
+                        <i id="faq-icon-4" class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-200"></i>
+                    </button>
+                    <div id="faq-ans-4" class="hidden p-4 bg-white border-t border-gray-50 text-xs md:text-sm text-gray-600 leading-relaxed space-y-2">
+                        <p class="font-bold text-gray-800">✅ 答案指南：</p>
+                        <p>完全可以！很多少數族裔社區支援中心（如 CHEER、樂群、基督教服務處）在民政事務總署或基金會資助下，均開辦<strong>免費或象徵式低收費的「非華語兒童課後功課輔導班」與「中文學習小組」</strong>，部分中心更會指派懂烏爾都語或尼泊爾語的導師輔導，家長可直接向學校社工或去信社區支援中心申請。</p>
+                        <p class="italic text-gray-400 border-l-2 border-gray-200 pl-3"><strong>English Translation:</strong> Yes, government-funded Support Centres (such as CHEER, HKCS) provide free or low-cost after-school Chinese homework tutorial classes for NCS students.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <div class="border-b border-gray-100 pb-4 mb-6">
+                <h2 class="text-xl font-bold text-gray-900 flex items-center">
+                    <i class="fa-solid fa-hands-holding-child text-secondary mr-2"></i> 少數族裔社區支援中心網絡 (Support Services Directory)
+                </h2>
+                <p class="text-sm text-gray-500 mt-1">香港民政事務總署（HAD）全額資助開設的專門少數族裔支援服務處，提供雙語通告口譯、課後中文功課輔導、家校適應活動及關愛隊諮詢。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 1. CHEER -->
+                <div class="border border-gray-100 rounded-xl p-5 hover:shadow-md transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-3">
+                            <div class="bg-emerald-50 text-secondary p-2.5 rounded-lg font-bold text-lg"><i class="fa-solid fa-phone-volume"></i></div>
+                            <div>
+                                <h3 class="font-bold text-gray-900 text-sm md:text-base">融匯中心 (CHEER)</h3>
+                                <span class="text-xxs bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.5 rounded">九龍 / 全港傳譯</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-600 mb-3 leading-relaxed">提供<strong>全港核心的免費電話即時傳譯服務</strong>、多語種學校通告翻譯服務，並派駐少數族裔關愛隊（EM Care Team）。</p>
+                    </div>
+                    <div class="text-xs text-gray-500 space-y-1 border-t border-gray-100 pt-2.5">
+                        <p><span class="font-bold">傳譯熱線（免費）：</span>3755 6811 (多語)</p>
+                        <p><span class="font-bold">關愛隊熱線：</span>6319 5070</p>
+                        <p><span class="font-bold">地址：</span>九龍觀塘開源道56號4樓</p>
+                    </div>
+                </div>
+
+                <!-- 2. HOPE Centre -->
+                <div class="border border-gray-100 rounded-xl p-5 hover:shadow-md transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-3">
+                            <div class="bg-emerald-50 text-secondary p-2.5 rounded-lg font-bold text-lg"><i class="fa-solid fa-globe"></i></div>
+                            <div>
+                                <h3 class="font-bold text-gray-900 text-sm md:text-base">HOPE Centre (ISS-HK)</h3>
+                                <span class="text-xxs bg-blue-100 text-blue-800 font-bold px-1.5 py-0.5 rounded">香港島 / 灣仔</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-600 mb-3 leading-relaxed">國際社會服務社營辦。提供全港島與離島區課後中文輔導、多語種視障或日常傳譯服務、多元文化共融小組等。</p>
+                    </div>
+                    <div class="text-xs text-gray-500 space-y-1 border-t border-gray-100 pt-2.5">
+                        <p><span class="font-bold">中心熱線：</span>2836 3598</p>
+                        <p><span class="font-bold">傳譯專線（免費）：</span>3009 9007 (Urdu)</p>
+                        <p><span class="font-bold">地址：</span>香港灣仔灣仔道113-117號3樓</p>
+                    </div>
+                </div>
+
+                <!-- 3. HOME Centre YTM -->
+                <div class="border border-gray-100 rounded-xl p-5 hover:shadow-md transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-3">
+                            <div class="bg-emerald-50 text-secondary p-2.5 rounded-lg font-bold text-lg"><i class="fa-solid fa-house-chimney"></i></div>
+                            <div>
+                                <h3 class="font-bold text-gray-900 text-sm md:text-base">HOME Centre (油尖旺)</h3>
+                                <span class="text-xxs bg-purple-100 text-purple-800 font-bold px-1.5 py-0.5 rounded">九龍 / 油尖旺</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-600 mb-3 leading-relaxed">新家園協會營辦。提供完善的廣東話、英語與電腦班，並設有「油尖旺區少數族裔關愛隊」提供家庭探訪。</p>
+                    </div>
+                    <div class="text-xs text-gray-500 space-y-1 border-t border-gray-100 pt-2.5">
+                        <p><span class="font-bold">中心熱線：</span>3610 4418</p>
+                        <p><span class="font-bold">關愛隊熱線：</span>9079 5402</p>
+                        <p><span class="font-bold">地址：</span>油麻地炮台街73號地下B舖</p>
+                    </div>
+                </div>
+
+                <!-- 4. HOME SSP -->
+                <div class="border border-gray-100 rounded-xl p-5 hover:shadow-md transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-3">
+                            <div class="bg-emerald-50 text-secondary p-2.5 rounded-lg font-bold text-lg"><i class="fa-solid fa-people-roof"></i></div>
+                            <div>
+                                <h3 class="font-bold text-gray-900 text-sm md:text-base">HOME Centre (深水埗)</h3>
+                                <span class="text-xxs bg-purple-100 text-purple-800 font-bold px-1.5 py-0.5 rounded">九龍 / 深水埗</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-600 mb-3 leading-relaxed">專為九龍西非華語家庭設立的服務分處。提供課後中文輔導、青少年培訓班及「深水埗區少數族裔關愛隊」。</p>
+                    </div>
+                    <div class="text-xs text-gray-500 space-y-1 border-t border-gray-100 pt-2.5">
+                        <p><span class="font-bold">中心熱線：</span>3610 4428</p>
+                        <p><span class="font-bold">關愛隊熱線：</span>5601 9075</p>
+                        <p><span class="font-bold">地址：</span>深水埗九江街130號地下A及B舖</p>
+                    </div>
+                </div>
+
+                <!-- 5. LINK Centre -->
+                <div class="border border-gray-100 rounded-xl p-5 hover:shadow-md transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-3">
+                            <div class="bg-emerald-50 text-secondary p-2.5 rounded-lg font-bold text-lg"><i class="fa-solid fa-link"></i></div>
+                            <div>
+                                <h3 class="font-bold text-gray-900 text-sm md:text-base">LINK Centre</h3>
+                                <span class="text-xxs bg-orange-100 text-orange-800 font-bold px-1.5 py-0.5 rounded">新界西 / 葵青</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-600 mb-3 leading-relaxed">香港社區網絡營辦。新界西核心樞紐。舉辦大量跨文化融合項目、NCS 學生中文寫作輔導小組及關愛聯絡網絡。</p>
+                    </div>
+                    <div class="text-xs text-gray-500 space-y-1 border-t border-gray-100 pt-2.5">
+                        <p><span class="font-bold">中心熱線：</span>3955 1555</p>
+                        <p><span class="font-bold">關愛隊熱線：</span>9783 8587</p>
+                        <p><span class="font-bold">地址：</span>葵涌葵涌路1013號昌年大廈地下</p>
+                    </div>
+                </div>
+
+                <!-- 6. ONE Centre -->
+                <div class="border border-gray-100 rounded-xl p-5 hover:shadow-md transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-3">
+                            <div class="bg-emerald-50 text-secondary p-2.5 rounded-lg font-bold text-lg"><i class="fa-solid fa-anchor"></i></div>
+                            <div>
+                                <h3 class="font-bold text-gray-900 text-sm md:text-base">ONE Centre (路德會)</h3>
+                                <span class="text-xxs bg-orange-100 text-orange-800 font-bold px-1.5 py-0.5 rounded">新界西 / 屯門</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-600 mb-3 leading-relaxed">香港路德會社會服務處營辦。為屯門與荃灣區非華語居民提供專門的廣東話小組、社區融入及家庭情緒支援服務。</p>
+                    </div>
+                    <div class="text-xs text-gray-500 space-y-1 border-t border-gray-100 pt-2.5">
+                        <p><span class="font-bold">中心熱線：</span>2305 2080</p>
+                        <p><span class="font-bold">關愛隊熱線：</span>5206 4559</p>
+                        <p><span class="font-bold">地址：</span>屯門業旺路101號弦坊1樓101室</p>
+                    </div>
+                </div>
+
+                <!-- 7. DREAM Centre -->
+                <div class="border border-gray-100 rounded-xl p-5 hover:shadow-md transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-3">
+                            <div class="bg-emerald-50 text-secondary p-2.5 rounded-lg font-bold text-lg"><i class="fa-solid fa-hands-holding"></i></div>
+                            <div>
+                                <h3 class="font-bold text-gray-900 text-sm md:text-base">DREAM Centre (ISS-HK)</h3>
+                                <span class="text-xxs bg-yellow-100 text-yellow-800 font-bold px-1.5 py-0.5 rounded">九龍 / 九龍城</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-600 mb-3 leading-relaxed">提供多語種就業講座、小一適應班、NCS 家校座談，並派遣關愛小組上門為非華語家庭送暖及解決資源困難。</p>
+                    </div>
+                    <div class="text-xs text-gray-500 space-y-1 border-t border-gray-100 pt-2.5">
+                        <p><span class="font-bold">中心熱線：</span>3104 4044</p>
+                        <p><span class="font-bold">關愛隊熱線：</span>9664 3798</p>
+                        <p><span class="font-bold">地址：</span>九龍城賈炳達道128號九龍城廣場5樓</p>
+                    </div>
+                </div>
+
+                <!-- 8. IDEA Centre -->
+                <div class="border border-gray-100 rounded-xl p-5 hover:shadow-md transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-3">
+                            <div class="bg-emerald-50 text-secondary p-2.5 rounded-lg font-bold text-lg"><i class="fa-solid fa-lightbulb"></i></div>
+                            <div>
+                                <h3 class="font-bold text-gray-900 text-sm md:text-base">IDEA Centre</h3>
+                                <span class="text-xxs bg-teal-100 text-teal-800 font-bold px-1.5 py-0.5 rounded">新界東 / 沙田</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-600 mb-3 leading-relaxed">香港社區網絡營辦。服務沙田、大埔及北區少數族裔家庭，開設多元文化班、學業適應托班以及社區連繫網絡。</p>
+                    </div>
+                    <div class="text-xs text-gray-500 space-y-1 border-t border-gray-100 pt-2.5">
+                        <p><span class="font-bold">中心熱線：</span>3101 5959</p>
+                        <p><span class="font-bold">關愛隊熱線：</span>5770 3714</p>
+                        <p><span class="font-bold">地址：</span>沙田富豪花園商場地下01-02號舖</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 頁尾 -->
+    <footer class="bg-slate-900 text-slate-400 py-8 mt-auto border-t border-slate-800 no-print">
+        <div class="max-w-7xl mx-auto px-4 text-center text-sm">
+            <p>&copy; 2026 NCS 融學支援平台. 家長專區. 全面升級版.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 1. 家校溝通快捷句型庫數據庫 (已擴充旁遮普語、印地語、菲律賓語及印尼語對照)
+        const phrasesData = [
+            // leave (請假與遲到)
+            { 
+                id: 1, 
+                cat: "leave", 
+                zh: "老師你好，阿里今天因為發燒，想向您請假一天，謝謝您。", 
+                py: "lou5 si1 nei5 hou2, aa3 lei5 gam1 tin1 jan1 wai6 faat3 siu1, soeng2 hoeng3 nei5 cing2 gaa3 jat1 tin1, ze6 ze6 nei5.",
+                langs: {
+                    en: "Hello teacher, Ali has a fever today and would like to ask for one day of sick leave. Thank you.",
+                    urdu: "ہیلو ٹیچر، علی کو آج بخار ہے اور وہ ایک دن کی بیماری کی چھٹی مانگنا چاہتا ہے۔ شکریہ۔",
+                    nepali: "नमस्ते शिक्षक, अलीलाई आज ज्वरो आएको छ र एक दिनको बिरामी बिदा माग्न चाहन्छु। धन्यवाद।",
+                    punjabi: "ਹੈਲੋ ਅਧਿਆਪਕ, ਅਲੀ ਨੂੰ ਅੱਜ ਬੁਖਾਰ ਹੈ ਅਤੇ ਉਹ ਇੱਕ ਦਿਨ ਦੀ ਬਿਮਾਰੀ ਦੀ ਛੁੱਟੀ ਲੈਣਾ ਚਾਹੁੰਦਾ ਹੈ। ਧੰਨਵਾਦ।",
+                    hindi: "नमस्ते शिक्षक, अली को आज बुखार है और वह एक दिन की बीमारी की छुट्टी लेना चाहता है। धन्यवाद।",
+                    tagalog: "Hello po guro, may lagnat si Ali ngayon at nais pong humingi ng isang araw na sick leave. Salamat po.",
+                    indonesian: "Halo guru, Ali demam hari ini dan ingin meminta izin sakit selama satu hari. Terima kasih."
+                }
+            },
+            { 
+                id: 2, 
+                cat: "leave", 
+                zh: "阿里今天生病了，我已為他預約了醫生，今天無法回校上課。", 
+                py: "aa3 lei5 gam1 tin1 saang1 beng6 liu5, ngo5 ji5 wai6 taa1 jyu6 joek3 liu5 ji1 sang1, gam1 tin1 mou4 faat3 wui4 haau2 soeng5 fo3.",
+                langs: {
+                    en: "Ali is sick today and I have booked a doctor's appointment. He cannot attend school today.",
+                    urdu: "علی آج بیمار ہے اور میں نے ڈاکٹر سے ملاقات کا وقت بک کر لیا ہے۔ وہ آج اسکول نہیں آ سکتا۔",
+                    nepali: "अली आज बिरामी छ र मैले डाक्टरसँग भेट्ने समय बुक गरेको छु। उनी आज स्कूल आउन सक्दैनन्।",
+                    punjabi: "ਅਲੀ ਅੱਜ ਬਿਮਾਰ ਹੈ ਅਤੇ ਮੈਂ ਡਾਕਟਰ ਨਾਲ ਮੁਲਾਕਾਤ ਬੁੱਕ ਕੀਤੀ ਹੈ। ਉਹ ਅੱਜ ਸਕੂਲ ਨਹੀਂ ਆ ਸਕਦਾ।",
+                    hindi: "अली आज बीमार है और मैंने डॉक्टर से मिलने का समय लिया है। वह आज स्कूल नहीं आ सकता।",
+                    tagalog: "May sakit si Ali ngayon at may appointment na kami sa doktor. Hindi po siya makakapaso sa paaralan ngayon.",
+                    indonesian: "Ali sakit hari ini dan saya sudah membuat janji dengan dokter. Dia tidak bisa masuk sekolah hari ini."
+                }
+            },
+            { 
+                id: 3, 
+                cat: "leave", 
+                zh: "阿里今早需要前往診所看病，可能會遲到約半小時回校。", 
+                py: "aa3 lei5 gam1 zou2 seoi1 jiu1 cin4 wong5 can2 so2 hon3 beng6, ho2 nang4 wui5 ci4 dou3 joek3 bun3 siu2 si4 wui4 haau2.",
+                langs: {
+                    en: "Ali needs to visit the clinic this morning and might be late for about half an hour to school.",
+                    urdu: "علی کو آج صبح کلینک جانے کی ضرورت ہے اور اسکول آنے میں آدھے گھنٹے کی دیر ہو سکتی ہے۔",
+                    nepali: "अलीलाई आज बिहान क्लिनिक जानुपर्नेछ र स्कूल आउन आधा घण्टा जति ढिलो हुन सक्छ।",
+                    punjabi: "ਅਲੀ ਨੂੰ ਅੱਜ ਸਵੇਰੇ ਕਲੀਨਿਕ ਜਾਣ ਦੀ ਲੋੜ ਹੈ ਅਤੇ ਸਕੂਲ ਲਈ ਲਗਭਗ ਅੱਧਾ ਘੰਟਾ ਦੇਰੀ ਹੋ ਸਕਦੀ ਹੈ।",
+                    hindi: "अली को आज सुबह क्लिनिक जाना है और स्कूल आने में लगभग आधा घंटा देर हो सकती है।",
+                    tagalog: "Kailangang pumunta ni Ali sa klinika ngayong umaga at maaaring mahuli ng mga kalahating oras sa paaralan.",
+                    indonesian: "Ali harus pergi ke klinik pagi ini dan mungkin akan terlambat sekitar setengah jam ke sekolah."
+                }
+            },
+            
+            // homework (功課與學業)
+            { 
+                id: 4, 
+                cat: "homework", 
+                zh: "阿里昨晚不太明白今天的數學功課，有些部分沒有完成，想請教老師。", 
+                py: "aa3 lei5 zok3 maan5 bat1 taai3 ming4 baak6 gam1 tin1 dik1 sou3 hok6 gung1 fo3, jau5 se1 bou6 fan6 mei6 jau5 jyun4 sing4, soeng2 cing2 gaau3 lou5 si1.",
+                langs: {
+                    en: "Ali didn't quite understand today's math homework last night and left some parts incomplete. He would like to ask you for help.",
+                    urdu: "علی کل رات ریاضی کا ہو ہوم ورک بالکل نہیں سمجھ سکا اور اس نے کچھ حصے ادھورے چھوڑ دیے۔ وہ آپ سے مدد مانگنا چاہتا ہے۔",
+                    nepali: "अलीले हिजो राती गणितको गृहकार्य बुझ्न सकेनन् र केही भागहरू अधुरो छोडे। उहाँ तपाईंसँग मद्दत माग्न चाहनुहुन्छ।",
+                    punjabi: "ਅਲੀ ਨੂੰ ਕੱਲ੍ਹ ਰਾਤ ਗਣਿਤ ਦਾ ਹੋਮਵਰਕ ਸਮਝ ਨਹੀਂ ਆਇਆ ਅਤੇ ਕੁਝ ਹਿੱਸੇ ਅਧੂਰੇ ਛੱਡ ਦਿੱਤੇ। ਉਹ ਤੁਹਾਡੀ ਮਦਦ ਲੈਣਾ ਚਾਹੁੰਦਾ ਹੈ।",
+                    hindi: "अली कल रात गणित का होमवर्क नहीं समझ पाया और कुछ हिस्से अधूरे छोड़ दिए। वह आपकी मदद चाहता है।",
+                    tagalog: "Hindi po gaanong naintindihan ni Ali ang takdang-aralin sa Math kagabi kaya may ilang bahaging hindi natapos. Nais po niyang humingi ng tulong sa inyo.",
+                    indonesian: "Ali kurang memahami pr matematika tadi malam dan menyisakan beberapa bagian yang belum selesai. Dia ingin meminta bantuan Anda."
+                }
+            },
+            { 
+                id: 5, 
+                cat: "homework", 
+                zh: "我不懂如何指導阿里做中文寫作，請問老師可以給予一些範文參考嗎？", 
+                py: "ngo5 bat1 dung2 jyu4 ho4 zi2 dou6 aa3 lei5 zou6 zung1 man4 se2 zok3, cing2 man6 lou5 si1 ho2 ji5 kap1 jyu5 jat1 se1 faan6 man4 caam1 haau2 maa1?",
+                langs: {
+                    en: "I don't know how to guide Ali in Chinese writing. Could you please provide some sample essays for reference?",
+                    urdu: "مجھے چینی تحریر میں علی کی رہنمائی کرنا نہیں آتا۔ کیا آپ کچھ نمونہ مضامین فراہم کر سکتے ہیں؟",
+                    nepali: "मलाई चिनियाँ लेखनमा अलीलाई कसरी मार्गदर्शन गर्ने थाहा छैन। के तपाईं कृपया सन्दर्भको लागि केही नमूना निबन्धहरू प्रदान गर्न सक्नुहुन्छ?",
+                    punjabi: "ਮੈਨੂੰ ਅਲੀ ਨੂੰ ਚੀਨੀ ਲਿਖਣ ਵਿੱਚ ਮਾਰਗਦਰਸ਼ਨ ਕਰਨਾ ਨਹੀਂ ਆਉਂਦਾ। ਕੀ ਤੁਸੀਂ ਕਿਰਪਾ ਕਰਕੇ ਹਵਾਲੇ ਲਈ ਕੁਝ ਨਮੂਨਾ ਨਿਬੰਧ ਪ੍ਰਦਾਨ ਕਰ ਸਕਦੇ ਹੋ?",
+                    hindi: "मुझे चीनी लेखन में अली का मार्गदर्शन करना नहीं आता। क्या आप कृपया संदर्भ के लिए कुछ नमूना निबंध प्रदान कर सकते हैं?",
+                    tagalog: "Hindi ko po alam kung paano gabayan si Ali sa pagsulat sa Chinese. Maaari po bang magbigay kayo ng ilang halimbawang sanaysay para sa aming sanggunian?",
+                    indonesian: "Saya tidak tahu cara membimbing Ali dalam menulis bahasa Mandarin. Bisakah Anda memberikan beberapa contoh esai untuk referensi?"
+                }
+            },
+
+            // query (表現查詢)
+            { 
+                id: 6, 
+                cat: "query", 
+                zh: "我想了解阿里最近在學校的中文學習表現，請問他能跟上進度嗎？", 
+                py: "ngo5 soeng2 liu5 gaai2 aa3 lei5 zeoi3 gan6 zoi6 haau2 dik1 zung1 man4 hok6 zaap6 biu2 jin6, cing2 man6 taa1 nang4 gan1 soeng5 zeon3 dou6 maa1?",
+                langs: {
+                    en: "I would like to know Ali's recent performance in Chinese learning at school. Can he keep up with the progress?",
+                    urdu: "میں اسکول میں چینی سیکھنے میں علی کی حالیہ کارکردگی جاننا چاہتا ہوں۔ کیا وہ ترقی کے ساتھ چل سکتا ہے؟",
+                    nepali: "म स्कूलमा चिनियाँ सिकाइमा अलीको हालैको प्रदर्शन जान्न चाहन्छु। के उनी प्रगतिसँगै रहन सक्छन्?",
+                    punjabi: "ਮੈਂ ਸਕੂਲ ਵਿੱਚ ਚੀਨੀ ਸਿੱਖਣ ਵਿੱਚ ਅਲੀ ਦੀ ਹਾਲੀਆ ਕਾਰਗੁਜ਼ਾਰੀ ਬਾਰੇ ਜਾਣਨਾ ਚਾਹੁੰਦਾ ਹਾਂ। ਕੀ ਉਹ ਤਰੱਕੀ ਦੇ ਨਾਲ ਚੱਲ ਸਕਦਾ ਹੈ?",
+                    hindi: "मैं स्कूल में चीनी सीखने में अली के हालिया प्रदर्शन के बारे में जानना चाहता हूँ। क्या वह प्रगति के साथ तालमेल रख पा रहा है?",
+                    tagalog: "Nais ko pong malaman ang kamakailang performance ni Ali sa pag-aaral ng Chinese sa paaralan. Nakakasabay po ba siya sa aralin?",
+                    indonesian: "Saya ingin tahu perkembangan belajar bahasa Mandarin Ali di sekolah baru-baru ini. Apakah dia bisa mengikuti pelajarannya?"
+                }
+            },
+
+            // notice (簽回通告)
+            { 
+                id: 7, 
+                cat: "notice", 
+                zh: "關於陸運會那份通告，我已經簽署，今天會讓阿里帶回學校提交。", 
+                py: "lou5 si1, gwaan1 jyu1 luk6 wan6 wui2 naa5 fan6 tung1 gou3, ngo5 ji5 ging1 cim1 cyu5, gam1 tin1 wui5 joeng6 aa3 lei5 daai3 wui4 haau2 tai2 gaau1.",
+                langs: {
+                    en: "Regarding the notice of the Athletics Meet, I have signed it and will ask Ali to bring it back to school to submit today.",
+                    urdu: "ایتھلیٹکس میٹ کے نوٹس کے بارے میں، میں نے دستخط کر دیے ہیں اور علی سے کہوں گا کہ وہ اسے آج اسکول میں جمع کرانے کے لیے لائے۔",
+                    nepali: "खेलकुद मिटको सूचनाको सम्बन्धमा, मैले हस्ताक्षर गरेको छु र अलीलाई आज पेश गर्न स्कूलमा ल्याउन भन्नेछु।",
+                    punjabi: "ਐਥਲੈਟਿਕਸ ਮੀਟ ਦੇ ਨੋਟਿਸ ਦੇ ਸਬੰਧ ਵਿੱਚ, ਮੈਂ ਇਸ 'ਤੇ ਦਸਤਖਤ ਕਰ ਦਿੱਤੇ ਹਨ ਅਤੇ ਅਲੀ ਨੂੰ ਅੱਜ ਜਮ੍ਹਾਂ ਕਰਾਉਣ ਲਈ ਸਕੂਲ ਲਿਆਉਣ ਲਈ ਕਹਾਂਗਾ।",
+                    hindi: "खेलकूद प्रतियोगिता के नोटिस के संबंध में, मैंने हस्ताक्षर कर दिए हैं और अली से आज इसे स्कूल में जमा करने के लिए कहूँगा।",
+                    tagalog: "Hinggil sa paunawa para sa Athletics Meet, nilagdaan ko na po ito at ipapdala ko kay Ali para isumite sa paaralan ngayon.",
+                    indonesian: "Mengenai pemberitahuan Pekan Olahraga, saya sudah menandatanganinya dan akan meminta Ali membawanya ke sekolah hari ini."
+                }
+            },
+
+            // meet (預約會面)
+            { 
+                id: 8, 
+                cat: "meet", 
+                zh: "因為我不太懂中文，請問會面時可以安排非華語輔導老師在場協助口譯嗎？", 
+                py: "jan1 wai6 ngo5 bat1 taai3 dung2 zung1 man4, cing2 man6 wui5 min6 si4 ho2 ji5 on1 paai3 fei1 waa4 jyu5 fu6 dou6 lou5 si1 zoi6 coeng4 hip3 zok3 hau2 jik6 maa1?",
+                langs: {
+                    en: "Since I don't know much Chinese, can we arrange an EM support teacher to assist as an interpreter during our meeting?",
+                    urdu: "چونکہ میں زیادہ چینی نہیں جانتا، کیا ہم اپنی میٹنگ کے دوران ترجمان کے طور پر مدد کے لیے ایک EM سپورٹ ٹیچر کا بندوبست کر سکتے ہیں؟",
+                    nepali: "चिनियाँ भाषा धेरै नआउने भएकाले हाम्रा भेटघाटका क्रममा अनुवादकका रूपमा सहयोग गर्न एकजना ईएम सहयोग शिक्षकको व्यवस्था गर्न सकिन्छ ?",
+                    punjabi: "ਕਿਉਂਕਿ ਮੈਨੂੰ ਚੀਨੀ ਜ਼ਿਆਦਾ ਨਹੀਂ ਆਉਂਦੀ, ਕੀ ਅਸੀਂ ਆਪਣੀ ਮੀਟਿੰਗ ਦੌਰਾਨ ਦੁਭਾਸ਼ੀਏ ਵਜੋਂ ਮਦਦ ਲਈ ਇੱਕ EM ਸਹਾਇਤਾ ਅਧਿਆਪਕ ਦਾ ਪ੍ਰਬੰਧ ਕਰ ਸਕਦੇ ਹਾਂ?",
+                    hindi: "चूँकि मैं ज़्यादा चीनी नहीं जानता, क्या हमारी बैठक के दौरान अनुवादक के रूप में मदद के लिए एक ईएम सहायता शिक्षक की व्यवस्था की जा सकती है?",
+                    tagalog: "Dahil hindi ko po masyadong naintindihan ang Chinese, maaari po bang mag-arrange ng EM support teacher para tumulong bilang interpreter sa ating pagpupulong?",
+                    indonesian: "Karena saya tidak terlalu mengerti bahasa Mandarin, bisakah kita mengatur agar guru pendukung EM hadir untuk membantu menerjemahkan selama pertemuan?"
+                }
+            },
+
+            // culture (文化與宗教 - 新增模組)
+            { 
+                id: 9, 
+                cat: "culture", 
+                zh: "老師你好，因為宗教傳統節日（開齋節），阿里明天需要請假一天，特此告知。", 
+                py: "lou5 si1 nei5 hou2, jan1 wai6 zung1 gaau3 cyun4 tung2 zit3 jat6 (hoi1 zai1 zit3), aa3 lei5 ming4 tin1 seoi1 jiu1 cing2 gaa3 jat1 tin1, dak6 ci2 gou1 zi1.",
+                langs: {
+                    en: "Hello teacher, due to our traditional religious holiday (Eid al-Fitr), Ali needs to take one day of leave tomorrow. Thank you.",
+                    urdu: "ہیلو ٹیچر، ہمارے روایتی مذہبی تہوار (عید الفطر) کی وجہ سے، علی کو کل ایک دن کی چھٹی لینے کی ज़रूरत ہے۔ شکریہ۔",
+                    nepali: "नमस्ते शिक्षक, हाम्रो परम्परागत धार्मिक चाड (इद) को कारणले, अलीलाई भोलि एक दिन बिदा चाहिन्छ। धन्यवाद।",
+                    punjabi: "ਹੈਲੋ ਅਧਿਆਪਕ, ਸਾਡੇ ਰਵਾਇਤੀ ਧਾਰਮਿਕ ਤਿਉਹਾਰ (ਈਦ) ਦੇ ਕਾਰਨ, ਅਲੀ ਨੂੰ ਕੱਲ੍ਹ ਇੱਕ ਦਿਨ ਦੀ ਛੁੱਟੀ ਲੈਣ ਦੀ ਲੋੜ ਹੈ। ਧੰਨਵਾਦ।",
+                    hindi: "नमस्ते शिक्षक, हमारे पारंपरिक धार्मिक त्योहार (ईद) के कारण, अली को कल एक दिन की छुट्टी लेनी होगी। धन्यवाद।",
+                    tagalog: "Hello po guro, dahil po sa aming tradisyunal na pagdiriwang ng relihiyon (Eid al-Fitr), kailangan pong lumiban ni Ali sa klase bukas ng isang araw. Salamat po.",
+                    indonesian: "Halo guru, karena hari raya keagamaan tradisional kami (Idul Fitri), Ali harus izin tidak masuk sekolah besok selama satu hari. Terima kasih."
+                }
+            },
+            { 
+                id: 10, 
+                cat: "culture", 
+                zh: "老師你好，阿里因宗教信仰需要進食清真食物，請問學校訂飯有相關安排嗎？", 
+                py: "lou5 si1 nei5 hou2, aa3 lei5 jan1 zung1 gaau3 seon3 joeng5 seoi1 jiu1 zeon3 sik6 cing1 zan1 sik6 mat6, cing2 man6 haau2 ding6 faan6 jau5 gwaan1 on1 paai3 maa1?",
+                langs: {
+                    en: "Hello teacher, due to religious beliefs, Ali needs Halal food. Does the school lunch order have Halal options?",
+                    urdu: "ہیلو ٹیچر، مذہبی عقائد کی وجہ سے، علی کو حلال کھانا کھانے کی ضرورت ہے۔ کیا اسکول کے لنچ آرڈر میں حلال کے اختیارات ہیں؟",
+                    nepali: "नमस्ते शिक्षक, धार्मिक विश्वासका कारण अलीलाई हलाल खाना चाहिन्छ। के स्कूल लन्च अर्डरमा हलाल विकल्पहरू छन्?",
+                    punjabi: "ਹੈਲੋ ਅਧਿਆਪਕ, ਧਾਰਮਿਕ ਵਿਸ਼ਵਾਸਾਂ ਦੇ ਕਾਰਨ, ਅਲੀ ਨੂੰ ਹਲਾਲ ਭੋਜਨ ਦੀ ਲੋੜ ਹੈ। ਕੀ ਸਕੂਲ ਦੇ ਲੰਚ ਆਰਡਰ ਵਿੱਚ ਹਲਾਲ ਦੇ ਵਿਕਲਪ ਹਨ?",
+                    hindi: "नमस्ते शिक्षक, धार्मिक मान्यताओं के कारण अली को हलाल भोजन की आवश्यकता है। क्या स्कूल के लंच ऑर्डर में हलाल भोजन का विकल्प उपलब्ध है?",
+                    tagalog: "Hello po guro, dahil po sa paniniwalang pangrelihiyon, kailangan po ni Ali ng Halal food. Mayroon po bang Halal option sa pag-order ng pananghalian sa paaralan?",
+                    indonesian: "Halo guru, karena keyakinan agama, Ali membutuhkan makanan Halal. Apakah pemesanan makan siang sekolah memiliki pilihan Halal?"
+                }
+            },
+            { 
+                id: 11, 
+                cat: "culture", 
+                zh: "老師你好，下週開始進入齋戒月，阿里需要禁食，午膳時間希望能安排他到圖書館休息。", 
+                py: "lou5 si1 nei5 hou2, haa6 zau1 hoi1 ci2 zeon3 jap6 zai1 gaai3 jyut6, aa3 lei5 seoi1 jiu1 gam3 sik6, ng5 sin6 si4 gaan1 hei1 mong6 nang4 on1 paai3 taa1 dou3 tou4 syu1 gun2 jau1 sik1.",
+                langs: {
+                    en: "Hello teacher, Ramadan begins next week and Ali will be fasting. We hope he can be arranged to rest in the library during lunch hours.",
+                    urdu: "ہیلو ٹیچر، اگلی ہفتے سے رمضان شروع ہو رہا ہے اور علی روزہ رکھے گا۔ ہماری خواہش ہے کہ لنچ کے دوران اسے لائبریری میں آرام کرنے کی اجازت دی جائے۔",
+                    nepali: "नमस्ते शिक्षक, अर्को हप्तादेखि रमजान सुरु हुँदैछ र अली व्रत बस्दैछन्। हामी आशा गर्दछौं कि उनलाई खाजाको समयमा पुस्तकालयमा आराम गर्ने व्यवस्था गर्न सकिन्छ।",
+                    punjabi: "ਹੈਲੋ ਅਧਿਆਪਕ, ਅਗਲੇ ਹਫ਼ਤੇ ਤੋਂ ਰਮਜ਼ਾਨ ਸ਼ੁਰੂ ਹੋ ਰਿਹਾ ਹੈ ਅਤੇ ਅਲੀ ਵਰਤ ਰੱਖੇਗਾ। ਅਸੀਂ ਉਮੀਦ ਕਰਦੇ ਹਾਂ ਕਿ ਦੁਪਹਿਰ ਦੇ ਖਾਣੇ ਦੇ ਸਮੇਂ ਉਸਨੂੰ ਲਾਇਬ੍ਰੇਰੀ ਵਿੱਚ ਆਰਾਮ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿੱਤੀ ਜਾ ਸਕਦੀ ਹੈ।",
+                    hindi: "नमस्ते शिक्षक, अगले सप्ताह से रमज़ान शुरू हो रहा है और अली उपवास रखेगा। हम आशा करते हैं कि दोपहर के भोजन के समय उसे पुस्तकालय में आराम करने की व्यवस्था की जा सकती है।",
+                    tagalog: "Hello po guro, magsisimula na po ang Ramadan sa susunod na linggo at mag-aayuno po si Ali. Nais po naming hilingin na manatili muna siya sa library para magpahinga tuwing tanghalian.",
+                    indonesian: "Halo guru, bulan Ramadan dimulai minggu depan dan Ali akan berpuasa. Kami berharap dia bisa diatur untuk beristirahat di perpustakaan selama jam makan siang."
+                }
+            },
+            { 
+                id: 12, 
+                cat: "culture", 
+                zh: "老師你好，因宗教原因，阿里（女生）在體育課時需要佩戴頭巾及穿著長運動褲，希望學校批准。", 
+                py: "lou5 si1 nei5 hou2, jan1 zung1 gaau3 jyun4 jan1, aa3 lei5 zoi6 tai2 juk6 fo1 si4 seoi1 jiu1 pui3 daai3 tau4 gan1 kap1 cyun1 zoek3 coeng4 wan6 dung6 fu3, hei1 mong6 haau2 fong1 pai1 zeon2.",
+                langs: {
+                    en: "Hello teacher, for religious reasons, Ali (female) needs to wear a hijab and long sports pants during PE lessons. I hope the school can approve this.",
+                    urdu: "ہیلو ٹیچر، مذہبی وجوہات کی وجہ سے، علی (طالبہ) کو PE کے دوران حجاب پہننے اور لمبی سپورٹس پینٹ پہننے کی ضرورت ہے۔ امید ہے اسکول اس کی اجازت دے گا۔",
+                    nepali: "नमस्ते शिक्षक, धार्मिक कारणहरूले गर्दा, अली (छात्रा) ले खेलकुद कक्षाको समयमा हिजाब र लामो स्पोर्ट्स प्यान्ट लगाउनुपर्नेछ। आशा छ स्कूलले यसलाई स्वीकृति दिनेछ।",
+                    punjabi: "ਹੈਲੋ ਅਧਿਆਪਕ, ਧਾਰਮਿਕ ਕਾਰਨਾਂ ਕਰਕੇ, ਅਲੀ (ਵਿਦਿਆਰਥਣ) ਨੂੰ PE ਦੌਰਾਨ ਹਿਜਾਬ ਪਹਿਨਣ ਅਤੇ ਲੰਬੀ ਸਪੋਰਟਸ ਪੈਂਟ ਪਾਉਣ ਦੀ ਲੋੜ ਹੈ। ਉਮੀਦ ਹੈ ਸਕੂਲ ਇਸਦੀ ਇਜਾਜ਼ਤ ਦੇਵੇਗਾ।",
+                    hindi: "नमस्ते शिक्षक, धार्मिक कारणों से, अली (छात्रा) को पीई पाठों के दौरान हिजाब पहनने और लंबी स्पोर्ट्स पैंट पहनने की आवश्यकता है। मुझे आशा है कि स्कूल इसकी अनुमति देगा।",
+                    tagalog: "Hello po guro, dahil po sa relihiyon, kailangan po magsuot ni Ali ng hijab at mahabang sports pants sa klase ng PE. Sana po ay aprubahan ito ng paaralan.",
+                    indonesian: "Halo guru, karena alasan keagamaan, Ali (perempuan) perlu mengenakan hijab dan celana olahraga panjang selama pelajaran PE. Saya harap sekolah dapat menyetujui hal ini."
+                }
+            }
+        ];
+
+        // 2. 學校通告核心詞彙對照庫數據 (已補齊 2026 最新常識科分拆新詞、叩門、呈分試與轉數快)
+        const noticeGlossaryData = [
+            { ch: "小學人文科", py: "siu2 hok6 jan4 man4 fo1", en: "Primary Humanities", guide: "2026年最新學制！從小學常識科分拆出的全新必修學科，專注歷史、社會與國情學習。" },
+            { ch: "小學科學科", py: "siu2 hok6 fo1 hok6 fo1", en: "Primary Science", guide: "2026年最新學制！常識科分拆出的全新必修學科，專注STEAM及科學探究。" },
+            { ch: "呈分試", py: "cing4 fan1 si3", en: "Internal Assessment for Secondary School Allocation", guide: "極重要！中五/中六或小五/小六進行的校內考試，成績將遞交教育局決定中學/小學派位組別(Band)。" },
+            { ch: "叩門", py: "kau1 mun4", en: "Door-knocking / Applying for wholly discretionary places", guide: "在小一或中一統一派位結果公布後，家長直接帶子女到心儀學校申請後補學位的手續。" },
+            { ch: "直資學校", py: "zik6 zi1 haau2", en: "Direct Subsidy Scheme School (DSS)", guide: "受政府按合資格學生人數資助，但可收取學費，自主彈性調整課程與招生政策的學校。" },
+            { ch: "官立學校", py: "gun1 laap6 haau2", en: "Government School", guide: "由教育局直接管理及開辦的公立學校，免收學費。" },
+            { ch: "資助學校", py: "zi1 zo6 haau2", en: "Aided School", guide: "由非牟利辦學團體主辦並受政府全額資助的公共學校，免收學費。" },
+            { ch: "轉數快", py: "zyun2 sou3 faai3", en: "FPS (Faster Payment System)", guide: "全港即時快速電子轉賬系統。目前學校電子通告平台已廣泛支援家長用 FPS 繳交冷氣費或活動費。" },
+            { ch: "簽回", py: "cim1 wui4", en: "Sign & return", guide: "需在通告回條上家長簽名，並在限期前讓孩子帶回學校。" },
+            { ch: "截止日期", py: "zit6 gei6 jat6 kei4", en: "Deadline", guide: "重要！必須在此日期前遞交回條或繳交相關活動費用。" },
+            { ch: "家長信", py: "gaa1 zoeng2 seon3", en: "Parent's letter", guide: "孩子請假時，家長需手寫並簽署的請假信件。" },
+            { ch: "家長日", py: "gaa1 zoeng2 jat6", en: "Parents' Day", guide: "極重要！家長需到校會見班主任領取成績單，討論學生進度。" },
+            { ch: "午膳安排", py: "ng5 sin6 on1 paai3", en: "Lunch arrangement", guide: "關於學校訂飯、自備午餐或外出用膳的規定通告。" },
+            { ch: "課外活動", py: "fo3 ngoi6 wut6 dung6", en: "Extra-curricular activities", guide: "放學後或週六的體育、音樂 or 藝術小組。" },
+            { ch: "考試時間表", py: "haau2 si3 si4 gaan1 biu2", en: "Exam Timetable", guide: "詳列期中或期末考試的日期與科目安排，需盡早溫習。" },
+            { ch: "試場", py: "si3 coeng4", en: "Exam Hall", guide: "考試進行的指定課室或大禮堂。" }
+        ];
+    </script>
+
+    <script>
+        // 全域語言對照表
+        const languageLabels = {
+            en: "English",
+            urdu: "Urdu (اردو)",
+            nepali: "Nepali (नेपाली)",
+            punjabi: "Punjabi (ਪੰਜਾਬੀ)",
+            hindi: "Hindi (हिन्दी)",
+            tagalog: "Tagalog",
+            indonesian: "Bahasa Indonesia"
+        };
+
+        // 3. 家校溝通快捷句型庫渲染
+        function renderPhrases(filter = 'all') {
+            const container = document.getElementById('phrases-container');
+            container.innerHTML = '';
+
+            const filtered = phrasesData.filter(item => filter === 'all' || item.cat === filter);
+
+            const catBadges = {
+                leave: { bg: 'bg-red-50 text-red-700 border border-red-100', label: '請假 Sick Leave' },
+                homework: { bg: 'bg-blue-50 text-blue-700 border border-blue-100', label: '功課 Homework' },
+                query: { bg: 'bg-purple-50 text-purple-700 border border-purple-100', label: '表現 Inquiry' },
+                notice: { bg: 'bg-orange-50 text-orange-700 border border-orange-100', label: '通告 Circular' },
+                meet: { bg: 'bg-emerald-50 text-secondary border border-emerald-100', label: '約見 Meeting' },
+                culture: { bg: 'bg-yellow-50 text-amber-700 border border-yellow-200', label: '文化宗教 Culture & Religion' }
+            };
+
+            filtered.forEach(item => {
+                const badge = catBadges[item.cat];
+                const card = document.createElement('div');
+                card.className = "border border-gray-100 rounded-2xl p-5 bg-slate-50/50 hover:border-emerald-200 hover:shadow-md transition flex flex-col justify-between fade-in";
+                
+                // 建立語言選單 options
+                let langOptions = '';
+                Object.keys(item.langs).forEach(langKey => {
+                    langOptions += `<option value="${langKey}">${languageLabels[langKey]}</option>`;
+                });
+
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="${badge.bg} text-xs font-bold px-2.5 py-1 rounded-md shadow-sm">${badge.label}</span>
+                            <span class="text-xs text-gray-400 font-bold">#${item.id}</span>
+                        </div>
+                        
+                        <!-- 中文 & 拼音 -->
+                        <div class="text-gray-900 font-bold text-base leading-relaxed mb-1" id="phrase-zh-${item.id}">${item.zh}</div>
+                        <div class="text-xs text-gray-400 font-mono mb-4">${item.py}</div>
+                        
+                        <!-- 智能語言動態翻譯模組 -->
+                        <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm mb-4">
+                            <div class="flex justify-between items-center mb-2 pb-2 border-b border-gray-50">
+                                <span class="text-xs font-bold text-secondary uppercase"><i class="fa-solid fa-language mr-1"></i> 翻譯語言 Translation</span>
+                                <select onchange="switchPhraseLanguage(${item.id}, this.value)" class="text-xs bg-slate-100 border border-gray-200 rounded px-2 py-1 font-bold focus:outline-none">
+                                    ${langOptions}
+                                </select>
+                            </div>
+                            <p class="text-xs text-gray-600 leading-relaxed font-semibold min-h-[36px]" id="trans-output-${item.id}">
+                                ${item.langs.en}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-2 border-t border-gray-100/80 pt-3">
+                        <button onclick="speakText('${item.zh.replace(/'/g, "\\'")}', 'zh-HK', this)" class="bg-white hover:bg-emerald-50 text-gray-700 px-3 py-2 rounded-lg text-xs font-bold border border-gray-200 transition flex items-center flex-1 justify-center shadow-sm">
+                            <i class="fa-solid fa-volume-high text-secondary mr-1.5"></i> 粵語發音
+                        </button>
+                        <button id="speak-trans-btn-${item.id}" onclick="speakTranslation(${item.id})" class="bg-white hover:bg-emerald-50 text-gray-700 px-3 py-2 rounded-lg text-xs font-bold border border-gray-200 transition flex items-center flex-1 justify-center shadow-sm">
+                            <i class="fa-solid fa-volume-high text-blue-500 mr-1.5"></i> 聽翻譯
+                        </button>
+                        <button onclick="copyToClipboard('phrase-zh-${item.id}', this)" class="bg-secondary text-white hover:bg-emerald-600 px-3 py-2 rounded-lg text-xs font-bold shadow-md transition flex items-center flex-1 justify-center">
+                            <i class="fa-solid fa-copy mr-1.5"></i> 複製中文
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // 動態切換卡片內的語言翻譯
+        function switchPhraseLanguage(id, langKey) {
+            const phrase = phrasesData.find(item => item.id === id);
+            if (phrase) {
+                const targetText = phrase.langs[langKey];
+                const textContainer = document.getElementById(`trans-output-${id}`);
+                textContainer.innerText = targetText;
+                
+                // 更新朗讀按鈕
+                const speakBtn = document.getElementById(`speak-trans-btn-${id}`);
+                speakBtn.setAttribute('onclick', `speakTranslation(${id}, '${langKey}')`);
+            }
+        }
+
+        function filterPhrases(category) {
+            document.querySelectorAll('.p-tab-btn').forEach(btn => {
+                btn.classList.remove('bg-secondary', 'text-white');
+                btn.classList.add('bg-gray-100', 'text-gray-600');
+            });
+            const activeBtn = document.getElementById(`p-tab-${category}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-gray-100', 'text-gray-600');
+                activeBtn.classList.add('bg-secondary', 'text-white');
+            }
+
+            renderPhrases(category);
+        }
+
+        // 翻譯語音播放匹配
+        function speakTranslation(id, langKey = 'en') {
+            const phrase = phrasesData.find(item => item.id === id);
+            if (phrase) {
+                const text = phrase.langs[langKey];
+                let speechLang = 'en-GB';
+                if (langKey === 'hindi') speechLang = 'hi-IN';
+                else if (langKey === 'indonesian') speechLang = 'id-ID';
+                else if (langKey === 'tagalog') speechLang = 'fil-PH';
+                else if (langKey === 'urdu') speechLang = 'ur-PK';
+                else if (langKey === 'nepali') speechLang = 'ne-NP';
+                else if (langKey === 'punjabi') speechLang = 'pa-IN';
+                
+                const btn = document.getElementById(`speak-trans-btn-${id}`);
+                speakText(text, speechLang, btn);
+            }
+        }
+
+        // 免 API 前端語音合成系統
+        function speakText(text, lang, btn) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = lang;
+                
+                // 鎖定優秀發音人
+                if (lang === 'zh-HK') {
+                    const voices = window.speechSynthesis.getVoices();
+                    const hkVoice = voices.find(v => v.lang === 'zh-HK' || v.lang.includes('HK'));
+                    if (hkVoice) utterance.voice = hkVoice;
+                }
+
+                const icon = btn.querySelector('i');
+                const origClass = icon.className;
+                
+                utterance.onstart = () => {
+                    icon.className = 'fa-solid fa-spinner animate-spin text-secondary';
+                };
+                utterance.onend = () => {
+                    icon.className = origClass;
+                };
+                utterance.onerror = () => {
+                    icon.className = origClass;
+                };
+
+                window.speechSynthesis.speak(utterance);
+            } else {
+                showToast("您的設備不支援語音功能 (Speech not supported)", "warning");
+            }
+        }
+
+        // 安全複製功能
+        function copyToClipboard(elementId, btn) {
+            const textToCopy = document.getElementById(elementId).innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = textToCopy;
+            tempTextArea.style.position = 'fixed';
+            tempTextArea.style.opacity = '0';
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            tempTextArea.setSelectionRange(0, 99999);
+
+            try {
+                document.execCommand('copy');
+                const origHTML = btn.innerHTML;
+                btn.innerHTML = '<i class="fa-solid fa-check mr-1.5"></i> 已複製!';
+                btn.classList.remove('bg-secondary');
+                btn.classList.add('bg-green-600');
+                
+                setTimeout(() => {
+                    btn.innerHTML = origHTML;
+                    btn.classList.remove('bg-green-600');
+                    btn.classList.add('bg-secondary');
+                }, 2000);
+                showToast("成功複製到剪貼簿 (Copied!)", "success");
+            } catch (err) {
+                showToast("複製失敗，請手動複製 (Copy failed)", "warning");
+            }
+            document.body.removeChild(tempTextArea);
+        }
+    </script>
+
+    <script>
+        // 4. 一鍵告假信生成器邏輯
+        function toggleCustomReason() {
+            const reasonVal = document.getElementById('let-reason').value;
+            const customDiv = document.getElementById('custom-reason-inputs');
+            if (reasonVal === 'other') {
+                customDiv.classList.remove('hidden');
+                customDiv.classList.add('fade-in');
+            } else {
+                customDiv.classList.add('hidden');
+            }
+        }
+
+        function generateExcuseLetter() {
+            const stdZh = document.getElementById('let-std-name-zh').value.trim();
+            const stdEn = document.getElementById('let-std-name-en').value.trim();
+            const cls = document.getElementById('let-class').value.trim();
+            const parentName = document.getElementById('let-parent-name').value.trim();
+            const startDate = document.getElementById('let-start-date').value;
+            const days = parseInt(document.getElementById('let-days').value);
+            const reasonKey = document.getElementById('let-reason').value;
+            const phone = document.getElementById('let-phone').value.trim();
+
+            if (!stdZh || !stdEn || !cls || !parentName || !startDate || isNaN(days) || !phone) {
+                showToast("請填寫所有必填欄位。 (Please fill in all fields)", "warning");
+                return;
+            }
+
+            // 格式化今日日期
+            const today = new Date();
+            const dateStrZh = `${today.getFullYear()}年${today.getMonth() + 1}月${today.getDate()}日`;
+            const dateStrEn = today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+            // 格式化請假日期
+            const pDate = new Date(startDate);
+            const pDateStrZh = `${pDate.getFullYear()}年${pDate.getMonth() + 1}月${pDate.getDate()}日`;
+            const pDateStrEn = pDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+            // 請假原因映射
+            const reasonMap = {
+                sick: {
+                    zh: `小兒/小女因病發燒不適，特此向學校告假 ${days} 天。隨信附上醫生紙正本以茲證明。`,
+                    en: `My child is feeling unwell with a fever. I would like to request ${days} day(s) of sick leave for them. The medical certificate is attached.`
+                },
+                eid: {
+                    zh: `因家庭需慶祝宗教傳統節日（開齋節/宰牲節），小兒/小女明天需要向學校告假 ${days} 天。`,
+                    en: `Due to our traditional religious holiday (Eid), I would like to request ${days} day(s) of leave for my child.`
+                },
+                family: {
+                    zh: `因家中突發緊急事故需要處理，小兒/小女特此向學校請假 ${days} 天，望學校予以批准。`,
+                    en: `Due to an unexpected family emergency, I would like to request ${days} day(s) of leave for my child.`
+                },
+                doctor: {
+                    zh: `小兒/小女已預約了專科醫院/牙科進行定期檢查，明天特此向學校請假 ${days} 天。`,
+                    en: `My child has a scheduled specialist/dental appointment and needs to take ${days} day(s) of leave.`
+                }
+            };
+
+            let selectedReason = { zh: '', en: '' };
+
+            if (reasonKey === 'other') {
+                const customZh = document.getElementById('let-custom-reason-zh').value.trim();
+                const customEn = document.getElementById('let-custom-reason-en').value.trim();
+                if (!customZh || !customEn) {
+                    showToast("請填寫自訂請假原因。 (Please fill in custom reason)", "warning");
+                    return;
+                }
+                selectedReason.zh = `${customZh}，特此向學校告假 ${days} 天。`;
+                selectedReason.en = `${customEn}. I would like to request ${days} day(s) of leave for my child.`;
+            } else {
+                selectedReason = reasonMap[reasonKey];
+            }
+
+            // 告假信模板 HTML 寫入
+            const letterHTML = `
+                <div id="printable-letter-modal" class="p-6 border border-gray-200 rounded-xl bg-white max-w-2xl mx-auto shadow-sm font-sans" style="line-height: 1.8;">
+                    <div class="flex justify-between items-center border-b border-gray-100 pb-4 mb-4">
+                        <span class="text-xs text-secondary font-bold font-mono uppercase tracking-widest"><i class="fa-solid fa-envelope-open-text mr-1"></i> 請假信預覽 (Bilingual Letter)</span>
+                        <span class="text-xs text-gray-400 no-print">列印時此欄會自動隱藏</span>
+                    </div>
+
+                    <!-- 抬頭 -->
+                    <div class="mb-4">
+                        <p class="font-bold text-gray-900">致：班主任老師 / 學校校長</p>
+                        <p class="text-xs text-gray-500 italic">To: Class Teacher / School Principal</p>
+                    </div>
+
+                    <!-- 內文 -->
+                    <div class="space-y-4 my-6 text-gray-800">
+                        <p>
+                            本人為 <strong>${cls}</strong> 班學生 <strong>${stdZh} (${stdEn})</strong> 的家長。
+                            ${selectedReason.zh}
+                        </p>
+                        <p class="text-xs text-gray-600 leading-relaxed italic bg-slate-50 p-3 rounded-lg border-l-2 border-emerald-500">
+                            I am writing to inform you that I am the parent of <strong>${stdEn}</strong> in Class <strong>${cls}</strong>. 
+                            ${selectedReason.en}
+                        </p>
+                        <p>祝 學校教安 / 身體健康。</p>
+                        <p class="text-xs text-gray-500 italic">Wishing you wellness and health in teaching.</p>
+                    </div>
+
+                    <!-- 家長簽字落款 -->
+                    <div class="grid grid-cols-2 gap-6 pt-6 border-t border-gray-100">
+                        <div>
+                            <p class="font-bold text-gray-900">家長簽署：_____________________</p>
+                            <p class="text-xs text-gray-500 italic">Parent Signature</p>
+                            <p class="mt-2 text-sm">家長姓名 (Parent Name): ${parentName}</p>
+                            <p class="text-sm">聯絡電話 (Phone): ${phone}</p>
+                        </div>
+                        <div class="text-right flex flex-col justify-end">
+                            <p class="text-sm">日期 (Date): ${dateStrZh}</p>
+                            <p class="text-xs text-gray-500 italic">${dateStrEn}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('letter-preview-content').innerHTML = letterHTML;
+            document.getElementById('letter-actions').classList.remove('hidden');
+            showToast("請假信生成成功！ (Excuse letter generated!)", "success");
+        }
+
+        // 新增：高可靠性 iframe 隔離列印機制，克服沙盒安全阻攔
+        function printExcuseLetter() {
+            const printContent = document.getElementById('printable-letter-modal');
+            if (!printContent) {
+                showToast("請先生成請假信。 (Please generate letter first)", "warning");
+                return;
+            }
+
+            // 建立臨時隱藏的 iframe 用於無干擾打印
+            const iframe = document.createElement('iframe');
+            iframe.style.position = 'fixed';
+            iframe.style.right = '0';
+            iframe.style.bottom = '0';
+            iframe.style.width = '0';
+            iframe.style.height = '0';
+            iframe.style.border = '0';
+            document.body.appendChild(iframe);
+
+            const doc = iframe.contentWindow.document;
+            doc.write('<html><head><title>Print Excuse Letter</title>');
+            // 這裡使用轉義的結尾標籤 <\/script> 避免被瀏覽器提早中斷
+            doc.write('<script src="https://cdn.tailwindcss.com"><\\/script>');
+            doc.write('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">');
+            doc.write('<style>body { font-family: sans-serif; padding: 20px; background-color: white !important; }</style>');
+            doc.write('</head><body>');
+            doc.write(printContent.innerHTML);
+            doc.write('</body></html>');
+            doc.close();
+
+            // 延遲等待樣式與字型載入完畢，隨後調用列印
+            iframe.contentWindow.focus();
+            setTimeout(() => {
+                iframe.contentWindow.print();
+                document.body.removeChild(iframe); // 列印完成後自動釋放資源
+            }, 600);
+        }
+
+        // 5. 中學中文路徑智能決策評估器邏輯
+        function evaluateChinesePath() {
+            const level = document.getElementById('eval-chinese-level').value;
+            const plan = document.getElementById('eval-future-plan').value;
+            const resultCard = document.getElementById('eval-result-card');
+
+            let titleZh = "";
+            let titleEn = "";
+            let recs = [];
+            let steps = [];
+
+            if (level === 'none' || level === 'basic') {
+                if (plan === 'hk-uni') {
+                    titleZh = "💡 完美推薦組合：應用學習中文 (ApL(C)) + 輔考 GCSE 中文";
+                    titleEn = "Recommended: Applied Learning Chinese (ApL(C)) + GCSE Chinese (Backup)";
+                    recs = [
+                        "<strong>核心考試：</strong> HKDSE 乙類「應用學習中文 (ApL(C))」是您的最優安全通道。考取「達標」等同於 DSE 中文第二級，獲全港大學聯招認可，無需背誦深奧文言文。",
+                        "<strong>雙重保險：</strong> 在中四或中五階段，建議同步報名 <strong>Edexcel GCSE 中文</strong>。難度非常基礎，是留港升大極佳的「底線備份資歷」。"
+                    ];
+                    steps = [
+                        "在中三選科時，主向學校主任提出報名 EDB 資助的 ApL(C) 課程（免費）。",
+                        "確保出席率達到 80% 以上，並跟隨學校大專機構（如 VTC）進行持續評估。",
+                        "中四/中五報名參加 GCSE 中文科（9-1級別），考取等級 4 或以上作為大學中文最低要求門檻備用。"
+                    ];
+                } else if (plan === 'abroad') {
+                    titleZh = "💡 完美推薦組合：IGCSE + GCE A-Level 中文科";
+                    titleEn = "Recommended: IGCSE Chinese + GCE A-Level Chinese";
+                    recs = [
+                        "<strong>國際認可度高：</strong> 如果計劃出國，英國高考 <strong>GCE A-Level 中文科</strong> 是全球名校公認的高金量量中文科目。無需經歷 DSE 中文考試的煎熬。",
+                        "<strong>循序漸進：</strong> 先考取 IGCSE 中文（可選 Mandarin/Cantonese），隨後在中六報名 A-Level，為海外大學贏得學分認可。"
+                    ];
+                    steps = [
+                        "在中四階段修讀 IGCSE 中文，掌握基本的實用寫作和日常對話技能。",
+                        "中五/中六無縫過渡至 GCE A-Level 課程（Paper 1 聽讀、Paper 2 文學/電影、Paper 3 獨立研究 IRP）。",
+                        "利用 IRP 探討華人文化，輕鬆取得 A* 等級並轉移海外大學學分。"
+                    ];
+                } else {
+                    titleZh = "💡 完美推薦組合：ApL(C) 或 VTC 實用職業中文證書";
+                    titleEn = "Recommended: ApL(C) or VTC Vocational Chinese Certificate";
+                    recs = [
+                        "<strong>實用至上：</strong> 無需花費精力和高額費用應對學術考試。修讀 DSE ApL(C) 的職場款待及服務情境課程，實操性強，極受政府部門及本地大企業歡迎。"
+                    ];
+                    steps = [
+                        "積極參與 VTC 或社區少數族裔支援中心主辦的廣東話班與電腦中文打字班。",
+                        "在履歷表中列出 ApL(C) 達標資歷（等同 QF 資歷架構第二級/DSE二級），作為就業競爭力保障。"
+                    ];
+                }
+            } else if (level === 'oral') {
+                titleZh = "💡 完美推薦組合：應用學習中文 (ApL(C)) 衝擊「達標並表現優異」";
+                titleEn = "Recommended: ApL(C) Aiming for Distinction (I/II)";
+                recs = [
+                    "<strong>化口語為優勢：</strong> 孩子的日常口語溝通良好，這是考取 ApL(C) 的巨大優勢。透過加強日常商業信函與短文閱讀，可輕鬆取得「達標並表現優異(I)」（等同 DSE 中文科第三級）或「表現優異(II)」（等同 DSE 第四級或以上）。",
+                    "<strong>升學極致保障：</strong> 優異級別在聯招計分中更具優勢，能爭取熱門學系入學資格。"
+                ];
+                steps = [
+                    "中四確認報讀 ApL(C)（商業及款待服務導向）。",
+                    "日常溫習多看通告常用詞彙和實用寫作格式，提高在「持續評估」中的寫作分值。",
+                    "在中學口試部分展示其流利的廣東話聽說實力，鎖定 Distinction 等級。"
+                ];
+            } else {
+                titleZh = "💡 完美推薦：挑戰 HKDSE 主流中國語文科 (與本地生同軌)";
+                titleEn = "Recommended: Challenge HKDSE Core Chinese Language";
+                recs = [
+                    "<strong>勇攀高峰：</strong> 如果孩子的讀寫水平已經接近本地華人學生，不建議轉考簡單的 ApL(C) 或 GCSE，應全力挑戰 <strong>HKDSE 核心中國語文科</strong>。考獲第三級或以上可免除任何替代中文認證，100% 開放所有大學科系的選擇門檻。",
+                    "<strong>安全兜底：</strong> 如果擔憂失手，可讓學校向教育局申請符合非華語生資格的 GCSE 替代證明，作為備用。"
+                ];
+                steps = [
+                    "中四起加強文言文、古代文學閱讀和高難度議論文寫作訓練。",
+                    "中五參加學校進行的模擬文憑試考核，分析自己與本地生平均組別的分差差距。",
+                    "中六時有信心地進入主流 DSE 試場，如獲第 3 級或以上即鎖定頂大門票。"
+                ];
+            }
+
+            let recsHTML = recs.map(r => `<li class="text-sm text-gray-700 leading-relaxed"><i class="fa-solid fa-circle-check text-secondary mr-2"></i> ${r}</li>`).join("");
+            let stepsHTML = steps.map((s, i) => `
+                <div class="flex items-start gap-3">
+                    <span class="bg-secondary/10 text-secondary w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs shrink-0">${i+1}</span>
+                    <p class="text-xs text-gray-600 font-medium">${s}</p>
+                </div>
+            `).join("");
+
+            resultCard.innerHTML = `
+                <div class="space-y-4 fade-in flex-grow flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-gray-900 text-lg flex items-center gap-2 border-b border-gray-100 pb-3">
+                            <i class="fa-solid fa-star text-yellow-500"></i> ${titleZh}
+                        </h3>
+                        <p class="text-xs text-gray-500 font-bold italic mb-4">${titleEn}</p>
+                        
+                        <ul class="space-y-3 mb-6">
+                            ${recsHTML}
+                        </ul>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded-xl border border-gray-100">
+                        <span class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-3"><i class="fa-solid fa-list-check mr-1 text-secondary"></i> 建議家長規劃三步走 (Next Steps)</span>
+                        <div class="space-y-3">
+                            ${stepsHTML}
+                        </div>
+                    </div>
+                </div>
+            `;
+            showToast("評估成功！已爲您產出最合適的中文路徑建議。", "success");
+        }
+    </script>
+
+    <script>
+        // 5. 學校通告核心詞彙對照庫搜尋與渲染
+        function renderNoticeGlossary(query = '') {
+            const tbody = document.getElementById('notice-table-body');
+            tbody.innerHTML = '';
+
+            const filtered = noticeGlossaryData.filter(item => {
+                return item.ch.includes(query) || 
+                       item.en.toLowerCase().includes(query.toLowerCase()) || 
+                       item.py.toLowerCase().includes(query.toLowerCase());
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="px-4 py-8 text-center text-gray-500">沒有找到對應的通告關鍵詞。 (No keywords found)</td></tr>`;
+                return;
+            }
+
+            filtered.forEach(item => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 transition";
+                tr.innerHTML = `
+                    <td class="px-4 py-3 font-bold text-gray-900">${item.ch}</td>
+                    <td class="px-4 py-3 font-mono text-gray-500 text-xs">${item.py}</td>
+                    <td class="px-4 py-3 text-secondary font-semibold">${item.en}</td>
+                    <td class="px-4 py-3 text-xs text-gray-600 leading-relaxed">${item.guide}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function searchNoticeKeywords() {
+            const query = document.getElementById('notice-search').value;
+            renderNoticeGlossary(query);
+        }
+
+        // 6. 備忘錄本地存儲狀態管理
+        const checklistIds = ['chk-sfo', 'chk-pta', 'chk-app'];
+
+        // 載入備忘錄勾選狀態
+        function loadChecklistState() {
+            checklistIds.forEach(id => {
+                const savedVal = localStorage.getItem(id);
+                const el = document.getElementById(id);
+                if (el && savedVal !== null) {
+                    el.checked = (savedVal === 'true');
+                }
+            });
+        }
+
+        function saveChecklistState() {
+            checklistIds.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    localStorage.setItem(id, el.checked);
+                }
+            });
+            showToast("備忘錄進度已自動儲存 (Progress saved)", "success");
+        }
+
+        function resetChecklist() {
+            checklistIds.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.checked = false;
+                    localStorage.removeItem(id);
+                }
+            });
+            showToast("已成功重置備忘進度 (Checklist reset)", "success");
+        }
+
+        // 7. FAQ accordion 切換交互
+        function toggleFaq(num) {
+            const ans = document.getElementById(`faq-ans-${num}`);
+            const icon = document.getElementById(`faq-icon-${num}`);
+            
+            if (ans.classList.contains('hidden')) {
+                ans.classList.remove('hidden');
+                ans.classList.add('fade-in');
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up', 'text-secondary');
+            } else {
+                ans.classList.add('hidden');
+                icon.classList.remove('fa-chevron-up', 'text-secondary');
+                icon.classList.add('fa-chevron-down');
+            }
+        }
+
+        // 全域 Toast 回饋提示
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `fixed bottom-5 right-5 z-50 px-4 py-3 rounded-xl shadow-lg text-white font-bold transition-all duration-300 transform translate-y-10 opacity-0 ${
+                type === 'warning' ? 'bg-amber-500' : type === 'success' ? 'bg-green-600' : 'bg-secondary'
+            }`;
+            toast.innerText = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.remove('translate-y-10', 'opacity-0');
+            }, 50);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-10');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // 初始化頁面加載
+        window.onload = () => {
+            renderPhrases();
+            renderNoticeGlossary();
+            loadChecklistState(); // 加載備忘錄勾選狀態
+            
+            // 語音初始化提示
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.getVoices(); // 觸發瀏覽器加載發音庫
+            }
+        };
+    </script>
+</body>
+</html>
