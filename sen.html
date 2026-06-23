@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEN 特殊教育支援 | NCS 融學平台</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 FontAwesome 圖示 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563EB',
+                        sen: '#E11D48', /* SEN 專區專屬主色調：玫瑰紅 */
+                        secondary: '#10B981'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+        
+        body {
+            font-family: 'Noto Sans TC', 'Poppins', sans-serif;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #E11D48; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #be123c; border-radius: 4px; }
+        
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans text-gray-800 min-h-screen flex flex-col">
+
+    <!-- 導覽列 -->
+    <nav class="bg-primary text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <a href="index.html" class="flex items-center space-x-3 hover:opacity-80 transition">
+                    <i class="fa-solid fa-graduation-cap text-2xl"></i>
+                    <span class="font-bold text-xl tracking-wide">NCS 融學平台</span>
+                </a>
+                <div class="hidden md:flex space-x-6 font-medium text-sm items-center">
+                    <a href="index.html" class="hover:text-blue-200 transition">首頁</a>
+                    <a href="student.html" class="hover:text-blue-200 transition">學生</a>
+                    <a href="parent.html" class="hover:text-blue-200 transition">家長</a>
+                    <a href="school.html" class="hover:text-blue-200 transition">選校</a>
+                    <a href="pathway.html" class="hover:text-blue-200 transition">升學</a>
+                    <a href="sen.html" class="text-blue-200 font-bold border-b-2 border-blue-200 pb-1">SEN</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 頂部 Hero Banner -->
+    <header class="bg-gradient-to-b from-rose-50 to-white py-12 border-b border-rose-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left md:flex md:items-center md:justify-between">
+            <div class="mb-6 md:mb-0 max-w-2xl">
+                <span class="bg-rose-100 text-rose-800 font-bold px-3 py-1 rounded-full text-xs mb-3 inline-block shadow-sm">
+                    <i class="fa-solid fa-hands-holding-child mr-1"></i> 雙重守護 • 平等關愛
+                </span>
+                <h1 class="text-3xl md:text-4xl font-extrabold text-gray-950 tracking-tight">
+                    非華語學生 SEN 特殊教育支援
+                </h1>
+                <p class="text-sm md:text-base text-gray-600 mt-2 leading-relaxed">
+                    在香港，當非華語背景遇上特殊教育需要（SEN）時，資訊的隔閡往往讓家長倍感焦慮。我們提供中英雙語的初步評估篩選指引、校園資源解讀，以及全港最專業的社區轉介網絡，陪伴您的孩子跨越每一道關卡。
+                </p>
+            </div>
+            <div class="shrink-0 flex justify-center">
+                <div class="bg-sen text-white w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center shadow-lg"><i class="fa-solid fa-hands-holding-child text-2xl md:text-3xl"></i></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主體內容 -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-12">
+        
+        <!-- 第一區塊：多語種互動式 SEN 初步觀察與篩查工具 -->
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <div class="border-b border-gray-100 pb-4 mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <span class="bg-sen text-white text-xxs font-extrabold px-2.5 py-1 rounded-md shadow-sm uppercase tracking-wider">初步篩查工具 Screening Tool</span>
+                    <h2 class="text-xl font-extrabold text-gray-900 flex items-center gap-2 mt-2">
+                        <i class="fa-solid fa-circle-question text-sen"></i> 互動式家長初步觀察與評估指引
+                    </h2>
+                    <p class="text-xs text-gray-500 mt-1">
+                        本工具並非醫學診斷。家長可根據子女在日常生活和學習中的表現進行初步交叉核對，系統將即時給出引導建議。
+                    </p>
+                </div>
+                <!-- 篩選學制頁籤 -->
+                <div class="flex bg-slate-100 p-1 rounded-lg self-start md:self-auto shrink-0">
+                    <button onclick="switchQuizCategory('dyslexia')" id="qtab-aplc" class="q-tab-btn text-xs font-bold px-3 py-1.5 rounded-lg bg-white text-sen shadow-sm transition-all duration-300">讀寫障礙 (Dyslexia)</button>
+                    <button onclick="switchQuizCategory('adhd')" id="g-tab-alevel" class="q-tab-btn text-xs font-bold px-3 py-2 rounded-lg text-gray-600 hover:text-rose-600 transition-all">過動與專注力 (ADHD)</button>
+                    <button onclick="switchQuizCategory('asd')" id="g-tab-gcse" class="q-tab-btn px-3 py-2 rounded-lg text-xs font-bold text-gray-600 hover:text-rose-700 transition">自閉症譜系 (Autism)</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- 互動評估列表 -->
+                <div class="lg:col-span-1.5 bg-slate-50 p-5 rounded-2xl border border-gray-100 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-extrabold text-gray-900 text-sm md:text-base mb-4 flex items-center gap-2"><i class="fa-solid fa-list-check text-sen"></i> 請剔選適用於您子女的日常表現：</h3>
+                        <div id="quiz-options-container" class="space-y-3.5">
+                            <!-- JS 動態寫入對應類別題目 -->
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-gray-200 flex gap-3">
+                        <button onclick="resetScreening()" class="text-red-500 hover:text-red-700 font-bold text-xs md:text-sm px-4 py-2 rounded-lg transition">重置重填</button>
+                        <button onclick="calculateScreeningScore()" class="bg-sen hover:bg-rose-700 text-white font-extrabold px-6 py-2.5 rounded-xl transition shadow-md flex items-center justify-center gap-2 text-xs md:text-sm">
+                            <i class="fa-solid fa-square-poll-vertical"></i> 產生評估分析與建議
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 評估報告展現 -->
+                <div class="lg:col-span-1.5 flex flex-col justify-between" id="screening-report-container">
+                    <div class="border-2 border-dashed border-gray-200 rounded-2xl p-8 text-center flex flex-col items-center justify-center h-full min-h-[320px]">
+                        <i class="fa-solid fa-receipt text-slate-300 text-5xl mb-3 animate-bounce"></i>
+                        <p class="text-base text-gray-500 font-bold">請在左側剔選符合表現，並點擊「產生評估分析與建議」按鈕。</p>
+                        <p class="text-xs text-gray-400 mt-1 italic">Please complete the checklist and click the button to generate advice.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第二區塊：香港學校「三層支援模式」解碼（全新加入） -->
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <div class="border-b border-gray-100 pb-4 mb-6">
+                <span class="bg-rose-600 text-white text-xxs font-extrabold px-2.5 py-1 rounded-md shadow-sm uppercase tracking-wider">教育政策政策 EDB Policy</span>
+                <h2 class="text-xl font-extrabold text-gray-900 flex items-center gap-2 mt-2">
+                    <i class="fa-solid fa-layer-group text-sen"></i> 香港校內「三層支援模式」雙語解碼表
+                </h2>
+                <p class="text-xs text-gray-500 mt-1">
+                    香港中小學如何運用資源支援 SEN 學生？了解這三層架構，方便家長與特殊教育協調員（SENCO）商討最適切的到校安排。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- 第一層 -->
+                <div class="border border-gray-150 rounded-2xl p-5 bg-slate-50/40 hover:border-blue-300 transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-1 rounded-md">第一層支援 Tier 1</span>
+                            <span class="text-xxs text-gray-400 font-bold">常規課堂調適</span>
+                        </div>
+                        <h4 class="font-extrabold text-gray-900 text-base">優質課堂教學 (Classroom Accommodations)</h4>
+                        <p class="text-xs text-gray-400 italic font-bold">Quality Classroom Teaching</p>
+                        <p class="text-sm text-gray-600 mt-3 leading-relaxed">
+                            <strong>支援內容：</strong>班主任與科任老師在常規課堂中，針對有輕微或短暫學習困難的學生，提供優良的日常教學調整（例如：將位置調到黑板正前方、功課適度拆細分段、提供多語種生字提示卡等）。
+                        </p>
+                    </div>
+                    <p class="text-xxs text-slate-500 italic border-t border-gray-100 pt-3 mt-4 leading-normal">
+                        * Standard classroom teaching modifications by subject teachers to support students with mild, transient learning difficulties.
+                    </p>
+                </div>
+
+                <!-- 第二層 -->
+                <div class="border border-gray-150 rounded-2xl p-5 bg-slate-50/40 hover:border-amber-300 transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-1 rounded-md">第二層支援 Tier 2</span>
+                            <span class="text-xxs text-gray-400 font-bold">小組輔導與抽離</span>
+                        </div>
+                        <h4 class="font-extrabold text-gray-900 text-base">額外小組支援 (Small Group Support)</h4>
+                        <p class="text-xs text-gray-400 italic font-bold">Additional Group Intervention</p>
+                        <p class="text-sm text-gray-600 mt-3 leading-relaxed">
+                            <strong>支援內容：</strong>學校運用「特殊教育需要支援津貼」資源，為有持續學習困難或適應問題的非華語生安排<strong>到校言語治療小組、課後社交情緒訓練、或抽離式中文拼音小組</strong>。
+                        </p>
+                    </div>
+                    <p class="text-xxs text-slate-500 italic border-t border-gray-100 pt-3 mt-4 leading-normal">
+                        * School organizes pull-out groups, speech therapy sessions, or social-emotional integration circles for persistent difficulties.
+                    </p>
+                </div>
+
+                <!-- 第三層 -->
+                <div class="border border-gray-150 rounded-2xl p-5 bg-slate-50/40 hover:border-rose-300 transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-rose-100 text-rose-800 text-xs font-bold px-2.5 py-1 rounded-md">第三層支援 Tier 3</span>
+                            <span class="text-xxs text-gray-400 font-bold">高度個人化介入</span>
+                        </div>
+                        <h4 class="font-extrabold text-gray-900 text-base">個別深度支援 (Intensive Individual Support)</h4>
+                        <p class="text-xs text-gray-400 italic font-bold">Intensive IEP Intervention</p>
+                        <p class="text-sm text-gray-600 mt-3 leading-relaxed">
+                            <strong>支援內容：</strong>針對面臨嚴重學習障礙、或多重 SEN 的學生。學校會指派教育心理學家介入，與家長召開多專業會議，特別制定**個別學習計劃 (IEP)**，全方位調適學務與行為。
+                        </p>
+                    </div>
+                    <p class="text-xxs text-slate-500 italic border-t border-gray-100 pt-3 mt-4 leading-normal">
+                        * Intensive individual intervention including setting up an Individualized Education Plan (IEP) and Educational Psychologist assessment.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第三區塊：非華語家長常見「三大 SEN 觀念謬誤」互動澄清區（全新加入） -->
+        <section class="bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl border border-rose-100 p-6">
+            <div class="border-b border-rose-100 pb-4 mb-6">
+                <span class="bg-rose-600 text-white text-xxs font-extrabold px-2.5 py-1 rounded-md shadow-sm uppercase tracking-wider">觀念破冰 Myths vs Facts</span>
+                <h2 class="text-xl font-extrabold text-gray-900 flex items-center gap-2 mt-2">
+                    <i class="fa-solid fa-lightbulb text-sen"></i> 非華語家庭常見「三大 SEN 觀念」謬誤與事實澄清
+                </h2>
+                <p class="text-xs text-rose-900 mt-1 font-medium">
+                    別讓偏見和資訊落差延誤了孩子的黃金干預期！我們用最溫和、科學的雙語對照為您解除心中疑慮。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- 謬誤 1 -->
+                <div class="bg-white border border-rose-100 rounded-xl p-5 shadow-sm space-y-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-red-100 text-red-700 text-xs font-extrabold px-2 py-1 rounded-full"><i class="fa-solid fa-circle-xmark mr-1"></i>謬誤 (Myths)</span>
+                    </div>
+                    <h4 class="font-extrabold text-gray-900 text-sm md:text-base">「我的孩子只是因為在家講英語/母語，所以中文字認得慢，不是讀寫障礙。」</h4>
+                    <p class="text-xxs text-gray-400 italic">"My child just learns characters slowly because we speak English/Urdu at home, it's not dyslexia."</p>
+                    
+                    <div class="border-t border-slate-100 pt-3 space-y-2">
+                        <span class="bg-green-100 text-green-800 text-xs font-extrabold px-2 py-1 rounded-full inline-block"><i class="fa-solid fa-circle-check mr-1"></i>事實 (Facts)</span>
+                        <p class="text-xs text-gray-600 leading-relaxed font-semibold">
+                            學習第二語言確實需要時間適應，但如果孩子**長期出現筆劃寫反、形近字高度混淆、或連英文單字的字母順序也頻繁寫錯 (如 b/d 顛倒)**，這可能指向大腦處理符號的結構差異（即讀寫困難），應儘早聯絡 SENCO 篩查。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 謬誤 2 -->
+                <div class="bg-white border border-rose-100 rounded-xl p-5 shadow-sm space-y-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-red-100 text-red-700 text-xs font-extrabold px-2 py-1 rounded-full"><i class="fa-solid fa-circle-xmark mr-1"></i>謬誤 (Myths)</span>
+                    </div>
+                    <h4 class="font-extrabold text-gray-900 text-sm md:text-base">「一旦接受特殊教育評估，我的孩子就會被貼上標籤，影響未來升學。」</h4>
+                    <p class="text-xxs text-gray-400 italic">"Once evaluated, my child will be labeled and ruined for future university applications."</p>
+                    
+                    <div class="border-t border-slate-100 pt-3 space-y-2">
+                        <span class="bg-green-100 text-green-800 text-xs font-extrabold px-2 py-1 rounded-full inline-block"><i class="fa-solid fa-circle-check mr-1"></i>事實 (Facts)</span>
+                        <p class="text-xs text-gray-600 leading-relaxed font-semibold">
+                            **完全不會！** 評估資料是 100% 絕對保密的。相反，獲得評估能讓孩子在 DSE（文憑試）中**合法爭取考試加時、放大試卷等重要調適**，是保護他們升大權益的重要盾牌，而非阻礙。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 謬誤 3 -->
+                <div class="bg-white border border-rose-100 rounded-xl p-5 shadow-sm space-y-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-red-100 text-red-700 text-xs font-extrabold px-2 py-1 rounded-full"><i class="fa-solid fa-circle-xmark mr-1"></i>謬誤 (Myths)</span>
+                    </div>
+                    <h4 class="font-extrabold text-gray-900 text-sm md:text-base">「我的孩子只是不聽話、故意搗蛋，打罵管教就好了，不需要看醫生。」</h4>
+                    <p class="text-xxs text-gray-400 italic">"My child is just naughty on purpose. Strict discipline is enough, no doctor is needed."</p>
+                    
+                    <div class="border-t border-slate-100 pt-3 space-y-2">
+                        <span class="bg-green-100 text-green-800 text-xs font-extrabold px-2 py-1 rounded-full inline-block"><i class="fa-solid fa-circle-check mr-1"></i>事實 (Facts)</span>
+                        <p class="text-xs text-gray-600 leading-relaxed font-semibold">
+                            注意力不足/活躍症 (ADHD) 是一種**生理上神經遞質分泌的差異**，孩子無法用意志力自行控制。一味打罵管教只會嚴重破壞親子關係、損害其自信心，配合專業的行為治療（OT）和溫和醫療輔助，才是最科學的疼愛。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第四區塊：SEN 專業術語與治療方案對照庫 -->
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <div class="border-b border-gray-100 pb-4 mb-6">
+                <span class="bg-rose-600 text-white text-xxs font-extrabold px-2.5 py-1 rounded-md shadow-sm uppercase tracking-wider">術語解碼 Terminology</span>
+                <h2 class="text-xl font-extrabold text-gray-900 flex items-center gap-2 mt-2">
+                    <i class="fa-solid fa-book-bookmark text-sen"></i> 常用特殊教育（SEN）專業術語與治療對照
+                </h2>
+                <p class="text-xs text-gray-500 mt-1">
+                    當學校社工或老師提到這些英文縮寫和學術職位時，家長不用再慌張。我們為您解構最常見的評估、治療手段與專業團隊分工。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 術語 1 -->
+                <div class="border border-gray-150 rounded-2xl p-5 hover:border-rose-200 hover:shadow-md transition bg-slate-50/30 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-rose-100 text-rose-800 text-xs font-bold px-2.5 py-1 rounded-md">教育評估 IEP</span>
+                            <span class="text-xs text-gray-400 font-bold">教育 / 學術</span>
+                        </div>
+                        <h3 class="font-extrabold text-gray-900 text-base">個別學習計劃 (IEP)</h3>
+                        <p class="text-xs text-gray-400 italic font-bold">Individualized Education Plan</p>
+                        <p class="text-sm text-gray-600 mt-3 leading-relaxed">
+                            <strong>定義說明：</strong>由校長、特殊教育協調員（SENCO）、班主任與家長共同制定。專門針對有特殊需要學生的學習進度，度身訂造的專屬學習與評估調整指南（如考試延長時間、功課分量減免等）。
+                        </p>
+                    </div>
+                    <p class="text-xs text-slate-500 italic border-t border-gray-100 pt-3 mt-4 leading-normal">
+                        * A tailored learning roadmap designed by school SENCO, teachers, and parents to adapt homework and exams for your child.
+                    </p>
+                </div>
+
+                <!-- 術語 2 -->
+                <div class="border border-gray-150 rounded-2xl p-5 hover:border-rose-200 hover:shadow-md transition bg-slate-50/30 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-rose-100 text-rose-800 text-xs font-bold px-2.5 py-1 rounded-md">言語治療 ST</span>
+                            <span class="text-xs text-gray-400 font-bold">發音 / 溝通</span>
+                        </div>
+                        <h3 class="font-extrabold text-gray-900 text-base">言語治療 (Speech Therapy)</h3>
+                        <p class="text-xs text-gray-400 italic font-bold">Speech & Language Therapy</p>
+                        <p class="text-sm text-gray-600 mt-3 leading-relaxed">
+                            <strong>定義說明：</strong>由言語治療師進行評估與訓練。針對發音不清、口吃、語言理解或表達遲緩的學生，提供發音、句子建構及社交溝通方面的實操訓練。
+                        </p>
+                    </div>
+                    <p class="text-xs text-slate-500 italic border-t border-gray-100 pt-3 mt-4 leading-normal">
+                        * Professional training by Speech Therapists to improve pronunciation, sentence structure, and social interaction skills.
+                    </p>
+                </div>
+
+                <!-- 術語 3 -->
+                <div class="border border-gray-150 rounded-2xl p-5 hover:border-rose-200 hover:shadow-md transition bg-slate-50/30 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-rose-100 text-rose-800 text-xs font-bold px-2.5 py-1 rounded-md">職業治療 OT</span>
+                            <span class="text-xs text-gray-400 font-bold">小肌肉 / 感官</span>
+                        </div>
+                        <h3 class="font-extrabold text-gray-900 text-base">職業治療 (Occupational Therapy)</h3>
+                        <p class="text-xs text-gray-400 italic font-bold">Occupational Therapy (OT)</p>
+                        <p class="text-sm text-gray-600 mt-3 leading-relaxed">
+                            <strong>定義說明：</strong>主要處理小肌肉控制（例如寫字無力、握筆姿勢不當）、手眼協調不良或感官過敏問題。治療師會利用好玩的體能和感官遊戲改善孩子在日常生活及書寫上的表現。
+                        </p>
+                    </div>
+                    <p class="text-xs text-slate-500 italic border-t border-gray-100 pt-3 mt-4 leading-normal">
+                        * Training focused on fine-motor skills (like handwriting), hand-eye coordination, and sensory modulation through therapeutic play.
+                    </p>
+                </div>
+
+                <!-- 術語 4（全新加入） -->
+                <div class="border border-gray-150 rounded-2xl p-5 hover:border-rose-200 hover:shadow-md transition bg-slate-50/30 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-rose-100 text-rose-800 text-xs font-bold px-2.5 py-1 rounded-md">專業診斷 EP</span>
+                            <span class="text-xs text-gray-400 font-bold">認知 / 心理</span>
+                        </div>
+                        <h3 class="font-extrabold text-gray-900 text-base">教育心理學家 (EP)</h3>
+                        <p class="text-xs text-gray-400 italic font-bold">Educational Psychologist (EP)</p>
+                        <p class="text-sm text-gray-600 mt-3 leading-relaxed">
+                            <strong>定義說明：</strong>負責對疑似有 SEN 的學生進行科學系統性的認知、智力與心理健康評估。他們出具的「評估報告」是向教育局申請考試加時、特別學習津貼的最核心法律依據。
+                        </p>
+                    </div>
+                    <p class="text-xs text-slate-500 italic border-t border-gray-100 pt-3 mt-4 leading-normal">
+                        * Licensed experts who conduct cognitive & educational assessments. Their formal report is vital to secure exam extra-time allowances.
+                    </p>
+                </div>
+
+                <!-- 術語 5（全新加入） -->
+                <div class="border border-gray-150 rounded-2xl p-5 hover:border-rose-200 hover:shadow-md transition bg-slate-50/30 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-rose-100 text-rose-800 text-xs font-bold px-2.5 py-1 rounded-md">校內統籌 SENCO</span>
+                            <span class="text-xs text-gray-400 font-bold">資源統籌者</span>
+                        </div>
+                        <h3 class="font-extrabold text-gray-900 text-base">特殊教育需要協調員 (SENCO)</h3>
+                        <p class="text-xs text-gray-400 italic font-bold">Special Educational Needs Coordinator</p>
+                        <p class="text-sm text-gray-600 mt-3 leading-relaxed">
+                            <strong>定義說明：</strong>學校裡負責統籌所有特殊教育資源的骨幹老師。他負責協調言語治療師、社工、教育心理學家，並為家長安排轉介、落實課堂調整、召開 IEP 會議。
+                        </p>
+                    </div>
+                    <p class="text-xs text-slate-500 italic border-t border-gray-100 pt-3 mt-4 leading-normal">
+                        * The lead teacher in school who coordinates all special needs resources, arranges therapy sessions, and manages IEP accommodations.
+                    </p>
+                </div>
+
+                <!-- 術語 6（全新加入） -->
+                <div class="border border-gray-150 rounded-2xl p-5 hover:border-rose-200 hover:shadow-md transition bg-slate-50/30 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-rose-100 text-rose-800 text-xs font-bold px-2.5 py-1 rounded-md">特別援助 DA</span>
+                            <span class="text-xs text-gray-400 font-bold">考試調適</span>
+                        </div>
+                        <h3 class="font-extrabold text-gray-900 text-base">特別考試安排 (Diagnostic Accommodations)</h3>
+                        <p class="text-xs text-gray-400 italic font-bold">Special Exam Arrangements</p>
+                        <p class="text-sm text-gray-600 mt-3 leading-relaxed">
+                            <strong>定義說明：</strong>獲得評估證明後，學生在校內考及 HKDSE（文憑試）中可以享有的合法保障。包括：延長考試時間（通常為25%）、單獨考室、讀題、放大試卷，或允許使用語音轉換軟件。
+                        </p>
+                    </div>
+                    <p class="text-xs text-slate-500 italic border-t border-gray-100 pt-3 mt-4 leading-normal">
+                        * Legal examination adjustments (e.g. 25% extra time, single room, larger prints) approved by HKEAA to ensure fairness for SEN candidates.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第五區塊：核實本地提供非華語支援的 SEN 社會福利機構網絡 -->
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <div class="border-b border-gray-100 pb-4 mb-6">
+                <span class="bg-rose-600 text-white text-xxs font-extrabold px-2.5 py-1 rounded-md shadow-sm uppercase tracking-wider">轉介網絡 NGO Network</span>
+                <h2 class="text-xl font-extrabold text-gray-900 flex items-center gap-2 mt-2">
+                    <i class="fa-solid fa-map-marked-alt text-sen"></i> 提供非華語支援的本地 SEN 專業社福機構網絡
+                </h2>
+                <p class="text-xs text-gray-500 mt-1">
+                    我們精心篩選、核實並列出香港最頂尖、配備雙語專業社工及治療師的社福服務機構。家長可主動聯絡獲取評估及早期介入訓練。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- NGO 1: 協康會 -->
+                <div class="border border-gray-150 rounded-2xl p-5 hover:shadow-lg transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="bg-rose-50 text-sen w-11 h-11 rounded-xl flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-heart"></i></div>
+                            <div>
+                                <h3 class="font-extrabold text-gray-900 text-base">協康會 (Heep Hong Society)</h3>
+                                <p class="text-xxs text-gray-400 font-bold italic">全港最大早期介入 NGO 之一</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600 leading-relaxed mb-4">
+                            <strong>非華語支援：</strong>專設有「少數族裔支援服務」，提供由雙語心理學家及治療師主理的早期篩查、語言及社交小組訓練，並開辦非華語家長互助小組。
+                        </p>
+                    </div>
+                    <div class="border-t border-gray-100 pt-3.5 space-y-1 text-xs text-gray-500">
+                        <p><span class="font-bold"><i class="fa-solid fa-phone mr-1 text-sen"></i> 查詢電話：</span>2776 3111</p>
+                        <p><span class="font-bold"><i class="fa-solid fa-map-pin mr-1.5 text-sen"></i> 總辦事處：</span>九龍觀塘海濱道133號萬兆豐群組10樓</p>
+                    </div>
+                </div>
+
+                <!-- NGO 2: 香港耀能協會 -->
+                <div class="border border-gray-150 rounded-2xl p-5 hover:shadow-lg transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="bg-rose-50 text-sen w-11 h-11 rounded-xl flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-shield-heart"></i></div>
+                            <div>
+                                <h3 class="font-extrabold text-gray-900 text-base">香港耀能協會 (SAHK)</h3>
+                                <p class="text-xxs text-gray-400 font-bold italic">專業物理及職業治療大廠</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600 leading-relaxed mb-4">
+                            <strong>非華語支援：</strong>為就讀主流中小學的非華語學生提供到校「校園支援服務」。包含全英語物理治療（PT）、職業治療（OT）諮詢，指導家長調適家居學習環境。
+                        </p>
+                    </div>
+                    <div class="border-t border-gray-100 pt-3.5 space-y-1 text-xs text-gray-500">
+                        <p><span class="font-bold"><i class="fa-solid fa-phone mr-1 text-sen"></i> 查詢電話：</span>2527 8978</p>
+                        <p><span class="font-bold"><i class="fa-solid fa-map-pin mr-1.5 text-sen"></i> 總辦事處：</span>香港北角百福道21號17樓</p>
+                    </div>
+                </div>
+
+                <!-- NGO 3: 愛培自閉症基金 -->
+                <div class="border border-gray-150 rounded-2xl p-5 hover:shadow-lg transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="bg-rose-50 text-sen w-11 h-11 rounded-xl flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-puzzle-piece"></i></div>
+                            <div>
+                                <h3 class="font-extrabold text-gray-900 text-base">愛培自閉症基金 (APF)</h3>
+                                <p class="text-xxs text-gray-400 font-bold italic">專注自閉症譜系 ABA 治療</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600 leading-relaxed mb-4">
+                            <strong>非華語支援：</strong>提供全面的 ABA (應用行為分析) 諮詢。其擁有多位外籍與國際認證的行為分析師，能用全英語與家長溝通，並為低收入少數族裔家庭提供一對一資助訓練。
+                        </p>
+                    </div>
+                    <div class="border-t border-gray-100 pt-3.5 space-y-1 text-xs text-gray-500">
+                        <p><span class="font-bold"><i class="fa-solid fa-phone mr-1 text-sen"></i> 查詢電話：</span>3583 0400</p>
+                        <p><span class="font-bold"><i class="fa-solid fa-map-pin mr-1.5 text-sen"></i> 總辦事處：</span>香港北角渣華道321號柯達大廈二期</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第六區塊：學校 SENCO 諮詢與轉介預約表單 -->
+        <section class="bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl border border-rose-100 p-6">
+            <div class="border-b border-rose-100 pb-4 mb-6">
+                <span class="bg-rose-600 text-white text-xxs font-extrabold px-2.5 py-1 rounded-md shadow-sm uppercase tracking-wider">主動求助 Consultation Form</span>
+                <h2 class="text-xl font-extrabold text-gray-900 flex items-center gap-2 mt-2">
+                    <i class="fa-solid fa-file-invoice text-sen"></i> 預約校內特殊教育主任 (SENCO) 或社工預約諮詢
+                </h2>
+                <p class="text-xs text-rose-900 mt-1 font-medium">
+                    非華語家長如果擔憂子女的學習進度，可直接填寫此模擬信件。系統將為您自動生成符合格式的雙語預約需求。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- 填寫控制 -->
+                <div class="lg:col-span-1 bg-white p-5 rounded-xl border border-rose-100/50 shadow-sm space-y-4">
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-600 mb-1">家長姓名 (Parent Name) *</label>
+                            <input type="text" id="fm-parent" placeholder="如: Ali's Father" class="w-full p-2 border border-gray-200 rounded-lg text-sm focus:border-sen focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-600 mb-1">聯絡電話 (Phone) *</label>
+                            <input type="tel" id="fm-phone" placeholder="9123 4567" class="w-full p-2 border border-gray-200 rounded-lg text-sm focus:border-sen focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-600 mb-1">學生中文名 (Student) *</label>
+                            <input type="text" id="fm-student" placeholder="如: 阿里" class="w-full p-2 border border-gray-200 rounded-lg text-sm focus:border-sen focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-600 mb-1">就讀班別 (Class) *</label>
+                            <input type="text" id="fm-class" placeholder="如: 2A" class="w-full p-2 border border-gray-200 rounded-lg text-sm focus:border-sen focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-600 mb-1">最擔憂的學習範疇 (Primary Concern) *</label>
+                        <select id="fm-concern" class="w-full p-2.5 border border-gray-200 rounded-lg text-sm focus:border-sen focus:outline-none font-semibold">
+                            <option value="reading">中文讀寫與認字特別困難 (Reading & Writing)</option>
+                            <option value="focus">課堂無法專注、多動或頻繁漏交功課 (Focus & Hyperactivity)</option>
+                            <option value="social">不願與同學說話交往、重複刻板行為 (Social & Autism)</option>
+                            <option value="speech">廣東話與英文發音均不清晰 (Speech Development)</option>
+                        </select>
+                    </div>
+
+                    <button onclick="generateSencoForm()" class="w-full bg-sen hover:bg-rose-700 text-white font-extrabold py-3 rounded-xl transition shadow-md flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-file-lines"></i> 產生雙語聯絡預約函
+                    </button>
+                </div>
+
+                <!-- 生成結果 -->
+                <div class="lg:col-span-2 border-2 border-dashed border-rose-200 rounded-xl p-6 flex flex-col justify-between bg-white relative min-h-[300px]">
+                    <div id="senco-form-preview" class="text-sm leading-relaxed text-gray-800 space-y-4">
+                        <div class="text-center py-20 text-gray-400">
+                            <i class="fa-solid fa-envelope-open-text text-5xl mb-3 text-rose-100"></i>
+                            <p>完成左側填表後點擊生成，本處會呈現供您複製或截圖帶給班主任的預約諮詢信預覽。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 頁尾 -->
+    <footer class="bg-slate-900 text-slate-400 py-8 mt-auto border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center text-sm">
+            <p>&copy; 2026 NCS 融學支援平台. SEN 特殊教育支援專區.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 1. 三大常見 SEN 篩查題目數據
+        const screeningData = {
+            dyslexia: {
+                title: "讀寫障礙日常表現篩查 (Dyslexia Checklist)",
+                items: [
+                    { zh: "1. 孩子默寫或抄寫中文字時，常出現漏寫筆劃，或左右結構顛倒（如將「陪」寫成「部」）。", en: "1. Often misses strokes or reverses left-right structures in writing Chinese characters (e.g. mirrors elements)." },
+                    { zh: "2. 閱讀課文時經常跳行、漏字，或將類似字形混淆（如「力」與「刀」、「人」與「入」）。", en: "2. Skips lines/words during reading, or confuses visually similar characters." },
+                    { zh: "3. 雖然反複溫習和認字，但隔天依然很快忘記中文字的發音和拼寫。", en: "3. Forgets Chinese pronunciations or spellings very quickly despite repetitive revision." },
+                    { zh: "4. 指導其書寫中文字時，常出現筆順極度不協調，或字體大小嚴重超出格外的現象。", en: "4. Demonstrates highly uncoordinated stroke orders, or writes excessively large characters exceeding boundaries." },
+                    { zh: "5. 英文拼寫也常出現字母順序顛倒（如將 'was' 寫成 'saw'， 'b' 與 'd' 混淆）。", en: "5. Frequently reverses letter order in English spelling (e.g. 'was' as 'saw', confuses 'b' and 'd')." }
+                ]
+            },
+            adhd: {
+                title: "專注力不足與過度活躍日常表現篩查 (ADHD Checklist)",
+                items: [
+                    { zh: "1. 在课堂上或做功課時，孩子極易受微小外界聲音干擾而分心，無法維持 10 分鐘以上的專注。", en: "1. Easily distracted by minor external noises during lessons or homework, failing to focus for over 10 minutes." },
+                    { zh: "2. 做功課或整理書包時，經常丟三落四，遺失鉛筆、作業本，忘記功課記事手冊（手冊）。", en: "2. Frequently loses stationeries, books, or forgets home assignment checklists." },
+                    { zh: "3. 身體在座位上常坐立不安，頻繁搖晃身體，或無故離開座位四處走動。", en: "3. Restless in seat, frequently squirms, fidgets, or leaves seat without permission." },
+                    { zh: "4. 日常說話時急於搶答，經常在老師或他人問話未完時就大聲回答，很難耐心排隊等候。", en: "4. Blurts out answers before questions are completed, has difficulty waiting for their turn." },
+                    { zh: "5. 經常在進行一項活動未完時，就突然轉向另一項活動，做事缺乏計畫 and 條理。", en: "5. Often leaves one activity incomplete to jump into another, lacking organization." }
+                ]
+            },
+            asd: {
+                title: "自閉症譜系社交與行為篩查 (Autism Spectrum Checklist)",
+                items: [
+                    { zh: "1. 孩子極少與家人或同學有眼神接觸，在對話時眼神常刻意避開對方。", en: "1. Avoids or makes very minimal eye contact during conversations with parents or classmates." },
+                    { zh: "2. 難以理解同儕在社交場合的幽默或弦外之音，社交反應較為冷淡，不願主動分享玩具或參與集體遊戲。", en: "2. Struggles to understand peers' humor or social cues, showing cold social responses or reluctance to play in groups." },
+                    { zh: "3. 堅持某些固定的日常生活常規（例如必須走同一條路線回家，否則會極度焦慮和哭鬧）。", en: "3. Insists on rigid routines (e.g. taking the exact same route home, showing extreme distress if changed)." },
+                    { zh: "4. 對於特定的物件或主題展現出超乎尋常的強烈興趣（例如過度迷戀地鐵圖紙、旋轉的車輪、恐龍百科等）。", en: "4. Shows abnormally intense focus/obsession with specific items (e.g. MTR maps, spinning wheels, dinosaurs)." },
+                    { zh: "5. 在日常溝通中，常出現鸚鵡學舌式地重複別人的話，而非進行對等回應。", en: "5. Echoes or repeats others' words (echolalia) instead of responding with original sentences." }
+                ]
+            }
+        };
+
+        let currentQuizCategory = 'dyslexia';
+
+        // 2. 切換初步篩查專區
+        function switchQuizCategory(category) {
+            currentQuizCategory = category;
+            
+            // 更新頁籤樣式
+            document.querySelectorAll('.q-tab-btn').forEach(btn => {
+                btn.className = "q-tab-btn text-xs font-bold px-3 py-1.5 rounded-lg text-gray-600 hover:text-rose-600 transition-all";
+            });
+            // 由於動態建立，事件直接綁定，這裡以點擊事件來源做簡單選中處理
+            const activeBtn = window.event.currentTarget;
+            if (activeBtn) {
+                activeBtn.className = "q-tab-btn text-xs font-bold px-3 py-1.5 rounded-lg bg-white text-sen shadow-sm transition-all duration-300";
+            }
+
+            renderQuizOptions();
+        }
+
+        function renderQuizOptions() {
+            const container = document.getElementById('quiz-options-container');
+            container.innerHTML = '';
+
+            const quiz = screeningData[currentQuizCategory];
+            quiz.items.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = "flex items-start p-3 bg-white border border-gray-150 rounded-xl hover:border-rose-200 transition";
+                div.innerHTML = `
+                    <input type="checkbox" id="chk-${currentQuizCategory}-${index}" class="mt-1 mr-3 h-4.5 w-4.5 text-sen border-gray-300 rounded focus:ring-sen shrink-0">
+                    <div>
+                        <label for="chk-${currentQuizCategory}-${index}" class="font-bold text-gray-800 text-sm md:text-base cursor-pointer leading-relaxed">
+                            ${item.zh}
+                        </label>
+                        <p class="text-xs text-gray-400 font-semibold italic mt-1 leading-normal">${item.en}</p>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // 3. 評估分數計算與專家報告產出
+        function calculateScreeningScore() {
+            const quiz = screeningData[currentQuizCategory];
+            let yesCount = 0;
+
+            quiz.items.forEach((item, index) => {
+                const el = document.getElementById(`chk-${currentQuizCategory}-${index}`);
+                if (el && el.checked) {
+                    yesCount++;
+                }
+            });
+
+            const reportBox = document.getElementById('screening-report-container');
+
+            let riskTitleZh = "";
+            let riskTitleEn = "";
+            let riskColor = "";
+            let adviceZh = "";
+            let adviceEn = "";
+
+            if (yesCount === 0) {
+                riskTitleZh = "✅ 子女狀態：目前未觀察到明顯特徵 (Low Indicator)";
+                riskTitleEn = "No significant indicators observed at present.";
+                riskColor = "bg-green-50 text-green-800 border-green-200";
+                adviceZh = "家長請放心，孩子在該範疇的日常生活和學務表現完全在同齡人正常發育曲線內。請繼續保持輕鬆愉快的家校共讀氛圍，並關注其餘學習科目進度。";
+                adviceEn = "Your child's behaviors are within typical peer developmental ranges. Keep fostering a positive learning environment.";
+            } else if (yesCount <= 2) {
+                riskTitleZh = "💡 子女狀態：輕度或偶發特徵，建議持續溫和觀察 (Mild Indicator)";
+                riskTitleEn = "A few mild indicators noted. Continuous observation advised.";
+                riskColor = "bg-yellow-50 text-yellow-800 border-yellow-200";
+                adviceZh = "孩子展現出少量偶發的行為。有些特徵可能是因為非華語家庭在「第二語言（L2）學習」中自然的文化適應滯後所致（特別是認字方面）。請給予孩子更多耐性，多進行雙語對照共讀，並與班主任保持日常聯絡。";
+                adviceEn = "Some signs might stem from normal second language acquisition adjustments. Keep supporting with bilingual readings and talk to the teacher.";
+            } else {
+                riskTitleZh = "⚠️ 警示：特徵較為明顯，強烈建議聯絡學校 SENCO (Strong Indicator)";
+                riskTitleEn = "Strong indicators noted. Prompt school SENCO contact is highly recommended.";
+                riskColor = "bg-rose-50 text-sen border-rose-200";
+                adviceZh = "<strong>請家長正視並保持冷靜：</strong> 孩子在該板塊的特徵相對密集。強烈建議您下週一將此報告截圖或口頭聯絡班主任，主動提出：<strong>「希望預約校內特殊教育需求協調員 (SENCO) 進行初步評估與輔導」</strong>。及早發現、及早介入 (Early Intervention) 能大幅減輕孩子未來的學習挫折。";
+                adviceEn = "We strongly suggest contacting the school Special Educational Needs Coordinator (SENCO) or social worker for a standard professional assessment. Early intervention reduces learning struggles.";
+            }
+
+            // 產出報告 DOM
+            reportBox.innerHTML = `
+                <div class="bg-white p-5 rounded-2xl border border-gray-150 h-full flex flex-col justify-between fade-in shadow-inner">
+                    <div>
+                        <div class="border-b border-gray-150 pb-3 mb-4">
+                            <span class="text-xxs text-gray-400 font-extrabold uppercase tracking-wider">初步篩查結果報告 (Bilingual Report)</span>
+                            <h4 class="font-extrabold text-gray-900 text-sm md:text-base mt-1">${quiz.title}</h4>
+                        </div>
+
+                        <!-- 指標燈與狀態 -->
+                        <div class="border p-4 rounded-xl text-xs md:text-sm font-extrabold mb-4 leading-relaxed ${riskColor}">
+                            ${riskTitleZh}
+                            <p class="text-xxs font-semibold italic mt-1 leading-normal opacity-90">${riskTitleEn}</p>
+                        </div>
+
+                        <!-- 專家指引 -->
+                        <div class="space-y-3">
+                            <span class="block text-xs font-bold text-gray-400 uppercase tracking-widest"><i class="fa-solid fa-circle-info text-sen mr-1"></i> 專家實用建議 (Parent Guidelines)：</span>
+                            <p class="text-xs md:text-sm text-gray-700 leading-relaxed font-semibold">${adviceZh}</p>
+                            <p class="text-xxs text-gray-400 italic leading-normal border-l-2 border-rose-200 pl-2 mt-1">${adviceEn}</p>
+                        </div>
+                    </div>
+
+                    <div class="text-xxs text-gray-400 border-t border-gray-100 pt-3 mt-4 leading-normal">
+                        *聲明：本觀察量表整合自香港衛生署及主流教育機構常見家長篩查指標，僅作為日常溝通參考，絕不可代替臨床醫學或教育心理學家的正式專業診斷。
+                    </div>
+                </div>
+            `;
+            showToast("評估報告已生成！已爲您產出下一步實用指引。", "success");
+        }
+
+        function resetScreening() {
+            const quiz = screeningData[currentQuizCategory];
+            quiz.items.forEach((item, index) => {
+                const el = document.getElementById(`chk-${currentQuizCategory}-${index}`);
+                if (el) el.checked = false;
+            });
+            showToast("已重置當前評估選項", "info");
+        }
+
+        // 4. SENCO / NGO 雙語預約信件生成器邏輯
+        function generateSencoForm() {
+            const parent = document.getElementById('fm-parent').value.trim();
+            const phone = document.getElementById('fm-phone').value.trim();
+            const student = document.getElementById('fm-student').value.trim();
+            const cls = document.getElementById('fm-class').value.trim();
+            const concernKey = document.getElementById('fm-concern').value;
+
+            if (!parent || !phone || !student || !cls) {
+                showToast("請填寫所有必填欄位。 (Please fill in all required fields)", "warning");
+                return;
+            }
+
+            const concernMap = {
+                reading: {
+                    zh: "在中文讀寫與認字方面遇到極大障礙，抄寫與閱讀非常吃力",
+                    en: "experiences serious barriers in Chinese reading and writing, struggling with character copying and comprehension"
+                },
+                focus: {
+                    zh: "課堂上極難維持專注，多動且經常遺失作業和手冊",
+                    en: "struggles with class concentration and hyperactivity, often losing homework and the handbook"
+                },
+                social: {
+                    zh: "社交溝通薄弱，不願主動與同學交往，且重複刻板行為",
+                    en: "demonstrates weak social communication, reluctance to play with peers, and rigid routines"
+                },
+                speech: {
+                    zh: "中英文口語發音均出現不清晰、或語言表達遲緩",
+                    en: "shows unclear pronunciation in both Chinese and English, or speech delays"
+                }
+            };
+
+            const selectedConcern = concernMap[concernKey];
+
+            // 格式化今日日期
+            const today = new Date();
+            const dateStr = `${today.getFullYear()}年${today.getMonth() + 1}月${today.getDate()}日`;
+
+            const letterHTML = `
+                <div class="p-5 border border-gray-200 rounded-2xl bg-white max-w-2xl mx-auto shadow-sm font-sans" style="line-height: 1.8;">
+                    <div class="flex justify-between items-center border-b border-gray-100 pb-3 mb-4">
+                        <span class="text-xs text-sen font-extrabold uppercase tracking-widest"><i class="fa-solid fa-paper-plane mr-1"></i> 預約諮詢信件預覽 (Bilingual Letter)</span>
+                        <button onclick="copyFormText()" class="bg-sen text-white text-xxs font-bold px-3 py-1.5 rounded-lg shadow hover:bg-rose-700 transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-copy"></i> 一鍵複製內容
+                        </button>
+                    </div>
+
+                    <div class="space-y-4 my-4 text-gray-800 text-xs md:text-sm">
+                        <p class="font-bold">致：班主任老師 / 學校特殊教育需求協調員 (SENCO)</p>
+                        <p class="text-xxs text-gray-400 italic -mt-2">To: Class Teacher / School SENCO</p>
+                        
+                        <p>
+                            您好。我是 <strong>${cls}</strong> 班學生 <strong>${student}</strong> 的家長。
+                            我們在日常觀察中，發現孩子在 <strong>${selectedConcern.zh}</strong>。
+                            我們非常希望能夠預約一次面談或諮詢，探討是否可以為孩子安排校內特殊教育評估或個別學習調適，謝謝您。
+                        </p>
+                        
+                        <div class="bg-rose-50/50 p-3.5 rounded-xl border-l-4 border-sen text-xxs text-gray-500 italic leading-relaxed">
+                            Dear Class Teacher / SENCO,<br><br>
+                            I am writing as the parent of <strong>${student}</strong> in Class <strong>${cls}</strong>. 
+                            We noticed that our child <strong>${selectedConcern.en}</strong> during daily learning. 
+                            We would highly appreciate a consultation to discuss potential school SEN support or individual IEP accommodations. Thank you.
+                        </div>
+
+                        <div class="pt-4 border-t border-gray-100 flex justify-between items-end">
+                            <div class="text-xs">
+                                <p class="font-bold">家長姓名 (Parent): ${parent}</p>
+                                <p class="font-bold">聯絡電話 (Phone): ${phone}</p>
+                            </div>
+                            <p class="text-xs text-gray-400 font-bold">日期 (Date): ${dateStr}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('senco-form-preview').innerHTML = letterHTML;
+            showToast("預約信已成功產生！", "success");
+        }
+
+        // 一鍵複製信件文字內容
+        function copyFormText() {
+            const sencoBox = document.getElementById('senco-form-preview');
+            // 排除複製按鈕，只抽取實際信件內文文字
+            const rawText = sencoBox.innerText.replace("一鍵複製內容", "");
+
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = rawText;
+            tempTextArea.style.position = 'fixed';
+            tempTextArea.style.opacity = '0';
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            tempTextArea.setSelectionRange(0, 99999);
+
+            try {
+                document.execCommand('copy');
+                showToast("信件內文已複製！可直接貼在 WhatsApp 傳給老師。", "success");
+            } catch (err) {
+                showToast("複製失敗，請手動框選文字複製", "warning");
+            }
+            document.body.removeChild(tempTextArea);
+        }
+
+        // 全域 Toast 回饋提示
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `fixed bottom-5 right-5 z-50 px-4 py-3 rounded-xl shadow-lg text-white font-bold transition-all duration-300 transform translate-y-10 opacity-0 ${
+                type === 'warning' ? 'bg-amber-500' : type === 'success' ? 'bg-sen' : 'bg-primary'
+            }`;
+            toast.innerText = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.remove('translate-y-10', 'opacity-0');
+            }, 50);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-10');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // 頁面初始化
+        window.onload = () => {
+            renderQuizOptions();
+        };
+    </script>
+</body>
+</html>
