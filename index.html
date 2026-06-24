@@ -4,11 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NCS 融學平台 | 全方位支援</title>
-    <!-- 引入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 引入 FontAwesome 圖示 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- 設定平台專屬主色調與微網格背景 -->
     <script>
         tailwind.config = {
             theme: {
@@ -37,17 +34,14 @@
 </head>
 <body class="bg-slate-50 font-sans text-gray-800 min-h-screen flex flex-col bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:24px_24px]">
 
-    <!-- 共用導覽列 -->
     <nav class="bg-primary text-white shadow-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
-                <!-- Logo 區塊 -->
                 <a href="index.html" class="flex items-center space-x-3 hover:opacity-80 transition">
                     <i class="fa-solid fa-graduation-cap text-2xl"></i>
                     <span class="font-bold text-xl tracking-wide">NCS 融學平台</span>
                 </a>
                 
-                <!-- 桌面版選單 -->
                 <div class="hidden md:flex space-x-6 font-medium text-sm items-center">
                     <a href="index.html" class="text-blue-200 font-bold border-b-2 border-blue-200 pb-1">首頁</a>
                     <a href="student.html" class="hover:text-blue-200 transition-all duration-300">學生</a>
@@ -56,13 +50,11 @@
                     <a href="pathway.html" class="hover:text-blue-200 transition-all duration-300">升學</a>
                     <a href="sen.html" class="hover:text-blue-200 transition-all duration-300">SEN</a>
                     
-                    <!-- Firebase 動態狀態按鈕 -->
                     <button id="auth-nav-btn" onclick="openAuthModal()" class="bg-white text-primary px-4 py-2 rounded-full font-bold hover:bg-blue-50 transition shadow-sm text-sm ml-4 flex items-center gap-1.5">
                         <i class="fa-solid fa-spinner animate-spin"></i> 載入中
                     </button>
                 </div>
                 
-                <!-- 手機版選單按鈕 -->
                 <div class="md:hidden flex items-center">
                     <button onclick="toggleMobileMenu()" class="text-white hover:text-blue-200 focus:outline-none">
                         <i class="fa-solid fa-bars text-2xl"></i>
@@ -71,7 +63,6 @@
             </div>
         </div>
         
-        <!-- 手機版下拉菜單 -->
         <div id="mobile-menu" class="hidden md:hidden bg-blue-700 border-t border-blue-600 px-4 py-3 space-y-2">
             <a href="index.html" class="block text-white font-bold py-2">首頁</a>
             <a href="student.html" class="block text-blue-100 hover:text-white py-2">學生專區</a>
@@ -83,7 +74,6 @@
         </div>
     </nav>
 
-    <!-- 橫幅區域 (Hero Section) -->
     <header class="py-20 text-center relative overflow-hidden">
         <div class="max-w-5xl mx-auto px-4 relative z-10">
             <span class="bg-blue-100 text-primary font-bold px-4 py-1.5 rounded-full text-xs mb-6 inline-block shadow-sm">
@@ -110,7 +100,6 @@
         </div>
     </header>
 
-    <!-- 核心功能區塊 (六大模組) -->
     <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="text-center mb-14">
             <h2 class="text-3xl font-extrabold text-gray-900 mb-4">平台六大核心支援</h2>
@@ -120,7 +109,6 @@
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             
-            <!-- 1. 學生專區 -->
             <a href="student.html" class="cursor-pointer bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 p-8 border border-gray-100 flex flex-col group relative overflow-hidden">
                 <div class="absolute top-0 right-0 w-24 h-24 bg-blue-50 rounded-bl-full -mr-4 -mt-4 transition group-hover:scale-110"></div>
                 <div class="bg-primary text-white w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-md relative z-10">
@@ -131,7 +119,6 @@
                 <div class="text-primary font-bold flex items-center relative z-10">進入專區 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-all duration-300"></i></div>
             </a>
 
-            <!-- 2. 家長專區 -->
             <a href="parent.html" class="cursor-pointer bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 p-8 border border-gray-100 flex flex-col group relative overflow-hidden">
                 <div class="absolute top-0 right-0 w-24 h-24 bg-green-50 rounded-bl-full -mr-4 -mt-4 transition group-hover:scale-110"></div>
                 <div class="bg-secondary text-white w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-md relative z-10">
@@ -142,7 +129,6 @@
                 <div class="text-secondary font-bold flex items-center relative z-10">進入專區 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-all duration-300"></i></div>
             </a>
 
-            <!-- 3. 選校搜尋 -->
             <a href="school.html" class="cursor-pointer bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 p-8 border border-gray-100 flex flex-col group relative overflow-hidden">
                 <div class="absolute top-0 right-0 w-24 h-24 bg-teal-50 rounded-bl-full -mr-4 -mt-4 transition group-hover:scale-110"></div>
                 <div class="bg-school text-white w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-md relative z-10">
@@ -153,7 +139,6 @@
                 <div class="text-school font-bold flex items-center relative z-10">開始搜尋 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-all duration-300"></i></div>
             </a>
 
-            <!-- 4. 升學導航 -->
             <a href="pathway.html" class="cursor-pointer bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 p-8 border border-gray-100 flex flex-col group relative overflow-hidden">
                 <div class="absolute top-0 right-0 w-24 h-24 bg-purple-50 rounded-bl-full -mr-4 -mt-4 transition group-hover:scale-110"></div>
                 <div class="bg-pathway text-white w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-md relative z-10">
@@ -164,7 +149,6 @@
                 <div class="text-pathway font-bold flex items-center relative z-10">探索出路 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-all duration-300"></i></div>
             </a>
 
-            <!-- 5. SEN 支援 -->
             <a href="sen.html" class="cursor-pointer bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 p-8 border border-gray-100 flex flex-col group relative overflow-hidden">
                 <div class="absolute top-0 right-0 w-24 h-24 bg-rose-50 rounded-bl-full -mr-4 -mt-4 transition group-hover:scale-110"></div>
                 <div class="bg-sen text-white w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-md relative z-10">
@@ -175,7 +159,6 @@
                 <div class="text-sen font-bold flex items-center relative z-10">獲取支援 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-all duration-300"></i></div>
             </a>
 
-            <!-- 6. 文化共融 -->
             <a href="culture.html" class="cursor-pointer bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 p-8 border border-gray-100 flex flex-col group relative overflow-hidden">
                 <div class="absolute top-0 right-0 w-24 h-24 bg-orange-50 rounded-bl-full -mr-4 -mt-4 transition group-hover:scale-110"></div>
                 <div class="bg-culture text-white w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-md relative z-10">
@@ -189,10 +172,8 @@
         </div>
     </main>
 
-    <!-- 雲端同步與帳戶管理 Modal 視窗 (Firebase 控制台) -->
     <div id="auth-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden opacity-0 transition-opacity duration-300">
         <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden transform scale-95 transition-all duration-300">
-            <!-- Modal Header -->
             <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-5">
                 <div class="flex justify-between items-center">
                     <div>
@@ -205,10 +186,8 @@
                 </div>
             </div>
             
-            <!-- Modal Body (動態切換：未登入與已登入面板) -->
             <div class="p-6 space-y-6">
                 
-                <!-- 情況 A：已登入面板 (雲端備份控制) -->
                 <div id="panel-logged-in" class="hidden space-y-5 fade-in">
                     <div class="bg-emerald-50 border border-emerald-100 p-4 rounded-xl flex items-center gap-3">
                         <div class="bg-emerald-500 text-white w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow"><i class="fa-solid fa-user-check"></i></div>
@@ -239,13 +218,11 @@
                     </div>
                 </div>
 
-                <!-- 情況 B：未登入面板 (電郵登入與註冊) -->
                 <div id="panel-logged-out" class="hidden space-y-4 fade-in">
                     <div class="bg-amber-50 border border-amber-100 p-4 rounded-xl text-xs text-amber-900 leading-relaxed font-semibold">
                         <i class="fa-solid fa-circle-exclamation mr-1 text-amber-600"></i> 您目前正以<strong>「訪客 (Anonymous)」</strong>身份使用。為了防止清理瀏覽器緩存時進度遺失，建議註冊並登入專屬帳戶，開啟無限期雲端備份同步。
                     </div>
 
-                    <!-- 登入表單 -->
                     <div class="space-y-3">
                         <div>
                             <label class="block text-xs font-bold text-gray-600 mb-1">電子郵件 (Email) *</label>
@@ -271,7 +248,6 @@
         </div>
     </div>
 
-    <!-- 訊息提示視窗 Toast Notice (替代 alert) -->
     <div id="toast" class="fixed bottom-5 right-5 bg-slate-900 text-white px-5 py-3.5 rounded-xl shadow-lg z-50 transform translate-y-20 opacity-0 transition-all duration-300 max-w-sm flex items-center space-x-3">
         <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-xl"></i>
         <div>
@@ -280,7 +256,6 @@
         </div>
     </div>
 
-    <!-- 頁尾 -->
     <footer class="bg-slate-900 text-slate-400 py-10 mt-auto border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between text-sm">
             <div class="flex items-center space-x-2 mb-4 md:mb-0">
@@ -296,21 +271,33 @@
         </div>
     </footer>
 
-    <!-- Firebase 腳本導入與系統架構 (遵守 Rule 1 & Rule 3) -->
     <script type="module">
-        // 導入 Firebase 官方核心與資料庫組件
+        // 導入 Firebase 官方核心與資料庫組件 (使用 CDN 模組確保 HTML 能直接運行)
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, signOut, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged, signOut, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // 全域配置初始化
-        const firebaseConfig = JSON.parse(__firebase_config);
+        // ==========================================
+        // 您的 Web App 專屬 Firebase 配置
+        // ==========================================
+        const firebaseConfig = {
+          apiKey: "AIzaSyBXwEuaruGZU-x8Yn3LIdZgKt12qeFA-Bc",
+          authDomain: "ncs-support-platform.firebaseapp.com",
+          projectId: "ncs-support-platform",
+          storageBucket: "ncs-support-platform.firebasestorage.app",
+          messagingSenderId: "470638567220",
+          appId: "1:470638567220:web:5aa9f3db6b667a8ac90f61"
+        };
+
+        // 初始化 Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        
+        // 設定專案識別碼 (用於資料庫儲存路徑)
+        const appId = 'ncs-support-platform';
 
-        // 綁定全域變數，以便 HTML 內行按鈕可以順利觸發事件
+        // 綁定全域變數，以便 HTML 內聯按鈕可以順利觸發事件
         window.openAuthModal = openAuthModal;
         window.closeAuthModal = closeAuthModal;
         window.handleSignOut = handleSignOut;
@@ -323,22 +310,19 @@
         // 當前登入用戶狀態
         let currentUser = null;
 
-        // RULE 3 - 優先調用 auth 進行認證
+        // 啟動匿名登入機制
         const initAuth = async () => {
             try {
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
-                    await signInAnonymously(auth);
-                }
+                await signInAnonymously(auth);
             } catch (err) {
                 console.error("Auth initialization error: ", err);
                 showToast("連線認證失敗 (Connection failure)", "Please refresh or try again later.", "warning");
             }
         };
 
-        // 啟動身份監聽
         initAuth();
+
+        // 監聽身份變化
         onAuthStateChanged(auth, (user) => {
             currentUser = user;
             updateAuthUI(user);
@@ -418,7 +402,7 @@
             }
         }
 
-        // RULE 1 - 嚴格遵循路徑備份數據到雲端
+        // 將資料備份至 Firebase Firestore
         async function backupProgressToCloud() {
             if (!currentUser || currentUser.isAnonymous) {
                 showToast("訪客身份無法使用雲端備份", "Anonymous users cannot back up to cloud.", "warning");
@@ -427,7 +411,6 @@
 
             showToast("備份同步中...", "Syncing with cloud database...", "info");
 
-            // 整合各頁面的 LocalStorage 進度
             const localData = {
                 checklists: {
                     sfo: localStorage.getItem('chk-sfo') === 'true',
@@ -443,7 +426,6 @@
             };
 
             try {
-                // RULE 1: 使用專屬路徑 /artifacts/{appId}/users/{userId}/user_progress
                 const docRef = doc(db, 'artifacts', appId, 'users', currentUser.uid, 'user_progress', 'dashboard');
                 await setDoc(docRef, localData);
                 showToast("雲端備份同步完成！", "Progress backup completed successfully!", "success");
@@ -453,7 +435,7 @@
             }
         }
 
-        // RULE 1 - 從雲端讀取並還原到本地
+        // 從 Firebase Firestore 還原資料
         async function restoreProgressFromCloud() {
             if (!currentUser || currentUser.isAnonymous) {
                 showToast("無效帳戶，無法還原", "Anonymous users cannot restore progress.", "warning");
@@ -469,7 +451,6 @@
                 if (docSnap.exists()) {
                     const cloudData = docSnap.data();
                     
-                    // 還原至 LocalStorage，達到跨端同步
                     if (cloudData.checklists) {
                         localStorage.setItem('chk-sfo', cloudData.checklists.sfo);
                         localStorage.setItem('chk-pta', cloudData.checklists.pta);
