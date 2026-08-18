@@ -4,27 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NCS 融學平台 | 全方位支援</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#2563EB',   /* 學生專區 / 主題藍色 */
-                        secondary: '#10B981', /* 家長專區 / 綠色 */
-                        school: '#0D9488',    /* 選校 / 藍綠色 */
-                        pathway: '#9333EA',   /* 升學 / 紫色 */
-                        sen: '#E11D48',       /* SEN / 玫瑰紅 */
-                        culture: '#EA580C'    /* 文化 / 橙色 */
-                    }
-                }
-            }
-        }
-    </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
-        
+
         body {
             font-family: 'Noto Sans TC', 'Poppins', sans-serif;
         }
@@ -41,7 +25,7 @@
                     <i class="fa-solid fa-graduation-cap text-2xl"></i>
                     <span class="font-bold text-xl tracking-wide">NCS 融學平台</span>
                 </a>
-                
+
                 <div class="hidden md:flex space-x-6 font-medium text-sm items-center">
                     <a href="index.html" class="text-blue-200 font-bold border-b-2 border-blue-200 pb-1">首頁</a>
                     <a href="student.html" class="hover:text-blue-200 transition-all duration-300">學生</a>
@@ -49,20 +33,20 @@
                     <a href="school.html" class="hover:text-blue-200 transition-all duration-300">選校</a>
                     <a href="pathway.html" class="hover:text-blue-200 transition-all duration-300">升學</a>
                     <a href="sen.html" class="hover:text-blue-200 transition-all duration-300">SEN</a>
-                    
-                    <button id="auth-nav-btn" onclick="openAuthModal()" class="bg-white text-primary px-4 py-2 rounded-full font-bold hover:bg-blue-50 transition shadow-sm text-sm ml-4 flex items-center gap-1.5">
+
+                    <button type="button" id="auth-nav-btn" onclick="openAuthModal()" class="bg-white text-primary px-4 py-2 rounded-full font-bold hover:bg-blue-50 transition shadow-sm text-sm ml-4 flex items-center gap-1.5">
                         <i class="fa-solid fa-spinner animate-spin"></i> 載入中
                     </button>
                 </div>
-                
+
                 <div class="md:hidden flex items-center">
-                    <button onclick="toggleMobileMenu()" class="text-white hover:text-blue-200 focus:outline-none">
+                    <button type="button" onclick="toggleMobileMenu()" class="text-white hover:text-blue-200 focus:outline-none" aria-label="操作按鈕">
                         <i class="fa-solid fa-bars text-2xl"></i>
                     </button>
                 </div>
             </div>
         </div>
-        
+
         <div id="mobile-menu" class="hidden md:hidden bg-blue-700 border-t border-blue-600 px-4 py-3 space-y-2">
             <a href="index.html" class="block text-white font-bold py-2">首頁</a>
             <a href="student.html" class="block text-blue-100 hover:text-white py-2">學生專區</a>
@@ -70,7 +54,7 @@
             <a href="school.html" class="block text-blue-100 hover:text-white py-2">選校搜尋</a>
             <a href="pathway.html" class="block text-blue-100 hover:text-white py-2">升學職涯</a>
             <a href="sen.html" class="block text-blue-100 hover:text-white py-2">SEN支援</a>
-            <button onclick="openAuthModal()" class="w-full bg-white text-primary py-2 rounded-lg font-bold">帳戶同步中心</button>
+            <button type="button" onclick="openAuthModal()" class="w-full bg-white text-primary py-2 rounded-lg font-bold">帳戶同步中心</button>
         </div>
     </nav>
 
@@ -106,9 +90,9 @@
             <div class="w-16 h-1 bg-primary mx-auto rounded-full mb-4"></div>
             <p class="text-gray-500 text-lg">全方位涵蓋學習、生活、升學與特殊需求</p>
         </div>
-        
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
+
             <a href="student.html" class="cursor-pointer bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 p-8 border border-gray-100 flex flex-col group relative overflow-hidden">
                 <div class="absolute top-0 right-0 w-24 h-24 bg-blue-50 rounded-bl-full -mr-4 -mt-4 transition group-hover:scale-110"></div>
                 <div class="bg-primary text-white w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-md relative z-10">
@@ -178,16 +162,16 @@
                 <div class="flex justify-between items-center">
                     <div>
                         <h3 class="text-lg md:text-xl font-black"><i class="fa-solid fa-cloud-arrow-up mr-2"></i> 融學雲端同步中心</h3>
-                        <p class="text-xs font-semibold text-blue-100 italic">NCS Cloud Sync & Authentication Hub</p>
+                        <p class="text-xs font-semibold text-blue-100 italic">NCS Cloud Sync &amp; Authentication Hub</p>
                     </div>
-                    <button onclick="closeAuthModal()" class="text-white hover:text-blue-100 bg-white/10 hover:bg-white/20 p-1.5 rounded-lg text-lg">
+                    <button type="button" onclick="closeAuthModal()" class="text-white hover:text-blue-100 bg-white/10 hover:bg-white/20 p-1.5 rounded-lg text-lg" aria-label="關閉">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
             </div>
-            
+
             <div class="p-6 space-y-6">
-                
+
                 <div id="panel-logged-in" class="hidden space-y-5 fade-in">
                     <div class="bg-emerald-50 border border-emerald-100 p-4 rounded-xl flex items-center gap-3">
                         <div class="bg-emerald-500 text-white w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow"><i class="fa-solid fa-user-check"></i></div>
@@ -202,19 +186,19 @@
                         <p class="text-xs text-gray-500 leading-relaxed">
                             您可以將本地做完的**家長備忘錄進度、選校對比清單、測驗得分**等一鍵同步備份至雲端，並在其他手機或平板上登入此帳戶隨時還原。
                         </p>
-                        
+
                         <div class="grid grid-cols-2 gap-3 pt-2">
-                            <button onclick="backupProgressToCloud()" class="bg-primary hover:bg-blue-700 text-white font-extrabold py-2.5 rounded-lg text-xs md:text-sm shadow flex items-center justify-center gap-1.5 transition">
+                            <button type="button" onclick="backupProgressToCloud()" class="bg-primary hover:bg-blue-700 text-white font-extrabold py-2.5 rounded-lg text-xs md:text-sm shadow flex items-center justify-center gap-1.5 transition">
                                 <i class="fa-solid fa-cloud-arrow-up"></i> 一鍵上載備份
                             </button>
-                            <button onclick="restoreProgressFromCloud()" class="bg-secondary hover:bg-emerald-700 text-white font-extrabold py-2.5 rounded-lg text-xs md:text-sm shadow flex items-center justify-center gap-1.5 transition">
+                            <button type="button" onclick="restoreProgressFromCloud()" class="bg-secondary hover:bg-emerald-700 text-white font-extrabold py-2.5 rounded-lg text-xs md:text-sm shadow flex items-center justify-center gap-1.5 transition">
                                 <i class="fa-solid fa-cloud-arrow-down"></i> 一鍵雲端還原
                             </button>
                         </div>
                     </div>
 
                     <div class="pt-2 flex justify-end">
-                        <button onclick="handleSignOut()" class="text-red-500 hover:text-red-700 text-xs font-bold transition flex items-center gap-1"><i class="fa-solid fa-right-from-bracket"></i> 登出帳戶 (Log Out)</button>
+                        <button type="button" onclick="handleSignOut()" class="text-red-500 hover:text-red-700 text-xs font-bold transition flex items-center gap-1"><i class="fa-solid fa-right-from-bracket"></i> 登出帳戶 (Log Out)</button>
                     </div>
                 </div>
 
@@ -235,10 +219,10 @@
                     </div>
 
                     <div class="flex flex-col sm:flex-row gap-2 pt-2">
-                        <button onclick="handleEmailSignIn()" class="bg-primary hover:bg-blue-700 text-white font-extrabold py-3 rounded-lg text-xs md:text-sm flex-1 shadow transition flex items-center justify-center gap-1.5">
+                        <button type="button" onclick="handleEmailSignIn()" class="bg-primary hover:bg-blue-700 text-white font-extrabold py-3 rounded-lg text-xs md:text-sm flex-1 shadow transition flex items-center justify-center gap-1.5">
                             <i class="fa-solid fa-right-to-bracket"></i> 登入 (Sign In)
                         </button>
-                        <button onclick="handleEmailSignUp()" class="bg-slate-100 hover:bg-slate-200 text-gray-700 font-bold py-3 rounded-lg text-xs md:text-sm flex-1 transition flex items-center justify-center gap-1.5 border border-gray-200">
+                        <button type="button" onclick="handleEmailSignUp()" class="bg-slate-100 hover:bg-slate-200 text-gray-700 font-bold py-3 rounded-lg text-xs md:text-sm flex-1 transition flex items-center justify-center gap-1.5 border border-gray-200">
                             <i class="fa-solid fa-user-plus"></i> 註冊新帳戶 (Sign Up)
                         </button>
                     </div>
@@ -264,9 +248,9 @@
             </div>
             <p class="mb-4 md:mb-0">&copy; 2026 NCS 融學支援平台. 版權所有.</p>
             <div class="flex space-x-5">
-                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-facebook text-lg"></i></a>
-                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-instagram text-lg"></i></a>
-                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-youtube text-lg"></i></a>
+                <a href="#" class="hover:text-white transition" aria-label="外部連結"><i class="fa-brands fa-facebook text-lg"></i></a>
+                <a href="#" class="hover:text-white transition" aria-label="外部連結"><i class="fa-brands fa-instagram text-lg"></i></a>
+                <a href="#" class="hover:text-white transition" aria-label="外部連結"><i class="fa-brands fa-youtube text-lg"></i></a>
             </div>
         </div>
     </footer>
@@ -293,7 +277,7 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        
+
         // 設定專案識別碼 (用於資料庫儲存路徑)
         const appId = 'ncs-support-platform';
 
@@ -450,7 +434,7 @@
 
                 if (docSnap.exists()) {
                     const cloudData = docSnap.data();
-                    
+
                     if (cloudData.checklists) {
                         localStorage.setItem('chk-sfo', cloudData.checklists.sfo);
                         localStorage.setItem('chk-pta', cloudData.checklists.pta);

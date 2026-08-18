@@ -5,25 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SEN 特殊教育支援 | NCS 融學平台</title>
     <!-- 引入 Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/styles.css">
     <!-- 引入 FontAwesome 圖示 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#2563EB',
-                        sen: '#E11D48', /* SEN 專區專屬主色調：玫瑰紅 */
-                        secondary: '#10B981'
-                    }
-                }
-            }
-        }
-    </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
-        
+
         body {
             font-family: 'Noto Sans TC', 'Poppins', sans-serif;
         }
@@ -32,7 +19,7 @@
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #E11D48; border-radius: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #be123c; border-radius: 4px; }
-        
+
         .fade-in { animation: fadeIn 0.3s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
     </style>
@@ -83,7 +70,7 @@
 
     <!-- 主體內容 -->
     <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-12">
-        
+
         <!-- 區塊一：多語種互動式 SEN 初步觀察與篩查工具 -->
         <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
             <div class="border-b border-gray-100 pb-4 mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -98,9 +85,9 @@
                 </div>
                 <!-- 篩選學制頁籤 -->
                 <div class="flex bg-slate-100 p-1 rounded-lg self-start md:self-auto shrink-0">
-                    <button onclick="switchQuizCategory('dyslexia')" id="qtab-dyslexia" class="q-tab-btn text-xs font-bold px-3 py-1.5 rounded-lg bg-white text-sen shadow-sm transition-all duration-300">讀寫障礙 (Dyslexia)</button>
-                    <button onclick="switchQuizCategory('adhd')" id="qtab-adhd" class="q-tab-btn text-xs font-bold px-3 py-1.5 rounded-lg text-gray-600 hover:text-rose-600 transition-all duration-300">過動與專注力 (ADHD)</button>
-                    <button onclick="switchQuizCategory('asd')" id="qtab-asd" class="q-tab-btn text-xs font-bold px-3 py-1.5 rounded-lg text-gray-600 hover:text-rose-600 transition-all duration-300">自閉症譜系 (Autism)</button>
+                    <button type="button" onclick="switchQuizCategory('dyslexia')" id="qtab-dyslexia" class="q-tab-btn text-xs font-bold px-3 py-1.5 rounded-lg bg-white text-sen shadow-sm transition-all duration-300">讀寫障礙 (Dyslexia)</button>
+                    <button type="button" onclick="switchQuizCategory('adhd')" id="qtab-adhd" class="q-tab-btn text-xs font-bold px-3 py-1.5 rounded-lg text-gray-600 hover:text-rose-600 transition-all duration-300">過動與專注力 (ADHD)</button>
+                    <button type="button" onclick="switchQuizCategory('asd')" id="qtab-asd" class="q-tab-btn text-xs font-bold px-3 py-1.5 rounded-lg text-gray-600 hover:text-rose-600 transition-all duration-300">自閉症譜系 (Autism)</button>
                 </div>
             </div>
 
@@ -115,8 +102,8 @@
                     </div>
 
                     <div class="mt-6 pt-4 border-t border-gray-200 flex gap-3">
-                        <button onclick="resetScreening()" class="text-red-500 hover:text-red-700 font-bold text-xs md:text-sm px-4 py-2 rounded-lg transition-all duration-300">重置重填</button>
-                        <button onclick="calculateScreeningScore()" class="flex-grow bg-sen hover:bg-rose-700 text-white font-extrabold px-6 py-2.5 rounded-xl transition-all duration-300 shadow-md flex items-center justify-center gap-2 text-xs md:text-sm">
+                        <button type="button" onclick="resetScreening()" class="text-red-500 hover:text-red-700 font-bold text-xs md:text-sm px-4 py-2 rounded-lg transition-all duration-300">重置重填</button>
+                        <button type="button" onclick="calculateScreeningScore()" class="flex-grow bg-sen hover:bg-rose-700 text-white font-extrabold px-6 py-2.5 rounded-xl transition-all duration-300 shadow-md flex items-center justify-center gap-2 text-xs md:text-sm">
                             <i class="fa-solid fa-square-poll-vertical"></i> 產生評估分析與建議
                         </button>
                     </div>
@@ -189,7 +176,7 @@
         <!-- 區塊三：香港學校「三層支援模式」解碼與無障礙語音術語庫 -->
         <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
             <div class="border-b border-gray-100 pb-4 mb-6">
-                <span class="bg-rose-600 text-white text-xxs font-extrabold px-2.5 py-1 rounded-md shadow-sm uppercase tracking-wider">教育政策與術語 EDB Policy & Glossary</span>
+                <span class="bg-rose-600 text-white text-xxs font-extrabold px-2.5 py-1 rounded-md shadow-sm uppercase tracking-wider">教育政策與術語 EDB Policy &amp; Glossary</span>
                 <h2 class="text-xl font-extrabold text-gray-900 flex items-center gap-2 mt-2">
                     <i class="fa-solid fa-book-bookmark text-sen"></i> 校內「三層支援模式」與無障礙專業術語解碼
                 </h2>
@@ -246,11 +233,11 @@
                         </div>
                         <h3 class="font-extrabold text-gray-900 text-base flex items-center">
                             個別學習計劃 (IEP)
-                            <button onclick="speakText('個別學習計劃', 'zh-HK')" class="ml-2 text-rose-400 hover:text-sen transition focus:outline-none" title="朗讀中文"><i class="fa-solid fa-volume-high text-sm"></i></button>
+                            <button type="button" onclick="speakText('個別學習計劃', 'zh-HK')" class="ml-2 text-rose-400 hover:text-sen transition focus:outline-none" title="朗讀中文" aria-label="朗讀中文"><i class="fa-solid fa-volume-high text-sm"></i></button>
                         </h3>
                         <p class="text-xs text-gray-400 italic font-bold flex items-center mt-0.5">
                             Individualized Education Plan
-                            <button onclick="speakText('Individualized Education Plan', 'en-GB')" class="ml-2 text-gray-400 hover:text-gray-600 transition focus:outline-none" title="Read English"><i class="fa-solid fa-volume-high text-xs"></i></button>
+                            <button type="button" onclick="speakText('Individualized Education Plan', 'en-GB')" class="ml-2 text-gray-400 hover:text-gray-600 transition focus:outline-none" title="Read English" aria-label="Read English"><i class="fa-solid fa-volume-high text-xs"></i></button>
                         </p>
                         <p class="text-sm text-gray-600 mt-3 leading-relaxed">由校長、SENCO與家長共同制定，專門為SEN學生度身訂造的專屬學習與評估調整指南。</p>
                     </div>
@@ -265,11 +252,11 @@
                         </div>
                         <h3 class="font-extrabold text-gray-900 text-base flex items-center">
                             言語治療 (Speech Therapy)
-                            <button onclick="speakText('言語治療', 'zh-HK')" class="ml-2 text-rose-400 hover:text-sen transition focus:outline-none"><i class="fa-solid fa-volume-high text-sm"></i></button>
+                            <button type="button" onclick="speakText('言語治療', 'zh-HK')" class="ml-2 text-rose-400 hover:text-sen transition focus:outline-none" aria-label="朗讀內容"><i class="fa-solid fa-volume-high text-sm"></i></button>
                         </h3>
                         <p class="text-xs text-gray-400 italic font-bold flex items-center mt-0.5">
-                            Speech & Language Therapy
-                            <button onclick="speakText('Speech and Language Therapy', 'en-GB')" class="ml-2 text-gray-400 hover:text-gray-600 transition focus:outline-none"><i class="fa-solid fa-volume-high text-xs"></i></button>
+                            Speech &amp; Language Therapy
+                            <button type="button" onclick="speakText('Speech and Language Therapy', 'en-GB')" class="ml-2 text-gray-400 hover:text-gray-600 transition focus:outline-none" aria-label="朗讀內容"><i class="fa-solid fa-volume-high text-xs"></i></button>
                         </p>
                         <p class="text-sm text-gray-600 mt-3 leading-relaxed">由言語治療師主理，針對發音不清、口吃、語言表達遲緩的學生，提供句子建構及社交溝通訓練。</p>
                     </div>
@@ -284,11 +271,11 @@
                         </div>
                         <h3 class="font-extrabold text-gray-900 text-base flex items-center">
                             職業治療 (Occupational Therapy)
-                            <button onclick="speakText('職業治療', 'zh-HK')" class="ml-2 text-rose-400 hover:text-sen transition focus:outline-none"><i class="fa-solid fa-volume-high text-sm"></i></button>
+                            <button type="button" onclick="speakText('職業治療', 'zh-HK')" class="ml-2 text-rose-400 hover:text-sen transition focus:outline-none" aria-label="朗讀內容"><i class="fa-solid fa-volume-high text-sm"></i></button>
                         </h3>
                         <p class="text-xs text-gray-400 italic font-bold flex items-center mt-0.5">
                             Occupational Therapy (OT)
-                            <button onclick="speakText('Occupational Therapy', 'en-GB')" class="ml-2 text-gray-400 hover:text-gray-600 transition focus:outline-none"><i class="fa-solid fa-volume-high text-xs"></i></button>
+                            <button type="button" onclick="speakText('Occupational Therapy', 'en-GB')" class="ml-2 text-gray-400 hover:text-gray-600 transition focus:outline-none" aria-label="朗讀內容"><i class="fa-solid fa-volume-high text-xs"></i></button>
                         </p>
                         <p class="text-sm text-gray-600 mt-3 leading-relaxed">處理小肌肉控制（如寫字無力）、手眼協調或感官過敏問題，利用體能遊戲改善日常生活表現。</p>
                     </div>
@@ -303,11 +290,11 @@
                         </div>
                         <h3 class="font-extrabold text-gray-900 text-base flex items-center">
                             教育心理學家 (EP)
-                            <button onclick="speakText('教育心理學家', 'zh-HK')" class="ml-2 text-rose-400 hover:text-sen transition focus:outline-none"><i class="fa-solid fa-volume-high text-sm"></i></button>
+                            <button type="button" onclick="speakText('教育心理學家', 'zh-HK')" class="ml-2 text-rose-400 hover:text-sen transition focus:outline-none" aria-label="朗讀內容"><i class="fa-solid fa-volume-high text-sm"></i></button>
                         </h3>
                         <p class="text-xs text-gray-400 italic font-bold flex items-center mt-0.5">
                             Educational Psychologist (EP)
-                            <button onclick="speakText('Educational Psychologist', 'en-GB')" class="ml-2 text-gray-400 hover:text-gray-600 transition focus:outline-none"><i class="fa-solid fa-volume-high text-xs"></i></button>
+                            <button type="button" onclick="speakText('Educational Psychologist', 'en-GB')" class="ml-2 text-gray-400 hover:text-gray-600 transition focus:outline-none" aria-label="朗讀內容"><i class="fa-solid fa-volume-high text-xs"></i></button>
                         </p>
                         <p class="text-sm text-gray-600 mt-3 leading-relaxed">負責對疑似有 SEN 的學生進行科學系統性的智力與心理評估。其「評估報告」是申請考試加時的最核心法律依據。</p>
                     </div>
@@ -322,11 +309,11 @@
                         </div>
                         <h3 class="font-extrabold text-gray-900 text-base flex items-center">
                             特殊教育需要協調員
-                            <button onclick="speakText('特殊教育需要協調員', 'zh-HK')" class="ml-2 text-rose-400 hover:text-sen transition focus:outline-none"><i class="fa-solid fa-volume-high text-sm"></i></button>
+                            <button type="button" onclick="speakText('特殊教育需要協調員', 'zh-HK')" class="ml-2 text-rose-400 hover:text-sen transition focus:outline-none" aria-label="朗讀內容"><i class="fa-solid fa-volume-high text-sm"></i></button>
                         </h3>
                         <p class="text-xs text-gray-400 italic font-bold flex items-center mt-0.5">
                             Special Educational Needs Coordinator
-                            <button onclick="speakText('Special Educational Needs Coordinator', 'en-GB')" class="ml-2 text-gray-400 hover:text-gray-600 transition focus:outline-none"><i class="fa-solid fa-volume-high text-xs"></i></button>
+                            <button type="button" onclick="speakText('Special Educational Needs Coordinator', 'en-GB')" class="ml-2 text-gray-400 hover:text-gray-600 transition focus:outline-none" aria-label="朗讀內容"><i class="fa-solid fa-volume-high text-xs"></i></button>
                         </p>
                         <p class="text-sm text-gray-600 mt-3 leading-relaxed">學校裡負責統籌特殊教育資源的骨幹老師。負責協調言語治療師、社工、EP，並為家長安排轉介與落實課堂調整。</p>
                     </div>
@@ -341,11 +328,11 @@
                         </div>
                         <h3 class="font-extrabold text-gray-900 text-base flex items-center">
                             特別考試安排 (DA)
-                            <button onclick="speakText('特別考試安排', 'zh-HK')" class="ml-2 text-rose-400 hover:text-sen transition focus:outline-none"><i class="fa-solid fa-volume-high text-sm"></i></button>
+                            <button type="button" onclick="speakText('特別考試安排', 'zh-HK')" class="ml-2 text-rose-400 hover:text-sen transition focus:outline-none" aria-label="朗讀內容"><i class="fa-solid fa-volume-high text-sm"></i></button>
                         </h3>
                         <p class="text-xs text-gray-400 italic font-bold flex items-center mt-0.5">
                             Diagnostic Accommodations
-                            <button onclick="speakText('Diagnostic Accommodations', 'en-GB')" class="ml-2 text-gray-400 hover:text-gray-600 transition focus:outline-none"><i class="fa-solid fa-volume-high text-xs"></i></button>
+                            <button type="button" onclick="speakText('Diagnostic Accommodations', 'en-GB')" class="ml-2 text-gray-400 hover:text-gray-600 transition focus:outline-none" aria-label="朗讀內容"><i class="fa-solid fa-volume-high text-xs"></i></button>
                         </p>
                         <p class="text-sm text-gray-600 mt-3 leading-relaxed">獲得評估證明後，學生在校考及 HKDSE 中享有的合法保障。包括：延長考試時間（通常25%）、單獨考室、讀題等。</p>
                     </div>
@@ -463,7 +450,7 @@
                             <div class="bg-rose-100 text-sen w-11 h-11 rounded-xl flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-user-group"></i></div>
                             <div>
                                 <h3 class="font-extrabold text-gray-900 text-base">跨文化家長互助與照顧者喘息</h3>
-                                <p class="text-xxs text-gray-400 font-bold italic">Carer Support & Parent Groups</p>
+                                <p class="text-xxs text-gray-400 font-bold italic">Carer Support &amp; Parent Groups</p>
                             </div>
                         </div>
                         <p class="text-sm text-gray-600 leading-relaxed mb-4">
@@ -480,7 +467,7 @@
         <!-- 區塊六：家長常見問題解答 (Interactive FAQ Accordion - 全新核心模塊) -->
         <section class="bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl border border-rose-200 p-6">
             <div class="border-b border-rose-200 pb-4 mb-6">
-                <span class="bg-rose-600 text-white text-xxs font-extrabold px-2.5 py-1 rounded-md shadow-sm uppercase tracking-wider">破除迷思 FAQs & Myths</span>
+                <span class="bg-rose-600 text-white text-xxs font-extrabold px-2.5 py-1 rounded-md shadow-sm uppercase tracking-wider">破除迷思 FAQs &amp; Myths</span>
                 <h2 class="text-xl font-extrabold text-gray-900 flex items-center gap-2 mt-2">
                     <i class="fa-solid fa-lightbulb text-sen"></i> 家長常見特殊教育問題解答
                 </h2>
@@ -492,11 +479,11 @@
             <div class="space-y-4">
                 <!-- FAQ 1 -->
                 <div class="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-                    <button onclick="toggleFAQ(1)" class="w-full px-5 py-4 flex justify-between items-center bg-white hover:bg-rose-50 transition focus:outline-none">
-                        <div class="text-left">
+                    <button type="button" onclick="toggleFAQ(1)" class="w-full px-5 py-4 flex justify-between items-center bg-white hover:bg-rose-50 transition focus:outline-none">
+                        <span class="text-left">
                             <span class="font-bold text-gray-900 text-sm md:text-base block">Q: 接受 SEN 診斷會被「貼標籤」並影響未來大學錄取嗎？</span>
                             <span class="text-xs text-gray-400 italic mt-0.5 block">Does an SEN diagnosis affect future university admission?</span>
-                        </div>
+                        </span>
                         <i id="faq-icon-1" class="fa-solid fa-plus text-sen transition-transform shrink-0 ml-4"></i>
                     </button>
                     <div id="faq-content-1" class="hidden px-5 py-4 text-sm text-gray-600 leading-relaxed border-t border-gray-100 bg-slate-50/50">
@@ -507,11 +494,11 @@
 
                 <!-- FAQ 2 -->
                 <div class="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-                    <button onclick="toggleFAQ(2)" class="w-full px-5 py-4 flex justify-between items-center bg-white hover:bg-rose-50 transition focus:outline-none">
-                        <div class="text-left">
+                    <button type="button" onclick="toggleFAQ(2)" class="w-full px-5 py-4 flex justify-between items-center bg-white hover:bg-rose-50 transition focus:outline-none">
+                        <span class="text-left">
                             <span class="font-bold text-gray-900 text-sm md:text-base block">Q: 學校評估輪候期太長，自己找私家醫生做的報告學校接受嗎？</span>
                             <span class="text-xs text-gray-400 italic mt-0.5 block">Are private medical/EP reports accepted by schools if the public waitlist is too long?</span>
-                        </div>
+                        </span>
                         <i id="faq-icon-2" class="fa-solid fa-plus text-sen transition-transform shrink-0 ml-4"></i>
                     </button>
                     <div id="faq-content-2" class="hidden px-5 py-4 text-sm text-gray-600 leading-relaxed border-t border-gray-100 bg-slate-50/50">
@@ -522,11 +509,11 @@
 
                 <!-- FAQ 3 -->
                 <div class="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-                    <button onclick="toggleFAQ(3)" class="w-full px-5 py-4 flex justify-between items-center bg-white hover:bg-rose-50 transition focus:outline-none">
-                        <div class="text-left">
+                    <button type="button" onclick="toggleFAQ(3)" class="w-full px-5 py-4 flex justify-between items-center bg-white hover:bg-rose-50 transition focus:outline-none">
+                        <span class="text-left">
                             <span class="font-bold text-gray-900 text-sm md:text-base block">Q: 我的孩子只是因為在家講母語，所以中文字認得慢，不是讀寫障礙吧？</span>
                             <span class="text-xs text-gray-400 italic mt-0.5 block">My child just learns Chinese characters slowly due to our home language, it's not dyslexia, right?</span>
-                        </div>
+                        </span>
                         <i id="faq-icon-3" class="fa-solid fa-plus text-sen transition-transform shrink-0 ml-4"></i>
                     </button>
                     <div id="faq-content-3" class="hidden px-5 py-4 text-sm text-gray-600 leading-relaxed border-t border-gray-100 bg-slate-50/50">
@@ -577,14 +564,14 @@
                     <div>
                         <label class="block text-xs font-bold text-gray-600 mb-1">最擔憂的學習範疇 (Primary Concern) *</label>
                         <select id="fm-concern" class="w-full p-2.5 border border-gray-200 rounded-lg text-sm focus:border-sen focus:outline-none font-semibold">
-                            <option value="reading">中文讀寫與認字特別困難 (Reading & Writing)</option>
-                            <option value="focus">課堂無法專注、多動或頻繁漏交功課 (Focus & Hyperactivity)</option>
-                            <option value="social">不願與同學說話交往、重複刻板行為 (Social & Autism)</option>
+                            <option value="reading">中文讀寫與認字特別困難 (Reading &amp; Writing)</option>
+                            <option value="focus">課堂無法專注、多動或頻繁漏交功課 (Focus &amp; Hyperactivity)</option>
+                            <option value="social">不願與同學說話交往、重複刻板行為 (Social &amp; Autism)</option>
                             <option value="speech">口語發音均不清晰、或語言表達遲緩 (Speech Development)</option>
                         </select>
                     </div>
 
-                    <button onclick="generateSencoForm()" class="w-full bg-sen hover:bg-rose-700 text-white font-extrabold py-3 rounded-xl transition-all duration-300 shadow-md flex items-center justify-center gap-2">
+                    <button type="button" onclick="generateSencoForm()" class="w-full bg-sen hover:bg-rose-700 text-white font-extrabold py-3 rounded-xl transition-all duration-300 shadow-md flex items-center justify-center gap-2">
                         <i class="fa-solid fa-file-lines"></i> 產生雙語聯絡預約函
                     </button>
                 </div>
@@ -770,18 +757,18 @@
                 const tempDiv = document.createElement('div');
                 tempDiv.innerHTML = text;
                 const cleanText = tempDiv.textContent || tempDiv.innerText || "";
-                
+
                 const utterance = new SpeechSynthesisUtterance(cleanText);
                 utterance.lang = lang;
                 // 適當調慢語速，方便家長聆聽
                 utterance.rate = 0.9;
-                
+
                 if (lang === 'zh-HK') {
                     const voices = window.speechSynthesis.getVoices();
                     const hkVoice = voices.find(v => v.lang === 'zh-HK' || v.lang.includes('HK'));
                     if (hkVoice) utterance.voice = hkVoice;
                 }
-                
+
                 window.speechSynthesis.speak(utterance);
             } else {
                 showToast("您的設備不支援語音朗讀功能", "warning");
@@ -789,11 +776,21 @@
         }
 
         // SENCO 雙語預約信件生成器
+        function escapeHtml(value) {
+            return String(value).replace(/[&<>"']/g, (char) => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            }[char]));
+        }
+
         function generateSencoForm() {
-            const parent = document.getElementById('fm-parent').value.trim();
-            const phone = document.getElementById('fm-phone').value.trim();
-            const student = document.getElementById('fm-student').value.trim();
-            const cls = document.getElementById('fm-class').value.trim();
+            const parent = escapeHtml(document.getElementById('fm-parent').value.trim());
+            const phone = escapeHtml(document.getElementById('fm-phone').value.trim());
+            const student = escapeHtml(document.getElementById('fm-student').value.trim());
+            const cls = escapeHtml(document.getElementById('fm-class').value.trim());
             const concernKey = document.getElementById('fm-concern').value;
 
             if (!parent || !phone || !student || !cls) {
@@ -829,13 +826,13 @@
                     <div class="flex justify-between items-center border-b border-gray-100 pb-3 mb-4 flex-wrap gap-3">
                         <span class="text-xs text-sen font-extrabold uppercase tracking-widest"><i class="fa-solid fa-paper-plane mr-1"></i> 預約諮詢信件預覽</span>
                         <div class="flex flex-wrap gap-2">
-                            <button onclick="speakText(document.getElementById('letter-content-zh').innerText, 'zh-HK')" class="bg-rose-50 text-sen text-xxs font-bold px-2.5 py-1.5 rounded-lg shadow-sm hover:bg-rose-100 transition-all flex items-center gap-1.5 focus:outline-none" title="朗讀中文">
+                            <button type="button" onclick="speakText(document.getElementById('letter-content-zh').innerText, 'zh-HK')" class="bg-rose-50 text-sen text-xxs font-bold px-2.5 py-1.5 rounded-lg shadow-sm hover:bg-rose-100 transition-all flex items-center gap-1.5 focus:outline-none" title="朗讀中文" aria-label="朗讀中文">
                                 <i class="fa-solid fa-volume-high"></i> 粵語朗讀
                             </button>
-                            <button onclick="speakText(document.getElementById('letter-content-en').innerText, 'en-GB')" class="bg-rose-50 text-sen text-xxs font-bold px-2.5 py-1.5 rounded-lg shadow-sm hover:bg-rose-100 transition-all flex items-center gap-1.5 focus:outline-none" title="Read Aloud English">
+                            <button type="button" onclick="speakText(document.getElementById('letter-content-en').innerText, 'en-GB')" class="bg-rose-50 text-sen text-xxs font-bold px-2.5 py-1.5 rounded-lg shadow-sm hover:bg-rose-100 transition-all flex items-center gap-1.5 focus:outline-none" title="Read Aloud English" aria-label="Read Aloud English">
                                 <i class="fa-solid fa-volume-high"></i> EN Voice
                             </button>
-                            <button onclick="copyFormText()" class="bg-sen text-white text-xxs font-bold px-3 py-1.5 rounded-lg shadow hover:bg-rose-700 transition-all duration-300 flex items-center justify-center gap-1.5">
+                            <button type="button" onclick="copyFormText()" class="bg-sen text-white text-xxs font-bold px-3 py-1.5 rounded-lg shadow hover:bg-rose-700 transition-all duration-300 flex items-center justify-center gap-1.5">
                                 <i class="fa-solid fa-copy"></i> 一鍵複製內容
                             </button>
                         </div>
@@ -844,17 +841,17 @@
                     <div class="space-y-4 my-4 text-gray-800 text-xs md:text-sm">
                         <p class="font-bold">致：班主任老師 / 學校特殊教育需求協調員 (SENCO)</p>
                         <p class="text-xxs text-gray-400 italic -mt-2">To: Class Teacher / School SENCO</p>
-                        
+
                         <p id="letter-content-zh">
                             您好。我是 <strong>${cls}</strong> 班學生 <strong>${student}</strong> 的家長。
                             我們在日常觀察中，發現孩子在 <strong>${selectedConcern.zh}</strong>。
                             我們非常希望能夠預約一次面談或諮詢，探討是否可以為孩子安排校內特殊教育評估或個別學習調適，謝謝您。
                         </p>
-                        
+
                         <div id="letter-content-en" class="bg-rose-50/50 p-3.5 rounded-xl border-l-4 border-sen text-xxs text-gray-500 italic leading-relaxed">
                             Dear Class Teacher / SENCO,<br><br>
-                            I am writing as the parent of <strong>${student}</strong> in Class <strong>${cls}</strong>. 
-                            We noticed that our child <strong>${selectedConcern.en}</strong> during daily learning. 
+                            I am writing as the parent of <strong>${student}</strong> in Class <strong>${cls}</strong>.
+                            We noticed that our child <strong>${selectedConcern.en}</strong> during daily learning.
                             We would highly appreciate a consultation to discuss potential school SEN support or individual IEP accommodations. Thank you.
                         </div>
 
@@ -908,7 +905,7 @@
             }`;
             toast.innerText = message;
             document.body.appendChild(toast);
-            
+
             setTimeout(() => {
                 toast.classList.remove('translate-y-10', 'opacity-0');
             }, 50);

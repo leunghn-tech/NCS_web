@@ -5,23 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>家長專區 | NCS 融學平台</title>
     <!-- 引入 Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/styles.css">
     <!-- 引入 FontAwesome 圖示 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- 引入 html2canvas 截圖引擎 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#2563EB',
-                        secondary: '#10B981', /* 家長專區主色調：溫暖翠綠色 */
-                    }
-                }
-            }
-        }
-    </script>
     <style>
         .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
@@ -29,7 +17,7 @@
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #059669; border-radius: 4px; }
         .fade-in { animation: fadeIn 0.3s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-        
+
         /* 專門為打印請假信設計的紙張樣式 */
         @media print {
             body * { visibility: hidden; }
@@ -62,12 +50,12 @@
 
     <!-- 主體內容 -->
     <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
-        
+
         <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
             <h1 class="text-2xl md:text-3xl font-extrabold text-gray-900 flex items-center">
-                <div class="bg-secondary text-white w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center mr-3 md:mr-4 shadow-md">
+                <span class="bg-secondary text-white w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center mr-3 md:mr-4 shadow-md">
                     <i class="fa-solid fa-users text-xl md:text-2xl"></i>
-                </div>
+                </span>
                 家長專區 <span class="text-lg md:text-xl font-normal text-gray-500 ml-3 hidden sm:inline">| 家校溝通、電子工具與資源指南</span>
             </h1>
             <a href="index.html" class="self-start md:self-auto text-gray-500 hover:text-secondary transition flex items-center bg-white px-4 py-2 rounded-lg border border-gray-200 shadow-sm text-sm">
@@ -78,7 +66,7 @@
         <section class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl shadow-sm border border-emerald-100 p-6 mb-10">
             <div class="border-b border-emerald-100 pb-4 mb-6">
                 <h2 class="text-xl font-bold text-emerald-900 flex items-center">
-                    <i class="fa-solid fa-diagram-project text-secondary mr-2"></i> 
+                    <i class="fa-solid fa-diagram-project text-secondary mr-2"></i>
                     中學非華語生「中文考試路徑」智能決策評估器 (Chinese Exam Path Finder)
                 </h2>
                 <p class="text-sm text-emerald-700 mt-1">針對香港中學階段家長最大痛點：結合孩子中文實力與未來升學方向，智能評估並推薦最合理的中文考試搭配。</p>
@@ -106,7 +94,7 @@
                         </select>
                     </div>
 
-                    <button onclick="evaluateChinesePath()" class="w-full bg-secondary text-white hover:bg-emerald-600 font-bold py-2.5 rounded-lg transition shadow-md flex items-center justify-center gap-2">
+                    <button type="button" onclick="evaluateChinesePath()" class="w-full bg-secondary text-white hover:bg-emerald-600 font-bold py-2.5 rounded-lg transition shadow-md flex items-center justify-center gap-2">
                         <i class="fa-solid fa-wand-magic-sparkles"></i> 智能評估建議 Get Recommendation
                     </button>
                 </div>
@@ -124,7 +112,7 @@
         <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-10">
             <div class="border-b border-gray-100 pb-4 mb-6">
                 <h2 class="text-xl font-bold text-gray-900 flex items-center">
-                    <i class="fa-solid fa-file-signature text-secondary mr-2"></i> 
+                    <i class="fa-solid fa-file-signature text-secondary mr-2"></i>
                     中英雙語告假信生成器 (Bilingual Excuse Letter Generator)
                 </h2>
                 <p class="text-sm text-gray-500 mt-1">針對部分學校仍要求提交紙本手寫信：快速填表即可生成香港學校標準格式的中英雙語請假信，可直接列印並簽署。</p>
@@ -175,7 +163,7 @@
                             <option value="doctor">預約專科/牙科門診 (Medical/Dental Appointment)</option>
                             <option value="other">其他原因 (Other Reasons)</option>
                         </select>
-                        
+
                         <!-- 自訂請假原因輸入框，當選擇「其他」時會自動顯現 -->
                         <div id="custom-reason-inputs" class="hidden space-y-2 mt-2">
                             <div>
@@ -194,7 +182,7 @@
                         <input type="tel" id="let-phone" placeholder="e.g. 9123 4567" class="w-full p-2 border border-gray-200 rounded-lg text-sm focus:border-secondary focus:outline-none">
                     </div>
 
-                    <button onclick="generateExcuseLetter()" class="w-full bg-secondary text-white hover:bg-emerald-600 font-bold py-2.5 rounded-lg transition shadow-md flex items-center justify-center gap-2">
+                    <button type="button" onclick="generateExcuseLetter()" class="w-full bg-secondary text-white hover:bg-emerald-600 font-bold py-2.5 rounded-lg transition shadow-md flex items-center justify-center gap-2">
                         <i class="fa-solid fa-file-pdf"></i> 生成請假信 / Generate
                     </button>
                 </div>
@@ -207,11 +195,11 @@
                             <p>完成左側表單後點擊生成，此處將顯示符合香港學校格式的中英雙語請假信預覽。</p>
                         </div>
                     </div>
-                    
+
                     <div id="letter-actions" class="hidden mt-6 border-t border-gray-100 pt-4 flex flex-col sm:flex-row justify-between items-center gap-3 no-print">
                         <span class="text-xs text-gray-400 font-bold hidden md:inline-block"><i class="fa-solid fa-circle-info mr-1"></i> 點擊下方按鈕，系統將為您生成高畫質圖片。</span>
                         <div class="flex gap-2 w-full sm:w-auto">
-                            <button onclick="downloadScreenshot()" class="bg-indigo-600 text-white hover:bg-indigo-700 px-6 py-2.5 rounded-lg text-sm font-bold shadow-md transition flex items-center justify-center gap-2 w-full sm:w-auto">
+                            <button type="button" onclick="downloadScreenshot()" class="bg-indigo-600 text-white hover:bg-indigo-700 px-6 py-2.5 rounded-lg text-sm font-bold shadow-md transition flex items-center justify-center gap-2 w-full sm:w-auto">
                                 <i class="fa-solid fa-camera"></i> 轉換並儲存為圖片 (Save as Image)
                             </button>
                         </div>
@@ -223,7 +211,7 @@
         <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-10">
             <div class="border-b border-gray-100 pb-4 mb-6">
                 <h2 class="text-xl font-bold text-gray-900 flex items-center">
-                    <i class="fa-solid fa-comment-dots text-secondary mr-2"></i> 
+                    <i class="fa-solid fa-comment-dots text-secondary mr-2"></i>
                     家校溝通快捷句型庫 (School Communication Builder)
                 </h2>
                 <p class="text-sm text-gray-500 mt-1">選取情境，點擊喇叭聆聽粵語/英語發音、或一鍵複製句子貼到通訊軟體傳送給班主任。配有 **7 種非華語核心語言** 對照切換！</p>
@@ -231,13 +219,13 @@
 
             <!-- 情境篩選按鈕 -->
             <div class="flex items-center space-x-2 mb-6 overflow-x-auto pb-2 custom-scrollbar">
-                <button onclick="filterPhrases('all')" id="p-tab-all" class="p-tab-btn flex-shrink-0 px-4 py-2 rounded-full text-xs md:text-sm font-bold bg-secondary text-white transition shadow-sm">全部 All</button>
-                <button onclick="filterPhrases('leave')" id="p-tab-leave" class="p-tab-btn flex-shrink-0 px-4 py-2 rounded-full text-xs md:text-sm font-bold bg-gray-100 text-gray-600 hover:bg-emerald-50 hover:text-secondary transition">請假與遲到 Leave</button>
-                <button onclick="filterPhrases('homework')" id="p-tab-homework" class="p-tab-btn flex-shrink-0 px-4 py-2 rounded-full text-xs md:text-sm font-bold bg-gray-100 text-gray-600 hover:bg-emerald-50 hover:text-secondary transition">功課與學業 Homework</button>
-                <button onclick="filterPhrases('query')" id="p-tab-query" class="p-tab-btn flex-shrink-0 px-4 py-2 rounded-full text-xs md:text-sm font-bold bg-gray-100 text-gray-600 hover:bg-emerald-50 hover:text-secondary transition">表現查詢 Inquiry</button>
-                <button onclick="filterPhrases('notice')" id="p-tab-notice" class="p-tab-btn flex-shrink-0 px-4 py-2 rounded-full text-xs md:text-sm font-bold bg-gray-100 text-gray-600 hover:bg-emerald-50 hover:text-secondary transition">簽回通告 Circular</button>
-                <button onclick="filterPhrases('meet')" id="p-tab-meet" class="p-tab-btn flex-shrink-0 px-4 py-2 rounded-full text-xs md:text-sm font-bold bg-gray-100 text-gray-600 hover:bg-emerald-50 hover:text-secondary transition">預約會面 Meeting</button>
-                <button onclick="filterPhrases('culture')" id="p-tab-culture" class="p-tab-btn flex-shrink-0 px-4 py-2 rounded-full text-xs md:text-sm font-bold bg-gray-100 text-gray-600 hover:bg-emerald-50 hover:text-secondary transition">文化與宗教 Culture</button>
+                <button type="button" onclick="filterPhrases('all')" id="p-tab-all" class="p-tab-btn flex-shrink-0 px-4 py-2 rounded-full text-xs md:text-sm font-bold bg-secondary text-white transition shadow-sm">全部 All</button>
+                <button type="button" onclick="filterPhrases('leave')" id="p-tab-leave" class="p-tab-btn flex-shrink-0 px-4 py-2 rounded-full text-xs md:text-sm font-bold bg-gray-100 text-gray-600 hover:bg-emerald-50 hover:text-secondary transition">請假與遲到 Leave</button>
+                <button type="button" onclick="filterPhrases('homework')" id="p-tab-homework" class="p-tab-btn flex-shrink-0 px-4 py-2 rounded-full text-xs md:text-sm font-bold bg-gray-100 text-gray-600 hover:bg-emerald-50 hover:text-secondary transition">功課與學業 Homework</button>
+                <button type="button" onclick="filterPhrases('query')" id="p-tab-query" class="p-tab-btn flex-shrink-0 px-4 py-2 rounded-full text-xs md:text-sm font-bold bg-gray-100 text-gray-600 hover:bg-emerald-50 hover:text-secondary transition">表現查詢 Inquiry</button>
+                <button type="button" onclick="filterPhrases('notice')" id="p-tab-notice" class="p-tab-btn flex-shrink-0 px-4 py-2 rounded-full text-xs md:text-sm font-bold bg-gray-100 text-gray-600 hover:bg-emerald-50 hover:text-secondary transition">簽回通告 Circular</button>
+                <button type="button" onclick="filterPhrases('meet')" id="p-tab-meet" class="p-tab-btn flex-shrink-0 px-4 py-2 rounded-full text-xs md:text-sm font-bold bg-gray-100 text-gray-600 hover:bg-emerald-50 hover:text-secondary transition">預約會面 Meeting</button>
+                <button type="button" onclick="filterPhrases('culture')" id="p-tab-culture" class="p-tab-btn flex-shrink-0 px-4 py-2 rounded-full text-xs md:text-sm font-bold bg-gray-100 text-gray-600 hover:bg-emerald-50 hover:text-secondary transition">文化與宗教 Culture</button>
             </div>
 
             <!-- 句型卡片容器 -->
@@ -299,7 +287,7 @@
         <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-10">
             <div class="border-b border-gray-100 pb-4 mb-4">
                 <h2 class="text-xl font-bold text-gray-900 flex items-center">
-                    <i class="fa-solid fa-spell-check text-secondary mr-2"></i> 
+                    <i class="fa-solid fa-spell-check text-secondary mr-2"></i>
                     學校通告核心詞彙對照庫 (Notice Glossary)
                 </h2>
                 <p class="text-sm text-gray-500 mt-1">幫助非華語家長看懂日常紙本與電子學校通告的關鍵字（包含 2026 最新「人文科」、「科學科」等分拆新詞、呈分試、叩門與轉數快 FPS 電子付賬）。</p>
@@ -318,10 +306,10 @@
                 <table class="min-w-full divide-y divide-gray-100">
                     <thead class="bg-slate-50 sticky top-0">
                         <tr>
-                            <th class="px-4 py-2.5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">通告常現中文 Notice Keyword</th>
-                            <th class="px-4 py-2.5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">粵語拼音 Jyutping</th>
-                            <th class="px-4 py-2.5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">英文對照 English Translation</th>
-                            <th class="px-4 py-2.5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">家長應對指南 Parent Guide</th>
+                            <th scope="col" class="px-4 py-2.5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">通告常現中文 Notice Keyword</th>
+                            <th scope="col" class="px-4 py-2.5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">粵語拼音 Jyutping</th>
+                            <th scope="col" class="px-4 py-2.5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">英文對照 English Translation</th>
+                            <th scope="col" class="px-4 py-2.5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">家長應對指南 Parent Guide</th>
                         </tr>
                     </thead>
                     <tbody id="notice-table-body" class="bg-white divide-y divide-gray-100 text-sm">
@@ -334,7 +322,7 @@
         <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-10">
             <div class="border-b border-gray-100 pb-4 mb-6">
                 <h2 class="text-xl font-bold text-gray-900 flex items-center">
-                    <i class="fa-solid fa-calendar-check text-secondary mr-2"></i> 家長核心日程與互動備忘清單 (Parent Calendar & Checklist)
+                    <i class="fa-solid fa-calendar-check text-secondary mr-2"></i> 家長核心日程與互動備忘清單 (Parent Calendar &amp; Checklist)
                 </h2>
                 <p class="text-sm text-gray-500 mt-1">追蹤全學年關鍵教育大事。勾選狀態會自動儲存在您的瀏覽器中。</p>
             </div>
@@ -411,7 +399,7 @@
 
                     <div class="mt-4 flex items-center justify-between text-xs text-gray-400 bg-slate-50 p-3 rounded-xl border border-gray-100">
                         <span><i class="fa-solid fa-sd-card mr-1"></i> 進度已自動儲存於您的設備。</span>
-                        <button onclick="resetChecklist()" class="text-red-500 hover:text-red-700 font-bold transition">重置進度 / Reset</button>
+                        <button type="button" onclick="resetChecklist()" class="text-red-500 hover:text-red-700 font-bold transition">重置進度 / Reset</button>
                     </div>
                 </div>
             </div>
@@ -420,7 +408,7 @@
         <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-10">
             <div class="border-b border-gray-100 pb-4 mb-6">
                 <h2 class="text-xl font-bold text-gray-900 flex items-center">
-                    <i class="fa-solid fa-circle-question text-secondary mr-2"></i> 
+                    <i class="fa-solid fa-circle-question text-secondary mr-2"></i>
                     家長常見問題互動解答 (Parent Frequently Asked Questions)
                 </h2>
                 <p class="text-sm text-gray-500 mt-1">匯集非華語家長在港最常碰到的實際操作疑難，提供精準的中英雙語指南。</p>
@@ -429,7 +417,7 @@
             <div class="space-y-4">
                 <!-- FAQ 1 -->
                 <div class="border border-gray-100 rounded-xl overflow-hidden">
-                    <button onclick="toggleFaq(1)" class="w-full flex justify-between items-center p-4 bg-slate-50 hover:bg-slate-100 transition text-left focus:outline-none">
+                    <button type="button" onclick="toggleFaq(1)" class="w-full flex justify-between items-center p-4 bg-slate-50 hover:bg-slate-100 transition text-left focus:outline-none">
                         <span class="font-bold text-gray-900 text-sm md:text-base flex items-center">
                             <span class="bg-emerald-100 text-secondary w-6 h-6 rounded-md flex items-center justify-center mr-3 text-xs font-bold">Q1</span>
                             我的中文讀寫不好，可以用英文簽署中文通告嗎？
@@ -445,7 +433,7 @@
 
                 <!-- FAQ 2 -->
                 <div class="border border-gray-100 rounded-xl overflow-hidden">
-                    <button onclick="toggleFaq(2)" class="w-full flex justify-between items-center p-4 bg-slate-50 hover:bg-slate-100 transition text-left focus:outline-none">
+                    <button type="button" onclick="toggleFaq(2)" class="w-full flex justify-between items-center p-4 bg-slate-50 hover:bg-slate-100 transition text-left focus:outline-none">
                         <span class="font-bold text-gray-900 text-sm md:text-base flex items-center">
                             <span class="bg-emerald-100 text-secondary w-6 h-6 rounded-md flex items-center justify-center mr-3 text-xs font-bold">Q2</span>
                             甚麼是「應用學習中文 (ApL(C))」？孩子應該在中學報讀嗎？
@@ -461,7 +449,7 @@
 
                 <!-- FAQ 3 -->
                 <div class="border border-gray-100 rounded-xl overflow-hidden">
-                    <button onclick="toggleFaq(3)" class="w-full flex justify-between items-center p-4 bg-slate-50 hover:bg-slate-100 transition text-left focus:outline-none">
+                    <button type="button" onclick="toggleFaq(3)" class="w-full flex justify-between items-center p-4 bg-slate-50 hover:bg-slate-100 transition text-left focus:outline-none">
                         <span class="font-bold text-gray-900 text-sm md:text-base flex items-center">
                             <span class="bg-emerald-100 text-secondary w-6 h-6 rounded-md flex items-center justify-center mr-3 text-xs font-bold">Q3</span>
                             如果孩子因生病無法參加期終考試，我該怎麼辦？
@@ -479,7 +467,7 @@
 
                 <!-- FAQ 4 -->
                 <div class="border border-gray-100 rounded-xl overflow-hidden">
-                    <button onclick="toggleFaq(4)" class="w-full flex justify-between items-center p-4 bg-slate-50 hover:bg-slate-100 transition text-left focus:outline-none">
+                    <button type="button" onclick="toggleFaq(4)" class="w-full flex justify-between items-center p-4 bg-slate-50 hover:bg-slate-100 transition text-left focus:outline-none">
                         <span class="font-bold text-gray-900 text-sm md:text-base flex items-center">
                             <span class="bg-emerald-100 text-secondary w-6 h-6 rounded-md flex items-center justify-center mr-3 text-xs font-bold">Q4</span>
                             我的家庭低收入，孩子能獲得免費的課後中文輔導嗎？
@@ -670,10 +658,10 @@
         // 1. 家校溝通快捷句型庫數據庫 (已擴充旁遮普語、印地語、菲律賓語及印尼語對照)
         const phrasesData = [
             // leave (請假與遲到)
-            { 
-                id: 1, 
-                cat: "leave", 
-                zh: "老師你好，阿里今天因為發燒，想向您請假一天，謝謝您。", 
+            {
+                id: 1,
+                cat: "leave",
+                zh: "老師你好，阿里今天因為發燒，想向您請假一天，謝謝您。",
                 py: "lou5 si1 nei5 hou2, aa3 lei5 gam1 tin1 jan1 wai6 faat3 siu1, soeng2 hoeng3 nei5 cing2 gaa3 jat1 tin1, ze6 ze6 nei5.",
                 langs: {
                     en: "Hello teacher, Ali has a fever today and would like to ask for one day of sick leave. Thank you.",
@@ -685,10 +673,10 @@
                     indonesian: "Halo guru, Ali demam hari ini dan ingin meminta izin sakit selama satu hari. Terima kasih."
                 }
             },
-            { 
-                id: 2, 
-                cat: "leave", 
-                zh: "阿里今天生病了，我已為他預約了醫生，今天無法回校上課。", 
+            {
+                id: 2,
+                cat: "leave",
+                zh: "阿里今天生病了，我已為他預約了醫生，今天無法回校上課。",
                 py: "aa3 lei5 gam1 tin1 saang1 beng6 liu5, ngo5 ji5 wai6 taa1 jyu6 joek3 liu5 ji1 sang1, gam1 tin1 mou4 faat3 wui4 haau2 soeng5 fo3.",
                 langs: {
                     en: "Ali is sick today and I have booked a doctor's appointment. He cannot attend school today.",
@@ -700,10 +688,10 @@
                     indonesian: "Ali sakit hari ini dan saya sudah membuat janji dengan dokter. Dia tidak bisa masuk sekolah hari ini."
                 }
             },
-            { 
-                id: 3, 
-                cat: "leave", 
-                zh: "阿里今早需要前往診所看病，可能會遲到約半小時回校。", 
+            {
+                id: 3,
+                cat: "leave",
+                zh: "阿里今早需要前往診所看病，可能會遲到約半小時回校。",
                 py: "aa3 lei5 gam1 zou2 seoi1 jiu1 cin4 wong5 can2 so2 hon3 beng6, ho2 nang4 wui5 ci4 dou3 joek3 bun3 siu2 si4 wui4 haau2.",
                 langs: {
                     en: "Ali needs to visit the clinic this morning and might be late for about half an hour to school.",
@@ -715,12 +703,12 @@
                     indonesian: "Ali harus pergi ke klinik pagi ini dan mungkin akan terlambat sekitar setengah jam ke sekolah."
                 }
             },
-            
+
             // homework (功課與學業)
-            { 
-                id: 4, 
-                cat: "homework", 
-                zh: "阿里昨晚不太明白今天的數學功課，有些部分沒有完成，想請教老師。", 
+            {
+                id: 4,
+                cat: "homework",
+                zh: "阿里昨晚不太明白今天的數學功課，有些部分沒有完成，想請教老師。",
                 py: "aa3 lei5 zok3 maan5 bat1 taai3 ming4 baak6 gam1 tin1 dik1 sou3 hok6 gung1 fo3, jau5 se1 bou6 fan6 mei6 jau5 jyun4 sing4, soeng2 cing2 gaau3 lou5 si1.",
                 langs: {
                     en: "Ali didn't quite understand today's math homework last night and left some parts incomplete. He would like to ask you for help.",
@@ -732,10 +720,10 @@
                     indonesian: "Ali kurang memahami pr matematika tadi malam dan menyisakan beberapa bagian yang belum selesai. Dia ingin meminta bantuan Anda."
                 }
             },
-            { 
-                id: 5, 
-                cat: "homework", 
-                zh: "我不懂如何指導阿里做中文寫作，請問老師可以給予一些範文參考嗎？", 
+            {
+                id: 5,
+                cat: "homework",
+                zh: "我不懂如何指導阿里做中文寫作，請問老師可以給予一些範文參考嗎？",
                 py: "ngo5 bat1 dung2 jyu4 ho4 zi2 dou6 aa3 lei5 zou6 zung1 man4 se2 zok3, cing2 man6 lou5 si1 ho2 ji5 kap1 jyu5 jat1 se1 faan6 man4 caam1 haau2 maa1?",
                 langs: {
                     en: "I don't know how to guide Ali in Chinese writing. Could you please provide some sample essays for reference?",
@@ -749,10 +737,10 @@
             },
 
             // query (表現查詢)
-            { 
-                id: 6, 
-                cat: "query", 
-                zh: "我想了解阿里最近在學校的中文學習表現，請問他能跟上進度嗎？", 
+            {
+                id: 6,
+                cat: "query",
+                zh: "我想了解阿里最近在學校的中文學習表現，請問他能跟上進度嗎？",
                 py: "ngo5 soeng2 liu5 gaai2 aa3 lei5 zeoi3 gan6 zoi6 haau2 dik1 zung1 man4 hok6 zaap6 biu2 jin6, cing2 man6 taa1 nang4 gan1 soeng5 zeon3 dou6 maa1?",
                 langs: {
                     en: "I would like to know Ali's recent performance in Chinese learning at school. Can he keep up with the progress?",
@@ -766,10 +754,10 @@
             },
 
             // notice (簽回通告)
-            { 
-                id: 7, 
-                cat: "notice", 
-                zh: "關於陸運會那份通告，我已經簽署，今天會讓阿里帶回學校提交。", 
+            {
+                id: 7,
+                cat: "notice",
+                zh: "關於陸運會那份通告，我已經簽署，今天會讓阿里帶回學校提交。",
                 py: "lou5 si1, gwaan1 jyu1 luk6 wan6 wui2 naa5 fan6 tung1 gou3, ngo5 ji5 ging1 cim1 cyu5, gam1 tin1 wui5 joeng6 aa3 lei5 daai3 wui4 haau2 tai2 gaau1.",
                 langs: {
                     en: "Regarding the notice of the Athletics Meet, I have signed it and will ask Ali to bring it back to school to submit today.",
@@ -783,10 +771,10 @@
             },
 
             // meet (預約會面)
-            { 
-                id: 8, 
-                cat: "meet", 
-                zh: "因為我不太懂中文，請問會面時可以安排非華語輔導老師在場協助口譯嗎？", 
+            {
+                id: 8,
+                cat: "meet",
+                zh: "因為我不太懂中文，請問會面時可以安排非華語輔導老師在場協助口譯嗎？",
                 py: "jan1 wai6 ngo5 bat1 taai3 dung2 zung1 man4, cing2 man6 wui5 min6 si4 ho2 ji5 on1 paai3 fei1 waa4 jyu5 fu6 dou6 lou5 si1 zoi6 coeng4 hip3 zok3 hau2 jik6 maa1?",
                 langs: {
                     en: "Since I don't know much Chinese, can we arrange an EM support teacher to assist as an interpreter during our meeting?",
@@ -800,10 +788,10 @@
             },
 
             // culture (文化與宗教 - 新增模組)
-            { 
-                id: 9, 
-                cat: "culture", 
-                zh: "老師你好，因為宗教傳統節日（開齋節），阿里明天需要請假一天，特此告知。", 
+            {
+                id: 9,
+                cat: "culture",
+                zh: "老師你好，因為宗教傳統節日（開齋節），阿里明天需要請假一天，特此告知。",
                 py: "lou5 si1 nei5 hou2, jan1 wai6 zung1 gaau3 cyun4 tung2 zit3 jat6 (hoi1 zai1 zit3), aa3 lei5 ming4 tin1 seoi1 jiu1 cing2 gaa3 jat1 tin1, dak6 ci2 gou1 zi1.",
                 langs: {
                     en: "Hello teacher, due to our traditional religious holiday (Eid al-Fitr), Ali needs to take one day of leave tomorrow. Thank you.",
@@ -815,10 +803,10 @@
                     indonesian: "Halo guru, karena hari raya keagamaan tradisional kami (Idul Fitri), Ali harus izin tidak masuk sekolah besok selama satu hari. Terima kasih."
                 }
             },
-            { 
-                id: 10, 
-                cat: "culture", 
-                zh: "老師你好，阿里因宗教信仰需要進食清真食物，請問學校訂飯有相關安排嗎？", 
+            {
+                id: 10,
+                cat: "culture",
+                zh: "老師你好，阿里因宗教信仰需要進食清真食物，請問學校訂飯有相關安排嗎？",
                 py: "lou5 si1 nei5 hou2, aa3 lei5 jan1 zung1 gaau3 seon3 joeng5 seoi1 jiu1 zeon3 sik6 cing1 zan1 sik6 mat6, cing2 man6 haau2 ding6 faan6 jau5 gwaan1 on1 paai3 maa1?",
                 langs: {
                     en: "Hello teacher, due to religious beliefs, Ali needs Halal food. Does the school lunch order have Halal options?",
@@ -830,10 +818,10 @@
                     indonesian: "Halo guru, karena keyakinan agama, Ali membutuhkan makanan Halal. Apakah pemesanan makan siang sekolah memiliki pilihan Halal?"
                 }
             },
-            { 
-                id: 11, 
-                cat: "culture", 
-                zh: "老師你好，下週開始進入齋戒月，阿里需要禁食，午膳時間希望能安排他到圖書館休息。", 
+            {
+                id: 11,
+                cat: "culture",
+                zh: "老師你好，下週開始進入齋戒月，阿里需要禁食，午膳時間希望能安排他到圖書館休息。",
                 py: "lou5 si1 nei5 hou2, haa6 zau1 hoi1 ci2 zeon3 jap6 zai1 gaai3 jyut6, aa3 lei5 seoi1 jiu1 gam3 sik6, ng5 sin6 si4 gaan1 hei1 mong6 nang4 on1 paai3 taa1 dou3 tou4 syu1 gun2 jau1 sik1.",
                 langs: {
                     en: "Hello teacher, Ramadan begins next week and Ali will be fasting. We hope he can be arranged to rest in the library during lunch hours.",
@@ -845,10 +833,10 @@
                     indonesian: "Halo guru, bulan Ramadan dimulai minggu depan dan Ali akan berpuasa. Kami berharap dia bisa diatur untuk beristirahat di perpustakaan selama jam makan siang."
                 }
             },
-            { 
-                id: 12, 
-                cat: "culture", 
-                zh: "老師你好，因宗教原因，阿里（女生）在體育課時需要佩戴頭巾及穿著長運動褲，希望學校批准。", 
+            {
+                id: 12,
+                cat: "culture",
+                zh: "老師你好，因宗教原因，阿里（女生）在體育課時需要佩戴頭巾及穿著長運動褲，希望學校批准。",
                 py: "lou5 si1 nei5 hou2, jan1 zung1 gaau3 jyun4 jan1, aa3 lei5 zoi6 tai2 juk6 fo1 si4 seoi1 jiu1 pui3 daai3 tau4 gan1 kap1 cyun1 zoek3 coeng4 wan6 dung6 fu3, hei1 mong6 haau2 fong1 pai1 zeon2.",
                 langs: {
                     en: "Hello teacher, for religious reasons, Ali (female) needs to wear a hijab and long sports pants during PE lessons. I hope the school can approve this.",
@@ -915,7 +903,7 @@
                 const badge = catBadges[item.cat];
                 const card = document.createElement('div');
                 card.className = "border border-gray-100 rounded-2xl p-5 bg-slate-50/50 hover:border-emerald-200 hover:shadow-md transition flex flex-col justify-between fade-in";
-                
+
                 // 建立語言選單 options
                 let langOptions = '';
                 Object.keys(item.langs).forEach(langKey => {
@@ -928,11 +916,11 @@
                             <span class="${badge.bg} text-xs font-bold px-2.5 py-1 rounded-md shadow-sm">${badge.label}</span>
                             <span class="text-xs text-gray-400 font-bold">#${item.id}</span>
                         </div>
-                        
+
                         <!-- 中文 & 拼音 -->
                         <div class="text-gray-900 font-bold text-base leading-relaxed mb-1" id="phrase-zh-${item.id}">${item.zh}</div>
                         <div class="text-xs text-gray-400 font-mono mb-4">${item.py}</div>
-                        
+
                         <!-- 智能語言動態翻譯模組 -->
                         <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm mb-4">
                             <div class="flex justify-between items-center mb-2 pb-2 border-b border-gray-50">
@@ -948,13 +936,13 @@
                     </div>
 
                     <div class="flex gap-2 border-t border-gray-100/80 pt-3">
-                        <button onclick="speakText('${item.zh.replace(/'/g, "\\'")}', 'zh-HK', this)" class="bg-white hover:bg-emerald-50 text-gray-700 px-3 py-2 rounded-lg text-xs font-bold border border-gray-200 transition flex items-center flex-1 justify-center shadow-sm">
+                        <button type="button" onclick="speakText('${item.zh.replace(/'/g, "\\'")}', 'zh-HK', this)" class="bg-white hover:bg-emerald-50 text-gray-700 px-3 py-2 rounded-lg text-xs font-bold border border-gray-200 transition flex items-center flex-1 justify-center shadow-sm">
                             <i class="fa-solid fa-volume-high text-secondary mr-1.5"></i> 粵語發音
                         </button>
-                        <button id="speak-trans-btn-${item.id}" onclick="speakTranslation(${item.id})" class="bg-white hover:bg-emerald-50 text-gray-700 px-3 py-2 rounded-lg text-xs font-bold border border-gray-200 transition flex items-center flex-1 justify-center shadow-sm">
+                        <button type="button" id="speak-trans-btn-${item.id}" onclick="speakTranslation(${item.id})" class="bg-white hover:bg-emerald-50 text-gray-700 px-3 py-2 rounded-lg text-xs font-bold border border-gray-200 transition flex items-center flex-1 justify-center shadow-sm">
                             <i class="fa-solid fa-volume-high text-blue-500 mr-1.5"></i> 聽翻譯
                         </button>
-                        <button onclick="copyToClipboard('phrase-zh-${item.id}', this)" class="bg-secondary text-white hover:bg-emerald-600 px-3 py-2 rounded-lg text-xs font-bold shadow-md transition flex items-center flex-1 justify-center">
+                        <button type="button" onclick="copyToClipboard('phrase-zh-${item.id}', this)" class="bg-secondary text-white hover:bg-emerald-600 px-3 py-2 rounded-lg text-xs font-bold shadow-md transition flex items-center flex-1 justify-center">
                             <i class="fa-solid fa-copy mr-1.5"></i> 複製中文
                         </button>
                     </div>
@@ -970,7 +958,7 @@
                 const targetText = phrase.langs[langKey];
                 const textContainer = document.getElementById(`trans-output-${id}`);
                 textContainer.innerText = targetText;
-                
+
                 // 更新朗讀按鈕
                 const speakBtn = document.getElementById(`speak-trans-btn-${id}`);
                 speakBtn.setAttribute('onclick', `speakTranslation(${id}, '${langKey}')`);
@@ -1003,7 +991,7 @@
                 else if (langKey === 'urdu') speechLang = 'ur-PK';
                 else if (langKey === 'nepali') speechLang = 'ne-NP';
                 else if (langKey === 'punjabi') speechLang = 'pa-IN';
-                
+
                 const btn = document.getElementById(`speak-trans-btn-${id}`);
                 speakText(text, speechLang, btn);
             }
@@ -1015,7 +1003,7 @@
                 window.speechSynthesis.cancel();
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = lang;
-                
+
                 // 鎖定優秀發音人
                 if (lang === 'zh-HK') {
                     const voices = window.speechSynthesis.getVoices();
@@ -1025,7 +1013,7 @@
 
                 const icon = btn.querySelector('i');
                 const origClass = icon.className;
-                
+
                 utterance.onstart = () => {
                     icon.className = 'fa-solid fa-spinner animate-spin text-secondary';
                 };
@@ -1059,7 +1047,7 @@
                 btn.innerHTML = '<i class="fa-solid fa-check mr-1.5"></i> 已複製!';
                 btn.classList.remove('bg-secondary');
                 btn.classList.add('bg-green-600');
-                
+
                 setTimeout(() => {
                     btn.innerHTML = origHTML;
                     btn.classList.remove('bg-green-600');
@@ -1075,6 +1063,16 @@
 
     <script>
         // 4. 一鍵告假信生成器邏輯
+        function escapeHtml(value) {
+            return String(value).replace(/[&<>"']/g, (char) => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            }[char]));
+        }
+
         function toggleCustomReason() {
             const reasonVal = document.getElementById('let-reason').value;
             const customDiv = document.getElementById('custom-reason-inputs');
@@ -1087,14 +1085,14 @@
         }
 
         function generateExcuseLetter() {
-            const stdZh = document.getElementById('let-std-name-zh').value.trim();
-            const stdEn = document.getElementById('let-std-name-en').value.trim();
-            const cls = document.getElementById('let-class').value.trim();
-            const parentName = document.getElementById('let-parent-name').value.trim();
+            const stdZh = escapeHtml(document.getElementById('let-std-name-zh').value.trim());
+            const stdEn = escapeHtml(document.getElementById('let-std-name-en').value.trim());
+            const cls = escapeHtml(document.getElementById('let-class').value.trim());
+            const parentName = escapeHtml(document.getElementById('let-parent-name').value.trim());
             const startDate = document.getElementById('let-start-date').value;
             const days = parseInt(document.getElementById('let-days').value);
             const reasonKey = document.getElementById('let-reason').value;
-            const phone = document.getElementById('let-phone').value.trim();
+            const phone = escapeHtml(document.getElementById('let-phone').value.trim());
 
             if (!stdZh || !stdEn || !cls || !parentName || !startDate || isNaN(days) || !phone) {
                 showToast("請填寫所有必填欄位。 (Please fill in all fields)", "warning");
@@ -1134,8 +1132,8 @@
             let selectedReason = { zh: '', en: '' };
 
             if (reasonKey === 'other') {
-                const customZh = document.getElementById('let-custom-reason-zh').value.trim();
-                const customEn = document.getElementById('let-custom-reason-en').value.trim();
+                const customZh = escapeHtml(document.getElementById('let-custom-reason-zh').value.trim());
+                const customEn = escapeHtml(document.getElementById('let-custom-reason-en').value.trim());
                 if (!customZh || !customEn) {
                     showToast("請填寫自訂請假原因。 (Please fill in custom reason)", "warning");
                     return;
@@ -1167,7 +1165,7 @@
                             ${selectedReason.zh}
                         </p>
                         <p class="text-xs text-gray-600 leading-relaxed italic bg-slate-50 p-3 rounded-lg border-l-2 border-emerald-500">
-                            I am writing to inform you that I am the parent of <strong>${stdEn}</strong> in Class <strong>${cls}</strong>. 
+                            I am writing to inform you that I am the parent of <strong>${stdEn}</strong> in Class <strong>${cls}</strong>.
                             ${selectedReason.en}
                         </p>
                         <p>祝 學校教安 / 身體健康。</p>
@@ -1216,9 +1214,9 @@
                 logging: false
             }).then(canvas => {
                 printContent.style.border = originalBorder; // 恢復樣式
-                
+
                 const imgData = canvas.toDataURL('image/png');
-                
+
                 // 1. 嘗試觸發系統自動下載
                 try {
                     const link = document.createElement('a');
@@ -1230,7 +1228,7 @@
                 } catch (e) {
                     console.log("自動下載受限於瀏覽器安全設定");
                 }
-                
+
                 // 2. 萬無一失方案：直接在畫面上顯示生成的圖片，讓家長長按/右鍵儲存！
                 const previewContainer = document.getElementById('letter-preview-content');
                 previewContainer.innerHTML = `
@@ -1246,10 +1244,10 @@
                         <img src="${imgData}" alt="請假信圖片" class="max-w-full h-auto shadow-sm" style="max-height: 60vh; object-fit: contain;">
                     </div>
                     <div class="text-center mt-6 fade-in">
-                        <button onclick="generateExcuseLetter()" class="text-secondary hover:text-emerald-700 font-bold text-sm bg-emerald-50 px-4 py-2 rounded-lg transition border border-emerald-100 shadow-sm"><i class="fa-solid fa-rotate-left mr-1"></i> 重新編輯請假信 (Edit Again)</button>
+                        <button type="button" onclick="generateExcuseLetter()" class="text-secondary hover:text-emerald-700 font-bold text-sm bg-emerald-50 px-4 py-2 rounded-lg transition border border-emerald-100 shadow-sm"><i class="fa-solid fa-rotate-left mr-1"></i> 重新編輯請假信 (Edit Again)</button>
                     </div>
                 `;
-                
+
                 // 隱藏原有的按鈕區塊
                 document.getElementById('letter-actions').classList.add('hidden');
                 showToast("請長按或右鍵儲存圖片！ (Please long-press to save)", "success");
@@ -1349,7 +1347,7 @@
                             <i class="fa-solid fa-star text-yellow-500"></i> ${titleZh}
                         </h3>
                         <p class="text-xs text-gray-500 font-bold italic mb-4">${titleEn}</p>
-                        
+
                         <ul class="space-y-3 mb-6">
                             ${recsHTML}
                         </ul>
@@ -1374,8 +1372,8 @@
             tbody.innerHTML = '';
 
             const filtered = noticeGlossaryData.filter(item => {
-                return item.ch.includes(query) || 
-                       item.en.toLowerCase().includes(query.toLowerCase()) || 
+                return item.ch.includes(query) ||
+                       item.en.toLowerCase().includes(query.toLowerCase()) ||
                        item.py.toLowerCase().includes(query.toLowerCase());
             });
 
@@ -1441,7 +1439,7 @@
         function toggleFaq(num) {
             const ans = document.getElementById(`faq-ans-${num}`);
             const icon = document.getElementById(`faq-icon-${num}`);
-            
+
             if (ans.classList.contains('hidden')) {
                 ans.classList.remove('hidden');
                 ans.classList.add('fade-in');
@@ -1462,7 +1460,7 @@
             }`;
             toast.innerText = message;
             document.body.appendChild(toast);
-            
+
             setTimeout(() => {
                 toast.classList.remove('translate-y-10', 'opacity-0');
             }, 50);
@@ -1478,7 +1476,7 @@
             renderPhrases();
             renderNoticeGlossary();
             loadChecklistState(); // 加載備忘錄勾選狀態
-            
+
             // 語音初始化提示
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.getVoices(); // 觸發瀏覽器加載發音庫

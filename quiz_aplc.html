@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HKDSE ApL(C) 知識挑戰 | NCS 融學平台</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .fade-in { animation: fadeIn 0.3s ease-in-out; }
@@ -30,32 +30,32 @@
                 <span id="score-text">Score: 0</span>
             </div>
             <div class="w-full bg-gray-200 rounded-full h-2 mb-8">
-                <div id="progress-bar" class="bg-indigo-600 h-2 rounded-full transition-all duration-300" style="width: 3.3%"></div>
+                <div id="progress-bar" class="bg-indigo-600 h-2 rounded-full transition-all duration-300 w-[3.3%]"></div>
             </div>
 
             <div class="mb-8">
                 <div class="flex items-start">
                     <h2 id="q-zh" class="text-xl md:text-2xl font-bold text-gray-900 mb-2">載入中...</h2>
-                    <button onclick="speakText(document.getElementById('q-zh').innerText, 'zh-HK')" class="ml-3 text-indigo-500 hover:text-indigo-700 bg-indigo-50 p-2 rounded-full focus:outline-none"><i class="fa-solid fa-volume-up"></i></button>
+                    <button type="button" onclick="speakText(document.getElementById('q-zh').innerText, 'zh-HK')" class="ml-3 text-indigo-500 hover:text-indigo-700 bg-indigo-50 p-2 rounded-full focus:outline-none" aria-label="朗讀內容"><i class="fa-solid fa-volume-up"></i></button>
                 </div>
                 <div class="flex items-start mt-2">
                     <p id="q-en" class="text-sm md:text-base text-gray-500 italic">Loading...</p>
-                    <button onclick="speakText(document.getElementById('q-en').innerText, 'en-GB')" class="ml-3 text-gray-400 hover:text-gray-600 bg-gray-50 p-2 rounded-full text-xs focus:outline-none"><i class="fa-solid fa-volume-up"></i></button>
+                    <button type="button" onclick="speakText(document.getElementById('q-en').innerText, 'en-GB')" class="ml-3 text-gray-400 hover:text-gray-600 bg-gray-50 p-2 rounded-full text-xs focus:outline-none" aria-label="朗讀內容"><i class="fa-solid fa-volume-up"></i></button>
                 </div>
             </div>
 
             <div id="options-container" class="space-y-3"></div>
 
             <div id="feedback-container" class="hidden mt-6 p-4 rounded-xl">
-                <h3 id="feedback-title" class="font-bold text-lg mb-1"></h3>
+                <h3 id="feedback-title" class="font-bold text-lg mb-1">回饋載入中…</h3>
                 <div class="flex items-start mt-2">
                     <p id="feedback-zh" class="text-sm font-medium text-gray-800"></p>
-                    <button onclick="speakText(document.getElementById('feedback-zh').innerText, 'zh-HK')" class="ml-2 text-indigo-500 hover:text-indigo-700 focus:outline-none"><i class="fa-solid fa-volume-up text-sm"></i></button>
+                    <button type="button" onclick="speakText(document.getElementById('feedback-zh').innerText, 'zh-HK')" class="ml-2 text-indigo-500 hover:text-indigo-700 focus:outline-none" aria-label="朗讀內容"><i class="fa-solid fa-volume-up text-sm"></i></button>
                 </div>
                 <p id="feedback-en" class="text-xs text-gray-600 italic mt-1"></p>
             </div>
 
-            <button id="next-btn" onclick="nextQuestion()" class="hidden w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl transition shadow-md">
+            <button type="button" id="next-btn" onclick="nextQuestion()" class="hidden w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl transition shadow-md">
                 下一題 Next Question <i class="fa-solid fa-arrow-right ml-2"></i>
             </button>
         </div>
@@ -64,7 +64,7 @@
             <div class="text-indigo-500 text-6xl mb-4"><i class="fa-solid fa-award"></i></div>
             <h2 class="text-3xl font-bold text-gray-900 mb-2">測驗完成 Quiz Completed!</h2>
             <p class="text-lg text-gray-600 mb-6">Your score is <span id="final-score" class="font-bold text-indigo-600 text-2xl"></span> / 30</p>
-            <button onclick="location.reload()" class="bg-indigo-600 text-white px-6 py-3 rounded-full font-bold hover:bg-indigo-700 transition">重新測試 Restart</button>
+            <button type="button" onclick="location.reload()" class="bg-indigo-600 text-white px-6 py-3 rounded-full font-bold hover:bg-indigo-700 transition">重新測試 Restart</button>
             <a href="student.html" class="block mt-4 text-indigo-500 hover:underline">返回首頁 Return Home</a>
         </div>
     </main>
@@ -91,7 +91,7 @@
             { zh: "如果非華語學生同時擁有 ApL(C) 和 GCSE 中文成績，大學聯招 (JUPAS) 會如何處理？", en: "If an NCS student has both ApL(C) and GCSE Chinese results, how will JUPAS handle it?", options: [{zh: "兩者分數相加", en: "Add the scores together", correct: false },{zh: "只計算 ApL(C)", en: "Only count ApL(C)", correct: false },{zh: "彈性考慮並取其對學生最有利的成績", en: "Flexibly consider and take the best result", correct: true },{zh: "取消其申請資格", en: "Disqualify the application", correct: false }], exp_zh: "大學通常會取最高或最有利的成績計算。", exp_en: "Universities usually take the highest or most favorable alternative Chinese qualification." },
             { zh: "與其他 DSE 核心中文科相比，ApL(C) 最大特點是？", en: "Compared to core DSE Chinese, what is the biggest feature of ApL(C)?", options: [{zh: "需要背誦大量文言文", en: "Requires memorizing classical texts", correct: false },{zh: "重視職場與日常真實溝通", en: "Focuses on workplace/daily real communication", correct: true },{zh: "寫作要求達二千字", en: "Requires 2000-word essays", correct: false },{zh: "只有聽力測試", en: "Only tests listening", correct: false}], exp_zh: "ApL(C) 切合生活與職業需求，不考文言文及文學分析。", exp_en: "ApL(C) perfectly fits career needs, with no classical Chinese analysis." },
             { zh: "ApL(C) 的「達標並表現優異(I)」等同 HKDSE 中文科的哪一級別？", en: "What is 'Attained with Distinction (I)' equivalent to in DSE Chinese?", options: [{zh: "第二級 (Level 2)", en: "Level 2", correct: false },{zh: "第三級 (Level 3)", en: "Level 3", correct: true },{zh: "第四級 (Level 4)", en: "Level 4", correct: false },{zh: "第五級 (Level 5)", en: "Level 5", correct: false}], exp_zh: "優異(I) 成績獲公認等同於 DSE 中文科第三級表現。", exp_en: "Distinction (I) is widely recognized as equivalent to Level 3 in DSE Chinese." },
-            
+
             // 以下新增 10 題 (21-30) 以達到 30 題要求
             { zh: "應用學習中文 (ApL(C)) 課程的學生成績是屬於標準參照，這意味著：", en: "The grading of ApL(C) is criterion-referenced, which means:", options: [{zh:"成績與其他考生表現比較", en:"Grading depends on other candidates", correct:false},{zh:"根據是否達到既定客觀標準評分", en:"Grading depends on preset objective standards", correct:true},{zh:"由考官主觀隨意評定", en:"Grading is subjective by examiners", correct:false},{zh:"全部人均可獲得優異成績", en:"Everyone automatically gets Distinction", correct:false}], exp_zh: "標準參照意味着考生成績只與預設標準掛鉤，不受其他考生表現影響。", exp_en: "Criterion-referenced means grades are based on objective standards, not rank." },
             { zh: "ApL(C) 的評估範疇中，聽、說、讀、寫的分值比例是？", en: "In the assessment of ApL(C), what is the ratio of listening, speaking, reading, and writing?", options: [{zh:"寫作佔50%，其他各16.6%", en:"Writing 50%, others 16.6%", correct:false},{zh:"四個範疇均衡評估，各佔比例", en:"Balanced assessment across all four areas", correct:true},{zh:"口試佔80%", en:"Speaking accounts for 80%", correct:false},{zh:"只評估閱讀及寫作", en:"Only reading and writing are assessed", correct:false}], exp_zh: "課程提供機構會設計多元化任務，全面且均衡地評核聽、說、讀、寫四項技能。", exp_en: "The provider designs diverse tasks to assess all four skills in a balanced way." },
@@ -118,7 +118,7 @@
         function loadQuestion() {
             document.getElementById('feedback-container').classList.add('hidden');
             document.getElementById('next-btn').classList.add('hidden');
-            
+
             const q = questions[currentQuestion];
             document.getElementById('q-zh').innerText = q.zh;
             document.getElementById('q-en').innerText = q.en;
@@ -127,7 +127,7 @@
 
             const optionsContainer = document.getElementById('options-container');
             optionsContainer.innerHTML = '';
-            
+
             q.options.forEach((opt, index) => {
                 const btn = document.createElement('button');
                 btn.className = 'w-full text-left bg-gray-50 border-2 border-gray-200 hover:border-indigo-400 hover:bg-indigo-50 rounded-xl p-4 transition duration-200 group';

@@ -1,0 +1,18 @@
+{
+  "name": "ncs-support-platform",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static support platform for Hong Kong non-Chinese-speaking students and families.",
+  "scripts": {
+    "build": "pnpm run build:css",
+    "build:css": "tailwindcss -i ./assets/tailwind.css -o ./assets/styles.css --minify",
+    "watch:css": "tailwindcss -i ./assets/tailwind.css -o ./assets/styles.css --watch",
+    "check:html": "html-validate '*.html'",
+    "check:js": "node scripts/check-inline-js.mjs",
+    "check": "pnpm run build && pnpm run check:js && pnpm run check:html"
+  },
+  "devDependencies": {
+    "html-validate": "^8.24.2",
+    "tailwindcss": "^3.4.17"
+  }
+}

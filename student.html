@@ -4,20 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>學生專區 | NCS 融學平台</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#2563EB',
-                        secondary: '#10B981',
-                    }
-                }
-            }
-        }
-    </script>
     <style>
         .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
@@ -55,20 +43,20 @@
         <div id="sandbox-warning" class="hidden mb-6 bg-amber-50 border border-amber-200 p-4 rounded-xl flex items-start text-amber-900 text-sm">
             <i class="fa-solid fa-triangle-exclamation text-amber-600 text-lg mr-3 mt-0.5"></i>
             <div>
-                <span class="font-bold">平台預覽環境限制提示 (Sandbox Notice):</span> 
+                <span class="font-bold">平台預覽環境限制提示 (Sandbox Notice):</span>
                 由於部分瀏覽器安全限制，當前預覽環境可能無法使用真實麥克風錄音。此為正常安全規範，部署至 GitHub Pages 真實域名後錄音功能將 100% 正常啟用。
             </div>
         </div>
 
         <div class="flex items-center justify-between mb-8">
             <h1 class="text-2xl md:text-3xl font-extrabold text-gray-900 flex items-center">
-                <div class="bg-primary text-white w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center mr-3 md:mr-4 shadow-md"><i class="fa-solid fa-book-open text-xl md:text-2xl"></i></div>
+                <span class="bg-primary text-white w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center mr-3 md:mr-4 shadow-md"><i class="fa-solid fa-book-open text-xl md:text-2xl"></i></span>
                 學生專區 <span class="text-lg md:text-xl font-normal text-gray-500 ml-3 hidden sm:inline">| 學習與語言支援</span>
             </h1>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10">
-            
+
             <!-- 左側：中文分級閱讀 -->
             <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col h-[850px]">
                 <div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
@@ -82,11 +70,11 @@
 
                 <!-- 分級按鈕 -->
                 <div class="flex items-center space-x-2 mb-4 overflow-x-auto pb-3 custom-scrollbar min-h-[55px]">
-                    <button onclick="filterReadings('all')" id="tab-all" class="tab-btn flex-shrink-0 flex items-center px-4 py-2 rounded-full text-sm font-bold bg-primary text-white transition whitespace-nowrap shadow-sm">全部</button>
-                    <button onclick="filterReadings(1)" id="tab-1" class="tab-btn flex-shrink-0 flex items-center px-4 py-2 rounded-full text-sm font-bold bg-gray-100 text-gray-600 hover:bg-green-100 hover:text-green-700 transition whitespace-nowrap shadow-sm">Level 1 (基礎)</button>
-                    <button onclick="filterReadings(2)" id="tab-2" class="tab-btn flex-shrink-0 flex items-center px-4 py-2 rounded-full text-sm font-bold bg-gray-100 text-gray-600 hover:bg-yellow-100 hover:text-yellow-700 transition whitespace-nowrap shadow-sm">Level 2 (日常)</button>
-                    <button onclick="filterReadings(3)" id="tab-3" class="tab-btn flex-shrink-0 flex items-center px-4 py-2 rounded-full text-sm font-bold bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-700 transition whitespace-nowrap shadow-sm">Level 3 (進階)</button>
-                    <button onclick="filterReadings(4)" id="tab-4" class="tab-btn flex-shrink-0 flex items-center px-4 py-2 rounded-full text-sm font-bold bg-gray-100 text-gray-600 hover:bg-red-100 hover:text-red-700 transition whitespace-nowrap shadow-sm">Level 4 (精通)</button>
+                    <button type="button" onclick="filterReadings('all')" id="tab-all" class="tab-btn flex-shrink-0 flex items-center px-4 py-2 rounded-full text-sm font-bold bg-primary text-white transition whitespace-nowrap shadow-sm">全部</button>
+                    <button type="button" onclick="filterReadings(1)" id="tab-1" class="tab-btn flex-shrink-0 flex items-center px-4 py-2 rounded-full text-sm font-bold bg-gray-100 text-gray-600 hover:bg-green-100 hover:text-green-700 transition whitespace-nowrap shadow-sm">Level 1 (基礎)</button>
+                    <button type="button" onclick="filterReadings(2)" id="tab-2" class="tab-btn flex-shrink-0 flex items-center px-4 py-2 rounded-full text-sm font-bold bg-gray-100 text-gray-600 hover:bg-yellow-100 hover:text-yellow-700 transition whitespace-nowrap shadow-sm">Level 2 (日常)</button>
+                    <button type="button" onclick="filterReadings(3)" id="tab-3" class="tab-btn flex-shrink-0 flex items-center px-4 py-2 rounded-full text-sm font-bold bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-700 transition whitespace-nowrap shadow-sm">Level 3 (進階)</button>
+                    <button type="button" onclick="filterReadings(4)" id="tab-4" class="tab-btn flex-shrink-0 flex items-center px-4 py-2 rounded-full text-sm font-bold bg-gray-100 text-gray-600 hover:bg-red-100 hover:text-red-700 transition whitespace-nowrap shadow-sm">Level 4 (精通)</button>
                 </div>
 
                 <div id="reading-container" class="space-y-4 overflow-y-auto flex-grow custom-scrollbar pr-2 pb-4">
@@ -96,7 +84,7 @@
 
             <!-- 右側：真實下載區與考試挑戰區 -->
             <div class="flex flex-col space-y-8 h-[850px]">
-                
+
                 <!-- 官方考試資源下載 -->
                 <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col">
                     <div class="mb-4 border-b border-gray-100 pb-4">
@@ -205,7 +193,7 @@
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 mt-10">
-            
+
             <!-- 口語自錄自評系統 -->
             <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col">
                 <div class="border-b border-gray-100 pb-4 mb-6">
@@ -228,8 +216,8 @@
                 <div class="flex justify-between items-center mb-3">
                     <span class="text-xs text-gray-400 font-bold" id="oral-pagination-text">題目 1 / 15</span>
                     <div class="flex space-x-1">
-                        <button onclick="prevOralQuestion()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs px-2.5 py-1.5 rounded-lg transition font-bold"><i class="fa-solid fa-chevron-left mr-1"></i>上一題</button>
-                        <button onclick="nextOralQuestion()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs px-2.5 py-1.5 rounded-lg transition font-bold">下一題<i class="fa-solid fa-chevron-right ml-1"></i></button>
+                        <button type="button" onclick="prevOralQuestion()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs px-2.5 py-1.5 rounded-lg transition font-bold"><i class="fa-solid fa-chevron-left mr-1"></i>上一題</button>
+                        <button type="button" onclick="nextOralQuestion()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs px-2.5 py-1.5 rounded-lg transition font-bold">下一題<i class="fa-solid fa-chevron-right ml-1"></i></button>
                     </div>
                 </div>
 
@@ -252,7 +240,7 @@
                 <!-- 錄音控制區 -->
                 <div class="flex flex-col items-center justify-center p-6 bg-slate-50 rounded-2xl border border-dashed border-gray-200">
                     <div class="flex items-center space-x-4">
-                        <button id="record-btn" onclick="toggleRecording()" class="w-16 h-16 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center shadow-lg transition transform active:scale-95">
+                        <button type="button" id="record-btn" onclick="toggleRecording()" class="w-16 h-16 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center shadow-lg transition transform active:scale-95" aria-label="開始或停止錄音">
                             <i id="record-icon" class="fa-solid fa-microphone text-2xl"></i>
                         </button>
                         <div class="text-left">
@@ -290,10 +278,10 @@
                         <input type="text" id="glossary-search" oninput="searchGlossary()" placeholder="搜尋中文詞彙或英文解釋 (e.g. 分數 / Fraction)" class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-primary">
                     </div>
                     <div class="flex space-x-1">
-                        <button onclick="filterGlossary('all')" id="g-tab-all" class="g-tab-btn px-3 py-2 rounded-lg text-xs font-bold bg-primary text-white transition">全部</button>
-                        <button onclick="filterGlossary('math')" id="g-tab-math" class="g-tab-btn px-3 py-2 rounded-lg text-xs font-bold bg-gray-100 text-gray-600 hover:bg-blue-100 hover:text-blue-700 transition">數學 Math</button>
-                        <button onclick="filterGlossary('science')" id="g-tab-science" class="g-tab-btn px-3 py-2 rounded-lg text-xs font-bold bg-gray-100 text-gray-600 hover:bg-green-100 hover:text-green-700 transition">科學 Science</button>
-                        <button onclick="filterGlossary('society')" id="g-tab-society" class="g-tab-btn px-3 py-2 rounded-lg text-xs font-bold bg-gray-100 text-gray-600 hover:bg-purple-100 hover:text-purple-700 transition">社會學科</button>
+                        <button type="button" onclick="filterGlossary('all')" id="g-tab-all" class="g-tab-btn px-3 py-2 rounded-lg text-xs font-bold bg-primary text-white transition">全部</button>
+                        <button type="button" onclick="filterGlossary('math')" id="g-tab-math" class="g-tab-btn px-3 py-2 rounded-lg text-xs font-bold bg-gray-100 text-gray-600 hover:bg-blue-100 hover:text-blue-700 transition">數學 Math</button>
+                        <button type="button" onclick="filterGlossary('science')" id="g-tab-science" class="g-tab-btn px-3 py-2 rounded-lg text-xs font-bold bg-gray-100 text-gray-600 hover:bg-green-100 hover:text-green-700 transition">科學 Science</button>
+                        <button type="button" onclick="filterGlossary('society')" id="g-tab-society" class="g-tab-btn px-3 py-2 rounded-lg text-xs font-bold bg-gray-100 text-gray-600 hover:bg-purple-100 hover:text-purple-700 transition">社會學科</button>
                     </div>
                 </div>
 
@@ -302,10 +290,10 @@
                     <table class="min-w-full divide-y divide-gray-100">
                         <thead class="bg-slate-50 sticky top-0">
                             <tr>
-                                <th class="px-4 py-2.5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">中文 Term</th>
-                                <th class="px-4 py-2.5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">拼音 Jyutping</th>
-                                <th class="px-4 py-2.5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">英文 English</th>
-                                <th class="px-4 py-2.5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">學科 Subject</th>
+                                <th scope="col" class="px-4 py-2.5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">中文 Term</th>
+                                <th scope="col" class="px-4 py-2.5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">拼音 Jyutping</th>
+                                <th scope="col" class="px-4 py-2.5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">英文 English</th>
+                                <th scope="col" class="px-4 py-2.5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">學科 Subject</th>
                             </tr>
                         </thead>
                         <tbody id="glossary-body" class="bg-white divide-y divide-gray-100 text-sm">
@@ -1088,7 +1076,7 @@
             selectedOralTab = document.getElementById('oral-exam-select').value;
             currentOralIndex = 0;
             updateOralQuestionPage();
-            
+
             if (isRecording) {
                 stopRecordingLogic();
             }
@@ -1202,7 +1190,7 @@
 
         async function startRecordingLogic() {
             recordedChunks = [];
-            
+
             // 守衛機制：防止不支援 MediaDevices 的沙盒環境拋錯
             if (typeof navigator.mediaDevices === 'undefined' || typeof MediaRecorder === 'undefined') {
                 showSandboxNotice();
@@ -1211,7 +1199,7 @@
 
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                
+
                 // 沙盒權限偵測：若 stream 被禁用，強制中斷
                 if (!stream || stream.getTracks().length === 0) {
                     throw new Error("Microphone tracks not available.");
@@ -1228,7 +1216,7 @@
                 }
 
                 mediaRecorder = new MediaRecorder(stream, options);
-                
+
                 mediaRecorder.ondataavailable = function(e) {
                     if (e.data && e.data.size > 0) {
                         recordedChunks.push(e.data);
@@ -1246,7 +1234,7 @@
 
                 mediaRecorder.start();
                 isRecording = true;
-                
+
                 // UI 更改為正在錄音狀態
                 document.getElementById('record-btn').classList.remove('bg-red-50', 'hover:bg-red-600', 'bg-red-500'); // Clean potential leftovers
                 document.getElementById('record-btn').classList.add('bg-gray-800', 'hover:bg-gray-900', 'animate-pulse');
@@ -1278,7 +1266,7 @@
                 } catch(e) {
                     console.error("Stop track error:", e);
                 }
-                
+
                 isRecording = false;
                 clearInterval(recordingInterval);
 
@@ -1369,7 +1357,7 @@
             }`;
             toast.innerText = message;
             document.body.appendChild(toast);
-            
+
             setTimeout(() => {
                 toast.classList.remove('translate-y-10', 'opacity-0');
             }, 50);

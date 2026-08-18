@@ -5,31 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>升學與職涯導航 | NCS 融學平台</title>
     <!-- 引入 Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/styles.css">
     <!-- 引入 FontAwesome 圖示 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#2563EB',
-                        pathway: '#9333EA', /* 升學專區主色調：尊貴紫色 */
-                        success: '#10B981'
-                    },
-                    fontSize: {
-                        'xxs': '0.7rem'
-                    }
-                }
-            }
-        }
-    </script>
     <style>
         .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #9333EA; border-radius: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #7c3aed; border-radius: 4px; }
-        
+
         .fade-in { animation: fadeIn 0.4s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -125,7 +109,7 @@
 
     <!-- 主體內容 -->
     <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-12">
-        
+
         <!-- 第一區塊：JUPAS 替代中文分數折算計算機 -->
         <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
             <div class="border-b border-gray-100 pb-4 mb-6">
@@ -142,7 +126,7 @@
                 <!-- 輸入控制面板 -->
                 <div class="lg:col-span-1 bg-slate-50 p-5 rounded-2xl border border-gray-100 space-y-5">
                     <h3 class="font-extrabold text-gray-900 text-sm flex items-center gap-2"><i class="fa-solid fa-user-pen text-pathway"></i> 第一步：請選取您的考試成績</h3>
-                    
+
                     <!-- 考查學制 -->
                     <div>
                         <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">1. 報考的替代中文學制</label>
@@ -161,7 +145,7 @@
                         </select>
                     </div>
 
-                    <button onclick="calculateJUPAS()" class="w-full bg-pathway hover:bg-purple-700 text-white font-extrabold py-3 rounded-xl transition shadow-md flex items-center justify-center gap-2">
+                    <button type="button" onclick="calculateJUPAS()" class="w-full bg-pathway hover:bg-purple-700 text-white font-extrabold py-3 rounded-xl transition shadow-md flex items-center justify-center gap-2">
                         <i class="fa-solid fa-wand-magic-sparkles"></i> 開始資格與分數評估
                     </button>
                 </div>
@@ -225,7 +209,7 @@
 
                 <!-- 計算按鈕 -->
                 <div class="flex items-end">
-                    <button onclick="evaluatePathwayDecision()" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-extrabold py-3.5 rounded-xl transition shadow-md flex items-center justify-center gap-2">
+                    <button type="button" onclick="evaluatePathwayDecision()" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-extrabold py-3.5 rounded-xl transition shadow-md flex items-center justify-center gap-2">
                         <i class="fa-solid fa-magnifying-glass-chart"></i> 產出路徑推薦 (View Path)
                     </button>
                 </div>
@@ -291,7 +275,7 @@
                             <div class="bg-white p-4 rounded-xl border border-gray-150">
                                 <strong class="text-slate-900 block text-sm mb-1">1. 醫療護理及社福機構 (Healthcare)</strong>
                                 <p class="text-gray-600 leading-relaxed text-xs">
-                                    <strong>核心能力：</strong>高度看重廣東話口語（Listening & Speaking）。因為需要直接服務本地長者、病人或幼兒。DSE 應用學習中文 (ApL(C)) 因側重實用溝通，在社福與醫護輔助界擁有極高認可度。
+                                    <strong>核心能力：</strong>高度看重廣東話口語（Listening &amp; Speaking）。因為需要直接服務本地長者、病人或幼兒。DSE 應用學習中文 (ApL(C)) 因側重實用溝通，在社福與醫護輔助界擁有極高認可度。
                                 </p>
                             </div>
                             <div class="bg-white p-4 rounded-xl border border-gray-150">
@@ -301,7 +285,7 @@
                                 </p>
                             </div>
                             <div class="bg-white p-4 rounded-xl border border-gray-150">
-                                <strong class="text-slate-900 block text-sm mb-1">3. 資訊科技與跨國金融 (IT & Finance)</strong>
+                                <strong class="text-slate-900 block text-sm mb-1">3. 資訊科技與跨國金融 (IT &amp; Finance)</strong>
                                 <p class="text-gray-600 leading-relaxed text-xs">
                                     <strong>零中文障礙：</strong>程式設計、軟件工程、跨國投行與外資證券業務 100% 以英語進行。對中文讀寫完全無硬性指標，非華語青年可憑學術實力與英文優勢直接與國際大廠對接。
                                 </p>
@@ -356,7 +340,7 @@
 
             <!-- 故事卡片網格 (加入中英對照、調整字體至最適大小、完美消弭留白) -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-6">
-                
+
                 <!-- 故事一：Sajid Khan (真實 JUPAS 替代中文進法律系路徑) -->
                 <div class="flip-card" onclick="flipCard(this)">
                     <div class="flip-card-inner">
@@ -389,12 +373,12 @@
                                     <h4 class="font-extrabold text-purple-900 text-sm mb-2 border-b border-purple-200 pb-1"><i class="fa-solid fa-key mr-1"></i> 學長 Sajid 的成功秘訣 (Tactics):</h4>
                                     <ul class="space-y-2 text-xs text-purple-950 font-semibold leading-snug">
                                         <li>
-                                            <i class="fa-solid fa-check text-purple-600 mr-1 shrink-0"></i><strong>早作佈局 (Early Planning):</strong> 
+                                            <i class="fa-solid fa-check text-purple-600 mr-1 shrink-0"></i><strong>早作佈局 (Early Planning):</strong>
                                             中四考取 GCSE 中文保底，隨後衝刺 GCE A-Level 中文。
                                             <span class="block text-[10px] text-purple-600 font-normal italic">Secure GCSE in S4 as safety, then strive for A-Level Chinese.</span>
                                         </li>
                                         <li>
-                                            <i class="fa-solid fa-check text-purple-600 mr-1 shrink-0"></i><strong>發揮學術強項 (Leverage Strengths):</strong> 
+                                            <i class="fa-solid fa-check text-purple-600 mr-1 shrink-0"></i><strong>發揮學術強項 (Leverage Strengths):</strong>
                                             中文達標後，全力確保英文及選修科取得 5* 以上。
                                             <span class="block text-[10px] text-purple-600 font-normal italic">Once Chinese is settled, focus on scoring 5* in English/electives.</span>
                                         </li>
@@ -441,12 +425,12 @@
                                     <h4 class="font-extrabold text-purple-900 text-sm mb-2 border-b border-purple-200 pb-1"><i class="fa-solid fa-key mr-1"></i> 學姐 Anisha 的成功秘訣 (Tactics):</h4>
                                     <ul class="space-y-2 text-xs text-purple-950 font-semibold leading-snug">
                                         <li>
-                                            <i class="fa-solid fa-check text-purple-600 mr-1 shrink-0"></i><strong>情境式口語 (Situational Speaking):</strong> 
+                                            <i class="fa-solid fa-check text-purple-600 mr-1 shrink-0"></i><strong>情境式口語 (Situational Speaking):</strong>
                                             多與本地同學練習社區日常對話，展現溝通力。
                                             <span class="block text-[10px] text-purple-600 font-normal italic">Practice conversations with locals to prove communication skills.</span>
                                         </li>
                                         <li>
-                                            <i class="fa-solid fa-check text-purple-600 mr-1 shrink-0"></i><strong>廣東話優勢 (Cantonese Advantage):</strong> 
+                                            <i class="fa-solid fa-check text-purple-600 mr-1 shrink-0"></i><strong>廣東話優勢 (Cantonese Advantage):</strong>
                                             口語優勢能直接服務社區，使你在醫療界極具優勢。
                                             <span class="block text-[10px] text-purple-600 font-normal italic">Cantonese benefits the community, making you highly competitive.</span>
                                         </li>
@@ -493,12 +477,12 @@
                                     <h4 class="font-extrabold text-purple-900 text-sm mb-2 border-b border-purple-200 pb-1"><i class="fa-solid fa-key mr-1"></i> 學長 Shafi 的成功秘訣 (Tactics):</h4>
                                     <ul class="space-y-2 text-xs text-purple-950 font-semibold leading-snug">
                                         <li>
-                                            <i class="fa-solid fa-check text-purple-600 mr-1 shrink-0"></i><strong>把握警隊測試 (Police Exam):</strong> 
+                                            <i class="fa-solid fa-check text-purple-600 mr-1 shrink-0"></i><strong>把握警隊測試 (Police Exam):</strong>
                                             考取警務處專設的「政府口試與中文閱讀能力測試」，難度較低。
                                             <span class="block text-[10px] text-purple-600 font-normal italic">Take the Police's dedicated language test, which is much friendlier.</span>
                                         </li>
                                         <li>
-                                            <i class="fa-solid fa-check text-purple-600 mr-1 shrink-0"></i><strong>體能與面試 (Fitness & Interview):</strong> 
+                                            <i class="fa-solid fa-check text-purple-600 mr-1 shrink-0"></i><strong>體能與面試 (Fitness &amp; Interview):</strong>
                                             專注體能鍛鍊與雙語模擬面試，發揮跨文化優勢。
                                             <span class="block text-[10px] text-purple-600 font-normal italic">Focus on fitness and bilingual mock interviews to leverage strengths.</span>
                                         </li>
@@ -545,12 +529,12 @@
                                     <h4 class="font-extrabold text-purple-900 text-sm mb-2 border-b border-purple-200 pb-1"><i class="fa-solid fa-key mr-1"></i> 學姐 Fatima 的成功秘訣 (Tactics):</h4>
                                     <ul class="space-y-2 text-xs text-purple-950 font-semibold leading-snug">
                                         <li>
-                                            <i class="fa-solid fa-check text-purple-600 mr-1 shrink-0"></i><strong>鎖定英語授課 (English Focus):</strong> 
+                                            <i class="fa-solid fa-check text-purple-600 mr-1 shrink-0"></i><strong>鎖定英語授課 (English Focus):</strong>
                                             計算機、商科與工程均為英語授課，確保替代中文過關即可。
                                             <span class="block text-[10px] text-purple-600 font-normal italic">Tech and engineering are taught in English; you only need to pass alternative Chinese.</span>
                                         </li>
                                         <li>
-                                            <i class="fa-solid fa-check text-purple-600 mr-1 shrink-0"></i><strong>數碼優勢 (Digital Advantage):</strong> 
+                                            <i class="fa-solid fa-check text-purple-600 mr-1 shrink-0"></i><strong>數碼優勢 (Digital Advantage):</strong>
                                             GCSE 中文取得高分極易，是衝刺香港名校 IT 科系的最佳踏腳石。
                                             <span class="block text-[10px] text-purple-600 font-normal italic">GCSE Chinese is highly accessible, serving as the perfect stepping stone to CS.</span>
                                         </li>
@@ -597,12 +581,12 @@
                                     <h4 class="font-extrabold text-purple-900 text-sm mb-2 border-b border-purple-200 pb-1"><i class="fa-solid fa-key mr-1"></i> 學長 Gurpreet 的成功秘訣 (Tactics):</h4>
                                     <ul class="space-y-2 text-xs text-purple-950 font-semibold leading-snug">
                                         <li>
-                                            <i class="fa-solid fa-check text-purple-600 mr-1 shrink-0"></i><strong>技術立身 (Skill-Based):</strong> 
+                                            <i class="fa-solid fa-check text-purple-600 mr-1 shrink-0"></i><strong>技術立身 (Skill-Based):</strong>
                                             工程學科課本及工程圖紙 100% 採用英語，不要求手寫中文字。
                                             <span class="block text-[10px] text-purple-600 font-normal italic">Engineering blueprints and manuals are 100% in English with zero Chinese writing.</span>
                                         </li>
                                         <li>
-                                            <i class="fa-solid fa-check text-purple-600 mr-1 shrink-0"></i><strong>高薪就業 (High-Paying):</strong> 
+                                            <i class="fa-solid fa-check text-purple-600 mr-1 shrink-0"></i><strong>高薪就業 (High-Paying):</strong>
                                             香港工程界嚴重缺乏人手，英文流利的非華語青年在基建公司極受歡迎。
                                             <span class="block text-[10px] text-purple-600 font-normal italic">HK's engineering sector faces severe shortages; fluent English is highly valued.</span>
                                         </li>
@@ -649,12 +633,12 @@
                                     <h4 class="font-extrabold text-purple-900 text-sm mb-2 border-b border-purple-200 pb-1"><i class="fa-solid fa-key mr-1"></i> 學姐 Maria 的成功秘訣 (Tactics):</h4>
                                     <ul class="space-y-2 text-xs text-purple-950 font-semibold leading-snug">
                                         <li>
-                                            <i class="fa-solid fa-check text-purple-600 mr-1 shrink-0"></i><strong>階梯爬升 (Ladder Progression):</strong> 
-                                            透過 DVE -> Higher Diploma -> PolyU Degree 的階梯曲線圓夢。
+                                            <i class="fa-solid fa-check text-purple-600 mr-1 shrink-0"></i><strong>階梯爬升 (Ladder Progression):</strong>
+                                            透過 DVE -&gt; Higher Diploma -&gt; PolyU Degree 的階梯曲線圓夢。
                                             <span class="block text-[10px] text-purple-600 font-normal italic">Climb step-by-step from DVE to Higher Diploma, then to a PolyU Degree.</span>
                                         </li>
                                         <li>
-                                            <i class="fa-solid fa-check text-purple-600 mr-1 shrink-0"></i><strong>實用至上 (Practical Focus):</strong> 
+                                            <i class="fa-solid fa-check text-purple-600 mr-1 shrink-0"></i><strong>實用至上 (Practical Focus):</strong>
                                             設計及 IT 科重視作品集 (Portfolio) 與實際技能，免死記硬背。
                                             <span class="block text-[10px] text-purple-600 font-normal italic">Design/IT prioritize portfolios and practical skills over rote-learning.</span>
                                         </li>
@@ -883,10 +867,10 @@
                     ];
                     actionPlan = "恭喜您攻克了最具挑戰性的文言文關卡。搭配 18 分以上的卓越成績，您在法律、醫科及人文學科中擁有最寬廣的選擇。";
                 }
-            } 
+            }
             else if (score === 'mid-high') {
                 titleZh = "🥈 雙軌 Plan B 首選：全英語副學位 (AD) / 高級文憑 (HD) 銜接路徑 (2+2 模式)";
-                
+
                 if (goal === 'academic') {
                     paths = [
                         "<strong>大專銜接「2+2」模式：</strong> DSE 考獲 12 - 17 分。建議報讀八大院校附屬社區學院（如 HKU SPACE、中大專業進修學院 CUSCS、理工專業進修學院 HKCC）的 <strong>副學士 (Associate Degree) 或 高級文憑 (Higher Diploma)</strong>。",
@@ -914,10 +898,10 @@
                     ];
                     actionPlan = "若沒有考取 GCSE 中文，請在放榜後立即向政府部門報名參加警隊等專門設立的「政府口試與中文閱讀能力測試」，取得同等中文能力豁免。";
                 }
-            } 
+            }
             else if (score === 'mid-low') {
                 titleZh = "🛠️ 技術實務 Plan B 護航：VTC 職專文憑 (DVE) / 基礎學位 (DFS) 安全網";
-                
+
                 if (goal === 'academic') {
                     paths = [
                         "<strong>基礎大專階梯：</strong> DSE 介乎 6 至 11 分。建議報讀 VTC 的 <strong>基礎大專文憑 (Diploma of Foundation Studies - DFS)</strong> 課程。DFS 畢業證書獲香港政府認可，等同於 DSE 5科合格（包括中英文2級）！",
@@ -939,7 +923,7 @@
                         </div>
                     `;
                 }
-            } 
+            }
             else {
                 titleZh = "🌱 實務發展：實用技能培訓、勞工處展翅計劃與直接高就業率崗位";
                 paths = [
@@ -956,7 +940,7 @@
                     <h4 class="font-extrabold text-pathway text-base md:text-lg border-b border-purple-150 pb-3 flex items-center gap-2">
                         <i class="fa-solid fa-map-signs"></i> ${titleZh}
                     </h4>
-                    
+
                     <ul class="space-y-1">
                         ${pathsHTML}
                     </ul>
@@ -987,7 +971,7 @@
             }`;
             toast.innerText = message;
             document.body.appendChild(toast);
-            
+
             setTimeout(() => {
                 toast.classList.remove('translate-y-10', 'opacity-0');
             }, 50);

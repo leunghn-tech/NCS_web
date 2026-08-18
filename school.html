@@ -5,21 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NCS 友善學校搜尋與面試秘笈 | NCS 融學平台</title>
     <!-- 引入 Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/styles.css">
     <!-- 引入 FontAwesome 圖示 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#2563EB',
-                        school: '#0D9488', /* 選校專區主色調：深藍綠色 */
-                    }
-                }
-            }
-        }
-    </script>
     <style>
         .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
@@ -77,7 +65,7 @@
                 </p>
             </div>
             <div class="flex flex-col sm:flex-row justify-center md:justify-end gap-3 shrink-0">
-                <button id="top-compare-btn" onclick="showCompareModal()" class="bg-school text-white hover:bg-teal-800 px-5 py-3 rounded-xl font-bold shadow-lg transition-all duration-300 flex items-center justify-center gap-2 transform active:scale-95">
+                <button type="button" id="top-compare-btn" onclick="showCompareModal()" class="bg-school text-white hover:bg-teal-800 px-5 py-3 rounded-xl font-bold shadow-lg transition-all duration-300 flex items-center justify-center gap-2 transform active:scale-95">
                     <i class="fa-solid fa-scale-balanced"></i> 學校橫向比對 (<span id="compare-count-badge">0</span>/3)
                 </button>
             </div>
@@ -86,7 +74,7 @@
 
     <!-- 主體內容 -->
     <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-10">
-        
+
         <!-- 下拉式進階搜尋器區塊 -->
         <section class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm space-y-4 no-print">
             <!-- 第一層：主搜尋列 + 摺疊控制按鈕 -->
@@ -100,12 +88,12 @@
                 </div>
                 <!-- 展開/摺疊進階按鈕 -->
                 <div class="flex gap-2 w-full md:w-auto shrink-0">
-                    <button onclick="toggleAdvancedSearch()" class="bg-teal-50 text-school hover:bg-teal-100 px-5 py-3 rounded-xl font-bold text-sm transition-all duration-300 flex items-center justify-center gap-2 flex-1 md:flex-none">
-                        <i class="fa-solid fa-sliders"></i> 
+                    <button type="button" onclick="toggleAdvancedSearch()" class="bg-teal-50 text-school hover:bg-teal-100 px-5 py-3 rounded-xl font-bold text-sm transition-all duration-300 flex items-center justify-center gap-2 flex-1 md:flex-none">
+                        <i class="fa-solid fa-sliders"></i>
                         <span>進階篩選 (Advanced Filters)</span>
                         <i id="filter-chevron" class="fa-solid fa-chevron-down text-xs transition-transform duration-300"></i>
                     </button>
-                    <button onclick="resetFilters()" class="border border-red-200 text-red-500 hover:bg-red-50 px-4 py-3 rounded-xl font-bold text-sm transition flex items-center justify-center">
+                    <button type="button" onclick="resetFilters()" class="border border-red-200 text-red-500 hover:bg-red-50 px-4 py-3 rounded-xl font-bold text-sm transition flex items-center justify-center" aria-label="重設">
                         <i class="fa-solid fa-rotate-left"></i>
                     </button>
                 </div>
@@ -182,7 +170,7 @@
 
                     <!-- 優化 2：中文教學與公開試支援 (分欄篩選框) -->
                     <div class="space-y-2 border-t md:border-t-0 md:border-l border-gray-200 pt-2 md:pt-0 md:pl-6">
-                        <label class="block text-xs font-extrabold text-gray-500 uppercase tracking-wider mb-1"><i class="fa-solid fa-language text-teal-600 mr-1"></i> 中文學習及公開試支援 (Chinese & Exams)</label>
+                        <label class="block text-xs font-extrabold text-gray-500 uppercase tracking-wider mb-1"><i class="fa-solid fa-language text-teal-600 mr-1"></i> 中文學習及公開試支援 (Chinese &amp; Exams)</label>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                             <label class="flex items-center text-xs font-bold text-gray-700 cursor-pointer">
                                 <input type="checkbox" id="chk-split" onchange="applyFilters()" class="mr-2 h-4 w-4 text-school border-gray-300 rounded focus:ring-school">
@@ -210,7 +198,7 @@
         <section id="mock-form-section" class="bg-white rounded-2xl border-2 border-teal-500 shadow-xl p-6 relative overflow-hidden transition-all duration-300">
             <!-- 裝飾背景印章 -->
             <div class="absolute -right-10 -bottom-10 text-teal-50 opacity-10 text-9xl pointer-events-none font-extrabold select-none rotate-12">EDB MOCK</div>
-            
+
             <div class="border-b-2 border-teal-600 pb-4 mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                     <span class="bg-teal-600 text-white font-extrabold px-3 py-1 rounded-md text-xs mb-2 inline-block shadow-sm">統一派位模擬志願表 (EDB Choice Form Simulator)</span>
@@ -220,7 +208,7 @@
                     <p class="text-xs text-gray-500 mt-1">選拔並對比下方學校卡片後，在此自由編排 1 - 3 志願優先次序，自動轉譯校網及官方學校編號。</p>
                 </div>
                 <div class="flex gap-2 shrink-0 no-print">
-                    <button onclick="window.print()" class="bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition flex items-center gap-1.5 shadow-md">
+                    <button type="button" onclick="window.print()" class="bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition flex items-center gap-1.5 shadow-md">
                         <i class="fa-solid fa-print"></i> 一鍵列印志願表 (Print / PDF)
                     </button>
                 </div>
@@ -233,17 +221,17 @@
                     <div>教育局入學登記聯名代照單 (模擬版本)</div>
                     <div>校網代號參照：2026/2027</div>
                 </div>
-                
+
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200 border border-gray-200 text-sm">
                         <thead class="bg-teal-50">
                             <tr>
-                                <th class="border border-gray-200 px-4 py-3 text-center text-xs font-bold text-teal-800 w-20">志願次序</th>
-                                <th class="border border-gray-200 px-4 py-3 text-center text-xs font-bold text-teal-800 w-24">學校代號</th>
-                                <th class="border border-gray-200 px-4 py-3 text-left text-xs font-bold text-teal-800">學校名稱 (School Name)</th>
-                                <th class="border border-gray-200 px-4 py-3 text-center text-xs font-bold text-teal-800 w-24">所屬地區</th>
-                                <th class="border border-gray-200 px-4 py-3 text-center text-xs font-bold text-teal-800 w-28">學期階段</th>
-                                <th class="border border-gray-200 px-4 py-3 text-center text-xs font-bold text-teal-800 w-24 no-print">優先順序</th>
+                                <th scope="col" class="border border-gray-200 px-4 py-3 text-center text-xs font-bold text-teal-800 w-20">志願次序</th>
+                                <th scope="col" class="border border-gray-200 px-4 py-3 text-center text-xs font-bold text-teal-800 w-24">學校代號</th>
+                                <th scope="col" class="border border-gray-200 px-4 py-3 text-left text-xs font-bold text-teal-800">學校名稱 (School Name)</th>
+                                <th scope="col" class="border border-gray-200 px-4 py-3 text-center text-xs font-bold text-teal-800 w-24">所屬地區</th>
+                                <th scope="col" class="border border-gray-200 px-4 py-3 text-center text-xs font-bold text-teal-800 w-28">學期階段</th>
+                                <th scope="col" class="border border-gray-200 px-4 py-3 text-center text-xs font-bold text-teal-800 w-24 no-print">優先順序</th>
                             </tr>
                         </thead>
                         <tbody id="mock-form-tbody" class="divide-y divide-gray-200 font-semibold text-slate-800">
@@ -275,20 +263,20 @@
         <section class="bg-white rounded-2xl border border-gray-100 shadow-md p-6 no-print">
             <div class="border-b border-gray-100 pb-4 mb-6">
                 <h2 class="text-2xl font-extrabold text-slate-900 flex items-center gap-2">
-                    <i class="fa-solid fa-key text-school"></i> 叩門與面試多語種必勝秘笈 (Emergency Admissions & Interview Tips)
+                    <i class="fa-solid fa-key text-school"></i> 叩門與面試多語種必勝秘笈 (Emergency Admissions &amp; Interview Tips)
                 </h2>
                 <p class="text-sm text-gray-500 mt-1">專為非華語家庭整理：放榜後的黃金「叩門」流程、雙語面試常考題目與發音，及必備文件檢查清單。</p>
             </div>
 
             <!-- 頁籤控制 -->
             <div class="flex space-x-2 border-b border-gray-100 pb-px overflow-x-auto custom-scrollbar mb-6">
-                <button onclick="switchTipTab('knocking-timeline')" id="tab-btn-knocking-timeline" class="tip-tab-btn px-4 py-3 font-bold text-sm border-b-2 border-school text-school transition-all whitespace-nowrap">
+                <button type="button" onclick="switchTipTab('knocking-timeline')" id="tab-btn-knocking-timeline" class="tip-tab-btn px-4 py-3 font-bold text-sm border-b-2 border-school text-school transition-all whitespace-nowrap">
                     <i class="fa-solid fa-calendar-days mr-1.5"></i>叩門關鍵時程 (Timeline)
                 </button>
-                <button onclick="switchTipTab('interview-prep')" id="tab-btn-interview-prep" class="tip-tab-btn px-4 py-3 font-bold text-sm border-b-2 border-transparent text-gray-500 hover:text-school transition-all whitespace-nowrap">
-                    <i class="fa-solid fa-comments mr-1.5"></i>三語面試問答 (Interview Q&A)
+                <button type="button" onclick="switchTipTab('interview-prep')" id="tab-btn-interview-prep" class="tip-tab-btn px-4 py-3 font-bold text-sm border-b-2 border-transparent text-gray-500 hover:text-school transition-all whitespace-nowrap">
+                    <i class="fa-solid fa-comments mr-1.5"></i>三語面試問答 (Interview Q&amp;A)
                 </button>
-                <button onclick="switchTipTab('docs-checklist')" id="tab-btn-docs-checklist" class="tip-tab-btn px-4 py-3 font-bold text-sm border-b-2 border-transparent text-gray-500 hover:text-school transition-all whitespace-nowrap">
+                <button type="button" onclick="switchTipTab('docs-checklist')" id="tab-btn-docs-checklist" class="tip-tab-btn px-4 py-3 font-bold text-sm border-b-2 border-transparent text-gray-500 hover:text-school transition-all whitespace-nowrap">
                     <i class="fa-solid fa-list-check mr-1.5"></i>叩門文件清單 (Documents)
                 </button>
             </div>
@@ -347,7 +335,7 @@
                             <div class="bg-white p-3 rounded-lg border border-gray-150 relative">
                                 <div class="flex justify-between items-start">
                                     <p class="font-bold text-school mb-1">廣東話日常回答 (Cantonese):</p>
-                                    <button onclick="speakCantonese('老師你好，我叫Ali。我今年八歲。我好鍾意踢波同睇書。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)">
+                                    <button type="button" onclick="speakCantonese('老師你好，我叫Ali。我今年八歲。我好鍾意踢波同睇書。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)" aria-label="點擊發音 (Click to Speak)">
                                         <i class="fa-solid fa-volume-high text-sm"></i>
                                     </button>
                                 </div>
@@ -373,7 +361,7 @@
                             <div class="bg-white p-3 rounded-lg border border-gray-150">
                                 <div class="flex justify-between items-start">
                                     <p class="font-bold text-school mb-1">雙語推薦回答 (Bilingual Answer):</p>
-                                    <button onclick="speakCantonese('雖然我哋喺屋企講英語，但我會安排佢參加學校課後中文輔導班，並一齊用學習App認字。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)">
+                                    <button type="button" onclick="speakCantonese('雖然我哋喺屋企講英語，但我會安排佢參加學校課後中文輔導班，並一齊用學習App認字。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)" aria-label="點擊發音 (Click to Speak)">
                                         <i class="fa-solid fa-volume-high text-sm"></i>
                                     </button>
                                 </div>
@@ -399,7 +387,7 @@
                             <div class="bg-white p-3 rounded-lg border border-gray-150">
                                 <div class="flex justify-between items-start">
                                     <p class="font-bold text-school mb-1">廣東話日常回答 (Cantonese):</p>
-                                    <button onclick="speakCantonese('我好鍾意呢度嘅校園、老師同埋大運動場。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)">
+                                    <button type="button" onclick="speakCantonese('我好鍾意呢度嘅校園、老師同埋大運動場。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)" aria-label="點擊發音 (Click to Speak)">
                                         <i class="fa-solid fa-volume-high text-sm"></i>
                                     </button>
                                 </div>
@@ -423,7 +411,7 @@
                             <div class="bg-white p-3 rounded-lg border border-gray-150">
                                 <div class="flex justify-between items-start">
                                     <p class="font-bold text-school mb-1">雙語推薦回答 (Bilingual Answer):</p>
-                                    <button onclick="speakCantonese('我會先冷靜了解原因，並主動聯絡老師，配合學校一齊教導仔女要學會尊重同包容唔同文化嘅同學。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)">
+                                    <button type="button" onclick="speakCantonese('我會先冷靜了解原因，並主動聯絡老師，配合學校一齊教導仔女要學會尊重同包容唔同文化嘅同學。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)" aria-label="點擊發音 (Click to Speak)">
                                         <i class="fa-solid fa-volume-high text-sm"></i>
                                     </button>
                                 </div>
@@ -449,7 +437,7 @@
                             <div class="bg-white p-3 rounded-lg border border-gray-150">
                                 <div class="flex justify-between items-start">
                                     <p class="font-bold text-school mb-1">廣東話日常回答 (Cantonese):</p>
-                                    <button onclick="speakCantonese('我最鍾意數學同體育。因為我好鍾意計數同跑步。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)">
+                                    <button type="button" onclick="speakCantonese('我最鍾意數學同體育。因為我好鍾意計數同跑步。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)" aria-label="點擊發音 (Click to Speak)">
                                         <i class="fa-solid fa-volume-high text-sm"></i>
                                     </button>
                                 </div>
@@ -473,7 +461,7 @@
                             <div class="bg-white p-3 rounded-lg border border-gray-150">
                                 <div class="flex justify-between items-start">
                                     <p class="font-bold text-school mb-1">雙語推薦回答 (Bilingual Answer):</p>
-                                    <button onclick="speakCantonese('放假時我會帶仔女去郊野公園野餐、騎單車，或者去公共圖書館睇書，平衡學業同身心健康。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)">
+                                    <button type="button" onclick="speakCantonese('放假時我會帶仔女去郊野公園野餐、騎單車，或者去公共圖書館睇書，平衡學業同身心健康。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)" aria-label="點擊發音 (Click to Speak)">
                                         <i class="fa-solid fa-volume-high text-sm"></i>
                                     </button>
                                 </div>
@@ -499,7 +487,7 @@
                             <div class="bg-white p-3 rounded-lg border border-gray-150">
                                 <div class="flex justify-between items-start">
                                     <p class="font-bold text-school mb-1">廣東話日常回答 (Cantonese):</p>
-                                    <button onclick="speakCantonese('我會問爸爸媽媽，或者返學校問老師同同學仔。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)">
+                                    <button type="button" onclick="speakCantonese('我會問爸爸媽媽，或者返學校問老師同同學仔。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)" aria-label="點擊發音 (Click to Speak)">
                                         <i class="fa-solid fa-volume-high text-sm"></i>
                                     </button>
                                 </div>
@@ -523,7 +511,7 @@
                             <div class="bg-white p-3 rounded-lg border border-gray-150">
                                 <div class="flex justify-between items-start">
                                     <p class="font-bold text-school mb-1">雙語推薦回答 (Bilingual Answer):</p>
-                                    <button onclick="speakCantonese('我希望學校可以多安排一啲同本地同學配對嘅共融活動，等佢有多啲機會練習廣東話，結交新朋友。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)">
+                                    <button type="button" onclick="speakCantonese('我希望學校可以多安排一啲同本地同學配對嘅共融活動，等佢有多啲機會練習廣東話，結交新朋友。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)" aria-label="點擊發音 (Click to Speak)">
                                         <i class="fa-solid fa-volume-high text-sm"></i>
                                     </button>
                                 </div>
@@ -549,7 +537,7 @@
                             <div class="bg-white p-3 rounded-lg border border-gray-150">
                                 <div class="flex justify-between items-start">
                                     <p class="font-bold text-school mb-1">廣東話日常回答 (Cantonese):</p>
-                                    <button onclick="speakCantonese('我會先做功課，然後同屋企人一齊食飯，之後聽中文歌。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)">
+                                    <button type="button" onclick="speakCantonese('我會先做功課，然後同屋企人一齊食飯，之後聽中文歌。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)" aria-label="點擊發音 (Click to Speak)">
                                         <i class="fa-solid fa-volume-high text-sm"></i>
                                     </button>
                                 </div>
@@ -573,7 +561,7 @@
                             <div class="bg-white p-3 rounded-lg border border-gray-150">
                                 <div class="flex justify-between items-start">
                                     <p class="font-bold text-school mb-1">雙語推薦回答 (Bilingual Answer):</p>
-                                    <button onclick="speakCantonese('我期望佢可以喺多元包容嘅環境中快樂成長。除左學業成績，我更希望佢學識點樣同唔同背景嘅人合作，回饋社會。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)">
+                                    <button type="button" onclick="speakCantonese('我期望佢可以喺多元包容嘅環境中快樂成長。除左學業成績，我更希望佢學識點樣同唔同背景嘅人合作，回饋社會。')" class="text-school hover:text-teal-800 transition p-1" title="點擊發音 (Click to Speak)" aria-label="點擊發音 (Click to Speak)">
                                         <i class="fa-solid fa-volume-high text-sm"></i>
                                     </button>
                                 </div>
@@ -598,7 +586,7 @@
                 <div class="bg-slate-50 p-4 rounded-xl border border-gray-100">
                     <div class="flex justify-between items-center mb-4">
                         <span class="font-bold text-slate-900 text-sm md:text-base"><i class="fa-solid fa-clipboard-list text-school mr-1.5"></i> 叩門必備「文件清單袋」 (Required Documents Envelope)</span>
-                        <button onclick="window.print()" class="bg-white hover:bg-slate-100 text-school border border-teal-200 px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1">
+                        <button type="button" onclick="window.print()" class="bg-white hover:bg-slate-100 text-school border border-teal-200 px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1">
                             <i class="fa-solid fa-print"></i> 列印此清單 (Print)
                         </button>
                     </div>
@@ -606,45 +594,45 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs md:text-sm">
                         <label class="flex items-start bg-white p-3.5 rounded-lg border border-gray-150 cursor-pointer">
                             <input type="checkbox" class="mt-0.5 mr-3 h-4 w-4 text-school border-gray-300 rounded focus:ring-school">
-                            <div>
+                            <span>
                                 <strong class="text-slate-900 block">學生身分證明文件 (正副本)</strong>
                                 <span class="text-xxs text-gray-400">HKID card or Passport copy with valid dependency visas.</span>
-                            </div>
+                            </span>
                         </label>
                         <label class="flex items-start bg-white p-3.5 rounded-lg border border-gray-150 cursor-pointer">
                             <input type="checkbox" class="mt-0.5 mr-3 h-4 w-4 text-school border-gray-300 rounded focus:ring-school">
-                            <div>
+                            <span>
                                 <strong class="text-slate-900 block">小一/中一入學派位證書、選校草表</strong>
-                                <span class="text-xxs text-gray-400">Primary/Secondary One Allocation Certificate & Choice Sheet.</span>
-                            </div>
+                                <span class="text-xxs text-gray-400">Primary/Secondary One Allocation Certificate &amp; Choice Sheet.</span>
+                            </span>
                         </label>
                         <label class="flex items-start bg-white p-3.5 rounded-lg border border-gray-150 cursor-pointer">
                             <input type="checkbox" class="mt-0.5 mr-3 h-4 w-4 text-school border-gray-300 rounded focus:ring-school">
-                            <div>
+                            <span>
                                 <strong class="text-slate-900 block">最近兩年成績單 / 校內評估報告 (正副本)</strong>
-                                <span class="text-xxs text-gray-400">School reports of the past 2 years (original & copy).</span>
-                            </div>
+                                <span class="text-xxs text-gray-400">School reports of the past 2 years (original &amp; copy).</span>
+                            </span>
                         </label>
                         <label class="flex items-start bg-white p-3.5 rounded-lg border border-gray-150 cursor-pointer">
                             <input type="checkbox" class="mt-0.5 mr-3 h-4 w-4 text-school border-gray-300 rounded focus:ring-school">
-                            <div>
+                            <span>
                                 <strong class="text-slate-900 block">幼稚園/小學推薦信或個人學習Portfolio</strong>
-                                <span class="text-xxs text-gray-400">Recommendation letter from previous principals & student portfolio.</span>
-                            </div>
+                                <span class="text-xxs text-gray-400">Recommendation letter from previous principals &amp; student portfolio.</span>
+                            </span>
                         </label>
                         <label class="flex items-start bg-white p-3.5 rounded-lg border border-gray-150 cursor-pointer">
                             <input type="checkbox" class="mt-0.5 mr-3 h-4 w-4 text-school border-gray-300 rounded focus:ring-school">
-                            <div>
+                            <span>
                                 <strong class="text-slate-900 block">地址證明（近三個月水/電/煤費單）</strong>
                                 <span class="text-xxs text-gray-400">Proof of residential address (within the past 3 months).</span>
-                            </div>
+                            </span>
                         </label>
                         <label class="flex items-start bg-white p-3.5 rounded-lg border border-gray-150 cursor-pointer">
                             <input type="checkbox" class="mt-0.5 mr-3 h-4 w-4 text-school border-gray-300 rounded focus:ring-school">
-                            <div>
+                            <span>
                                 <strong class="text-slate-900 block">證件照及文具（供臨時筆試使用）</strong>
-                                <span class="text-xxs text-gray-400">Passport photos (at least 4) & full writing stationery.</span>
-                            </div>
+                                <span class="text-xxs text-gray-400">Passport photos (at least 4) &amp; full writing stationery.</span>
+                            </span>
                         </label>
                     </div>
                 </div>
@@ -660,7 +648,7 @@
                 <h3 class="text-lg font-bold text-gray-900 flex items-center gap-2">
                     <i class="fa-solid fa-scale-balanced text-school"></i> 學校橫向支援配套比對 (NCS School Support Comparison)
                 </h3>
-                <button onclick="closeCompareModal()" class="text-gray-400 hover:text-gray-600 focus:outline-none">
+                <button type="button" onclick="closeCompareModal()" class="text-gray-400 hover:text-gray-600 focus:outline-none" aria-label="關閉">
                     <i class="fa-solid fa-xmark text-xl"></i>
                 </button>
             </div>
@@ -678,8 +666,8 @@
             </div>
 
             <div class="mt-6 flex justify-end gap-3 border-t border-gray-50 pt-4">
-                <button onclick="clearCompareList()" class="text-red-500 hover:text-red-700 font-bold text-sm px-4 py-2 rounded-lg transition">重置比對名單</button>
-                <button onclick="closeCompareModal()" class="bg-school text-white hover:bg-teal-800 px-5 py-2 rounded-lg font-bold text-sm shadow-md transition">關閉視窗</button>
+                <button type="button" onclick="clearCompareList()" class="text-red-500 hover:text-red-700 font-bold text-sm px-4 py-2 rounded-lg transition">重置比對名單</button>
+                <button type="button" onclick="closeCompareModal()" class="bg-school text-white hover:bg-teal-800 px-5 py-2 rounded-lg font-bold text-sm shadow-md transition">關閉視窗</button>
             </div>
         </div>
     </div>
@@ -1033,7 +1021,7 @@
                     <div class="col-span-full bg-white p-12 text-center rounded-2xl border border-gray-100 shadow-sm">
                         <i class="fa-solid fa-school-circle-exclamation text-slate-300 text-5xl mb-3"></i>
                         <p class="text-gray-500 font-bold">沒有符合當前篩選條件的學校 (No schools match filters)</p>
-                        <button onclick="resetFilters()" class="text-sm text-school underline mt-2 font-bold focus:outline-none">重置篩選 Reset Filters</button>
+                        <button type="button" onclick="resetFilters()" class="text-sm text-school underline mt-2 font-bold focus:outline-none">重置篩選 Reset Filters</button>
                     </div>
                 `;
                 return;
@@ -1041,22 +1029,22 @@
 
             filteredData.forEach(sch => {
                 const isSelected = compareList.some(item => item.id === sch.id);
-                
+
                 // 動態配對按鈕語句與配色
-                const compareBtnText = isSelected ? 
-                    `<i class="fa-solid fa-circle-check mr-1.5"></i> 已選擇對比` : 
+                const compareBtnText = isSelected ?
+                    `<i class="fa-solid fa-circle-check mr-1.5"></i> 已選擇對比` :
                     `<i class="fa-solid fa-plus mr-1.5"></i> 加入比對`;
-                const compareBtnClass = isSelected ? 
-                    "bg-teal-600 text-white border border-teal-600 shadow-sm" : 
+                const compareBtnClass = isSelected ?
+                    "bg-teal-600 text-white border border-teal-600 shadow-sm" :
                     "bg-white text-school border border-teal-200 hover:bg-teal-50";
 
                 // 優化：當前學校被選中對比時，卡片外框呈現深綠高亮、柔和底色與雙重光澤
-                const cardBorderClass = isSelected ? 
-                    "border-2 border-teal-500 bg-teal-50/10 shadow-lg ring-2 ring-teal-500/20" : 
+                const cardBorderClass = isSelected ?
+                    "border-2 border-teal-500 bg-teal-50/10 shadow-lg ring-2 ring-teal-500/20" :
                     "border border-gray-100 hover:shadow-xl hover:border-teal-200";
 
-                const levelBadge = sch.level === "primary" ? 
-                    `<span class="bg-blue-100 text-blue-800 text-xxs font-extrabold px-2.5 py-0.5 rounded shadow-sm">小學 Primary</span>` : 
+                const levelBadge = sch.level === "primary" ?
+                    `<span class="bg-blue-100 text-blue-800 text-xxs font-extrabold px-2.5 py-0.5 rounded shadow-sm">小學 Primary</span>` :
                     `<span class="bg-purple-100 text-purple-800 text-xxs font-extrabold px-2.5 py-0.5 rounded shadow-sm">中學 Secondary</span>`;
 
                 const typeLabels = { gov: "官立", aided: "資助", dss: "直資" };
@@ -1097,7 +1085,7 @@
                         <div class="bg-slate-50/80 p-3 rounded-xl border border-gray-100 mb-4 space-y-1.5">
                             <p class="text-xs text-gray-700 font-bold"><i class="fa-solid fa-book text-school mr-1.5"></i> 中文學習與公開試支援:</p>
                             <p class="text-xxs text-gray-500 pl-4 font-semibold">教材: ${sch.chineseSupport.curriculum}</p>
-                            
+
                             <!-- 公開學制徽章 -->
                             <div class="flex flex-wrap gap-1 pl-4 mt-1">
                                 ${sch.chineseSupport.split ? '<span class="text-[10px] text-teal-800 bg-teal-50 border border-teal-100 px-1.5 py-0.5 rounded font-bold">小班抽離</span>' : ''}
@@ -1117,10 +1105,10 @@
 
                     <!-- 動作按鈕 -->
                     <div class="border-t border-gray-100 pt-3.5 flex gap-2">
-                        <button onclick="toggleCompare(${sch.id}, this)" class="px-3 py-2 rounded-xl text-xs font-extrabold transition-all duration-300 flex items-center justify-center flex-1 shadow-sm ${compareBtnClass}">
+                        <button type="button" onclick="toggleCompare(${sch.id}, this)" class="px-3 py-2 rounded-xl text-xs font-extrabold transition-all duration-300 flex items-center justify-center flex-1 shadow-sm ${compareBtnClass}">
                             ${compareBtnText}
                         </button>
-                        <button onclick="showSchoolDetail(${sch.id})" class="bg-slate-100 hover:bg-slate-200 text-gray-700 px-3 py-2 rounded-xl text-xs font-bold transition flex items-center justify-center shadow-sm">
+                        <button type="button" onclick="showSchoolDetail(${sch.id})" class="bg-slate-100 hover:bg-slate-200 text-gray-700 px-3 py-2 rounded-xl text-xs font-bold transition flex items-center justify-center shadow-sm">
                             詳細特色
                         </button>
                     </div>
@@ -1143,7 +1131,7 @@
             const needPrayer = document.getElementById('chk-prayer').checked;
             const needSplit = document.getElementById('chk-split').checked;
             const needPeer = document.getElementById('chk-peer').checked;
-            
+
             // 優化2篩選：學制勾選
             const needIgcse = document.getElementById('chk-igcse').checked;
             const needAplc = document.getElementById('chk-aplc').checked;
@@ -1170,7 +1158,7 @@
                 const matchesPrayer = (!needPrayer || sch.facilities.prayer === true);
                 const matchesSplit = (!needSplit || sch.chineseSupport.split === true);
                 const matchesPeer = (!needPeer || sch.chineseSupport.peer === true);
-                
+
                 // 學制與替代中文匹配
                 const matchesIgcse = (!needIgcse || sch.hasIgcse === true);
                 const matchesAplc = (!needAplc || sch.hasAplc === true);
@@ -1223,7 +1211,7 @@
 
             // 更新按鈕與徽章 UI
             document.getElementById('compare-count-badge').innerText = compareList.length;
-            
+
             // 互動性增強：頂部的「橫向比對」按鈕會產生震動，提醒用戶已成功選入！
             const topBtn = document.getElementById('top-compare-btn');
             if (topBtn) {
@@ -1255,10 +1243,10 @@
 
             compareList.forEach((sch, i) => {
                 const rankNum = i + 1;
-                
+
                 // 優先度控制按鈕
-                const upBtn = i > 0 ? `<button onclick="moveMockChoice(${i}, -1)" class="text-teal-600 hover:text-teal-800 p-1 mr-1" title="上移 Priority Up"><i class="fa-solid fa-arrow-up"></i></button>` : '';
-                const downBtn = i < compareList.length - 1 ? `<button onclick="moveMockChoice(${i}, 1)" class="text-teal-600 hover:text-teal-800 p-1" title="下移 Priority Down"><i class="fa-solid fa-arrow-down"></i></button>` : '';
+                const upBtn = i > 0 ? `<button type="button" onclick="moveMockChoice(${i}, -1)" class="text-teal-600 hover:text-teal-800 p-1 mr-1" title="上移 Priority Up" aria-label="上移 Priority Up"><i class="fa-solid fa-arrow-up"></i></button>` : '';
+                const downBtn = i < compareList.length - 1 ? `<button type="button" onclick="moveMockChoice(${i}, 1)" class="text-teal-600 hover:text-teal-800 p-1" title="下移 Priority Down" aria-label="下移 Priority Down"><i class="fa-solid fa-arrow-down"></i></button>` : '';
 
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-slate-50 transition";
@@ -1294,7 +1282,7 @@
                 const temp = compareList[index];
                 compareList[index] = compareList[targetIndex];
                 compareList[targetIndex] = temp;
-                
+
                 renderMockChoiceForm();
                 showToast("志願填報順序已成功調整！ (Priority updated)", "success");
             }
@@ -1312,16 +1300,16 @@
             tableBody.innerHTML = '';
 
             // 1. 寫入 Table Head
-            let headHTML = `<tr class="divide-x divide-gray-100"><th class="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase">比對範疇 (Features)</th>`;
+            let headHTML = `<tr class="divide-x divide-gray-100"><th scope="col" class="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase">比對範疇 (Features)</th>`;
             compareList.forEach(sch => {
                 headHTML += `
-                    <th class="px-4 py-3 text-left text-sm font-extrabold text-gray-900 min-w-[200px] relative">
+                    <th scope="col" class="px-4 py-3 text-left text-sm font-extrabold text-gray-900 min-w-[200px] relative">
                         <div class="flex justify-between items-start gap-2">
                             <div>
                                 <span class="block">${sch.name}</span>
                                 <span class="text-xxs text-gray-400 font-normal italic leading-none block mt-1">${sch.nameEn}</span>
                             </div>
-                            <button onclick="removeSingleCompare(${sch.id})" class="text-red-400 hover:text-red-600 focus:outline-none"><i class="fa-solid fa-circle-xmark text-sm"></i></button>
+                            <button type="button" onclick="removeSingleCompare(${sch.id})" class="text-red-400 hover:text-red-600 focus:outline-none" aria-label="關閉"><i class="fa-solid fa-circle-xmark text-sm"></i></button>
                         </div>
                     </th>
                 `;
@@ -1415,18 +1403,18 @@
                                     <h3 class="font-extrabold text-school text-lg md:text-xl mt-1">${sch.name}</h3>
                                     <p class="text-xs text-gray-400 italic mt-0.5">${sch.nameEn}</p>
                                 </div>
-                                <button onclick="document.getElementById('school-detail-modal').remove()" class="text-gray-400 hover:text-gray-600 focus:outline-none p-1">
+                                <button type="button" onclick="document.getElementById('school-detail-modal').remove()" class="text-gray-400 hover:text-gray-600 focus:outline-none p-1" aria-label="關閉">
                                     <i class="fa-solid fa-xmark text-xl"></i>
                                 </button>
                             </div>
-                            
+
                             <!-- 內容展示 -->
                             <div class="space-y-4 text-sm text-gray-700 leading-relaxed">
                                 <p><strong><i class="fa-solid fa-location-dot text-school mr-1.5"></i> 學校地址：</strong>${sch.address}</p>
                                 <p><strong><i class="fa-solid fa-graduation-cap text-school mr-1.5"></i> 學校類別：</strong>${sch.type === 'gov' ? '官立' : sch.type === 'aided' ? '資助' : '直資'} (${sch.level === 'primary' ? '小學' : '中學'})</p>
                                 <p><strong><i class="fa-solid fa-users text-school mr-1.5"></i> 非華語生比例 (NCS)：</strong><span class="text-red-600 font-extrabold bg-red-50 px-2 py-0.5 rounded">${sch.ncsPercent}</span></p>
                                 <p><strong><i class="fa-solid fa-book-open text-school mr-1.5"></i> 中文教學支援：</strong>${sch.chineseSupport.curriculum}</p>
-                                
+
                                 <p><strong><i class="fa-solid fa-file-invoice-dollar text-school mr-1.5"></i> 替代中文與公開試配套：</strong><br>
                                     <span class="inline-block bg-slate-50 border border-gray-100 rounded-lg px-2.5 py-1 text-xs mr-2 mt-2">${sch.hasIgcse ? '✅ 支援報考 IGCSE / GCE 替代中文' : '❌ 未開辦 IGCSE 考點'}</span>
                                     <span class="inline-block bg-slate-50 border border-gray-100 rounded-lg px-2.5 py-1 text-xs mt-2">${sch.hasAplc ? '✅ 開辦應用學習中文 (ApL(C)) 課程' : '❌ 未設 ApL(C) 課程'}</span>
@@ -1442,10 +1430,10 @@
                                     <p class="mt-1.5 leading-relaxed font-medium">${sch.emCare}</p>
                                 </div>
                             </div>
-                            
+
                             <!-- 底部關閉按鈕 -->
                             <div class="mt-6 border-t border-gray-100 pt-4 flex justify-end">
-                                <button onclick="document.getElementById('school-detail-modal').remove()" class="bg-school text-white hover:bg-teal-800 px-5 py-2.5 rounded-lg font-bold text-xs shadow-md transition transform active:scale-95">
+                                <button type="button" onclick="document.getElementById('school-detail-modal').remove()" class="bg-school text-white hover:bg-teal-800 px-5 py-2.5 rounded-lg font-bold text-xs shadow-md transition transform active:scale-95">
                                     關閉特色視窗 (Close)
                                 </button>
                             </div>
@@ -1464,7 +1452,7 @@
             }`;
             toast.innerText = message;
             document.body.appendChild(toast);
-            
+
             setTimeout(() => {
                 toast.classList.remove('translate-y-10', 'opacity-0');
             }, 50);
